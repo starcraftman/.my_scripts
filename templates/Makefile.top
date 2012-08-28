@@ -1,0 +1,20 @@
+#Top level makefile. Include constants and invoke sub makes.
+
+include Make.defines
+
+all: libs
+	${MAKE} -C ./01
+	${MAKE} -C ./02
+	${MAKE} -C ./03
+	${MAKE} -C ./04
+
+libs:
+	${MAKE} -C ./lib
+
+clean:
+	rm -rf ${CLEANFILES}
+	${MAKE} -C ./lib clean
+	${MAKE} -C ./01 clean
+	${MAKE} -C ./02 clean
+	${MAKE} -C ./03 clean
+	${MAKE} -C ./04 clean

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function usage() {
+	echo "Usage: ${0##*/} file1.pl file2.pl ..."
+}
+
+if [ ! -n  $1 ]; then
+	usage
+	exit 
+fi
+
+if [ -z $1 ]; then
+	usage
+	exit
+fi
+
+# Takes argument 1 as a filename. 
+function make_file() {
+	ext="${1##*.}"
+
+	if [ "$ext" == "pl" ]; then
+		cp ~/.my_scripts/templates/perl_template.pl "$1"
+	else
+		echo "That extension isn't supported. $1"
+	fi
+}
+
+for var in "$@"
+do
+    make_file "$var"
+done

@@ -1,0 +1,54 @@
+# Make file for main project.
+
+include ../Make.defines
+
+EXECS = testing prog1 prog2 prog3 prog4 salesItem
+OBJS0 = prog1.o 
+OBJS1 = testing.o
+OBJS2 = prog2.o
+OBJS3 = prog3.o
+OBJS4 = prog4.o
+OBJS5 = salesItem.o
+
+# Executed when no target.
+all: ${EXECS}
+
+# Can pass in defined values with -D, like NDEBUG.
+prog1: ${OBJS0}
+	${CPP} ${LDFLAGS} ${LIBS} -D NDEBUG -o prog1 ${OBJS0} 
+
+prog1.o : prog1.cpp
+	${CPP} ${CPPFLAGS} prog1.cpp -o prog1.o
+
+testing: ${OBJS1}
+	${CPP} ${LDFLAGS} ${LIBS} -o testing ${OBJS1} 
+
+testing.o : testing.cpp
+	${CPP} ${CPPFLAGS} testing.cpp -o testing.o
+
+prog2: ${OBJS2}
+	${CPP} ${LDFLAGS} ${LIBS} -o prog2 ${OBJS2} 
+
+prog2.o : prog2.cpp
+	${CPP} ${CPPFLAGS} prog2.cpp -o prog2.o
+
+prog3: ${OBJS3}
+	${CPP} ${LDFLAGS} ${LIBS} -o prog3 ${OBJS3} 
+
+prog3.o : prog3.cpp
+	${CPP} ${CPPFLAGS} prog3.cpp -o prog3.o
+
+prog4: ${OBJS4}
+	${CPP} ${LDFLAGS} ${LIBS} -o prog4 ${OBJS4} 
+
+prog4.o : prog4.cpp
+	${CPP} ${CPPFLAGS} prog4.cpp -o prog4.o
+	
+salesItem: ${OBJS5}
+	${CPP} ${LDFLAGS} ${LIBS} -o salesItem ${OBJS5} 
+
+salesItem.o : salesItem.cpp salesItem.h
+	${CPP} ${CPPFLAGS} salesItem.cpp -o salesItem.o
+
+clean: 
+	rm -f ${EXECS} ${CLEANFILES}

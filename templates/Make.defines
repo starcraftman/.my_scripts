@@ -1,0 +1,48 @@
+# Top level defines. Contains most of the flags for nromal builds.
+# CPP is the preprocessor flags not C++.
+# Extension for c++ files should be .cc.
+######################################
+#       GLOBAL CONSTANTS
+######################################
+
+# Commands
+SHELL := /bin/bash
+# Useful: --no-print-directory
+MAKE := colormake 
+MKDIR := mkdir -p
+MV := mv -f
+CP := cp -f
+RM := rm -rf
+AR := ar
+AWK := awk
+SED := sed
+RANLIB := ranlib
+TEST := test
+CC := gcc
+CXX := g++
+
+# Flags
+CCFLAGS := -g -O0 -D_REENTRANT -Wall
+CXXFLAGS := -g -O0 -D_REENTRANT -Wall
+CPPFLAGS := 
+LDFLAGS := -Wall -g 
+LIBFLAGS := -Wall -fPIC 
+ARFLAGS := -rv
+
+# Paths
+SRC_BASE := ..
+
+# Default value of UNDER_BUILD, can be overwiten
+#UNDER_BUILD := demo
+
+# Generic files to clean.
+FILES_TO_CLEAN := *.o *.a *.out *.exe *~ temp.*
+
+# Common libs
+LIBS := -lpthread -lm -ldl -lcunit
+
+# OS Strings
+LIN64 := linux64
+LIN32 := linux32
+WIN32 := win32
+

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function usage() {
+	echo "Usage: ${0##*/} file1.c file2.h ..."
+}
+
+if [ -z  $1 ]; then
+        usage
+        exit 
+fi
+
+# Takes argument 1 as a filename. 
+function make_file() {
+	ext="${1##*.}"
+
+	if [ "$ext" == "c" ]; then
+  		cp ~/.my_scripts/templates/c_template.c "$1"
+	elif [ "$ext" == "h" ]; then
+ 		def_name=`echo $1 | tr '[:lower:]' '[:upper:]' | tr '.' '_'`
+ 		cp ~/.my_scripts/templates/c_template.h "$1"
+ 		sed -i s/_TEST_H_/"_"$def_name"_"/g "$1"
+	else
+		echo "That extension isn't supported. $1"
+	fi
+}
+
+for var in "$@"
+do
+    make_file "$var"
+done
+

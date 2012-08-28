@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function local_rsync {
+	rsync -r -t -v --progress $1 $2
+}
+
+function rar_folder_with_size_limit {
+	rar a -m5 -v1000M ~/$1 $1
+}
+
+if [ -z $2 ]; then
+	rar_folder_with_size_limit $1
+else
+	local_rsync $1 $2
+fi

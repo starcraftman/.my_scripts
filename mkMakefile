@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# No argument checking, by default makes a src file.
+
+if [ "$1" == "def" ]; then
+	cp ~/.my_scripts/templates/Make.defines .
+elif [ "$1" == "top" ]; then
+	cp ~/.my_scripts/templates/Makefile.top ./Makefile
+	chmod u+x ./Makefile
+else
+	cp ~/.my_scripts/templates/Makefile .
+	chmod u+x ./Makefile
+fi
+
