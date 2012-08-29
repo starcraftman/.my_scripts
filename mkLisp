@@ -18,7 +18,7 @@ fi
 function make_file() {
 	ext="${1##*.}"
 
-	if [ "$ext" == "pro" ]; then
+	if [ "$ext" == "lisp" ]; then
 		cp ~/.my_scripts/templates/lisp_template.lisp "$1"
 	else
 		echo "That extension isn't supported. $1"
