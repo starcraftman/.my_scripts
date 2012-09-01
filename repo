@@ -1,28 +1,35 @@
 #!/bin/bash
-
+# Command is $1, repos in numbers after. If no repo listed, used DEF_REPO list.
 DEF_REPO=(~/.my_scripts ~/programming/AcademicProgramming ~/programming/JavaWork)
+CMD=$1
 
 function usage() {
-	echo "Usage: ${0##*/} repo1 repo2 ..."
+	echo "Usage: ${0##*/} cmd repo1 repo2 ..."
 }
 
 # Takes argument 1 as a directory to update. 
 function update_repo() {
-	echo "$1"
-	cd $1
-	git pull
+	echo "Command $1 in dir $2"
+	cd $2
+	git "$1"
 	cd -
 }
 
-if [ -z $1 ]; then
+if [ $# -lt 1 ]; then
+	usage
+	exit 0
+fi
+
+if [ $# -eq 1 ]; then
 	for var in "${DEF_REPO[@]}"
 	do
-	    update_repo "$var"
+	    update_repo "$CMD" "$var"
 	done
 	exit 
 fi
 
-for var in "$@"
+# If it gets here, we have repos selected for command. Ignore first arg.
+for var in "${@:2}"
 do
-    update_repo "$var"
+    update_repo "$CMD" "$var"
 done
