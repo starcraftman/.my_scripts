@@ -1,0 +1,5 @@
+*.ods diff=odf
+*.odt diff=odf
+*.odp diff=odf
+*.doc diff=word
+
