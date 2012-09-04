@@ -12,13 +12,25 @@
 
 #|
 Function Index:
-((lambda (args) (body)) arg_to_apply_lambda_to)
+Anon Functions:
+((lambda (args) (body)) arg_to_apply_lambda_to): Make an ananoymous function and apply to enclosed args.
 
-print: Prints its args.
-': Escapes everything that follows under its escape.
+; For global variables enclose with *, i.e. *PI*.
+Variables: 
 (let ((x 5) (y 2)) (+ x y)): Define a variable.
 (let* ((x 10) (y (* 2 x))) (* x y)): Didn't require nesting y inside x scope because of let*.
-(equal x y): Examine if x and y are equal.
+(defparameter name value): Defines a variable that can be modified.
+(defconstant name value): Defines a constant.
+(boundp 'name): True if the name is defined.
+(setf var new_value): Examine var and update it with new_value.
+(copy-list list): Return a copy of the list.
+(equal var1 var2): Check if the contents of args are equal.
+(eql var1 var2): Check if the two pointers are equal.
+
+': Escapes everything that follows under its escape.
+Output:
+(print object): Prints its arg.
+(write object): Same as print, doesn't print a new line before current.
 
 list: Construct a list of the arguments as is.
 append: Merge the contents of the lists into one.
@@ -26,7 +38,7 @@ cons: Append the first arg to the second arg (that is a list).
 
 car: Return head of a list.
 cdr: Return the tail of a list.
-(setf var new_value): Examine var and update it with new_value.
+; Tip: Can use mutliple invocations with caddr -> will take the tail twice then return head.
 
 Predicates:
 null: Return true if arg is null.
@@ -46,10 +58,25 @@ Math:
 (expt a b): Return result of a^b.
 (log a): Return the natural log of a.
 (abs x): Absolute value of x.
+(incf x [step]): Increment x by step, if not provided step = 1.
+(decf x [step]): Same as incf, but decrement.
 
 High Order:
 (mapcar function list1 list2 list3): Apply function to each list.
 (funcall function arg1 arg2 arg3...): Apply function to each arg, doesn't need to be list.
 (apply function arg1 arg2 ... list): Like funcall, last arg is list.
 
+Control:
+(if (then) (else)): Standard control.
+(loop): Create an inifinite loop.
+(dotimes (n 3 t) (body): Do a loop from [0,3). n is var.
+(when (condition) (execute)): Like an if conditional.
+(return value): Cause flow to return.
+(return-from label value): Cause flow to return from labeled block with value.
+(go label): Goto equivalent, use with tagbody.
+
+Blocks:
+(progn body): Progn forces a block and executes each arg in order.
+(block label body): Same as progn but return with return-from label value function call.
+(tagbody body): Make tags with chars outside list, use (go label) to jump.
 |#
