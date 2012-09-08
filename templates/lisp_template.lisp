@@ -74,6 +74,11 @@ CONTROL:
 (return value): Cause flow to return.
 (return-from label value): Cause flow to return from labeled block with value.
 (go label): Goto equivalent, use with tagbody.
+(cond ; For n number of conditions, evaluate until first true.
+	((predicate) (statement))
+	((predicate) (statement))
+	(t (statement)) ; default
+)
 
 BLOCKS:
 (progn body): Progn forces a block and executes each arg in order.
