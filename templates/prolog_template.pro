@@ -11,5 +11,7 @@
  * 
  * list_to_set(List, Set). -> Remove duplicate entries from the list to make a set. 
  *
- * length(List, Len). -> Return length of list.
+ * length(List, Len). -> Return length of list
+ *
+ * append(L1, L2, NewList). -> Appends L1 to front of L2 to make NewList.
  */
