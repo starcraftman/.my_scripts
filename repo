@@ -1,6 +1,6 @@
 #!/bin/bash
 # Command is $1, repos in numbers after. If no repo listed, used DEF_REPO list.
-DEF_REPO=(~/.my_scripts ~/programming/AcademicProgramming ~/programming/JavaWork ~/programming/422EmbeddedSystems ~/programming/423DistributedProject ~/programming/348Work)
+DEF_REPO=(~/.my_scripts ~/programming/AcademicProgramming ~/programming/JavaWork)
 CMD=$1
 
 function usage() {
