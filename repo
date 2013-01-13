@@ -2,6 +2,7 @@
 # Command is $1, repos in numbers after. If no repo listed, used DEF_REPO list.
 DEF_REPO=(~/.my_scripts ~/programming/AcademicProgramming ~/programming/JavaWork)
 CMD=$1
+CURDIR=`pwd`
 
 function usage() {
 	echo "Usage: ${0##*/} cmd repo1 repo2 ..."
@@ -12,7 +13,6 @@ function update_repo() {
 	echo "Command $1 in dir $2"
 	cd $2
 	git "$1"
-	cd -
 }
 
 if [ $# -lt 1 ]; then
@@ -33,3 +33,7 @@ for var in "${@:2}"
 do
     update_repo "$CMD" "$var"
 done
+
+cd $CURDIR
+
+exit
