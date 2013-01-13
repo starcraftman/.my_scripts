@@ -49,22 +49,22 @@ include ../Make.defines
 
 .PHONY: all clean
 
-OBJS = $(OBJS0) $(OBJS1)
-OBJ0 = first.o
-OBJ1 = second.o
+# Target executables to make.
+T1:=class1
 
-# Note, $@ is 
-all: $(OBJS) libtest.a
-	$(CC) -o $@ $^
+# Headers and objects for the executables, currently assumes only 1 of each.
+H1:=$(addsuffix $(EXT_HXX), $(T1))
+OBJ1:=$(addsuffix .o, $(T1))
 
-# Update the ar, pass only those files newer than the archive.
-libtest.a: test1.c test2.c
-	$(AR) $(ARFLAGS) $@ $?
+TARGETS:=$(T1) 
 
-libcounter.a: libcounter.a(lexer.o): libcounter.a(counter.o)
+all: $(TARGETS)
 
-clean:
-	$(RM) $(OBJS) $(FILES_TO_CLEAN)
+$(T1): $(OBJ1) $(H1)
+	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS) 
+
+clean: 
+	rm -f $(TARGETS) $(FILES_TO_CLEAN)
 
 # ------------------------ Function index ------------------------------------- 
 # filter: Filter from list those that match.
