@@ -64,7 +64,7 @@ libtest.a: test1.c test2.c
 libcounter.a: libcounter.a(lexer.o): libcounter.a(counter.o)
 
 clean:
-	$(RM) $(OBJS) $(CLEAN_FILES)
+	$(RM) $(OBJS) $(FILES_TO_CLEAN)
 
 # ------------------------ Function index ------------------------------------- 
 # filter: Filter from list those that match.
