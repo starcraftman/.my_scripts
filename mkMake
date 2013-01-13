@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function usage() {
-    echo "Usage: ${0##*/} type."
-echo "type: top -> top level, def -> defines file make -> regular"
+	echo "Usage: ${0##*/} type."
+	echo "type: top -> top level, def -> defines file make -> regular"
 }
 
-# Takes argument 1 as a type. 
+# Takes argument 1 as a filename. 
 function make_file() {
 	if [ "$1" == "def" ]; then
 		cp ~/.my_scripts/templates/Make.defines .
@@ -13,25 +13,24 @@ function make_file() {
 		cp ~/.my_scripts/templates/Makefile.top ./Makefile
 	elif [ "$1" == "make" ]; then
 		cp ~/.my_scripts/templates/Makefile .
-    else
-        echo "That type isn't supported. $1"
+	else
+		echo "That type isn't supported. $1"
 		usage
 		exit
     fi  
 }
 
 if [ ! -n  $1 ]; then
-    usage
-    exit 
+	usage
+	exit 
 fi
 
 if [ -z $1 ]; then
-    usage
-    exit
+	usage
+	exit
 fi
 
 for var in "$@"
 do
     make_file "$var"
 done
-

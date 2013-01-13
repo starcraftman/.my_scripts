@@ -22,6 +22,8 @@ function make_file() {
 		cp ~/.my_scripts/templates/perl_template.pl "$1"
 	else
 		echo "That extension isn't supported. $1"
+		usage
+		exit
 	fi
 }
 

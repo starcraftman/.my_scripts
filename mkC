@@ -21,6 +21,8 @@ function make_file() {
  		sed -i s/_TEST_H_/"_"$def_name"_"/g "$1"
 	else
 		echo "That extension isn't supported. $1"
+		usage
+		exit
 	fi
 }
 
