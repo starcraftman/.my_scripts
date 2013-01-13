@@ -3,10 +3,37 @@
 
 /****************************** Header Files ******************************************************/
 /* C++ Headers */
+//#include <iostream> /* Input/output objects. */
+//#include <fstream> /* File operations. */
+//#include <sstream> /* String stream. */
+//#include <string> /* C++ String class. */
+//#include <new> /* Defines bad_malloc exception, new functions. */
+//#include <typeinfo> /* Casting header. */
+//#include <exception> /* Top level exception header. */
+//#include <stdexcept> /* Derived exception classes. */
 
 /* STL Headers */
+//#include <vector>
+//#include <list>
+//#include <deque>
+//#include <stack>
+//#include <queue>
+//#include <priority_queue>
+//#include <bitset>
+//#include <set> // multiset for multiple keys allowed.
+//#include <map> // multimap for multiple keys allowed.
+//#include <utility> // Has pair for map.
+//#include <algorithm>
+//#include <numeric>
 
 /* C Headers */
+//#include <cstdlib>
+//#include <cstddef>
+//#include <cctype>
+//#include <cstring>
+//#include <cstdio>
+//#include <climits>
+//#include <cassert>
 
 /* Project Headers */
 

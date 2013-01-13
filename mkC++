@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage() {
-	echo "Usage: ${0##*/} file1.cc file2.h ..."
+	echo "Usage: ${0##*/} file1.cpp file2.hpp ..."
 }
 
 if [ -z  $1 ]; then
@@ -13,9 +13,9 @@ fi
 function make_file() {
 	ext="${1##*.}"
 
-	if [ "$ext" == "cc" ]; then
+	if [ "$ext" == "cpp" ]; then
   		cp ~/.my_scripts/templates/c++_template.cc "$1"
-	elif [ "$ext" == "h" ]; then
+	elif [ "$ext" == "hpp" ]; then
  		def_name=`echo $1 | tr '[:lower:]' '[:upper:]' | tr '.' '_'`
  		cp ~/.my_scripts/templates/c++_template.h "$1"
  		sed -i s/_TEST_H_/"_"$def_name"_"/g "$1"
