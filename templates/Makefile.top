@@ -2,6 +2,8 @@
 
 include Make.defines
 
+.PHONY: all libs clean
+
 all: libs
 	${MAKE} -C ./01
 	${MAKE} -C ./02

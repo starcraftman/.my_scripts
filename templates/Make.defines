@@ -21,12 +21,17 @@ TEST:=test
 CC:=gcc
 CXX:=g++
 
+# Include directories, append as needed.
+INC_DIRS:=
+
 # Flags
-CCFLAGS:=-g -O0 -D_REENTRANT -Wall
-CXXFLAGS:=-g -O0 -D_REENTRANT -Wall
+FLAGS_OPTIMIZE:=-O3 # For efficient build.
+FLAGS_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
+CCFLAGS:=$(INC_DIRS) $(FLAGS_DEBUG)
+CXXFLAGS:=$(INC_DIRS) $(FLAGS_DEBUG) -Weffc++
 CPPFLAGS:=
-LDFLAGS:=-Wall -g 
-LIBFLAGS:=-Wall -fPIC 
+LDFLAGS:=$(FLAGS_DEBUG) 
+LIBFLAGS:=$(FLAGS_DEBUG) -fPIC 
 ARFLAGS:=-rv
 
 # Paths
@@ -39,7 +44,7 @@ ARFLAGS:=-rv
 FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.*
 
 # Common libs
-LIBS:=-lpthread -lm -ldl 
+LIBS:=-pthread -lm -ldl 
 TESTLIBS:=-lcpptest
 BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lbo    ost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lb    oost_thread -lboost_unit_test_framework -lboost_wave
 
@@ -47,4 +52,3 @@ BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams 
 LIN64:=linux64
 LIN32:=linux32
 WIN32:=win32
-
