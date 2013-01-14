@@ -4,6 +4,11 @@
 ######################################
 #       GLOBAL CONSTANTS
 ######################################
+# File Extension
+EXT_C:=.c
+EXT_H:=.h
+EXT_CXX:=.cpp
+EXT_HXX:=.hpp
 
 # Commands
 SHELL:=/bin/bash
@@ -22,13 +27,13 @@ CC:=gcc
 CXX:=g++
 
 # Include directories, append as needed.
-INC_DIRS:=
+INC_DIRS:=-I.:
 
 # Flags
 FLAGS_OPTIMIZE:=-O3 # For efficient build.
 FLAGS_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
-CCFLAGS:=$(INC_DIRS) $(FLAGS_DEBUG)
-CXXFLAGS:=$(INC_DIRS) $(FLAGS_DEBUG) -Weffc++
+CCFLAGS=$(INC_DIRS) $(FLAGS_DEBUG)
+CXXFLAGS=$(INC_DIRS) $(FLAGS_DEBUG) -Weffc++
 CPPFLAGS:=
 LDFLAGS:=$(FLAGS_DEBUG) 
 LIBFLAGS:=$(FLAGS_DEBUG) -fPIC 
