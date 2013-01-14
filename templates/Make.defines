@@ -1,6 +1,6 @@
 # Top level defines. Contains most of the flags for nromal builds.
 # CPP is the preprocessor flags not C++.
-# Extension for c++ files should be .cc.
+# Good reference: http://www.acsu.buffalo.edu/~charngda/cc.html
 ######################################
 #       GLOBAL CONSTANTS
 ######################################
@@ -32,10 +32,10 @@ INC_DIRS:=-I.:
 # Flags
 FLAGS_OPTIMIZE:=-O3 # For efficient build.
 FLAGS_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
-CCFLAGS=$(INC_DIRS) $(FLAGS_DEBUG)
-CXXFLAGS=$(INC_DIRS) $(FLAGS_DEBUG) -Weffc++
-CPPFLAGS:=
-LDFLAGS:=$(FLAGS_DEBUG) 
+CFLAGS:=-ansi
+CXXFLAGS:=-Weffc++
+CPPFLAGS=$(INC_DIRS) $(FLAGS_DEBUG)
+#LDFLAGS:=$(FLAGS_DEBUG) 
 LIBFLAGS:=$(FLAGS_DEBUG) -fPIC 
 ARFLAGS:=-rv
 
@@ -49,9 +49,9 @@ ARFLAGS:=-rv
 FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.*
 
 # Common libs
-LIBS:=-pthread -lm -ldl 
+LIBS:=-lpthread -lm -ldl 
 TESTLIBS:=-lcpptest
-BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lbo    ost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lb    oost_thread -lboost_unit_test_framework -lboost_wave
+BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lboost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lboost_thread -lboost_unit_test_framework -lboost_wave
 
 # OS Strings
 LIN64:=linux64
