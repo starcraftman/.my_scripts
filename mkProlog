@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage() {
-	echo "Usage: ${0##*/} file1.pl file2.pl ..."
+	echo "Usage: ${0##*/} file1.pro file2.pro ..."
 }
 
 # Takes argument 1 as a filename. 

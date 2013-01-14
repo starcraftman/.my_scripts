@@ -1,8 +1,11 @@
 #!/bin/bash
 
 function usage() {
-	echo "Usage: ${0##*/} type."
-	echo "type: top -> top level, def -> defines file make -> regular"
+	echo "Usage: ${0##*/} <type> <type> ..."
+	echo "The <type> can be of the following:" 
+	echo "top: Top level make file, for subdirectories."
+	echo "def: A defines file for required constants."
+	echo "make: Regular make file everywhere else."
 }
 
 # Takes argument 1 as a filename. 
