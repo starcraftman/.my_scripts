@@ -32,7 +32,7 @@ INC_DIRS:=-I.:
 # Flags
 FLAGS_OPTIMIZE:=-O3 # For efficient build.
 FLAGS_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
-CFLAGS:=-ansi
+CFLAGS:=-std=c99
 CXXFLAGS:=-Weffc++
 CPPFLAGS=$(INC_DIRS) $(FLAGS_DEBUG)
 #LDFLAGS:=$(FLAGS_DEBUG) 

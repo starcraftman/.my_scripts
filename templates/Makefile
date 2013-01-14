@@ -1,3 +1,25 @@
+include ../Make.defines
+
+.PHONY: all clean
+
+# Target executables to make.
+T1:=class1
+
+# Headers and objects for the executables, currently assumes only 1 of each.
+H1:=$(addsuffix $(EXT_HXX), $(T1))
+OBJ1:=$(addsuffix .o, $(T1))
+
+TARGETS:=$(T1) 
+
+all: $(TARGETS)
+
+$(T1): $(OBJ1) $(H1)
+	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS) 
+
+clean: 
+	rm -f $(TARGETS) $(FILES_TO_CLEAN)
+
+# ------------------------ Reference Notes -----------------------------------
 # Template for all src Makefiles. Use .cc for c++, .c for c.
 # Useful options to make:
 # 	-n : Just print recipe commands would have executed.
@@ -45,26 +67,7 @@
 #	To make macro: define name ..... endef, use \ to escape new lines.
 # 	$(call name, param1, param2), params substituted for $1 in macro
 
-include ../Make.defines
 
-.PHONY: all clean
-
-# Target executables to make.
-T1:=class1
-
-# Headers and objects for the executables, currently assumes only 1 of each.
-H1:=$(addsuffix $(EXT_HXX), $(T1))
-OBJ1:=$(addsuffix .o, $(T1))
-
-TARGETS:=$(T1) 
-
-all: $(TARGETS)
-
-$(T1): $(OBJ1) $(H1)
-	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS) 
-
-clean: 
-	rm -f $(TARGETS) $(FILES_TO_CLEAN)
 
 # ------------------------ Function index ------------------------------------- 
 # filter: Filter from list those that match.
