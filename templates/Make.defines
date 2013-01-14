@@ -32,11 +32,12 @@ CXX:=g++
 INC_DIRS:=-I.:
 
 # Flags
+FLAGS_DIRECT:=-D_REENTRANT
 FLAGS_OPTIMIZE:=-O3 # For efficient build.
 FLAGS_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
 CFLAGS:=-std=c99
 CXXFLAGS:=-Weffc++
-CPPFLAGS=$(INC_DIRS) $(FLAGS_DEBUG)
+CPPFLAGS=$(INC_DIRS) $(FLAGS_DEBUG) $(FLAGS_DIRECT)
 #LDFLAGS:=$(FLAGS_DEBUG) 
 LIBFLAGS:=$(FLAGS_DEBUG) -fPIC 
 ARFLAGS:=-rv
