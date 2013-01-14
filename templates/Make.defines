@@ -9,6 +9,8 @@ EXT_C:=.c
 EXT_H:=.h
 EXT_CXX:=.cpp
 EXT_HXX:=.hpp
+EXT_OBJ:=.o
+EXT_ARC:=.a
 
 # Commands
 SHELL:=/bin/bash
