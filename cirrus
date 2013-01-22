@@ -1,0 +1,25 @@
+#!/bin/bash
+
+SERVER=j_pallat@cirrus.encs.concordia.ca
+
+function usage() {
+	echo "Usage: ${0##*/} <cmd> <file>"
+	echo "con: connect to server. File ignored."
+	echo "put: Drop file via scp or directory to home."
+}
+	
+if [ -z  $1 ]; then
+        usage
+        exit 
+fi
+
+if [ "$1" == "con" ]; then
+	ssh $SERVER
+elif [ "$1" == "put" ]; then
+	scp -r "$2 $SERVER"
+else
+	echo "That command isn't supported. $1"
+	usage
+	exit
+fi
+
