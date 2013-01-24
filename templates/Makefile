@@ -7,7 +7,7 @@ T1:=class1
 
 # Headers and objects for the executables, currently assumes only 1 of each.
 H1:=$(addsuffix $(EXT_HXX), $(T1))
-OBJ1:=$(addsuffix .o, $(T1))
+OBJ1:=$(addsuffix $(EXT_OBJ), $(T1))
 
 TARGETS:=$(T1) 
 
