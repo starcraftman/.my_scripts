@@ -22,8 +22,8 @@ TEST:=test
 CC:=gcc
 CXX:=g++
 
-# Include directories, append as needed.
-INC_DIRS:=-I.:
+# Include directories, append as needed. Format -I./dir -I/dir/to/files
+INC_DIRS:=
 
 # Generic Flags
 # To profile: 1) Compile/link with PROF flag. 2) Run file as normally to make gmon.out. 3) Run command: gprof program gmon.out > program.txt. Read output text.
