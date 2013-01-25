@@ -1,25 +1,53 @@
-#!/bin/bash
+#!/usr/bin/env perl
+use strict;
+use diagnostics;
+use Net::SCP;
+use feature qw(switch say);
 
-SERVER=j_pallat@cirrus.encs.concordia.ca
+my $HOST = "cirrus.encs.concordia.ca";
+my $USER = "j_pallat";
 
-function usage() {
-	echo "Usage: ${0##*/} <cmd> <file>"
-	echo "con: connect to server. File ignored."
-	echo "put: Drop file via scp or directory to home."
+sub usage() {
+	say("Usage: $0 <cmd> <file>.");
+	say("con: connect to server. File ignored.");
+	say("put: Drop file via scp or directory to home.");
 }
-	
-if [ -z  $1 ]; then
-        usage
-        exit 
-fi
 
-if [ "$1" == "con" ]; then
-	ssh $SERVER
-elif [ "$1" == "put" ]; then
-	scp -r "$2 $SERVER"
-else
-	echo "That command isn't supported. $1"
-	usage
-	exit
-fi
+if (@ARGV < 1) {
+	usage();
+	exit();
+}
 
+given ($ARGV[0]) {
+	when ("con") { 
+		exec("ssh", "$USER\@$HOST") or die("Ssh connection failed."); 
+	}
+	when ("put") {
+		my $scp = Net::SCP->new($HOST, $USER);
+		$scp->put($ARGV[1]) or die("Could not put the file.");
+	}
+	default {
+		say("Bad command. Try again.");
+		usage();
+		exit();
+	}
+}
+
+#if ("$ARGV[0]" eq "con" ) {
+#	exec("ssh", $SERVER);
+#} elsif ("$ARGV[0]" eq "put") {
+#	say("Putting a file. $2.");
+#} else {
+#	say("Command not supported.");
+#	usage();
+#	exit();
+#}
+
+# Matching // = m//. Some modifiers : /i, ignore case, /s make . match over \n, /x allow arbitrary whitespace, /g for global, /m for multi lines (changes ^ and $ to anchor at \n).
+# Note: For grouping, to not put in memory use : /(?:test)/
+# Regular matches: \g{1}, for named matches /(?<label>pattern)/, i.e. /(?<name>\w+)/. Retrieve in $+{name}. Back reference \g{name}.
+# Note special regex automatic vars: print " $` <$&> $' ". ` has before match, & has matched, ' has string after match
+# Case substitution: \l \u, next char is lower/upper. \L \U, all remaining chars lower/upper. \E to end case mod.
+# RE ops: split /pattern/, "string", join "glue", @pieces.
+# Quantifiers: Nongreedy match as little as possible: *?, +?, ??.	
+# Use eval to trap errors. Eval errors in $@ variable.  Map, grep for operations.
