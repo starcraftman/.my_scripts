@@ -24,7 +24,11 @@ given ($ARGV[0]) {
 	}
 	when ("put") {
 		my $scp = Net::SCP->new($HOST, $USER);
-		$scp->put($ARGV[1]) or die("Could not put the file.");
+		shift @ARGV;
+		
+		foreach (@ARGV) {
+			$scp->put($_) or die("Could not put the file.");
+		}	
 	}
 	default {
 		say("Bad command. Try again.");
