@@ -19,9 +19,10 @@ if (@ARGV < 2) {
 
 my $cmd = "";
 my $np = shift @ARGV;
+my $queue = "COMP428";
 
 # Command queues up the program with n tasks.
-exec("bsub -q COMP428 -I -n $np mpirun -srun @ARGV");
+exec("bsub -q $queue -I -n $np mpirun -srun @ARGV");
 
 # Matching // = m//. Some modifiers : /i, ignore case, /s make . match over \n, /x allow arbitrary whitespace, /g for global, /m for multi lines (changes ^ and $ to anchor at \n).
 # Note: For grouping, to not put in memory use : /(?:test)/
