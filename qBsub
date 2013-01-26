@@ -1,9 +1,6 @@
 #!/usr/bin/env perl
 use strict;
 use diagnostics;
-#use feature "say";
-#use feature "switch";
-#use feature "state";
 use 5.010;
 
 sub usage() {
@@ -17,7 +14,6 @@ if (@ARGV < 2) {
     exit(); 
 }
 
-my $cmd = "";
 my $np = shift @ARGV;
 my $queue = "COMP428";
 

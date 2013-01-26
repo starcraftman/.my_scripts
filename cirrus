@@ -37,16 +37,6 @@ given ($ARGV[0]) {
 	}
 }
 
-#if ("$ARGV[0]" eq "con" ) {
-#	exec("ssh", $SERVER);
-#} elsif ("$ARGV[0]" eq "put") {
-#	say("Putting a file. $2.");
-#} else {
-#	say("Command not supported.");
-#	usage();
-#	exit();
-#}
-
 # Matching // = m//. Some modifiers : /i, ignore case, /s make . match over \n, /x allow arbitrary whitespace, /g for global, /m for multi lines (changes ^ and $ to anchor at \n).
 # Note: For grouping, to not put in memory use : /(?:test)/
 # Regular matches: \g{1}, for named matches /(?<label>pattern)/, i.e. /(?<name>\w+)/. Retrieve in $+{name}. Back reference \g{name}.
