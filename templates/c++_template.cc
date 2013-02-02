@@ -2,7 +2,7 @@
  * Template C++ file.
  * Function with references to pointers: func(int *&ptr);
  */
-/****************************** Header Files ******************************************************/
+/********************* Header Files ***********************/
 /* C++ Headers */
 #include <iostream> /* Input/output objects. */
 //#include <fstream> /* File operations. */
@@ -38,16 +38,16 @@
 
 /* Project Headers */
 
-/****************************** Constants/Macros **************************************************/
+/******************* Constants/Macros *********************/
 
 
-/****************************** Namespace Declarations ********************************************/
+/**************** Namespace Declarations ******************/
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 
-/****************************** Type Definitions **************************************************/
+/******************* Type Definitions *********************/
 /* For enums: Try to namesapce the common elements. 
  * typedef enum {
  *	VAL_,
@@ -60,16 +60,16 @@ using std::string;
  * } name_t;  
  */
 
-/****************************** Static Data Definitions *******************************************/
+/**************** Static Data Definitions *****************/
 
 
-/****************************** Class Definitions *************************************************/
+/****************** Class Definitions *********************/
 
 
-/****************************** Static Functions **************************************************/
+/****************** Static Functions **********************/
 
 
-/****************************** Global Functions **************************************************/
+/****************** Global Functions **********************/
 /**
  * Main loop of the function.
  */
