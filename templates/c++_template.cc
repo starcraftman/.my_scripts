@@ -60,10 +60,10 @@ using std::string;
  * } name_t;  
  */
 
-/**************** Static Data Definitions *****************/
-
-
 /****************** Class Definitions *********************/
+
+
+/**************** Static Data Definitions *****************/
 
 
 /****************** Static Functions **********************/
