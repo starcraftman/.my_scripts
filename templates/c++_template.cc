@@ -26,6 +26,7 @@
 //#include <utility> // Has pair for map.
 //#include <algorithm>
 //#include <numeric>
+//#include <functional> // Functional objects.
 
 /* C Headers */
 //#include <cstdlib>
