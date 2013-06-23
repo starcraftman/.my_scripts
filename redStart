@@ -1,2 +1,2 @@
 #!/bin/sh
-redshift -t 6500:3400
+redshift -t 6500:3400 &
