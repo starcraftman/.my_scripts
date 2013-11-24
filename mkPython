@@ -1,0 +1,33 @@
+#!/bin/bash
+
+function usage() {
+	echo "Usage: ${0##*/} file1.py file2.py ..."
+}
+
+# Takes argument 1 as a filename. 
+function make_file() {
+	ext="${1##*.}"
+
+	if [ "$ext" == "py" ]; then
+		cp ~/.my_scripts/templates/python_template.py "$1"
+	else
+		echo "That extension isn't supported. $1"
+		usage
+		exit
+	fi
+}
+
+if [ ! -n  $1 ]; then
+	usage
+	exit 
+fi
+
+if [ -z $1 ]; then
+	usage
+	exit
+fi
+
+for var in "$@"
+do
+    make_file "$var"
+done
