@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 # Imports
 
 # Function declarations
@@ -10,12 +10,26 @@ if __name__ == '__main__':
 
 # Notes:
 #	Slicing strings: s[start:end:step], returns copy of string for deep copies.
-#	Comprehensions: for i in collection: print(i, end=" ")
+#	Comprehensions: [expression for x in list1 if cond]
+#	Example:
+#		[floor(x+y) for x in listPos if x > 50 for y in list if y < 40]
+#
 #	Sets {1,2,3}, Tuple (1,2,3), List [1,2,3], Dictionary {1:'a', 2:'b'}
 #	General iteration requires support for __next__() function.
 #		Use next(obj) to call.
 #		If not supported, make iterator with iter(obj), then call next(iterator).
-
+#	Namespaces: Order is local, nonlocal, global, builtin. Use nonlocal x to access enclosing, global x to get global.
+#
+#	Lambda:
+#	expRm = (lambda n: x ** n) -> Remember whatever value of x in enclosing space.
+#	exp = (lambda x,n: x ** n)
+#	exp(2, 5) -> Use.
+#
+#	Def args:
+#	def t(x=x) -> X arg takes x from the enclosing space, like default arg.
+#	Var args:
+#	def func(*name) -> Puts all extra args into tuple, **name puts them in dict. (See Python page 443)
+#	
 
 #Documentation:
 #	dir(obj) -> Lists all attributes on object.
