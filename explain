@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "\n
+cs 	 : Change to source directory\n
+cb 	 : Change to build directory\n
+cmakekde : Configure, build and install the current KDE module\n
+kdebuild : Configure, build and install the current KDE module\n
+kdecmake : Configure the current KDE module using cmake\n
+kdemake  : Build and install the current KDE module\n"
