@@ -27,6 +27,9 @@ if __name__ == '__main__':
 # 	Alternatively, init __all__ to a list of names to export
 
 # General Notes: 
+#	FORCE KEYWORD:
+#		def foo(pos, *, forcenamed): # The function must use keyword argument to pass forcedname.
+#
 #	XML: See page 935, packages: xml.dom, xml.sax, xml.etree
 #	RAW STRINGS: r'C:\test\path\works' # Raw strings, ignores all backspaces and special chars.
 #
@@ -140,6 +143,10 @@ if __name__ == '__main__':
 #		@abstractmethod
 # 		def abstractFunc(self):
 #			pass
+#
+#	Class Decorators:
+#		@classmethod -> Gets class as first option, use for class instrospection.
+#		@staticmethod -> Standard static function.
 
 # Exceptions
 # 	Custom Exception: Derive from Exception or lower class.
