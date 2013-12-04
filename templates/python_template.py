@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+# Common tools:
+#	pip/pip3 : install packages
+#	pylint/pychecker : verify syntax
+#	unittest package for xUnit.
 # Imports
 
 # Function declarations
