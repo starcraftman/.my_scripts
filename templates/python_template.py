@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
