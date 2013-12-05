@@ -62,7 +62,7 @@ use 5.014; # Version forcing.
 #   qw/ word word2 word3/ # Returns a quoted list of enclosed words, replace '/' with any punctuation marker.
 #   reverse(list) # Reverse the list.
 #   sort(@rocks) # Sort the array.
-#   die(message) # If hit this func, kill with message.
+#   die(message) # If hit this func, kill with message. Note $! contains errors from system calls, print with.
 #   warn(message) # Send message but continue.
 #
 #	String Funcs:
@@ -99,6 +99,38 @@ use 5.014; # Version forcing.
 #
 #   In place file editing:
 #       $^I = ".bak" # See page 144.
+#
+#   File Tests:
+#       if (-e $filename) {} # File tests use -x syntax, where x is one of many, see page 181.
+#           Several common tests: -r, -w, -x for read, write, execute, -e for exist. -d for dir.
+#           File looks like text/binary -T/-B. Entry is symbolic link -l.
+#
+#       Stacking Tests:
+#           if (-e -r -w $filename) {} # Test file for many things. Requires 5.10.
+#           if (-e $filename and -r _ and -w _) # Older versions, _ is last filehandle looked at.
+#
+#   File Funcs:
+#       stat $filename : Returns file info including size, perms and time. http://perldoc.perl.org/functions/stat.html
+#       time : Returns the standard unix timestamp.
+#       localtime $timestamp : Returns formated members, http://perldoc.perl.org/functions/localtime.html.
+
+# Directory Operations:
+#   Functions:
+#       my $dir = Cwd::getcwd; # Get current dir.
+#       chdir "/etc" or die "cannot chdir to /etc"
+#       @files = glob "*.pm" # Globs files from dir into files. Alternative syntax @files = <*.pm>
+#       unlink $filename # Rm equivalent.
+#       rename "old", "newName"
+#       symlink "target", "symbolicName"
+#       mkdir $dirName
+#       rmdir $dirName
+#       chmod 0755, "fred", "barney" # Mode the files fred and barney.
+#       chown $user, $group, files.... # Note user/group are the IDs.
+#
+#   Directory Handles: similar to file handling.
+#   opendir DH, "dir_name" or die "Can't open it. $!";
+#       foreach $file (readdir DH) { say("A file: $file."); }
+#   closedir DH;
 
 # List Vs. Scalar Context:
 #   $back = reverse qw/ yab dab doo/ # Returns oodbadbay string.
@@ -186,9 +218,12 @@ use 5.014; # Version forcing.
 # Control Modifiers:
 #   print("This") if $I_AM_TRUE; # Can use most constructs like this.
 #
+# Logical Operators:
 # AND, OR, XOR
 # High Precedence: ||, &&, !
 # Low Precedence: and, or, xor, not
+# Defined Or: // # Allows the use of a deault if var not defined.
+#   Example: my $last_name = $last_name($someone) // '(No Last Name)'; # If Not in the hash, get string.
 
 # Regular Expressions:
 #   Precedence: Page 130.
