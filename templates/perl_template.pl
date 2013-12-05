@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # For Doc: perldoc name/module
-# use File::Basename qw(dirname) # Import from a module, these subs.
+# use File::Basename qw(dirname) # Import from a module, subs in qw. Class scoping Class::Sub::Func.
 use strict;
 use diagnostics;
 #use feature "say"; # Import specific features outside of version.
@@ -41,7 +41,7 @@ use 5.014; # Version forcing.
 #   %hash = ("foo", 35, "bar", 22) # Constructs dict: $hash{"foo"} is 35
 #
 #   Arrow Hash:
-#   %hash = ("foo" => 35,....) # NOTE: => is treated like a comma.
+#   %hash = ("foo" => 35,....) # NB: => is treated like a comma.
 #
 #   Manipulate Hash:
 #   @keys = keys %hash # Get the keys.
@@ -54,6 +54,7 @@ use 5.014; # Version forcing.
 # Common Funcs:
 #   print() # No new line.
 #   printf(stringFmt, args...)
+#	sprintf(stringFmt, args...) # Standard string print.
 #   say() # New line at end.
 #   chomp() # String new line at end.
 #   defined() # Check if the value of an expression is undef.
@@ -63,6 +64,11 @@ use 5.014; # Version forcing.
 #   sort(@rocks) # Sort the array.
 #   die(message) # If hit this func, kill with message.
 #   warn(message) # Send message but continue.
+#
+#	String Funcs:
+#	$ind = index($line, $char, $offset) # -1 if not found, else index.
+#   $rind = rindex($line, $char, $rightOffset) # -1 if not found.
+#	$part = substr($string, $initial_pos, $length) # Go to initial in string and take length.
 #
 #   Regex Funcs:
 #   @fields = split /:/, "abc:def:g:h" # @fields has -> ("abc", "def", "g", "h")
@@ -266,7 +272,4 @@ use 5.014; # Version forcing.
 #           Example:
 #           s/(fred|barney)(.*)/\u\L${1}\E${2}/gi # Make fred/barney into Fred/Barney and ignore rest for case change.]
 #
-# Case substitution: \l \u, next char is lower/upper. \L \U, all remaining chars lower/upper. \E to end case mod.
-# RE ops: split /pattern/, "string", join "glue", @pieces.
-# Quantifiers: Nongreedy match as little as possible: *?, +?, ??.
 # Use eval to trap errors. Eval errors in $@ variable.  Map, grep for operations.
