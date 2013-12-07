@@ -1,5 +1,5 @@
 #!/usr/bin/ruby -w
-# Imports
+# Imports - See require, alternatively load, autoload.
 
 # Classes
 
@@ -187,6 +187,12 @@ puts("I am a template file.")
 # Class:
 # => Reader or Read/Set methods: attr_reader :x; attr_accessor :y, :z # Make reader for x, others set/get.
 # => Class Method: def self.method(args) ... # Alternative: def className.method...
+# =>        Class methods are part of the eigenclass.
+# =>        Common syntax to get at this class:
+# =>    class << self # Eigen of class, alternatively self -> className
+# =>      def class_method1
+# =>    end        
+#
 # => Class code is executed like Python, ORDER IS IMPORTANT!
 # => Use def initialize as equal to constructor/__init__
 # => Inheritance: class Test < SuperClass # No multiple inheritance.
@@ -206,5 +212,15 @@ puts("I am a template file.")
 # => code...
 # end
 #
+# Private class Method: A class method that is private, can't be used publicly.
+# => private_class_method :new, :otherfunc # Makes new no longer public.
+#
+
+# Modules:
+# Put constants at top level, can be shared with sub modules/classes.
+# Put def functions inside to make module specific funtions.
+# => Example:
+# => module Test
+# =>    def Test.helper ....
 #
 #
