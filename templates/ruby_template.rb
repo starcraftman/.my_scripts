@@ -1,7 +1,12 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/ruby -w
 # Imports
 
+# Classes
 
+# Funcs
+
+# Main
+puts("I am a template file.")
 
 
 # Variables:
@@ -11,7 +16,7 @@
 #   Modifiers:
 # => $: Global vars accessed via this.
 # => @: Instance variables of a class.
-# => @@: Class variables.
+# => @@: Class variables. Favor class instance variables, @var inside class, outside def.
 # => ?: Methods return bool end in ?, i.e. isdigit?
 # => !: Methods ending in ! may mutate params, use caution.
 # => =: Methods ending in = may be used in assignment and trigger, method= .
@@ -20,12 +25,38 @@
 # res = `ls -la` : System execution like perl, captures string result.
 # => print() : Just print without any new line.
 # => puts() : Print with new line.
-#
+# => x = gets.chomp : Get input and remove \n.
 
 # Control Structs:
-# => If:
-# =>    if x < 10 then
-# =>      x = x + 1
+# => If: Most constructs return their value. 
+# => x = if x < 10 then
+# =>       x + 1
+# =>     elsif x == 5 then
+# =>       x + 20
+# =>     else
+# =>       x = -1
+# =>     end
+#
+# => Unless: Reversed if as in perl. No elsif.
+# =>    unless x > 10 then
+# =>      55
+# =>    else
+# =>      100
+# =>    end
+# =>  
+#
+# => Ternary:
+# =>    cond ? true : false.
+#
+# => Case: Note uses === equality test. Several syntax short hand. Range ops can be in test.
+# =>  name = case x
+# =>    when x == 1 then "one"
+# =>    when 2
+# =>      "two"
+# =>    when 3 then "three"
+# =>    when 4; "four"
+# =>    when 0..7550  "in range" # Tests if x in the range.
+# =>    else "many"
 # =>    end
 #
 # => While: Note, do is optional.
@@ -34,9 +65,37 @@
 # =>      x += 1
 # =>    end
 #
+# => Until: Reverse of while logic.
 #
+# => For: For each over an iterator. Collection must have each method.
+# =>  array = [1, 2, 3, 4]
+# =>  for ele in array
+# =>    puts ele
+# =>  end
 #
-
+# Iterators:
+# => Often use yield mechanism to retain state.
+# => Examples:
+# => 
+# =>    3.times { puts "thanks" }
+# =>    data.each { |x| puts x } # Each element in x.
+# =>    [1, 2, 3].map {|x| x*x} # Map function over array.
+# =>    2.upto(n) {|x| puts x + 5}   
+#
+# => Mapping iterators: collect (map), select, reject, inject.
+# => 1.upto(4) do |x;y,z| # Declare y, z to be local block vars.
+#
+# Iterator Modifiers:
+# => rewind: Restart at the beginning.
+# => break: Standard
+# => next: Like continue.
+# => redo: Restart loop or iterator from current.
+# => retry: Restart an iterator and evaluate again.
+# => throw/catch: Used for labelled breaks.
+# =>    Example:
+# =>      catch :missing_data do
+# =>        ....
+# =>        throw :missing_data unless value # Put back to the above label.
 
 # Literals:
 # Conversion:
@@ -47,6 +106,7 @@
 # => if obj # Means obj is not nil, else would be false. 
 #
 # true, false, nil -> like NULL, indicates nothingness.
+# =>    N.B. 0, "", [], {} are true. Only nil and false are false.
 #
 # Number:
 # => Numbers with underscore: 1Mil = 1_000_000.
@@ -112,8 +172,39 @@
 # => obj.freeze # Make it immutable.
 # => obj.tainted? and obj.untrusted? # Mark object as not trustworth, web programming if took user input.
 
-# Operators:
+# Operators: 
+# =>    Precedence : Location 3478.
+#
 # => << : Append the right to the left obj.
 # => "." * 3 gives "..." : String multi.
 # => =~ : Standard regex binding operator for string.
+# => defined? : Acts as an operator telling you if object exists, if does what is it? (method, local var, global...)
+#
+# Operator packing:
+# => Unpacking: Example x, y, z = 1, *[2, 3] # The star is like a python unpack, making 2,3 values go to y, z.
+# => Packing: Example x, *y = 1, 2, 3 # Y gets packed with [2,3].
+
+# Class:
+# => Reader or Read/Set methods: attr_reader :x; attr_accessor :y, :z # Make reader for x, others set/get.
+# => Class Method: def self.method(args) ... # Alternative: def className.method...
+# => Class code is executed like Python, ORDER IS IMPORTANT!
+# => Use def initialize as equal to constructor/__init__
+# => Inheritance: class Test < SuperClass # No multiple inheritance.
+# => Superclass Invocation: super(x, y) # Call the same method in super class with x, y args.
+#
+# => Include another class, example comparable for ordering:
+# => include Comparable
+# => def <=>(other)
+#
+# Protection: Public unless otherwise modified. Other vals = protected, private.
+# class Test
+# public # Note, this is implicit, except for initialize.
+# => code...
+# protected
+# => code...
+# private
+# => code...
+# end
+#
+#
 #
