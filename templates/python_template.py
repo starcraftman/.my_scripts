@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Multiprocess (threads) -> http://pymotw.com/2/multiprocessing/basics.html
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
