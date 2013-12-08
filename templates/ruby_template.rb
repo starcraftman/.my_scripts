@@ -8,7 +8,7 @@
 # Main
 puts("I am a template file.")
 
-
+# Book -> 6458
 # Variables:
 #   Lowercase first for vars. my_var, hello.
 #   Uppercase first for constants: Constant, ConstantValueHere  
@@ -207,7 +207,27 @@ puts("I am a template file.")
 #     => Ensure code ALWAYS runs, if exception raised or not, even if return in begin code.
 #     => Use to close I/O or other serious things.
 # end
+
+# Methods:
+#   Parentheses after method name optional in simple cases. list = method.get_list .
+#   Param defaults supported def method(i, s=1).
+#   Methods support pack/unpack like list assign, i.e. def meth(first, *rest), put in list.
+#   Can pass in hash for args, can't force keyword use like python.
+#   Methods using yield, combine with blocks to manip yielded value.
+#   The value of the last statement executed is the value of return. 
+#     Return statements usually omitted.
 #
+#   Singleton Method: Only on a single object, not class.
+#   Example:
+#     o = "Message."
+#     def o.printMe
+#       puts self
+#     end
+#
+#   Undefine a method: undef method_name
+#
+#   Aliasing: Used to symbolically link one name to another function. Works in classes too.
+#   Example: alias new_name old_method_name
 
 # Class:
 #   Reader or Read/Set methods: attr_reader :x; attr_accessor :y, :z # Make reader for x, others set/get.
