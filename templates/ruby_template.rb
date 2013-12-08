@@ -8,7 +8,7 @@
 # Main
 puts("I am a template file.")
 
-# Book -> 6458
+# Book -> Ch 8-10 left.
 # Variables:
 #   Lowercase first for vars. my_var, hello.
 #   Uppercase first for constants: Constant, ConstantValueHere  
@@ -234,15 +234,19 @@ puts("I am a template file.")
 #   Class Method: def self.method(args) ... # Alternative: def className.method...
 #     Class methods are part of the eigenclass.
 #     Common syntax to get at this class:
-#   class << self # Eigen of class, alternatively self -> className
-#   def class_method1
-#     => code here.
-#   end        
+#     class << self # Eigen of class, alternatively self -> className
+#       def class_method1
+#         => code here.
+#     end        
 #
 #   Class code is executed like Python, ORDER IS IMPORTANT!
 #   Use def initialize as equal to constructor/__init__
 #   Inheritance: class Test < SuperClass # No multiple inheritance.
 #   Superclass Invocation: super(x, y) # Call the same method in super class with x, y args.
+#   Repeat class definition blocks get merged, even if modifying system Types.
+#     Example: Can extend FixNum by simply making following:
+#       class FixNum
+#         def myMethod...
 #
 #   Include another class, example comparable for ordering:
 #   include Comparable
@@ -261,6 +265,11 @@ puts("I am a template file.")
 # Private class Method: A class method that is private, can't be used publicly.
 #   private_class_method :new, :otherfunc # Makes new no longer public.
 #
+# Extend a class:
+# class OldClass ...
+# def otherFunc
+# o = OldClass.new
+# o.extend(otherFunc) # Can similarly extend with module of funcs.
 
 # Modules:
 #   Put constants at top level, can be shared with sub modules/classes.
@@ -272,7 +281,38 @@ puts("I am a template file.")
 #   Special Init/Close code:
 #     BEGIN { init code }
 #     END { end code }
+
+# N.B. Procs return to enclosing scope (even if finished), lambdas return to immediate function call.
+# Procs:
+#   Used to bind an anonymous block to an object.
+#   Creation: Use & before last param if you want in method.
+#     def makeProc(&block)
+#       p
+#     end
+#     add = makeProc {|x, y| x + y} 
 #
+#   Proc Methods:
+#     add.call(2, 3) # Prints 5.
+#     add.(2,3) # Ruby 1.9, alias for call().
+#     add2 = add.curry(5) # Set first arg x to 5, return new proc that takes 1 arg.
+#     add.arity # 2, returns num args.
+#   
+#   Alternative Creation:
+#     p = Proc.new {|x, y| x + y} # Without args, returns block from enclosing scope.
+#     Example: In a func without &block, Proc.new.call refers to block.
+#
+# Lambdas: Lambas make Proc objects. Use .call().
+#   is_positive = lambda {|x| x > 0} # Ruby 1.8
+#   is_positive = ->(x,y; i,j){ x > 0 } # Ruby 1.9 or later. i,j are local not overriding globals.
+#
+#   Passing a lambda to a func wanting a block:
+#     data.sort &->(a, b){ b-a }
+#
+# Method Objects:
+#   Feature that returns an object representing a method of an object.
+#   Example:
+#     o = 55
+#     mObj = o.method(:succ) # Get succ method or raises NameError
 
 # Fiber Class:
 #   Creates a generator like object that can bidirectionally communicate. Yield returns control to caller, even outside file.
