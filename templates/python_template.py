@@ -1,22 +1,34 @@
 #!/usr/bin/env python3
-# Multiprocess (threads) -> http://pymotw.com/2/multiprocessing/basics.html
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
 #	unittest package for xUnit.
-# Imports
 
-# Function declarations
+# Imports
+# import logging # General logging, use with multi.
+# import multiprocessing # True threading even on cpython due to GIL. multiprocessing.log_to_stderr(logging.DEBUG)
+# import sys # Python interpreter params here, including argv.
+# import os # OS indepedent stuff like paths.
+# import time # Time system.
+
+# Classes
+
+# Functions
 
 # Main
 if __name__ == '__main__':
 	print("Main")
 
+# Python Tuts:
+#   Multiprocess (threads) -> http://pymotw.com/2/multiprocessing/basics.html
+
 # Namespace resolution:
 # 	LEGB Rule: Local first, Enclosed Scope, Global (to Module), then Built-In scope.
 #	Namespaces: Order is local, nonlocal, global, builtin. Use nonlocal x to access enclosing, global x to get global.
 
-# Imports: # See goodcode for tree reload
+# Imports:
+#	import long_module_name_that_annoys as short # Shorten modules.
+#
 #	from imp import reload
 #	reload(module) # Resets the module object to default after import.
 #
@@ -31,7 +43,7 @@ if __name__ == '__main__':
 # 	To prevent * name import pollution, name internal vars/funcs to _Name
 # 	Alternatively, init __all__ to a list of names to export
 
-# General Notes: 
+# General Notes:
 #	FORCE KEYWORD:
 #		def foo(pos, *, forcenamed): # The function must use keyword argument to pass forcedname.
 #
@@ -39,7 +51,7 @@ if __name__ == '__main__':
 #	RAW STRINGS: r'C:\test\path\works' # Raw strings, ignores all backspaces and special chars.
 #
 #	Slicing strings: s[start:end:step], returns copy of string for deep copies.
-#	Comprehensions: 
+#	Comprehensions:
 #	List type: [expression for x in list1 if cond]
 #	Example:
 #		[floor(x+y) for x in listPos if x > 50 for y in list if y < 40]
@@ -61,7 +73,7 @@ if __name__ == '__main__':
 #	def t(x=x) -> X arg takes x from the enclosing space, like default arg.
 #	Var args:
 #	def func(*name) -> Puts all extra args into tuple, **name puts them in dict. (See Python page 443)
-#	
+#
 #	Assert:
 #	assert False, "This is always false." # Boolean expression followed by string.
 #
@@ -72,7 +84,7 @@ if __name__ == '__main__':
 #
 #	dir(obj) -> Lists all attributes on object.
 #	help(obj) -> Lists pyDoc help for object.
-#	obj.__doc__ -> Module wide comments, i.e. str.__doc__	
+#	obj.__doc__ -> Module wide comments, i.e. str.__doc__
 
 #Built Ins:
 #	Zip to make dictionary:
@@ -88,12 +100,12 @@ if __name__ == '__main__':
 #	filter(boolean, list)
 #	Example:
 #	list(filter(f1, iterable)) -> Define a function f1 that determines if to include the line, content.
-#	
+#
 #	IN Test:
 #	for x IN col -> Go through all members of col, if without for test membership.
 #
 #	pass -> Empty statement
-#	
+#
 #	reduce: Take a function and pass pairs of args to it from iterable at right.
 #	import functools
 #	functools.reduce(operator.add, list)
@@ -143,7 +155,7 @@ if __name__ == '__main__':
 #        		return getattr(self.person, attr)
 #
 # 	Abstract classes: Prevent instatiation with special syntax, for 2.x remove inheritance and put under __metaclass__ = ABCMeta.
-# 	from abc import ABCMeta, abstractmethod 
+# 	from abc import ABCMeta, abstractmethod
 # 	class Abstract(metaclass=ABCMeta):
 #		@abstractmethod
 # 		def abstractFunc(self):
@@ -215,13 +227,11 @@ if __name__ == '__main__':
 #			get code
 #		def __set__(self, instance, owner):
 #		def __del__(self, instance, owner):
-#	
+#
 #	class UseDescriptor:
 #		val = Name()
-#
 
 #OS Library:
 #	import os
 #	p = os.popen('pwd') -> Shell execute a command and return result.
 #	cwd = os.getcwd() # Get pwd.
-	
