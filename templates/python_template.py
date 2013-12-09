@@ -5,11 +5,6 @@
 #	unittest package for xUnit.
 
 # Imports
-# import logging # General logging, use with multi.
-# import multiprocessing # True threading even on cpython due to GIL. multiprocessing.log_to_stderr(logging.DEBUG)
-# import sys # Python interpreter params here, including argv.
-# import os # OS indepedent stuff like paths.
-# import time # Time system.
 
 # Classes
 
@@ -42,6 +37,13 @@ if __name__ == '__main__':
 #
 # 	To prevent * name import pollution, name internal vars/funcs to _Name
 # 	Alternatively, init __all__ to a list of names to export
+#
+#   Common Imports:
+#     import logging # General logging, use with multi.
+#     import multiprocessing # True threading even on cpython due to GIL. multiprocessing.log_to_stderr(logging.DEBUG)
+#     import sys # Python interpreter params here, including argv.
+#     import os # OS indepedent stuff like paths.
+#     import time # Time system.
 
 # General Notes:
 #	FORCE KEYWORD:
