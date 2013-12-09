@@ -6,7 +6,7 @@
 # Funcs
 
 # Main
-puts("I am a template file.")
+puts("A ruby template file.")
 
 # Book -> Ch 8-10 left.
 # Variables:

@@ -6,6 +6,8 @@ use diagnostics;
 #use feature "say"; # Import specific features outside of version.
 use 5.014; # Version forcing.
 
+say("A perl template file.")
+
 # N.B. Put ; at end of all statements.
 
 # GLOBAL NAMES:

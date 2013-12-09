@@ -6,13 +6,15 @@
 
 # Imports
 
+# Data
+
 # Classes
 
 # Functions
 
 # Main
 if __name__ == '__main__':
-	print("Main")
+	print("A python template file.")
 
 # Python Tuts:
 #   Multiprocess (threads) -> http://pymotw.com/2/multiprocessing/basics.html
