@@ -47,7 +47,7 @@ def add_ext(lang, sources, headers):
     '''
     new_sources = [s + SRC_DICT[lang] for s in sources]
     new_headers = []
-    if lang == 'c' or lang == 'c++':
+    if lang in H_DICT:
         new_headers = [h + H_DICT[lang] for h in headers]
 
     return (new_sources, new_headers)
