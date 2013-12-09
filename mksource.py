@@ -4,6 +4,7 @@
 #	pylint/pychecker : verify syntax
 #	unittest package for xUnit.
 ''' Implements code to support my templating system for source files. '''
+
 # Imports
 import sys
 import argparse
@@ -51,7 +52,6 @@ def add_ext(lang, sources, headers):
 
     return (new_sources, new_headers)
 
-# Main
 if __name__ == '__main__':
     # Setup argument parser, very nice. -i for header due to help default.
     DESC = """ This is my source file creator. The language is required.
