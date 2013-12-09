@@ -76,7 +76,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
     src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
-    print(src_files, '\n', h_files)
 
     # Select the template via globing.
     templates = glob.glob("templates/{}_*".format(args.lang))
