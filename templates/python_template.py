@@ -114,7 +114,11 @@ if __name__ == '__main__':
 #	sum, any, all, max, min
 
 # With/As Expression:
-# 	with open(r'./file.txt') as myfile, with B() as BExample:
+#	Files:
+#       f = open('filename', 'w')
+#       f.close()
+#
+# 	with open(r'./file.txt') as myfile, B() as BExample:
 #		code here
 #
 # 	Object must define: __enter__, __exit__ methods. Enter opens object and returns to as. Exit handles close.
