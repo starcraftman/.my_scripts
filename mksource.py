@@ -55,18 +55,17 @@ def add_ext(lang, sources, headers):
 if __name__ == '__main__':
     # Setup argument parser, very nice. -i for header due to help default.
     DESC = """ This is my source file creator. The language is required.
-    For c it is mandatory to specify header/source as listed below.
-    Otherwise, files will be given appropriate extensions.
+    Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=DESC)
     parser.add_argument('lang', action="store")
-    parser.add_argument('-s_file', action='append', dest='s_files',
+    parser.add_argument('-s', action='append', dest='s_files',
                         default=[],
-                        help='Source files to create',
+                        help='source file to create',
                         )
     parser.add_argument('-i', action='append', dest='h_files',
                         default=[],
-                        help='Header files to create',
+                        help='header file to create',
                         )
 
     args = parser.parse_args()  # Default parses argv[1:]
