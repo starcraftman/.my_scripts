@@ -76,8 +76,9 @@ if __name__ == '__main__':
 
     src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
 
-    # Select the template via globing.
-    templates = glob.glob("templates/{}_*".format(args.lang))
+    # Select the template via globing relative location of file.
+    dir = os.path.dirname(os.path.realpath(__file__))
+    templates = glob.glob("{}/templates/{}_*".format(dir, args.lang))
     templates.sort()  # Source template first.
 
     # I've added extension and found template, now simply copy files.
