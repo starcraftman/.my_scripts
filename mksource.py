@@ -71,14 +71,14 @@ if __name__ == '__main__':
     args = parser.parse_args()  # Default parses argv[1:]
 
     if args.lang not in SRC_DICT:
-        print("Language selected is not supported: %s_file" % args.lang)
+        print("Language selected is not supported: %s" % args.lang)
         sys.exit(0)
 
     src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
 
     # Select the template via globing relative location of file.
-    rel_dir = os.path.dirname(os.path.realpath(__file__))
-    templates = glob.glob("{}/templates/{}_*".format(rel_dir, args.lang))
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    templates = glob.glob("{}/templates/{}_*".format(script_dir, args.lang))
     templates.sort()  # Source template first.
 
     # I've added extension and found template, now simply copy files.
