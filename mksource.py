@@ -58,11 +58,8 @@ if __name__ == '__main__':
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=DESC)
-    parser.add_argument('lang', action="store")
-    parser.add_argument('-s', action='append', dest='s_files',
-                        default=[],
-                        help='source file to create',
-                        )
+    parser.add_argument('lang', action="store", help='the language to make')
+    parser.add_argument('s_files', nargs='*', help='source files to create',)
     parser.add_argument('-i', action='append', dest='h_files',
                         default=[],
                         help='header file to create',
