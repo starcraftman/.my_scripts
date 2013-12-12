@@ -7,23 +7,55 @@
 " For molokai latest: https://github.com/tomasr/molokai
 "
 " Important Notes:
-" * With auto indent on, need to use: set paste|nopaste to toggle
+" * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
 "   paste mode that will prevent the auto indenting/format.
 "
-" * Use :help [option|key] to get info.
+" * See scrolloff value for interesting effect on vim.
 "
+" * See list for ability to see trailing whitespace.
+"
+" * Use :help [option|key] to get info.
+" 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn off vi compatability to get latest vim features.
+set nocompatible
+
 " Sets how many lines of history VIM has to remember
 set history=1000
+set undolevels=1000
 
-" Enable filetype plugins
+ " keep a persistent backup file
+if v:version >= 730
+    set undofile               
+    set undodir=~/.vim/.undo,~/tmp,/tmp
+endif
+
+" Enable filetype plugins and indenting.
 filetype plugin on
 filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+" Minimum number of lines that will always be above/below cursor.
+set scrolloff=10
+
+" Paste toggle button.
+set pastetoggle=<F2>
+
+" Allow hiding of files, when using standard :e filename option.
+set hidden
+
+" Show whitespace markers on screen, disabled by default.
+"set list
+
+" Autocomplete feature for command mode (i.e. :command).
+set wildmenu
+
+" Show command in last line, usually on by default.
+set showcmd
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
