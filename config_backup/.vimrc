@@ -5,7 +5,13 @@
 " Put colors folder into ~/.vim/
 " 
 " For molokai latest: https://github.com/tomasr/molokai
-
+"
+" Important Notes:
+" * With auto indent on, need to use: set paste|nopaste to toggle
+"   paste mode that will prevent the auto indenting/format.
+"
+" * Use :help [option|key] to get info.
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -26,7 +32,7 @@ set nu "set left side numbers
 set ruler "set position in bottom right
 
 " Ignore compiled code.
-set wildignore=*.0,*~,*.pyc,*.exe
+set wildignore=*.0,*~,*.pyc,*.exe,*.class,*.o,*.so,*.dll,*.com
 
 " Highlight search results
 set hlsearch
@@ -36,12 +42,14 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=1
 
+" For regular expressions turn magic on
+set magic
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-
-" Set regular expressions.
-set magic
+set t_vb=
+set tm=500
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -50,11 +58,23 @@ set magic
 syntax enable
 
 set t_Co=256 " Required to make molokai work.
-"let g:molokai_original = 0
+let g:molokai_original = 0 " Option to molokai theme.
 colorscheme molokai_sjl 
 set background=dark
 
+" Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+"set nobackup
+"set nowb
+"set noswapfile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -62,10 +82,22 @@ set encoding=utf8
 " Use spaces instead of tabs
 set expandtab
 
+" Be smart when using tabs ;)
+set smarttab
+
 " 1 tab == 4 spaces
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+" Indenting options and wrapping lines.
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
 
 """"""""""""""""""""""""""""""
 " => Status line
