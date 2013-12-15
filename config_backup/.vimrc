@@ -15,6 +15,8 @@
 " * See list for ability to see trailing whitespace.
 "
 " * Use :help [option|key] to get info.
+"
+" * Don't forget that "acommand puts the result into the buffer.
 " 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -82,6 +84,14 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
+" Rebinding some commands for managing edits and tabs.
+" For regular sessions, use :e file, :n, :p.
+" The tab commands attach to current session for easy swapping.
+ca p prev
+ca tn tabp
+ca tp tabp
+ca te tabe
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
