@@ -14,9 +14,11 @@
 "
 " * See list for ability to see trailing whitespace.
 "
-" * Use :help [option|key] to get info.
-"
 " * Don't forget that "acommand puts the result into the buffer.
+" 
+" * Vim regex: http://www.vimregex.com/
+"
+" * Use :help [option|key] to get info.
 " 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -28,10 +30,10 @@ set nocompatible
 set history=1000
 set undolevels=1000
 
- " keep a persistent backup file
-if v:version >= 730
+" Keep a persistent backup file, preserves undo history between edit sessions.
+if has('persistent_undo')
+    set undodir=~/.vim/.undo
     set undofile               
-    set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
 
 " Enable filetype plugins and indenting.
@@ -66,7 +68,7 @@ set nu "set left side numbers
 set ruler "set position in bottom right
 
 " Ignore compiled code.
-set wildignore=*.0,*~,*.pyc,*.exe,*.class,*.o,*.so,*.dll,*.com
+set wildignore=*.0,*~,*.pyc,*.exe,*.class,*.o,*.so,*.dll,*.com,*.swp,*.bak
 
 " Highlight search results
 set hlsearch
@@ -89,7 +91,7 @@ set tm=500
 " For regular sessions, use :e file, :n, :p.
 " The tab commands attach to current session for easy swapping.
 ca p prev
-ca tn tabp
+ca tn tabn
 ca tp tabp
 ca te tabe
 
