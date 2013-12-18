@@ -1,4 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/home/starcraftman/.my_scripts'
-let g:netrw_dirhist_2='/home/starcraftman/.my_scripts/sysConfig'
+let g:netrw_dirhist_2='/home/starcraftman/.my_scripts/templates'
+let g:netrw_dirhist_3='/home/starcraftman'
+let g:netrw_dirhist_4='/home/starcraftman/.my_scripts'
+let g:netrw_dirhist_5='/home/starcraftman'
+let g:netrw_dirhist_6='/home/starcraftman/.optSoftware'
+let g:netrw_dirhist_7='/home/starcraftman/.optSoftware/QT5'
+let g:netrw_dirhist_8='/home/starcraftman/.my_scripts'
+let g:netrw_dirhist_9='/home/starcraftman/.vim/bundle/supertab/plugin'

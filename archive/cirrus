@@ -7,7 +7,7 @@ use feature qw(switch say);
 my $HOST = "cirrus.encs.concordia.ca";
 my $USER = "j_pallat";
 
-sub usage() {
+sub usage {
 	say("Usage: $0 <cmd> <file>.");
 	say("con: connect to server. File ignored.");
 	say("put: Drop file via scp or directory to home.");

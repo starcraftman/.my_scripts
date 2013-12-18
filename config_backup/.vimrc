@@ -14,8 +14,10 @@
 "
 " * See list for ability to see trailing whitespace.
 "
-" * Don't forget that "acommand puts the result into the buffer.
+" * "acommand puts the result into the buffer a.
 " 
+" * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier. 
+"
 " * Vim regex: http://www.vimregex.com/
 "
 " * Use :help [option|key] to get info.
@@ -57,6 +59,7 @@ set hidden
 
 " Autocomplete feature for command mode (i.e. :command).
 set wildmenu
+set wildmode=longest,list,full
 
 " Show command in last line, usually on by default.
 set showcmd
@@ -122,9 +125,9 @@ set ffs=unix,dos,mac
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
-"set nobackup
-"set nowb
-"set noswapfile
+set nobackup
+set nowb
+set noswapfile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -151,6 +154,29 @@ set wrap "Wrap lines
 
 """"""""""""""""""""""""""""""
 " => Status line
-"""""""""""""""""""""""""""""""
-set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+""""""""""""""""""""""""""""""
+set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%===\ %#warningmsg#\ -\ %{SyntasticStatuslineFlag()}\ ====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+" set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
+""""""""""""""""""""""""""""""
+" => Plugins and Autocomplete
+""""""""""""""""""""""""""""""
+" Enable pathogen, for addons.
+execute pathogen#infect()
+
+" Pydiction plugin for python autocomplete.
+let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
+
+" Perl Autocomplete, allow : to be in keywords.
+" set iskeyword+=:
+
+" Syntastic, syntax checker. Note modified status line.
+" Info at: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
+
+" Set what chechers are active or passive.
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'sh', 'xml', 'json'],
+                     \ 'passive_filetypes': ['ruby', 'lisp', 'xhtml', 'html', 'css', 'javascript'] }
+
+" Check syntax on file open.
+let g:syntastic_check_on_open = 1 
