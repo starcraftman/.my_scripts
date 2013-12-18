@@ -156,6 +156,8 @@ set wrap "Wrap lines
 " => Status line
 """"""""""""""""""""""""""""""
 set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%===\ %#warningmsg#\ -\ %{SyntasticStatuslineFlag()}\ ====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+
+" Old line without syntastic.
 " set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
 """"""""""""""""""""""""""""""
