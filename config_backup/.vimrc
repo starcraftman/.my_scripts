@@ -35,6 +35,8 @@
 "       https://github.com/tpope/vim-pathogen
 "
 " Notes:
+" 
+" * To override language specific settings, see ~/.vim/ftplugin for lang files.
 "
 " * Refresher on regex: http://www.vimregex.com/
 "
@@ -51,7 +53,12 @@
 "
 " * Use :help [option|key] to get info.
 "   For plugins: :help syntastic, :help YCM
-" 
+"
+" * To see all errors list: 
+"   open -> :Errors
+"   close -> :lclose
+"   NB: Overrides location list when called.
+"
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
