@@ -1,12 +1,43 @@
-" For customization details: http://amix.dk/vim/vimrc.html
+" This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
 "
-" For color schemes:
-" https://github.com/flazz/vim-colorschemes
-" Put colors folder into ~/.vim/
-" 
-" For molokai latest: https://github.com/tomasr/molokai
+" * For detailed breakdown of basic vim options: 
+"       http://amix.dk/vim/vimrc.html
 "
-" Important Notes:
+" * For color schemes:
+"       https://github.com/flazz/vim-colorschemes
+"       Put colors folder into ~/.vim/
+"       NB: molokai_sjl I use may not be there, use plain molokai if so.
+"       
+"       For molokai latest: https://github.com/tomasr/molokai
+"
+" * To install the plugins:
+"   Update Vim:
+"       YCM Requires Vim 7.4:
+"       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
+"
+"   Get Vundle: 
+"       Plugin to manage installation of others
+"       https://github.com/gmarik/vundle#about
+"
+"   Get YCM: 
+"       Very good autocomplete, steep setup.
+"       https://github.com/Valloric/YouCompleteMe
+"
+"   Get Syntastic: 
+"       Syntax checking without running code
+"       https://github.com/scrooloose/syntastic
+"
+"   Completion Alternatives:
+"       omniPerl and pydiction.
+"   
+"   Pathogen (Vundle Alternative):
+"       Prefer vundle.
+"       https://github.com/tpope/vim-pathogen
+"
+" Notes:
+"
+" * Refresher on regex: http://www.vimregex.com/
+"
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
 "   paste mode that will prevent the auto indenting/format.
 "
@@ -18,16 +49,70 @@
 " 
 " * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier. 
 "
-" * Vim regex: http://www.vimregex.com/
-"
 " * Use :help [option|key] to get info.
+"   For plugins: :help syntastic, :help YCM
 " 
+""""""""""""""""""""""""""""""
+" => Plugins with Vundle
+""""""""""""""""""""""""""""""
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install (update) bundles
+" :BundleSearch(!) foo - search (or refresh cache first) for foo
+" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle commands are not allowed.
+
+" Setup required to use Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+" List bundles after here.
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+
+" Perl Autocomplete, allow : to be in keywords.
+" set iskeyword+=:
+
+" Syntastic, syntax checker.
+" Info at: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
+
+" Set what chechers are active or passive.
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'sh', 'xml', 'json'],
+                     \ 'passive_filetypes': ['ruby', 'lisp', 'xhtml', 'html', 'css', 'javascript'] }
+
+" Check syntax on file open.
+let g:syntastic_check_on_open = 1 
+
+" Put errors on left side
+let g:syntastic_enable_signs = 1 
+
+" Format the syntastic message
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+
+" Turn on after vundle works.
+filetype plugin indent on
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+
+" Syntastic modification to line.
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" Old line without syntastic.
+" set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn off vi compatability to get latest vim features.
-set nocompatible
-
 " Sets how many lines of history VIM has to remember
 set history=1000
 set undolevels=1000
@@ -39,8 +124,7 @@ if has('persistent_undo')
 endif
 
 " Enable filetype plugins and indenting.
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -152,33 +236,3 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%===\ %#warningmsg#\ -\ %{SyntasticStatuslineFlag()}\ ====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
-
-" Old line without syntastic.
-" set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
-
-""""""""""""""""""""""""""""""
-" => Plugins and Autocomplete
-""""""""""""""""""""""""""""""
-" Enable pathogen, for addons.
-execute pathogen#infect()
-
-" Pydiction plugin for python autocomplete.
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-
-" Perl Autocomplete, allow : to be in keywords.
-" set iskeyword+=:
-
-" Syntastic, syntax checker. Note modified status line.
-" Info at: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
-
-" Set what chechers are active or passive.
-let g:syntastic_mode_map={ 'mode': 'active',
-                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'sh', 'xml', 'json'],
-                     \ 'passive_filetypes': ['ruby', 'lisp', 'xhtml', 'html', 'css', 'javascript'] }
-
-" Check syntax on file open.
-let g:syntastic_check_on_open = 1 
