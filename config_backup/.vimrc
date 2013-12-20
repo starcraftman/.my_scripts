@@ -18,14 +18,26 @@
 "   Get Vundle: 
 "       Plugin to manage installation of others
 "       https://github.com/gmarik/vundle#about
+"   
+"   Run BundleInstall:
+"       Run the command to get all bundles.
+"       Go to below sites to see configs.
 "
-"   Get YCM: 
+"   YCM Config:
 "       Very good autocomplete, steep setup.
 "       https://github.com/Valloric/YouCompleteMe
 "
-"   Get Syntastic: 
+"   Syntastic Config: 
 "       Syntax checking without running code
 "       https://github.com/scrooloose/syntastic
+"   
+"   A.vim Config:
+"       Swap to a c header for a file with :A.
+"       https://github.com/vim-scripts/a.vim
+"
+"   NERDComment Config:
+"       Bunch of comment commands.
+"       https://github.com/scrooloose/nerdcommenter 
 "
 "   Completion Alternatives:
 "       omniPerl and pydiction.
@@ -59,6 +71,13 @@
 "   close -> :lclose
 "   NB: Overrides location list when called.
 "
+" * To add identifiers use ctags:
+"       https://jeremywsherman.com/blog/2013/07/25/surf-code-with-ctags/
+"
+" * Code comment:
+"   current line -> , c c
+"   block comment (with visual) -> V (select) , c c
+"   
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
@@ -80,6 +99,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdcommenter'  
+Bundle 'vim-scripts/a.vim'
 
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
@@ -97,6 +118,12 @@ let g:syntastic_check_on_open = 1
 
 " Put errors on left side
 let g:syntastic_enable_signs = 1 
+
+" Allow completion of identifiers in comments too.
+let g:ycm_complete_in_comments = 1
+
+" Allow ctags for identifier help.
+let g:ycm_collect_identifiers_from_tags_files = 1
 
 " Format the syntastic message
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
@@ -198,6 +225,9 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+
+" For custom key combos, use leader. See :help <Leader>
+let mapleader = ","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
