@@ -22,7 +22,8 @@
 "   Run BundleInstall:
 "       Run the command to get all bundles.
 "       Go to below sites to see configs.
-"
+"       After install see YCM page for further compilation.
+"       
 "   YCM Config:
 "       Very good autocomplete, steep setup.
 "       https://github.com/Valloric/YouCompleteMe
@@ -36,14 +37,14 @@
 "       https://github.com/vim-scripts/a.vim
 "
 "   NERDComment Config:
-"       Bunch of comment commands.
+"       Bunch of comment commands. Mainly , c c to comment line.
 "       https://github.com/scrooloose/nerdcommenter 
 "
 "   Completion Alternatives:
 "       omniPerl and pydiction.
+"       https://github.com/rkulla/pydiction
 "   
 "   Pathogen (Vundle Alternative):
-"       Prefer vundle.
 "       https://github.com/tpope/vim-pathogen
 "
 " Notes:
@@ -97,9 +98,9 @@ call vundle#rc()
 
 " List bundles after here.
 Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'  
+Bundle 'scrooloose/syntastic'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 
 " Perl Autocomplete, allow : to be in keywords.
