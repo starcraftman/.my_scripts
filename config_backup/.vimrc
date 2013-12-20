@@ -1,5 +1,8 @@
 " This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
 "
+" * Vim Cheatsheet and Tutorial:
+"       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
+"
 " * For detailed breakdown of basic vim options: 
 "       http://amix.dk/vim/vimrc.html
 "
@@ -78,6 +81,7 @@
 " * Code comment:
 "   current line -> , c c
 "   block comment (with visual) -> V (select) , c c
+"   toggle comment for lines: , c i
 "   
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
