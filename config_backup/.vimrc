@@ -101,6 +101,10 @@ let g:syntastic_enable_signs = 1
 " Format the syntastic message
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
+" Manually set important checkers:
+let g:syntastic_python_checkers=['python', 'pep8', 'pylint']
+let g:syntastic_perl_checkers=['perl', 'perlcritic']
+
 " Turn on after vundle works.
 filetype plugin indent on
 
