@@ -1,5 +1,7 @@
 " This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
 "
+" TODO: http://stackoverflow.com/questions/15777705/vim-powerline-with-syntastic-segment/17057244#17057244
+"
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
