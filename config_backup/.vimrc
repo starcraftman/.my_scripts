@@ -3,6 +3,8 @@
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
+" * Vim regex: http://www.vimregex.com/
+"
 " * For detailed breakdown of basic vim options: 
 "       http://amix.dk/vim/vimrc.html
 "
@@ -53,8 +55,6 @@
 " Notes:
 " 
 " * To override language specific settings, see ~/.vim/ftplugin for lang files.
-"
-" * Refresher on regex: http://www.vimregex.com/
 "
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
 "   paste mode that will prevent the auto indenting/format.
