@@ -1,20 +1,18 @@
 " This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
 "
-" TODO: http://stackoverflow.com/questions/15777705/vim-powerline-with-syntastic-segment/17057244#17057244
-"
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
 " * Vim regex: http://www.vimregex.com/
 "
-" * For detailed breakdown of basic vim options: 
+" * For detailed breakdown of basic vim options:
 "       http://amix.dk/vim/vimrc.html
 "
 " * For color schemes:
 "       https://github.com/flazz/vim-colorschemes
 "       Put colors folder into ~/.vim/
 "       NB: molokai_sjl I use may not be there, use plain molokai if so.
-"       
+"
 "       For molokai latest: https://github.com/tomasr/molokai
 "
 " * To install the plugins:
@@ -22,40 +20,59 @@
 "       YCM Requires Vim 7.4:
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
 "
-"   Get Vundle: 
+"   Get Vundle:
 "       Plugin to manage installation of others
 "       https://github.com/gmarik/vundle#about
-"   
+"
 "   Run BundleInstall:
 "       Run the command to get all bundles.
 "       Go to below sites to see configs.
 "       After install see YCM page for further compilation.
-"       
+"
 "   YCM Config:
 "       Very good autocomplete, steep setup.
 "       https://github.com/Valloric/YouCompleteMe
 "
-"   Syntastic Config: 
+"   Syntastic Config:
 "       Syntax checking without running code
 "       https://github.com/scrooloose/syntastic
-"   
+"
 "   A.vim Config:
 "       Swap to a c header for a file with :A.
 "       https://github.com/vim-scripts/a.vim
 "
 "   NERDComment Config:
 "       Bunch of comment commands. Mainly , c c to comment line.
-"       https://github.com/scrooloose/nerdcommenter 
+"       https://github.com/scrooloose/nerdcommenter
+"
+"   Vim-airline Config:
+"       Plugin that gives nice colored status line.
+"       https://github.com/bling/vim-airline
+"       See :help airline and AirlineToggle
+"       NB: Be sure to patch ~/.fonts with https://github.com/Lokaltog/powerline-fonts
+"
+"   Delete Trailing Whitespace:
+"       Use [Range]DeleteTrailingWhitespace, where range
+"       is an optional line range.
+"       https://github.com/vim-scripts/DeleteTrailingWhitespace
+"
+"   Vim Surround:
+"       Modify the tags or brackets of code.
+"       https://github.com/tpope/vim-surround
+"
+"   Version Control:
+"       GIT -> https://github.com/tpope/vim-fugitive
+"       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 "
 "   Completion Alternatives:
 "       omniPerl and pydiction.
 "       https://github.com/rkulla/pydiction
-"   
+"
 "   Pathogen (Vundle Alternative):
 "       https://github.com/tpope/vim-pathogen
 "
 " Notes:
-" 
+"
 " * To override language specific settings, see ~/.vim/ftplugin for lang files.
 "
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
@@ -66,13 +83,13 @@
 " * See list for ability to see trailing whitespace.
 "
 " * "acommand puts the result into the buffer a.
-" 
-" * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier. 
+"
+" * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier.
 "
 " * Use :help [option|key] to get info.
 "   For plugins: :help syntastic, :help YCM
 "
-" * To see all errors list: 
+" * To see all errors list:
 "   open -> :Errors
 "   close -> :lclose
 "   NB: Overrides location list when called.
@@ -84,7 +101,7 @@
 "   current line -> , c c
 "   block comment (with visual) -> V (select) , c c
 "   toggle comment for lines: , c i
-"   
+"
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
@@ -104,10 +121,15 @@ call vundle#rc()
 
 " List bundles after here.
 Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdcommenter'  
+Bundle 'bling/vim-airline'
+Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
+Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
@@ -121,10 +143,10 @@ let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'passive_filetypes': ['ruby', 'lisp', 'xhtml', 'html', 'css', 'javascript'] }
 
 " Check syntax on file open.
-let g:syntastic_check_on_open = 1 
+let g:syntastic_check_on_open = 1
 
 " Put errors on left side
-let g:syntastic_enable_signs = 1 
+let g:syntastic_enable_signs = 1
 
 " Allow completion of identifiers in comments too.
 let g:ycm_complete_in_comments = 1
@@ -145,6 +167,17 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
+set laststatus=2
+"let g:airline_theme = 'powerlineish'
+let g:airline_enable_syntastic = 1
+
+" Enable a smart tab top.
+let g:airline#extensions#tabline#enabled = 1
+
+" Enable powerline fonts.
+let g:airline_powerline_fonts = 1
+
+" Old status line
 set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
 " Syntastic modification to line.
@@ -165,7 +198,7 @@ set undolevels=1000
 " Keep a persistent backup file, preserves undo history between edit sessions.
 if has('persistent_undo')
     set undodir=~/.vim/.undo
-    set undofile               
+    set undofile
 endif
 
 " Enable filetype plugins and indenting.
@@ -219,20 +252,25 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Customize netrw use a tree style and ignore some extensions.
+let g:netrw_liststyle = 3
+let g:netrw_list_hide = ".git,.sass-cache,.jpg,.png,.svg"
+
 " Rebinding some commands for managing edits and tabs.
-" For regular sessions, use :e file, :n, :p.
+" For regular sessions, use :e file, :bn, :bp.
 " The tab commands attach to current session for easy swapping.
-ca p prev
-ca tn tabn
-ca tp tabp
-ca te tabe
+cnoreabbrev bn bnext
+cnoreabbrev bp bprevious
+cnoreabbrev tn tabn
+cnoreabbrev tp tabp
+cnoreabbrev te tabe
 
 " Remap Alt + Arrow keys to move between split windows.
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
-
+:
 " For custom key combos, use leader. See :help <Leader>
 let mapleader = ","
 
@@ -244,7 +282,7 @@ syntax enable
 
 set t_Co=256 " Required to make molokai work.
 let g:molokai_original = 0 " Option to molokai theme.
-colorscheme molokai_sjl 
+colorscheme molokai_sjl
 set background=dark
 
 " Set utf8 as standard encoding and en_US as the standard language
