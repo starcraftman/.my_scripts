@@ -3,6 +3,7 @@
 #	pip/pip3 : install packages
 #	pep8/pylint/pychecker : verify syntax
 #	unittest package for xUnit.
+"""Module level doc string."""
 
 # Imports
 
@@ -14,14 +15,14 @@
 
 # Main
 if __name__ == '__main__':
-	print("A python template file.")
+    print("A python template file.")
 
 # Python Tuts:
 #   Multiprocess (threads) -> http://pymotw.com/2/multiprocessing/basics.html
 
 # Namespace resolution:
-# 	LEGB Rule: Local first, Enclosed Scope, Global (to Module), then Built-In scope.
-#	Namespaces: Order is local, nonlocal, global, builtin. Use nonlocal x to access enclosing, global x to get global.
+# 	LEGB Rule: Local -> Enclosed Scope -> Global (to Module) -> Built-In scope.
+#	Resolve Name: Use nonlocal x to access enclosing, global x to get global.
 
 # Imports:
 #	import long_module_name_that_annoys as short # Shorten modules.
@@ -35,24 +36,26 @@ if __name__ == '__main__':
 #
 # 	from . import spam # In this package dir, look for spam module and import.
 # 	from .string import name, name2 # Inside this package.string, import names
-# 	from .. import spam # Spam is a sybling package to the current, check in parent dir.
+# 	from .. import spam # Spam is a sybling package to the current,
+#       check from parent dir for sybiling package.
 #
 # 	To prevent * name import pollution, name internal vars/funcs to _Name
 # 	Alternatively, init __all__ to a list of names to export
 #
 #   Common Imports:
 #     import logging # General logging, use with multi.
-#     import multiprocessing # True threading even on cpython due to GIL. multiprocessing.log_to_stderr(logging.DEBUG)
+#     import multiprocessing # True threading even on cpython due to GIL.
+#           NB: Note for logs -> multiprocessing.log_to_stderr(logging.DEBUG)
 #     import sys # Python interpreter params here, including argv.
 #     import os # OS indepedent stuff like paths.
 #     import time # Time system.
 
 # General Notes:
 #	FORCE KEYWORD:
-#		def foo(pos, *, forcenamed): # The function must use keyword argument to pass forcedname.
+#		def foo(pos, *, forcenamed): # Must use keyword argument to pass forcedname.
 #
 #	XML: See page 935, packages: xml.dom, xml.sax, xml.etree
-#	RAW STRINGS: r'C:\test\path\works' # Raw strings, ignores all backspaces and special chars.
+#	RAW STRINGS: r'C:\test\path\works' # Ignores all special chars.
 #
 #	Slicing strings: s[start:end:step], returns copy of string for deep copies.
 #	Comprehensions:
@@ -69,17 +72,18 @@ if __name__ == '__main__':
 #		If not supported, make iterator with iter(obj), then call next(iterator).
 #
 #	Lambda:
-#	expRm = (lambda n: x ** n) -> Remember whatever value of x in enclosing space.
+#	exp = (lambda n: x ** n) -> Remember whatever value of x in enclosing space.
 #	exp = (lambda x,n: x ** n)
 #	exp(2, 5) -> Use.
 #
 #	Def args:
 #	def t(x=x) -> X arg takes x from the enclosing space, like default arg.
 #	Var args:
-#	def func(*name) -> Puts all extra args into tuple, **name puts them in dict. (See Python page 443)
+#	def func(*name) -> Puts all extra args into tuple, **name puts them in dict.
+#           (See Python page 443)
 #
 #	Assert:
-#	assert False, "This is always false." # Boolean expression followed by string.
+#	assert False, "Message." # Boolean expression followed by string.
 #
 #	__slots__: Set this and only these attributes allowed, space saving feature.
 
@@ -103,10 +107,12 @@ if __name__ == '__main__':
 #
 #	filter(boolean, list)
 #	Example:
-#	list(filter(f1, iterable)) -> Define a function f1 that determines if to include the line, content.
+#	list(filter(f1, iterable)):
+#       Define a function f1 that determines if to include the line, content.
 #
 #	IN Test:
-#	for x IN col -> Go through all members of col, if without for test membership.
+#	for x IN col:
+#       Go through all members of col. In general membership test.
 #
 #	pass -> Empty statement
 #
@@ -125,7 +131,8 @@ if __name__ == '__main__':
 # 	with open(r'./file.txt') as myfile, B() as BExample:
 #		code here
 #
-# 	Object must define: __enter__, __exit__ methods. Enter opens object and returns to as. Exit handles close.
+# 	Object must define: __enter__, __exit__ methods.
+#       Enter opens object and returns to as. Exit handles close.
 
 #Python Constructs for Control/Loops:
 #	IF:
@@ -143,17 +150,20 @@ if __name__ == '__main__':
 #		body
 #
 # 	class Test:
-#		... # Alternatively, pass: Means no code at this time, can be replaced or modified at runtime.
+#		... # Alternatively, pass: Means no code at this time.
 #
-# 	Name Mangling: Prevent collisions of reused names down inheritance tree. No trailing __, only leading. Page 750
+# 	Name Mangling: Prevent collisions of reused names down inheritance tree.
+#                  No trailing __, only leading. Page 750
 # 		class C1:
-#			def set(self): self.__X # IMPORTANT, mangled to become self._C1__X at run time. Prevents collision with other X.
+#			def set(self): self.__X # BECOMES self._C1__X at run time.
 #			def get(self): print(self.__X)
 #
-# 	SPECIAL NB: We must redefine all operator overloads even if inheriting, like __add__ and __str__
+# 	SPECIAL NB: We must redefine all operator overloads they aren't inherited.
 # 	class Mgr(Person):
+#       def __init__(self):
+#           Person.__init__(self) Force call to superclass constructor.
 #		def func(self):
-#			Person.methodInA(self, args) # Force call to superclass function by invoking name. Person.__init__() for constructor
+#			Person.methodInA(self, args)
 #
 # 	Embed Object Inside Class: Delegates calls not on this object, to embedded.
 # 	class ManagerEmbed:
@@ -162,7 +172,8 @@ if __name__ == '__main__':
 #    		def __getattr__(self, attr):
 #        		return getattr(self.person, attr)
 #
-# 	Abstract classes: Prevent instatiation with special syntax, for 2.x remove inheritance and put under __metaclass__ = ABCMeta.
+# 	Abstract classes: Prevent instatiation with special syntax.
+#           For 2.x remove inheritance and put under __metaclass__ = ABCMeta.
 # 	from abc import ABCMeta, abstractmethod
 # 	class Abstract(metaclass=ABCMeta):
 #		@abstractmethod
@@ -181,7 +192,7 @@ if __name__ == '__main__':
 #
 # 	Rethrow current exception: raise # Nothing else.
 #
-# 	raise TypeError from E # Raise new exception, derived from E (instance of an Exception)
+# 	raise TypeError from E # Raise new exception, derived from existing e.
 #
 # 	Standard block:
 # 	try:
@@ -208,17 +219,20 @@ if __name__ == '__main__':
 # 	chr(int), ord(ch) # Convert to character from int code, reverse.
 
 # Attribute access
-# 	__getattr__, __setattr__ : Methods called for routing undefined attributes and assignment of all attrs. Not for op overload.
+# 	__getattr__, __setattr__ : Methods called for routing undefined attributes
+#       and assignment of all attrs. Not for op overload.
 #	__delattr__ : For deleting attr from obj.
 #	__getattribute__ : Routing for all attributes in new classes.
-#	NB: When dealing, be careful to avoid recursive calls to same method causing loop.
-#	Fine for __get_attr.
-#	For getattribute: x = object.__getattribute__(self, 'other') # Forces call through object superclass, avoid my func.
-#	For setattribute: self.__dict__['other'] = val # Avoid me by using dict index.
 #
+#   NB: When dealing, be careful to avoid recursive calls to self causing loop.
+#	Fine for __get_attr.
+#
+#   # LForces call through object superclass, avoid my func.
+#	For getattribute: x = object.__getattribute__(self, 'other')
+#	For setattribute: self.__dict__['other'] = val # Avoid by using dict index.
 #
 #	Properties:
-#		attribute = property(aGet, aSet, aDel, aDocString) # Set property for attribute.
+#		attribute = property(aGet, aSet, aDel, aDocString)
 #
 #	With Decorators:
 #	@property
@@ -231,7 +245,8 @@ if __name__ == '__main__':
 #	Descriptors:  Page 950
 #	class Name:
 #		"Descriptor class docstring"
-#		def __get__(self, instance, owner): # self is descriptor, instance is object attached, owner is class.
+#       # self is descriptor, instance is object attached, owner is class.
+#		def __get__(self, instance, owner):
 #			get code
 #		def __set__(self, instance, owner):
 #		def __del__(self, instance, owner):

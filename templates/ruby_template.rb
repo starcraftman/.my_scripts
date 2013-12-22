@@ -11,7 +11,7 @@ puts("A ruby template file.")
 # Book -> Ch 8-10 left.
 # Variables:
 #   Lowercase first for vars. my_var, hello.
-#   Uppercase first for constants: Constant, ConstantValueHere  
+#   Uppercase first for constants: Constant, ConstantValueHere
 #
 # Modifiers:
 #   $: Global vars accessed via this.
@@ -28,7 +28,7 @@ puts("A ruby template file.")
 #   x = gets.chomp : Get input and remove \n.
 
 # Control Structs:
-#   If: Most constructs return their value. 
+#   If: Most constructs return their value.
 #     x = if x < 10 then
 #           x + 1
 #         elsif x == 5 then
@@ -42,7 +42,7 @@ puts("A ruby template file.")
 #       55
 #     else
 #       100
-#     end  
+#     end
 #
 # Ternary:
 #     cond ? true : false.
@@ -59,7 +59,7 @@ puts("A ruby template file.")
 #   end
 #
 # While: Note, do is optional.
-#   while x < 10 do 
+#   while x < 10 do
 #     puts x
 #     x += 1
 #   end
@@ -78,7 +78,7 @@ puts("A ruby template file.")
 #   3.times { puts "thanks" }
 #   data.each { |x| puts x } # Each element in x.
 #   [1, 2, 3].map {|x| x*x} # Map function over array.
-#   2.upto(n) {|x| puts x + 5}   
+#   2.upto(n) {|x| puts x + 5}
 #
 # Mapping iterators: collect (map), select, reject, inject.
 # 1.upto(4) do |x;y,z| # Declare y, z to be local block vars.
@@ -101,9 +101,9 @@ puts("A ruby template file.")
 #     To int:  obj.to_i
 #     To char: obj.to_a
 #     To float: obj.to_f
-#     
+#
 # true/false
-#   if obj # Means obj is not nil, else would be false. 
+#   if obj # Means obj is not nil, else would be false.
 #   true, false, nil -> like NULL, indicates nothingness.
 #     N.B. 0, "", [], {} are true. Only nil and false are false.
 #
@@ -134,7 +134,7 @@ puts("A ruby template file.")
 #
 # Hashes (Dictionary):
 #   numbers = { :one => 1, :two => 2, :three => 3 } # Preferred syntax, uses symbols
-#   numbers = Hash.new; numbers["one"] = 1   
+#   numbers = Hash.new; numbers["one"] = 1
 #   numbers = { "one" => 1...} # Alternative, with strings.
 #   numbers = { one: 1, two: 2 ... } # Shortest syntax, 1.9.
 #
@@ -149,7 +149,7 @@ puts("A ruby template file.")
 # Symbols:
 #   Used for efficient lookup in hashes and other cases.
 #   They are immutable and NEVER collected, permanently in table.
-#   :symbol is short for -> :"symbol" . 
+#   :symbol is short for -> :"symbol" .
 #
 # Objects:
 #   obj = myClass.new(1, 2) # Use constructor.
@@ -170,7 +170,7 @@ puts("A ruby template file.")
 #   obj.freeze # Make it immutable.
 #   obj.tainted? and obj.untrusted? # Mark object as not trustworth, web programming if took user input.
 
-# Operators: 
+# Operators:
 #   Precedence : Location 3478.
 #
 #   << : Append the right to the left obj.
@@ -187,7 +187,7 @@ puts("A ruby template file.")
 #   Subclass StandardError to make new exceptions.
 #   Interesting note: Can attach rescue, else, ensure blocks to def, catches exceptions from method.
 #   Rescue can even be attached to normal statements that could raise exceptions like func calls or num ops.
-# 
+#
 # Throw Exception:
 #   raise StanardError("Message to send.")
 #   raise "Message." # Raise a RuntimeError with Message. If no message, raise same Error.
@@ -214,7 +214,7 @@ puts("A ruby template file.")
 #   Methods support pack/unpack like list assign, i.e. def meth(first, *rest), put in list.
 #   Can pass in hash for args, can't force keyword use like python.
 #   Methods using yield, combine with blocks to manip yielded value.
-#   The value of the last statement executed is the value of return. 
+#   The value of the last statement executed is the value of return.
 #     Return statements usually omitted.
 #
 #   Singleton Method: Only on a single object, not class.
@@ -237,7 +237,7 @@ puts("A ruby template file.")
 #     class << self # Eigen of class, alternatively self -> className
 #       def class_method1
 #         => code here.
-#     end        
+#     end
 #
 #   Class code is executed like Python, ORDER IS IMPORTANT!
 #   Use def initialize as equal to constructor/__init__
@@ -289,14 +289,14 @@ puts("A ruby template file.")
 #     def makeProc(&block)
 #       p
 #     end
-#     add = makeProc {|x, y| x + y} 
+#     add = makeProc {|x, y| x + y}
 #
 #   Proc Methods:
 #     add.call(2, 3) # Prints 5.
 #     add.(2,3) # Ruby 1.9, alias for call().
 #     add2 = add.curry(5) # Set first arg x to 5, return new proc that takes 1 arg.
 #     add.arity # 2, returns num args.
-#   
+#
 #   Alternative Creation:
 #     p = Proc.new {|x, y| x + y} # Without args, returns block from enclosing scope.
 #     Example: In a func without &block, Proc.new.call refers to block.
@@ -316,7 +316,7 @@ puts("A ruby template file.")
 
 # Fiber Class:
 #   Creates a generator like object that can bidirectionally communicate. Yield returns control to caller, even outside file.
-# 
+#
 #   Example:
 #     f = fiber.new do |message|
 #       puts "Caller said: #{message}"

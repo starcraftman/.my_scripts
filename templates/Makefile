@@ -9,14 +9,14 @@ T1:=class1
 H1:=$(addsuffix $(EXT_HXX), $(T1))
 OBJ1:=$(addsuffix $(EXT_OBJ), $(T1))
 
-TARGETS:=$(T1) 
+TARGETS:=$(T1)
 
 all: $(TARGETS)
 
 $(T1): $(OBJ1) $(H1)
-	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS) 
+	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS)
 
-clean: 
+clean:
 	rm -f $(TARGETS) $(FILES_TO_CLEAN)
 
 # ------------------------ Reference Notes -----------------------------------
@@ -53,7 +53,7 @@ clean:
 #	gui.o: CPPFLAGS += -DUSE_MALLOC=1, gui.o: gui.c # Now only for gui.o and sub compilations will flag be present.
 
 # Control:
-# ifdef/ifndef CONSTANT else endif || ifeq/ifneq(a,b) endif # Can 
+# ifdef/ifndef CONSTANT else endif || ifeq/ifneq(a,b) endif # Can
 # Note: Make sure to not have leading tabs on control operators.
 # To strip spaces: ifeq "$(strip $(OPTIONS))" "-d"
 
@@ -69,7 +69,7 @@ clean:
 
 
 
-# ------------------------ Function index ------------------------------------- 
+# ------------------------ Function index -------------------------------------
 # filter: Filter from list those that match.
 #	$(ui_lib): $(filter ui/%.o,$(objects)) ... # Filter ui/*.o from objects.
 #
@@ -80,12 +80,12 @@ clean:
 # 	# $(findstring /test/book/admin,$(PWD) ... # Prints out to console the string if found in PWD. More portable to use @echo.
 #
 # subst : Substitute some text for other in a list, no wildcards.
-#	sources := count.c test.c work.c	
+#	sources := count.c test.c work.c
 #	objects := $(subst .c,.o,$(sources))
 #
 # patsubst: Substitute based on pattern match, supports %.
 #	strip-slash := $(patsubt %/,%,$(dirs)
-# 
+#
 # words: Counts the number of words in a list, separated space.
 #	CWD := $(subst, /, ,$(HOME))
 #	words:
@@ -99,7 +99,7 @@ clean:
 #
 # wordlist start,end,list: Return list of words from start to end position, inclusive both.
 #	@echo: The list of words from 2-6 is, $(wordlist 2,6,$(list))
-#	
+#
 # sort: Take a list and do a unix sort.
 #	@echo: The sorted list is $(sort $(list))
 #
@@ -108,7 +108,7 @@ clean:
 #
 # wildcard: Do unix file globing expansion.
 #	sources := $(wildcard *.c *.h)
-#	dot-emacs-exist := $(wildcard ~/.emacs) # Will return empty if not exists. 
+#	dot-emacs-exist := $(wildcard ~/.emacs) # Will return empty if not exists.
 #
 # dir: Return the directory portion only, same as D useage.
 #	source-dirs := $(sort $(dir $(shell find . -name '*.c'))) # Find all c source files under cwd, strip to just dirs and sort.

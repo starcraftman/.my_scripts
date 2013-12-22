@@ -9,7 +9,7 @@
 # Commands
 # Useful: --no-print-directory
 SHELL:=/bin/sh
-MAKE:=colormake 
+MAKE:=colormake
 MKDIR:=@mkdir -p
 MV:=@mv -f
 CP:=@cp -f
@@ -27,7 +27,7 @@ INC_DIRS:=
 
 # Generic Flags
 # To profile: 1) Compile/link with PROF flag. 2) Run file as normally to make gmon.out. 3) Run command: gprof program gmon.out > program.txt. Read output text.
-# To coverage: 1) Compile/link with GCOV flag. 2) Run program. 3) Run command: gcov program.c. 
+# To coverage: 1) Compile/link with GCOV flag. 2) Run program. 3) Run command: gcov program.c.
 F_PROF:=-pg # Use in both compile/link.
 F_GCOV:=-fprofile-arcs -ftest-coverage # Use in both compile/link.
 F_DIRECT:=-D_REENTRANT
@@ -37,9 +37,9 @@ F_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
 # Rule Flag Variables
 CFLAGS:=-gnu99
 CXXFLAGS:=-Weffc++
-CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT) 
-LDFLAGS:=$(F_DEBUG) 
-LIBFLAGS:=$(F_DEBUG) -fPIC 
+CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT)
+LDFLAGS:=$(F_DEBUG)
+LIBFLAGS:=$(F_DEBUG) -fPIC
 ARFLAGS:=-rv
 
 # File Extension
@@ -51,7 +51,7 @@ EXT_OBJ:=.o
 EXT_ARC:=.a
 
 # Common libs
-LIBS:=-lpthread -lm -ldl 
+LIBS:=-lpthread -lm -ldl
 TESTLIBS:=-lcpptest
 BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lboost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lboost_thread -lboost_unit_test_framework -lboost_wave
 
@@ -98,7 +98,7 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 #	gui.o: CPPFLAGS += -DUSE_MALLOC=1, gui.o: gui.c # Now only for gui.o and sub compilations will flag be present.
 
 # Control:
-# ifdef/ifndef CONSTANT else endif || ifeq/ifneq(a,b) endif # Can 
+# ifdef/ifndef CONSTANT else endif || ifeq/ifneq(a,b) endif # Can
 # Note: Make sure to not have leading tabs on control operators.
 # To strip spaces: ifeq "$(strip $(OPTIONS))" "-d"
 
@@ -114,7 +114,7 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 
 
 
-# ------------------------ Function index ------------------------------------- 
+# ------------------------ Function index -------------------------------------
 # filter: Filter from list those that match.
 #	$(ui_lib): $(filter ui/%.o,$(objects)) ... # Filter ui/*.o from objects.
 #
@@ -125,12 +125,12 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 # 	# $(findstring /test/book/admin,$(PWD) ... # Prints out to console the string if found in PWD. More portable to use @echo.
 #
 # subst : Substitute some text for other in a list, no wildcards.
-#	sources := count.c test.c work.c	
+#	sources := count.c test.c work.c
 #	objects := $(subst .c,.o,$(sources))
 #
 # patsubst: Substitute based on pattern match, supports %.
 #	strip-slash := $(patsubt %/,%,$(dirs)
-# 
+#
 # words: Counts the number of words in a list, separated space.
 #	CWD := $(subst, /, ,$(HOME))
 #	words:
@@ -144,7 +144,7 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 #
 # wordlist start,end,list: Return list of words from start to end position, inclusive both.
 #	@echo: The list of words from 2-6 is, $(wordlist 2,6,$(list))
-#	
+#
 # sort: Take a list and do a unix sort.
 #	@echo: The sorted list is $(sort $(list))
 #
@@ -153,7 +153,7 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 #
 # wildcard: Do unix file globing expansion.
 #	sources := $(wildcard *.c *.h)
-#	dot-emacs-exist := $(wildcard ~/.emacs) # Will return empty if not exists. 
+#	dot-emacs-exist := $(wildcard ~/.emacs) # Will return empty if not exists.
 #
 # dir: Return the directory portion only, same as D useage.
 #	source-dirs := $(sort $(dir $(shell find . -name '*.c'))) # Find all c source files under cwd, strip to just dirs and sort.

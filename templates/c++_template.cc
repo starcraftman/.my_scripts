@@ -14,13 +14,13 @@
 //#include <stdexcept> /* Derived exception classes. */
 
 /* STL Headers */
-//#include <vector> 
+//#include <vector>
 //#include <list>
-//#include <deque> 
+//#include <deque>
 //#include <stack>
 //#include <queue>
 //#include <priority_queue>
-//#include <bitset> 
+//#include <bitset>
 //#include <set> // multiset for multiple keys allowed.
 //#include <map> // multimap for multiple keys allowed.
 //#include <utility> // Has pair for map.
@@ -31,12 +31,12 @@
 
 /* C Headers */
 //#include <cstdlib>
-//#include <cstddef> 
-//#include <cctype> 
-//#include <cstring> 
-//#include <cstdio> 
-//#include <climits> 
-//#include <cassert> 
+//#include <cstddef>
+//#include <cctype>
+//#include <cstring>
+//#include <cstdio>
+//#include <climits>
+//#include <cassert>
 
 /* Project Headers */
 
@@ -50,16 +50,16 @@ using std::endl;
 using std::string;
 
 /******************* Type Definitions *********************/
-/* For enums: Try to namesapce the common elements. 
+/* For enums: Try to namesapce the common elements.
  * typedef enum {
  *	VAL_,
- * } name_e; 
+ * } name_e;
  */
 
-/* For structs: 
+/* For structs:
  * typedef struct name_s {
  *	int index;
- * } name_t;  
+ * } name_t;
  */
 
 /****************** Class Definitions *********************/
@@ -76,7 +76,7 @@ using std::string;
  * Main loop of the function.
  */
 int main(void) {
-	
+
 	return 0;
 }
 

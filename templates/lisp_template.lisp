@@ -16,7 +16,7 @@ ANON FUNCTIONS:
 ((lambda (args) (body)) arg_to_apply_lambda_to): Make an ananoymous function and apply to enclosed args.
 
 ; For global variables enclose with *, i.e. *PI*.
-VARIABLES: 
+VARIABLES:
 (let ((x 5) (y 2)) (+ x y)): Define a variable.
 (let* ((x 10) (y (* 2 x))) (* x y)): Didn't require nesting y inside x scope because of let*.
 (defparameter name value): Defines a variable that can be modified.

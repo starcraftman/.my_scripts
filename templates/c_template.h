@@ -10,16 +10,16 @@
 
 
 /******************* Type Declarations ********************/
-/* For enums: Try to namesapce the common elements. 
+/* For enums: Try to namesapce the common elements.
  * typedef enum {
  *	VAL_,
- * } name_e; 
+ * } name_e;
  */
 
-/* For structs: 
+/* For structs:
  * typedef struct name_s {
  *	int index;
- * } name_t;  
+ * } name_t;
  */
 
 /********************** Prototypes ************************/

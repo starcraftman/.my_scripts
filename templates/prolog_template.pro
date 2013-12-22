@@ -7,9 +7,9 @@
 
 
 /* Function index:
- * findall(var, predicate, list). -> Search list to find those that satisfy predicate and return in var. 
- * 
- * list_to_set(List, Set). -> Remove duplicate entries from the list to make a set. 
+ * findall(var, predicate, list). -> Search list to find those that satisfy predicate and return in var.
+ *
+ * list_to_set(List, Set). -> Remove duplicate entries from the list to make a set.
  *
  * length(List, Len). -> Return length of list
  *
