@@ -161,6 +161,10 @@ let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_python_checkers=['python', 'pep8', 'pylint']
 let g:syntastic_perl_checkers=['perl', 'perlcritic']
 
+" Always delete trailing whitespace from lines on save.
+let g:DeleteTrailingWhitespace = 1
+let g:DeleteTrailingWhitespace_Action = 'delete'
+
 " Turn on after vundle works.
 filetype plugin indent on
 
@@ -257,7 +261,7 @@ let g:netrw_liststyle = 3
 let g:netrw_list_hide = ".git,.sass-cache,.jpg,.png,.svg"
 
 " Rebinding some commands for managing edits and tabs.
-" For regular sessions, use :e file, :bn, :bp.
+" For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current..
 " The tab commands attach to current session for easy swapping.
 cnoreabbrev bn bnext
 cnoreabbrev bp bprevious
