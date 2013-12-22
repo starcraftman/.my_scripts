@@ -162,8 +162,8 @@ let g:syntastic_python_checkers=['python', 'pep8', 'pylint']
 let g:syntastic_perl_checkers=['perl', 'perlcritic']
 
 " Always delete trailing whitespace from lines on save.
-let g:DeleteTrailingWhitespace = 1
-let g:DeleteTrailingWhitespace_Action = 'delete'
+"let g:DeleteTrailingWhitespace = 1
+"let g:DeleteTrailingWhitespace_Action = 'delete'
 
 " Turn on after vundle works.
 filetype plugin indent on
