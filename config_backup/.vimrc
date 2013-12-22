@@ -281,9 +281,11 @@ let mapleader = ","
 syntax enable
 
 set t_Co=256 " Required to make molokai work.
-let g:molokai_original = 0 " Option to molokai theme.
-colorscheme molokai_sjl
+"let g:molokai_original = 1 " Option to molokai theme.
+"let g:rehash256 = 1
 set background=dark
+colorscheme molokai_sjl
+" Good colorschemes: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
