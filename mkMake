@@ -1,36 +1,36 @@
 #!/bin/bash
 
 function usage() {
-	echo "Usage: ${0##*/} <type> <type> ..."
-	echo "The <type> can be of the following:" 
-	echo "top: Top level make file, for subdirectories."
-	echo "def: A defines file for required constants."
-	echo "make: Regular make file everywhere else."
+    echo "Usage: ${0##*/} <type> <type> ..."
+    echo "The <type> can be of the following:"
+    echo "top: Top level make file, for subdirectories."
+    echo "def: A defines file for required constants."
+    echo "make: Regular make file everywhere else."
 }
 
-# Takes argument 1 as a filename. 
+# Takes argument 1 as a filename.
 function make_file() {
-	if [ "$1" == "def" ]; then
-		cp ~/.my_scripts/templates/Make.defines .
-	elif [ "$1" == "top" ]; then
-		cp ~/.my_scripts/templates/Makefile.top ./Makefile
-	elif [ "$1" == "make" ]; then
-		cp ~/.my_scripts/templates/Makefile .
-	else
-		echo "That type isn't supported. $1"
-		usage
-		exit
-    fi  
+    if [ "$1" == "def" ]; then
+        cp ~/.my_scripts/templates/Make.defines .
+    elif [ "$1" == "top" ]; then
+        cp ~/.my_scripts/templates/Makefile.top ./Makefile
+    elif [ "$1" == "make" ]; then
+        cp ~/.my_scripts/templates/Makefile .
+    else
+        echo "That type isn't supported. $1"
+        usage
+        exit
+    fi
 }
 
 if [ ! -n  $1 ]; then
-	usage
-	exit 
+    usage
+    exit
 fi
 
 if [ -z $1 ]; then
-	usage
-	exit
+    usage
+    exit
 fi
 
 for var in "$@"
