@@ -11,7 +11,7 @@
 " * For color schemes:
 "       https://github.com/flazz/vim-colorschemes
 "       Put colors folder into ~/.vim/
-"       NB: molokai_sjl I use may not be there, use plain molokai if so.
+"       NB: molokai_sjl is just an alias to latest from github.
 "
 "       For molokai latest: https://github.com/tomasr/molokai
 "
@@ -42,7 +42,7 @@
 "       https://github.com/vim-scripts/a.vim
 "
 "   NERDComment Config:
-"       Bunch of comment commands. Mainly , c c to comment line.
+"       Bunch of comment commands. Mainly , c c/i to comment line.
 "       https://github.com/scrooloose/nerdcommenter
 "
 "   Vim-airline Config:
