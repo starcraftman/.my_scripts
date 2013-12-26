@@ -270,6 +270,10 @@ cnoreabbrev tp tabp
 cnoreabbrev te tabe
 cnoreabbrev td tabclose
 
+" I always forget for explore, make some shortcuts. E for v split, tE for tab.
+cnoreabbrev E Sexplore! 
+cnoreabbrev tE Texplore
+
 " Remap Alt + Arrow keys to move between split windows.
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
