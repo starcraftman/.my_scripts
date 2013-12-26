@@ -268,6 +268,7 @@ cnoreabbrev bp bprevious
 cnoreabbrev tn tabn
 cnoreabbrev tp tabp
 cnoreabbrev te tabe
+cnoreabbrev td tabclose
 
 " Remap Alt + Arrow keys to move between split windows.
 nmap <silent> <A-Up> :wincmd k<CR>
