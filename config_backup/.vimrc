@@ -11,7 +11,7 @@
 " * For color schemes:
 "       https://github.com/flazz/vim-colorschemes
 "       Put colors folder into ~/.vim/
-"       NB: molokai_sjl is just an alias to latest from github.
+"       NB: molokai_sjl is just an alias to latest from github..
 "
 "       For molokai latest: https://github.com/tomasr/molokai
 "
@@ -274,7 +274,7 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
-:
+
 " For custom key combos, use leader. See :help <Leader>
 let mapleader = ","
 
@@ -296,6 +296,11 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" Set font when using gui version.
+if has('gui_running')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
