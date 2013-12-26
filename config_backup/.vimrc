@@ -258,7 +258,13 @@ set tm=500
 
 " Customize netrw use a tree style and ignore some extensions.
 let g:netrw_liststyle = 3
-let g:netrw_list_hide = ".git,.sass-cache,.jpg,.png,.svg"
+
+" Bunch of simple extensions to hide in Explore, separate by \| as shown.
+let ext_list1 = 'jpg\|jpeg\|png\|svg\|bmp\|so\|dll\|exe\|o\|a\|pyc\|class'
+let ext_list = ext_list1 . '\|com\|zip\|gz\|bz2\|jar'
+
+" Regex matcher, matches files that start with text followed by period then extension. Also hide .git folders.
+let g:netrw_list_hide = '\w\+\.\(' . ext_list . '\)$,\.git/$'
 
 " Rebinding some commands for managing edits and tabs.
 " For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current..
@@ -271,7 +277,7 @@ cnoreabbrev te tabe
 cnoreabbrev td tabclose
 
 " I always forget for explore, make some shortcuts. E for v split, tE for tab.
-cnoreabbrev E Sexplore! 
+cnoreabbrev E Sexplore!
 cnoreabbrev tE Texplore
 
 " Remap Alt + Arrow keys to move between split windows.
