@@ -9,11 +9,10 @@
 "       http://amix.dk/vim/vimrc.html
 "
 " * For color schemes:
-"       https://github.com/flazz/vim-colorschemes
-"       Put colors folder into ~/.vim/
-"       NB: molokai_sjl is just an alias to latest from github..
-"
+"       Large selection of schemes: https://github.com/flazz/vim-colorschemes
 "       For molokai latest: https://github.com/tomasr/molokai
+"       Put colors folder into ~/.vim/ or use vundle install
+"       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 "
 " * To install the plugins:
 "   Update Vim:
@@ -131,6 +130,10 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
+" Color schemes
+" Bundle 'flazz/vim-colorschemes'
+Bundle 'tomasr/molokai'
+
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
 
@@ -139,8 +142,8 @@ Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
 " Set what chechers are active or passive.
 let g:syntastic_mode_map={ 'mode': 'active',
-                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'sh', 'xml', 'json'],
-                     \ 'passive_filetypes': ['ruby', 'lisp', 'xhtml', 'html', 'css', 'javascript'] }
+                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'ruby', 'sh', 'xml', 'json'],
+                     \ 'passive_filetypes': ['lisp', 'xhtml', 'html', 'css', 'javascript'] }
 
 " Check syntax on file open.
 let g:syntastic_check_on_open = 1
@@ -250,6 +253,9 @@ set mat=1
 " For regular expressions turn magic on
 set magic
 
+" When searching ignore case unless contains a cap. Override with \c|\C to force at end of regexp.
+set smartcase
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -261,10 +267,10 @@ let g:netrw_liststyle = 3
 
 " Bunch of simple extensions to hide in Explore, separate by \| as shown.
 let ext_list1 = 'jpg\|jpeg\|png\|svg\|bmp\|so\|dll\|exe\|o\|a\|pyc\|class'
-let ext_list = ext_list1 . '\|com\|zip\|gz\|bz2\|jar'
+let ext_list = ext_list1 . '\|com\|zip\|gz\|bz2\|jar\|iso\|pdf'
 
 " Regex matcher, matches files that start with text followed by period then extension. Also hide .git folders.
-let g:netrw_list_hide = '\w\+\.\(' . ext_list . '\)$,\.git/$'
+let g:netrw_list_hide = '\w\+\.\(' . ext_list . '\)$\c,\.git/$'
 
 " Rebinding some commands for managing edits and tabs.
 " For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current..
@@ -300,7 +306,7 @@ set t_Co=256 " Required to make molokai work.
 "let g:molokai_original = 1 " Option to molokai theme.
 "let g:rehash256 = 1
 set background=dark
-colorscheme molokai_sjl
+colorscheme molokai
 " Good colorschemes: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
 " Set utf8 as standard encoding and en_US as the standard language
