@@ -275,6 +275,7 @@ for i in exts
     let hide_s .= i . '\|'
 endfor
 
+" Don't leave trailing separator.
 let wild_s = wild_s[:-2]
 let hide_s = hide_s[:-3]
 
@@ -288,7 +289,7 @@ let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)$\c,\.git/$'
 let g:netrw_liststyle = 3
 
 " Rebinding some commands for managing edits and tabs.
-" For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current..
+" For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current.
 " The tab commands attach to current session for easy swapping.
 cnoreabbrev bn bnext
 cnoreabbrev bp bprevious
