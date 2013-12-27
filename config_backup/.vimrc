@@ -239,9 +239,6 @@ set showcmd
 set nu "set left side numbers
 set ruler "set position in bottom right
 
-" Ignore compiled code.
-set wildignore=*.0,*~,*.pyc,*.exe,*.class,*.o,*.so,*.dll,*.com,*.swp,*.bak
-
 " Highlight search results
 set hlsearch
 
@@ -262,15 +259,33 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" This list is used to build the strings for wildignore and netrw_list_hide.
+let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'so', 'dll', 'exe', 'o', 'a']
+let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
+
+" Add to ignore docs.
+"let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
+
+" Build that string.
+let wild_s = ''
+let hide_s = ''
+
+for i in exts
+    let wild_s .= '*.' . i . ','
+    let hide_s .= i . '\|'
+endfor
+
+let wild_s = wild_s[:-2]
+let hide_s = hide_s[:-3]
+
+" When using autocomplete tab, ignore all matching strings.
+let &wildignore = wild_s
+
+" When browsing with netrw, ignore all matching files to this regex.
+let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)$\c,\.git/$'
+
 " Customize netrw use a tree style and ignore some extensions.
 let g:netrw_liststyle = 3
-
-" Bunch of simple extensions to hide in Explore, separate by \| as shown.
-let ext_list1 = 'jpg\|jpeg\|png\|svg\|bmp\|so\|dll\|exe\|o\|a\|pyc\|class'
-let ext_list = ext_list1 . '\|com\|zip\|gz\|bz2\|jar\|iso\|pdf'
-
-" Regex matcher, matches files that start with text followed by period then extension. Also hide .git folders.
-let g:netrw_list_hide = '\w\+\.\(' . ext_list . '\)$\c,\.git/$'
 
 " Rebinding some commands for managing edits and tabs.
 " For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current..
