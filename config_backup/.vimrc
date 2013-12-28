@@ -164,8 +164,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 " Manually set important checkers:
-let g:syntastic_python_checkers=['python', 'pep8', 'pylint']
-let g:syntastic_perl_checkers=['perl', 'perlcritic']
+let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
+let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 
 " Always delete trailing whitespace from lines on save.
 "let g:DeleteTrailingWhitespace = 1
