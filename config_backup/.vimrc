@@ -130,6 +130,9 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
+" Plugin to modify the bash shell, entirely optional. In dev, look at later.
+" Bundle 'edkolev/promptline.vim'
+
 " Color schemes
 " Bundle 'flazz/vim-colorschemes'
 Bundle 'tomasr/molokai'
@@ -261,7 +264,7 @@ set tm=500
 
 " This list is used to build the strings for wildignore and netrw_list_hide.
 let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'so', 'dll', 'exe', 'o', 'a']
-let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
+let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'pdf']
 
 " Add to ignore docs.
 "let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
