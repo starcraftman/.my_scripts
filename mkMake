@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function usage() {
+ usage() {
     echo "Usage: ${0##*/} <type> <type> ..."
     echo "The <type> can be of the following:"
     echo "top: Top level make file, for subdirectories."
@@ -9,12 +9,12 @@ function usage() {
 }
 
 # Takes argument 1 as a filename.
-function make_file() {
-    if [ "$1" == "def" ]; then
+ make_file() {
+    if [ "$1" = "def" ]; then
         cp ~/.my_scripts/templates/Make.defines .
-    elif [ "$1" == "top" ]; then
+    elif [ "$1" = "top" ]; then
         cp ~/.my_scripts/templates/Makefile.top ./Makefile
-    elif [ "$1" == "make" ]; then
+    elif [ "$1" = "make" ]; then
         cp ~/.my_scripts/templates/Makefile .
     else
         echo "That type isn't supported. $1"
