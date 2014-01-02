@@ -263,8 +263,8 @@ set t_vb=
 set tm=500
 
 " This list is used to build the strings for wildignore and netrw_list_hide.
-let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'so', 'dll', 'exe', 'o', 'a']
-let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'pdf']
+let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'so', 'dll', 'exe', 'o', 'a']
+let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'deb', 'pdf']
 
 " Add to ignore docs.
 "let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
