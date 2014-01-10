@@ -1,0 +1,15 @@
+List of plugins for eclipse that I use.
+
+Languages:
+    Perl - http://e-p-i-c.sf.net/updates/testing
+    pyDev - http://pydev.org/updates
+    Haskell - http://eclipsefp.sf.net/updates
+    Eclox (doxygen) - http://download.gna.org/eclox/update
+
+UI:
+    AnyEdit - http://andrei.gmxhome.de/eclipse/
+    Color Plugin - http://eclipse-color-theme.github.com/update/
+
+Experimental:
+    DarkTheme - https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite
+
