@@ -29,7 +29,8 @@
 "       After install see YCM page for further compilation.
 "
 "   YCM Config:
-"       Very good autocomplete, steep setup.
+"       Very good autocomplete, you need to compile with clang for c completion functions. 
+"       Info at url below or use ycm_compile.py in my repo (assumes default repo).
 "       https://github.com/Valloric/YouCompleteMe
 "
 "   Syntastic Config:
@@ -129,9 +130,6 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
-
-" Plugin to modify the bash shell, entirely optional. In dev, look at later.
-" Bundle 'edkolev/promptline.vim'
 
 " Color schemes
 " Bundle 'flazz/vim-colorschemes'
