@@ -62,3 +62,4 @@ if __name__ == '__main__':
 
     os.chdir('..')
     shutil.rmtree(B_DIR)
+    shutil.rmtree(CLANG_DIR)
