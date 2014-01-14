@@ -14,6 +14,11 @@ ycm_compile.py
 --------------
 * See my vim directory, this helper function compiles ycm for use.
 * YCM requires other things, see vimrc for details.
+
+repo
+----
+* Bash script to simply repeat a git command over several git repos.
+* Useful for when you have many and want to pull without fear or get status.
   
 eclipseBackup
 --------------
@@ -27,3 +32,7 @@ vim_and_bash_config
 * .vim folder has some stuff I don't download with vundle like colors, ftplugin custom files and such.
 * .bash_aliases some cool PS1 hacks for git/hg and other assorted bash conveniences.
 
+archive
+-------
+* Old templating source before rewrote it in python.
+* Some scripts to manage mpi programs on the university cluster.
