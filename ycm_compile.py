@@ -26,7 +26,7 @@ B_DIR = 'build'
 
 def check_clang():
     """ Check if we have clang, else retrieve it. """
-    ext_index = CLANG_FILE.rindex(".tar")]
+    ext_index = CLANG_FILE.rindex(".tar")
     file_no_ext = CLANG_FILE[0:ext_index]
     list_dir = os.listdir()
 
