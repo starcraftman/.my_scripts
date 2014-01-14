@@ -15,7 +15,7 @@ import tarfile
 # Data
 CLANG_SITE = 'http://llvm.org/releases/3.4/'
 CLANG_FILE = 'clang+llvm-3.4-x86_64-linux-gnu-ubuntu-13.10.tar.xz'
-CLANG_URL = "{}{}".format(CLANG_SITE, CLANG_FILE)
+CLANG_URL = '{}{}'.format(CLANG_SITE, CLANG_FILE)
 CLANG_DIR = 'clang'
 B_DIR = 'build'
 
@@ -26,7 +26,7 @@ B_DIR = 'build'
 
 def check_clang():
     """ Check if we have clang, else retrieve it. """
-    ext_index = CLANG_FILE.rindex(".tar")
+    ext_index = CLANG_FILE.rindex('.tar')
     file_no_ext = CLANG_FILE[0:ext_index]
     list_dir = os.listdir()
 
@@ -35,9 +35,9 @@ def check_clang():
         return
 
     if CLANG_FILE not in list_dir:
-        print("Please wait, downloading clang.")
+        print('Please wait, downloading clang.')
         urllib.request.urlretrieve(CLANG_URL, CLANG_FILE)
-        print("Finished download.")
+        print('Finished download.')
 
     if file_no_ext in list_dir:
         shutil.rmtree(file_no_ext)
