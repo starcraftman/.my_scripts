@@ -13,11 +13,11 @@ import urllib.request
 import tarfile
 
 # Data
-B_DIR = 'build'
 CLANG_SITE = 'http://llvm.org/releases/3.4/'
 CLANG_FILE = 'clang+llvm-3.4-x86_64-linux-gnu-ubuntu-13.10.tar.xz'
 CLANG_URL = "{}{}".format(CLANG_SITE, CLANG_FILE)
 CLANG_DIR = 'clang'
+B_DIR = 'build'
 
 # Classes
 
@@ -26,9 +26,11 @@ CLANG_DIR = 'clang'
 
 def check_clang():
     """ Check if we have clang, else retrieve it. """
-    file_no_ext = CLANG_FILE[0:CLANG_FILE.rindex(".tar")]
+    ext_index = CLANG_FILE.rindex(".tar")]
+    file_no_ext = CLANG_FILE[0:ext_index]
     list_dir = os.listdir()
 
+    # Protection if clang dir exists.
     if CLANG_DIR in list_dir:
         return
 
@@ -42,11 +44,12 @@ def check_clang():
 
     tar_file = tarfile.open(CLANG_FILE, 'r')
     tar_file.extractall()
-    os.rename(file_no_ext, CLANG_DIR)
     os.remove(CLANG_FILE)
+    os.rename(file_no_ext, CLANG_DIR)
 
 # Main
 if __name__ == '__main__':
+    # Protection in case build exists prior.
     if B_DIR in os.listdir():
         shutil.rmtree(B_DIR)
 
