@@ -1,10 +1,10 @@
-#Fri Jan 10 15:51:33 EST 2014
+#Tue Jan 14 08:06:33 EST 2014
 /instance/org.eclipse.jdt.ui/semanticHighlighting.typeParameter.enabled=true
 /instance/com.powerflasher.fdt.ui/AS_RETURN_color_italic=true
 /instance/com.adobe.flexide.as.core/asASDocColor=\#CCDF32
 /instance/org.eclipse.jdt.ui/semanticHighlighting.inheritedMethodInvocation.color=190,214,255
 /instance/com.powerflasher.fdt.ui/CHARACTER_color_italic=true
-/instance/org.epic.perleditor/labelColor=208,208,208
+/instance/org.epic.perleditor/labelColor=165,42,42
 /instance/org.eclipse.jdt.ui/semanticHighlighting.abstractMethodInvocation.enabled=true
 /instance/ccw.core/ccw.preferences.editor_color.callableSPECIAL_FORM.enabled=true
 @org.python.pydev=3.2.0.201312292215
@@ -13,13 +13,14 @@
 /instance/com.adobe.flexide.as.core/asTraceBold=false
 /instance/com.powerflasher.fdt.ui/JAVADOC_TAG_color_bold=true
 /instance/ccw.core/ccw.preferences.editor_color.JAVA_INSTANCE_METHOD=255,128,128
-/instance/org.eclipse.team.core/file_types=xls\n2\ncom\n2\nxtpl\n1\ntif\n2\njpeg\n2\npdf\n2\nemof\n1\nlucius\n1\nlhs\n1\njpage\n1\ncproject\n1\nMF\n1\ncxx\n1\njar\n2\napi_filters\n1\nfactorypath\n1\nhpp\n1\nhtm\n1\ntiff\n2\nindex\n1\ncpp\n1\nso\n2\ncvsignore\n1\nxmi\n1\nclass\n2\nxml\n1\nproperties\n1\nppt\n2\nini\n1\nclasspath\n1\nbmp\n2\nproject\n1\njardesc\n1\npl\n1\npm\n1\ndll\n2\necore\n1\ngif\n2\nexe\n2\ncc\n1\ncdtbuild\n1\nhs\n1\nhp\n1\ncassius\n1\nexsd\n1\nlaunch\n1\nico\n2\npyx\n1\nhh\n1\nhamlet\n1\npyw\n1\ntxt\n1\nprefs\n1\nmxsd\n1\njulius\n1\noptions\n1\nxsl\n1\nzip\n2\nc\n1\na\n2\no\n2\nh\n1\nhistory\n1\njpg\n2\nproduct\n1\npng\n2\npy\n1\ndoc\n2\ntpl\n1\nhtml\n1\njava\n1\nag\n1\ny\n1\nx\n1\n
+/instance/org.eclipse.team.core/file_types=xls\n2\ncom\n2\njpeg\n2\ntif\n2\nxtpl\n1\npdf\n2\nemof\n1\nlucius\n1\nlhs\n1\njpage\n1\nMF\n1\ncproject\n1\ncxx\n1\njar\n2\napi_filters\n1\nfactorypath\n1\nhtm\n1\nhpp\n1\ntiff\n2\nindex\n1\ncpp\n1\nso\n2\ncvsignore\n1\nclass\n2\nxmi\n1\nxml\n1\nproperties\n1\nini\n1\nppt\n2\nclasspath\n1\nbmp\n2\nproject\n1\njardesc\n1\npl\n1\npm\n1\ndll\n2\necore\n1\ncc\n1\nexe\n2\ngif\n2\ncdtbuild\n1\nhs\n1\nhp\n1\ncassius\n1\nexsd\n1\nlaunch\n1\nico\n2\npyx\n1\nhh\n1\npyw\n1\nhamlet\n1\ntxt\n1\nprefs\n1\nmxsd\n1\njulius\n1\noptions\n1\nzip\n2\nxsl\n1\nc\n1\na\n2\no\n2\nh\n1\nproduct\n1\njpg\n2\nhistory\n1\npy\n1\npng\n2\ntpl\n1\ndoc\n2\njava\n1\nhtml\n1\nag\n1\ny\n1\nx\n1\n
 /instance/org.eclipse.ant.ui/useAnnotationsPrefPage=true
 /instance/com.powerflasher.fdt.ui/AS_PROTECTED_color_strikethrough=false
 /instance/com.powerflasher.fdt.ui/SINGLELINE_COMMENT_color_strikethrough=false
 /instance/org.cfeclipse.cfml/defaultTextColor=208,208,208
 /instance/org.eclipse.ui.editors/spacesForTabs=true
 /instance/org.eclipse.cdt.ui/asm_label=208,208,208
+/instance/org.epic.perleditor/invalidColorItalic=true
 /instance/org.eclipse.jdt.ui/semanticHighlighting.localVariableDeclaration.enabled=true
 /instance/com.powerflasher.fdt.ui/AS_DEFAULT_color=208,208,208
 /instance/ccw.core/ccw.preferences.editor_color.char.bold=false
@@ -38,7 +39,7 @@
 /instance/org.eclipse.jdt.ui/sp_cleanup.remove_unnecessary_casts=true
 /instance/ccw.core/ccw.preferences.editor_color.MACRO.enabled=true
 /instance/org.eclipse.jdt.ui/matchingBracketsColor=255,255,0
-/instance/org.eclipse.cdt.ui/inactiveCodeColor=165,42,42
+/instance/org.eclipse.cdt.ui/inactiveCodeColor=86,41,41
 /instance/org.eclipse.dltk.tcl.ui/DLTK_keyword=0,208,208
 /instance/de.walware.statet.r.ui/text_R_rAssignment.Equalsign.color=208,208,208
 /instance/org.eclipse.dltk.tcl.ui/content_assist_completion_replacement_background=16,16,32
@@ -79,7 +80,6 @@
 /instance/org.scala-ide.sdt.core/syntaxColoring.semantic.methodParam.color=121,171,255
 /instance/org.eclipse.jdt.ui/content_assist_number_of_computers=13
 /instance/de.walware.statet.r.ui/text_Rd_taskTag.italic=false
-/instance/org.eclipse.ui/USE_COLORED_LABELS=false
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.number.color=255,255,0
 /instance/org.eclipse.cdt.ui/org.eclipse.cdt.internal.ui.text.doctools.single=204,223,50
 /instance/org.cfeclipse.cfml/htmFormTagColor=121,171,255
@@ -105,6 +105,7 @@
 /instance/org.eclipse.wst.jsdt.ui/semanticHighlighting.methodDeclarationName.color=190,214,255
 /instance/com.adobe.flexide.css.core/cssStringUnderline=false
 /instance/org.eclipse.wst.html.ui/commentBorder=\#00E000 | \#101020 | null | null | null | null
+/instance/org.epic.perleditor/moduleStarterLocation=/usr/bin/module-starter
 /instance/com.adobe.flexide.mxml.core/mxmlTextColor=\#D0D0D0
 /instance/org.eclipse.jdt.ui/java_doc_tag=139,105,20
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.mxml.mxmlHighlightGenerator.AS3.MXMLApplicationTag_enabled=true
@@ -147,6 +148,7 @@
 /instance/org.eclipse.cdt.ui/pp_header=220,120,220
 /instance/org.eclipse.wst.dtd.ui/dtdKeyword=\#00D0D0 | \#101020 | null | null | null | null
 @org.eclipse.pde.ui=3.8.0.v20130515-1659
+/instance/de.loskutov.anyedit.AnyEditTools/org.eclipse.jdt.ui.editor.tab.width=4
 /instance/org.eclipse.dltk.ruby.ui/variable.pseudo_strikethrough=false
 /instance/org.eclipse.jdt.ui/sp_cleanup.make_private_fields_final=true
 /instance/org.eclipse.cdt.make.ui/org.eclipse.cdt.make.ui.editor.function=208,208,208
@@ -180,7 +182,6 @@
 /instance/ccw.core/ccw.preferences.editor_color.GLOBAL_VAR=239,192,144
 /instance/com.adobe.flexide.css.core/cssMediaItalic=true
 /instance/ccw.core/ccw.preferences.editor_color.float.bold=false
-/instance/org.eclipse.search/org.eclipse.search.defaultPerspective=org.eclipse.search.defaultPerspective.none
 /instance/com.powerflasher.fdt.ui/JAVADOC_TAG_color=217,229,119
 /instance/org.eclipse.php.ui/codeStyleNormal=\#D0D0D0 | \#101020 | null | null | null | null
 /instance/org.eclipse.dltk.ruby.ui/DLTK_string.regexp_underline=false
@@ -228,12 +229,13 @@
 /instance/ccw.core/ccw.preferences.editor_color.meta=255,255,255
 /instance/org.eclipse.php.ui/semanticHighlighting.org.eclipse.php.internal.ui.editor.highlighters.ConstantHighlighting.color=\#EFC090
 /instance/ccw.core/ccw.preferences.editor_color.FUNCTION=208,208,208
-/instance/org.eclipse.ui.ide/platformState=1378725052345
+/instance/org.eclipse.ui.ide/platformState=1378725052367
 /instance/org.eclipse.jdt.ui/useQuickDiffPrefPage=true
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.staticField.color=239,192,144
 /instance/org.eclipse.dltk.ruby.ui/DLTK_string.regexp_strikethrough=false
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.mxml.mxmlHighlightGenerator.AS3.MXMLComment_enabled=true
 /instance/org.eclipse.xtend.core.Xtend/AbstractTextEditor.Color.Background=16,16,32
+@org.eclipse.ui.browser=3.4.100.v20130527-1656
 /instance/org.eclipse.jdt.ui/semanticHighlighting.typeParameter.color=191,164,164
 /instance/org.erlide.ui/editor/colors/atom/color=208,208,208
 /instance/ccw.core/ccw.preferences.editor_color.FUNCTION.bold=false
@@ -254,6 +256,7 @@
 /instance/org.scala-ide.sdt.core/syntaxColoring.semantic.templateVar.color=190,214,255
 /instance/com.adobe.flexide.css.core/cssImportStrikethrough=false
 /instance/org.eclipse.e4.CSS/org.eclipse.e4.CSS.syntaxColorer.tokenStyles.ClassID.color=208,208,208
+/instance/org.eclipse.cdt.core/org.eclipse.cdt.core.indexDBCacheSizePct=20
 /instance/org.eclipse.wst.xml.ui/doctypeExternalId=\#D0D0D0 | \#101020 | null | null | null | null
 /instance/org.eclipse.jdt.ui/sp_cleanup.use_parentheses_in_expressions=false
 /instance/org.eclipse.dltk.ruby.ui/DLTK_number_bold=false
@@ -347,6 +350,7 @@
 /instance/ccw.core/ccw.preferences.editor_color.literalSymbol.bold=false
 /instance/org.eclipse.cdt.ui/semanticHighlighting.localVariableDeclaration.enabled=true
 /instance/ccw.core/ccw.preferences.editor_color.comment.enabled=true
+@de.loskutov.anyedit.AnyEditTools=2.4.5.201312221551
 /instance/org.eclipse.cdt.ui/org.eclipse.cdt.internal.ui.text.doctools.recognizedTag=217,229,119
 /instance/de.walware.statet.r.ui/text_Rd_rdComment.strikethrough=false
 /instance/org.eclipse.dltk.ruby.ui/DLTK_number=255,255,0
@@ -380,11 +384,13 @@
 /instance/org.eclipse.jdt.ui/semanticHighlighting.deprecatedMember.enabled=true
 /instance/org.eclipse.ant.ui/org.eclipse.ant.ui.processingInstructionsColor=208,208,208
 /instance/com.adobe.flexide.css.core/cssFontFaceStrikethrough=false
+/instance/org.eclipse.ui.ide/TASKS_FILTERS_MIGRATE=true
 /instance/org.python.pydev/PARENS_COLOR=208,208,208
 /instance/org.eclipse.wst.css.ui/MEDIA=\#00D0D0 | \#101020 | null | null | null | null
 /instance/org.scala-ide.sdt.core/syntaxColoring.bracket.color=208,208,208
 /instance/ccw.core/ccw.preferences.editor_color.float.italic=false
-/instance/org.eclipse.cdt.core/indexer/indexOnOpen=false
+/instance/org.epic.perleditor/sourceCriticLocation=/usr/bin/perlcritic
+/instance/org.eclipse.cdt.core/indexer/indexOnOpen=true
 /instance/net.sourceforge.texlipse/verb.TexColor=190,214,255
 /instance/org.eclipse.cdt.ui/semanticHighlighting.function.bold=false
 @org.eclipse.egit.core=3.0.3.201309161630-r
@@ -418,6 +424,7 @@
 /instance/org.eclipse.help.base/window_infopop=false
 /instance/org.eclipse.php.ui/editorColorString=\#DC78DC | \#101020 | null | null | null | null
 @org.eclipse.e4.ui.css.swt.theme=0.9.100.v20130515-1857
+/instance/org.epic.perleditor/sourceCriticJobEnabled=true
 /instance/com.adobe.flexide.css.core/cssStringColor=\#DC78DC
 /instance/org.eclipse.dltk.tcl.ui/DLTK_comment_task_tag=0,255,0
 /instance/org.eclipse.dltk.ruby.ui/DLTK_doc=204,223,50
@@ -447,6 +454,7 @@
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.AS3SemanticHighlightGenerator.AS3.RegEx_enabled=true
 /instance/net.sourceforge.texlipse/str.BibColor=220,120,220
 /instance/com.adobe.flexide.css.core/cssMediaColor=\#00D0D0
+/instance/org.eclipse.cdt.core/useStructualParseMode=true
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.mxml.mxmlHighlightGenerator.AS3.MXMLModuleTag_color=190,214,255
 /instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 /instance/org.eclipse.dltk.ruby.ui/DLTK_doc.topic_bold=true
@@ -531,6 +539,7 @@
 /instance/org.eclipse.jdt.core/org.eclipse.jdt.core.codeComplete.argumentPrefixes=
 /instance/com.powerflasher.fdt.ui/JAVADOC_color_italic=true
 /instance/com.adobe.flexide.css.core/cssImportColor=\#00D0D0
+/instance/org.eclipse.cdt.core/org.eclipse.cdt.core.codeReaderCache=256
 /instance/winterwell.markdown/Pref_Link=217,229,119
 /instance/org.epic.perleditor/AbstractTextEditor.Color.Foreground=208,208,208
 /instance/org.eclipse.ui.editors/occurrenceHighlighting=false
@@ -551,6 +560,7 @@
 /instance/org.eclipse.cdt.ui/c_keyword=0,208,208
 /instance/com.powerflasher.fdt.ui/AS_INTERNAL_color_underline=false
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.documentation.color=204,223,50
+/instance/org.eclipse.cdt.core.prj-cirrus/indexer/preferenceScope=0
 /instance/org.eclipse.dltk.tcl.ui/DLTK_number=255,255,0
 /instance/org.eclipse.cdt.ui/semanticHighlighting.functionDeclaration.color=190,214,255
 /instance/com.powerflasher.fdt.ui/AS_KEYWORD_color_strikethrough=false
@@ -580,7 +590,7 @@
 /instance/org.python.pydev/KEYWORD_STYLE=0
 /instance/org.scala-ide.sdt.core/syntaxColoring.xml.attributeName.color=0,208,208
 /instance/org.eclipse.dltk.ruby.ui/variable.pseudo=121,171,255
-/instance/org.epic.perleditor/keyword2Color=208,208,208
+/instance/org.epic.perleditor/keyword2Color=255,165,0
 /instance/org.eclipse.cdt.ui/semanticHighlighting.typedef.enabled=true
 /instance/org.eclipse.ui.editors/pydevOccurrenceIndication=true
 /instance/org.eclipse.ui.workbench/org.eclipse.jface.textfont=1|DejaVu Sans Mono|8.0|0|GTK|1|;
@@ -588,6 +598,7 @@
 @org.eclipse.ui=3.105.0.v20130522-1122
 /instance/org.eclipse.e4.CSS/org.eclipse.e4.CSS.syntaxColorer.tokenStyles.keyword.bgColor=\#101020
 /instance/org.eclipse.php.ui/editorColorTask=\#00FF00 | \#101020 | null | null | null | null
+/instance/org.eclipse.ui.browser/browsers=<?xml version\="1.0" encoding\="UTF-8"?>\n<web-browsers current\="0">\n<system/>\n<external location\="/usr/bin/firefox" name\="Firefox"/>\n</web-browsers>
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.BasicSemanticHighlightGenerator.AS3.StaticFunction_enabled=true
 /instance/com.spket.js/java_doc_default=204,223,50
 /instance/eclihx.ui/hx_editor_string_color=220,120,220
@@ -649,7 +660,7 @@
 /instance/org.eclipse.cdt.ui/c_single_line_comment=0,224,0
 /instance/org.eclipse.jdt.ui/sp_cleanup.remove_unused_private_types=true
 /instance/org.python.pydev/STRING_STYLE=0
-/instance/org.eclipse.egit.core/GitRepositoriesView.GitDirectories=/home/starcraftman/programming/JavaWork/.git\:
+/instance/org.eclipse.egit.core/GitRepositoriesView.GitDirectories=/home/starcraftman/programming/OldStuff/.git\:/home/starcraftman/programming/JavaWork/.git\:
 /instance/org.eclipse.ui.ide/EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false
 /instance/org.eclipse.dltk.ruby.ui/variable=121,171,255
 /instance/com.powerflasher.fdt.ui/JAVADOC_KEYWORD_color_underline=false
@@ -667,8 +678,8 @@
 /instance/org.scala-ide.sdt.core/syntaxColouring.xml.cdata.colour=0,224,0
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.mxml.mxmlHighlightGenerator.AS3.MXMLString_color=220,120,220
 /instance/org.cfeclipse.cfml/javascriptColor=208,208,208
-/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariable.color=121,171,255
 /instance/org.eclipse.pde.ui/editor.color.default=208,208,208
+/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariable.color=121,171,255
 /instance/de.walware.statet.r.ui/text_Rd_rdComment.bold=false
 /instance/com.spket.xml/xml_comments=0,224,0
 /instance/org.scala-ide.sdt.core/syntaxColoring.xml.attributeValue.color=220,120,220
@@ -769,9 +780,11 @@
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.abstractMethodInvocation.color=190,214,255
 /instance/org.scala-ide.sdt.core/syntaxColouring.semantic.object.colour=255,255,255
 /instance/org.eclipse.jdt.ui/semanticHighlighting.parameterVariable.color=121,171,255
+/instance/org.eclipse.cdt.ui/semanticHighlighting.externalSDK.underline=true
 /instance/de.walware.statet.r.ui/text_R_taskTag.color=0,255,0
 /instance/org.python.pydev/KEYWORD_COLOR=0,208,208
 /instance/com.adobe.flexide.css.core/cssCommentBold=false
+/instance/org.eclipse.cdt.core/org.eclipse.cdt.core.maxIndexDBCacheSizeMB=256
 /instance/ccw.core/ccw.preferences.editor_color.GLOBAL_VAR.bold=false
 /instance/org.eclipse.dltk.tcl.ui/DLTK_keyword_return_underline=false
 /instance/com.dubture.twig.ui/codeStyleNormal=\#D0D0D0 | \#101020 | null | null | null | null
@@ -807,6 +820,7 @@
 /instance/org.eclipse.jdt.ui/content_assist_parameters_background=0,0,0
 /instance/org.cfeclipse.cfml/cfscriptfunctionColor=208,208,208
 /instance/org.python.pydev/OPERATORS_COLOR=208,208,208
+/instance/org.eclipse.ui.ide/IMPORT_FILES_AND_FOLDERS_MODE=prompt
 /instance/eclihx.ui/hx_editor_haxe_doc_color=204,223,50
 /instance/com.adobe.flexide.mxml.core/asASDocBold=false
 /instance/org.dadacoalition.yedit/colorFlowCharacterPreferences=208,208,208
@@ -854,7 +868,7 @@
 /instance/org.eclipse.jdt.ui/content_assist_parameters_foreground=255,255,255
 /instance/org.eclipse.ui.editors/org.eclipse.cdt.ui.occurrenceIndicationColor=255,255,0
 /instance/org.eclipse.jst.jsp.ui/commentText=\#00E000 | \#101020 | null | null | null | null
-/instance/org.eclipse.ui.editors/currentLineColor=32,32,48
+/instance/org.eclipse.ui.editors/currentLineColor=46,46,101
 /instance/org.eclipse.dltk.tcl.ui/DLTK_default=208,208,208
 /instance/org.eclipse.jdt.ui/sp_cleanup.always_use_parentheses_in_expressions=false
 /instance/ccw.core/ccw.preferences.editor_color.RAW_SYMBOL.italic=false
@@ -908,6 +922,7 @@
 /instance/org.eclipse.ant.ui/org.eclipse.ant.ui.constantStringsColor=220,120,220
 /instance/org.eclipse.ui.workbench/RUN_IN_BACKGROUND=true
 /instance/net.sf.eclipsefp.haskell.ui/charColor=220,120,220
+/instance/org.epic.perleditor/spacesInsteadOfTabs=true
 /instance/org.eclipse.cdt.ui/c_type_bold=false
 /instance/de.walware.statet.r.ui/text_R_rUndefined.bold=false
 /instance/org.codehaus.groovy.eclipse.ui/groovy.editor.highlight.javakeywords.color=0,208,208
@@ -1017,6 +1032,7 @@
 /instance/org.scala-ide.sdt.core/syntaxColoring.numberLiteral.color=255,255,0
 /instance/org.eclipse.e4.CSS/org.eclipse.e4.CSS.syntaxColorer.tokenStyles.string.color=220,120,220
 /instance/org.eclipse.dltk.ruby.ui/DLTK_keyword_return_strikethrough=false
+/instance/org.eclipse.ui.ide/IMPORT_FILES_AND_FOLDERS_VIRTUAL_FOLDER_MODE=prompt
 /instance/org.eclipse.debug.ui/preferredDetailPanes=DefaultDetailPane\:DefaultDetailPane|
 /instance/com.adobe.flexide.mxml.core/mxmlTagColor=\#79ABFF
 /instance/org.eclipse.jst.jsp.ui/commentBorder=\#00E000 | \#101020 | null | null | null | null
@@ -1067,7 +1083,7 @@
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.localVariable.enabled=true
 /instance/com.adobe.flexide.as.core/asCommentStrikethrough=false
 /instance/org.scala-ide.sdt.core/syntaxColouring.semantic.lazyTemplateVal.colour=190,214,255
-/instance/org.python.pydev/INTERPRETER_PATH_NEW=<xml>\n<name>python</name>\n<version>3.3</version>\n<executable>/usr/bin/python3.3</executable>\n<lib>/usr/lib/python3.3</lib>\n<lib>/usr/lib/python3.3/plat-x86_64-linux-gnu</lib>\n<lib>/usr/lib/python3.3/lib-dynload</lib>\n<lib>/home/starcraftman/.local/lib/python3.3/site-packages</lib>\n<lib>/usr/local/lib/python3.3/dist-packages</lib>\n<lib>/usr/lib/python3/dist-packages</lib>\n<forced_lib>Image</forced_lib>\n<forced_lib>OpenGL</forced_lib>\n<forced_lib>_ast</forced_lib>\n<forced_lib>_bisect</forced_lib>\n<forced_lib>_bytesio</forced_lib>\n<forced_lib>_codecs</forced_lib>\n<forced_lib>_codecs_cn</forced_lib>\n<forced_lib>_codecs_hk</forced_lib>\n<forced_lib>_codecs_iso2022</forced_lib>\n<forced_lib>_codecs_jp</forced_lib>\n<forced_lib>_codecs_kr</forced_lib>\n<forced_lib>_codecs_tw</forced_lib>\n<forced_lib>_collections</forced_lib>\n<forced_lib>_csv</forced_lib>\n<forced_lib>_datetime</forced_lib>\n<forced_lib>_elementtree</forced_lib>\n<forced_lib>_fileio</forced_lib>\n<forced_lib>_functools</forced_lib>\n<forced_lib>_heapq</forced_lib>\n<forced_lib>_hotshot</forced_lib>\n<forced_lib>_imp</forced_lib>\n<forced_lib>_io</forced_lib>\n<forced_lib>_json</forced_lib>\n<forced_lib>_locale</forced_lib>\n<forced_lib>_lsprof</forced_lib>\n<forced_lib>_md5</forced_lib>\n<forced_lib>_multibytecodec</forced_lib>\n<forced_lib>_pickle</forced_lib>\n<forced_lib>_posixsubprocess</forced_lib>\n<forced_lib>_random</forced_lib>\n<forced_lib>_sha</forced_lib>\n<forced_lib>_sha1</forced_lib>\n<forced_lib>_sha256</forced_lib>\n<forced_lib>_sha512</forced_lib>\n<forced_lib>_socket</forced_lib>\n<forced_lib>_sre</forced_lib>\n<forced_lib>_string</forced_lib>\n<forced_lib>_struct</forced_lib>\n<forced_lib>_subprocess</forced_lib>\n<forced_lib>_symtable</forced_lib>\n<forced_lib>_thread</forced_lib>\n<forced_lib>_warnings</forced_lib>\n<forced_lib>_weakref</forced_lib>\n<forced_lib>_winreg</forced_lib>\n<forced_lib>array</forced_lib>\n<forced_lib>atexit</forced_lib>\n<forced_lib>audioop</forced_lib>\n<forced_lib>binascii</forced_lib>\n<forced_lib>builtins</forced_lib>\n<forced_lib>cPickle</forced_lib>\n<forced_lib>cStringIO</forced_lib>\n<forced_lib>cmath</forced_lib>\n<forced_lib>datetime</forced_lib>\n<forced_lib>email</forced_lib>\n<forced_lib>errno</forced_lib>\n<forced_lib>exceptions</forced_lib>\n<forced_lib>faulthandler</forced_lib>\n<forced_lib>fcntl</forced_lib>\n<forced_lib>future_builtins</forced_lib>\n<forced_lib>gc</forced_lib>\n<forced_lib>grp</forced_lib>\n<forced_lib>hashlib</forced_lib>\n<forced_lib>imageop</forced_lib>\n<forced_lib>imp</forced_lib>\n<forced_lib>itertools</forced_lib>\n<forced_lib>marshal</forced_lib>\n<forced_lib>math</forced_lib>\n<forced_lib>mmap</forced_lib>\n<forced_lib>msvcrt</forced_lib>\n<forced_lib>nose</forced_lib>\n<forced_lib>nose.tools</forced_lib>\n<forced_lib>nt</forced_lib>\n<forced_lib>numpy</forced_lib>\n<forced_lib>operator</forced_lib>\n<forced_lib>os</forced_lib>\n<forced_lib>os.path</forced_lib>\n<forced_lib>parser</forced_lib>\n<forced_lib>posix</forced_lib>\n<forced_lib>pwd</forced_lib>\n<forced_lib>pyexpat</forced_lib>\n<forced_lib>pytest</forced_lib>\n<forced_lib>scipy</forced_lib>\n<forced_lib>select</forced_lib>\n<forced_lib>signal</forced_lib>\n<forced_lib>socket</forced_lib>\n<forced_lib>spwd</forced_lib>\n<forced_lib>strop</forced_lib>\n<forced_lib>sys</forced_lib>\n<forced_lib>syslog</forced_lib>\n<forced_lib>thread</forced_lib>\n<forced_lib>time</forced_lib>\n<forced_lib>unicodedata</forced_lib>\n<forced_lib>werkzeug</forced_lib>\n<forced_lib>wx</forced_lib>\n<forced_lib>wxPython</forced_lib>\n<forced_lib>xxsubtype</forced_lib>\n<forced_lib>zipimport</forced_lib>\n<forced_lib>zlib</forced_lib>\n</xml>&&&&&
+/instance/org.python.pydev/INTERPRETER_PATH_NEW=<xml>\n<name>python</name>\n<version>3.3</version>\n<executable>/usr/bin/python3.3</executable>\n<lib>/usr/lib/python3.3</lib>\n<lib>/usr/lib/python3.3/plat-x86_64-linux-gnu</lib>\n<lib>/usr/lib/python3.3/lib-dynload</lib>\n<lib>/home/starcraftman/.local/lib/python3.3/site-packages</lib>\n<lib>/usr/local/lib/python3.3/dist-packages</lib>\n<lib>/usr/lib/python3/dist-packages</lib>\n<forced_lib>Image</forced_lib>\n<forced_lib>OpenGL</forced_lib>\n<forced_lib>_ast</forced_lib>\n<forced_lib>_bisect</forced_lib>\n<forced_lib>_bytesio</forced_lib>\n<forced_lib>_codecs</forced_lib>\n<forced_lib>_codecs_cn</forced_lib>\n<forced_lib>_codecs_hk</forced_lib>\n<forced_lib>_codecs_iso2022</forced_lib>\n<forced_lib>_codecs_jp</forced_lib>\n<forced_lib>_codecs_kr</forced_lib>\n<forced_lib>_codecs_tw</forced_lib>\n<forced_lib>_collections</forced_lib>\n<forced_lib>_csv</forced_lib>\n<forced_lib>_datetime</forced_lib>\n<forced_lib>_elementtree</forced_lib>\n<forced_lib>_fileio</forced_lib>\n<forced_lib>_functools</forced_lib>\n<forced_lib>_heapq</forced_lib>\n<forced_lib>_hotshot</forced_lib>\n<forced_lib>_imp</forced_lib>\n<forced_lib>_io</forced_lib>\n<forced_lib>_json</forced_lib>\n<forced_lib>_locale</forced_lib>\n<forced_lib>_lsprof</forced_lib>\n<forced_lib>_md5</forced_lib>\n<forced_lib>_multibytecodec</forced_lib>\n<forced_lib>_pickle</forced_lib>\n<forced_lib>_posixsubprocess</forced_lib>\n<forced_lib>_random</forced_lib>\n<forced_lib>_sha</forced_lib>\n<forced_lib>_sha1</forced_lib>\n<forced_lib>_sha256</forced_lib>\n<forced_lib>_sha512</forced_lib>\n<forced_lib>_socket</forced_lib>\n<forced_lib>_sre</forced_lib>\n<forced_lib>_string</forced_lib>\n<forced_lib>_struct</forced_lib>\n<forced_lib>_subprocess</forced_lib>\n<forced_lib>_symtable</forced_lib>\n<forced_lib>_thread</forced_lib>\n<forced_lib>_warnings</forced_lib>\n<forced_lib>_weakref</forced_lib>\n<forced_lib>_winreg</forced_lib>\n<forced_lib>array</forced_lib>\n<forced_lib>atexit</forced_lib>\n<forced_lib>audioop</forced_lib>\n<forced_lib>binascii</forced_lib>\n<forced_lib>builtins</forced_lib>\n<forced_lib>cPickle</forced_lib>\n<forced_lib>cStringIO</forced_lib>\n<forced_lib>cmath</forced_lib>\n<forced_lib>datetime</forced_lib>\n<forced_lib>email</forced_lib>\n<forced_lib>errno</forced_lib>\n<forced_lib>exceptions</forced_lib>\n<forced_lib>faulthandler</forced_lib>\n<forced_lib>fcntl</forced_lib>\n<forced_lib>future_builtins</forced_lib>\n<forced_lib>gc</forced_lib>\n<forced_lib>grp</forced_lib>\n<forced_lib>hashlib</forced_lib>\n<forced_lib>imageop</forced_lib>\n<forced_lib>imp</forced_lib>\n<forced_lib>itertools</forced_lib>\n<forced_lib>marshal</forced_lib>\n<forced_lib>math</forced_lib>\n<forced_lib>mmap</forced_lib>\n<forced_lib>msvcrt</forced_lib>\n<forced_lib>nose</forced_lib>\n<forced_lib>nose.tools</forced_lib>\n<forced_lib>nt</forced_lib>\n<forced_lib>numpy</forced_lib>\n<forced_lib>operator</forced_lib>\n<forced_lib>os</forced_lib>\n<forced_lib>os.path</forced_lib>\n<forced_lib>parser</forced_lib>\n<forced_lib>posix</forced_lib>\n<forced_lib>pwd</forced_lib>\n<forced_lib>pyexpat</forced_lib>\n<forced_lib>pytest</forced_lib>\n<forced_lib>scipy</forced_lib>\n<forced_lib>select</forced_lib>\n<forced_lib>signal</forced_lib>\n<forced_lib>socket</forced_lib>\n<forced_lib>spwd</forced_lib>\n<forced_lib>strop</forced_lib>\n<forced_lib>sys</forced_lib>\n<forced_lib>syslog</forced_lib>\n<forced_lib>thread</forced_lib>\n<forced_lib>time</forced_lib>\n<forced_lib>unicodedata</forced_lib>\n<forced_lib>werkzeug</forced_lib>\n<forced_lib>wx</forced_lib>\n<forced_lib>wxPython</forced_lib>\n<forced_lib>xxsubtype</forced_lib>\n<forced_lib>zipimport</forced_lib>\n<forced_lib>zlib</forced_lib>\n</xml>&&&&&<xml>\n<name>python2.7</name>\n<version>2.7</version>\n<executable>/usr/bin/python2.7</executable>\n<lib>/usr/lib/python2.7</lib>\n<lib>/usr/lib/python2.7/plat-x86_64-linux-gnu</lib>\n<lib>/usr/lib/python2.7/lib-tk</lib>\n<lib>/usr/lib/python2.7/lib-dynload</lib>\n<lib>/usr/local/lib/python2.7/dist-packages</lib>\n<lib>/usr/lib/python2.7/dist-packages</lib>\n<lib>/usr/lib/python2.7/dist-packages/PILcompat</lib>\n<lib>/usr/lib/python2.7/dist-packages/gtk-2.0</lib>\n<lib>/usr/lib/pymodules/python2.7</lib>\n<lib>/usr/lib/python2.7/dist-packages/ubuntu-sso-client</lib>\n<lib>/usr/lib/python2.7/dist-packages/ubuntuone-client</lib>\n<lib>/usr/lib/python2.7/dist-packages/ubuntuone-storage-protocol</lib>\n<forced_lib>Image</forced_lib>\n<forced_lib>OpenGL</forced_lib>\n<forced_lib>__builtin__</forced_lib>\n<forced_lib>__main__</forced_lib>\n<forced_lib>_ast</forced_lib>\n<forced_lib>_bisect</forced_lib>\n<forced_lib>_bytesio</forced_lib>\n<forced_lib>_codecs</forced_lib>\n<forced_lib>_codecs_cn</forced_lib>\n<forced_lib>_codecs_hk</forced_lib>\n<forced_lib>_codecs_iso2022</forced_lib>\n<forced_lib>_codecs_jp</forced_lib>\n<forced_lib>_codecs_kr</forced_lib>\n<forced_lib>_codecs_tw</forced_lib>\n<forced_lib>_collections</forced_lib>\n<forced_lib>_csv</forced_lib>\n<forced_lib>_fileio</forced_lib>\n<forced_lib>_functools</forced_lib>\n<forced_lib>_heapq</forced_lib>\n<forced_lib>_hotshot</forced_lib>\n<forced_lib>_io</forced_lib>\n<forced_lib>_json</forced_lib>\n<forced_lib>_locale</forced_lib>\n<forced_lib>_lsprof</forced_lib>\n<forced_lib>_md5</forced_lib>\n<forced_lib>_multibytecodec</forced_lib>\n<forced_lib>_random</forced_lib>\n<forced_lib>_sha</forced_lib>\n<forced_lib>_sha256</forced_lib>\n<forced_lib>_sha512</forced_lib>\n<forced_lib>_socket</forced_lib>\n<forced_lib>_sre</forced_lib>\n<forced_lib>_struct</forced_lib>\n<forced_lib>_subprocess</forced_lib>\n<forced_lib>_symtable</forced_lib>\n<forced_lib>_warnings</forced_lib>\n<forced_lib>_weakref</forced_lib>\n<forced_lib>_winreg</forced_lib>\n<forced_lib>array</forced_lib>\n<forced_lib>audioop</forced_lib>\n<forced_lib>binascii</forced_lib>\n<forced_lib>cPickle</forced_lib>\n<forced_lib>cStringIO</forced_lib>\n<forced_lib>cmath</forced_lib>\n<forced_lib>datetime</forced_lib>\n<forced_lib>email</forced_lib>\n<forced_lib>errno</forced_lib>\n<forced_lib>exceptions</forced_lib>\n<forced_lib>fcntl</forced_lib>\n<forced_lib>future_builtins</forced_lib>\n<forced_lib>gc</forced_lib>\n<forced_lib>grp</forced_lib>\n<forced_lib>hashlib</forced_lib>\n<forced_lib>imageop</forced_lib>\n<forced_lib>imp</forced_lib>\n<forced_lib>itertools</forced_lib>\n<forced_lib>marshal</forced_lib>\n<forced_lib>math</forced_lib>\n<forced_lib>mmap</forced_lib>\n<forced_lib>msvcrt</forced_lib>\n<forced_lib>nose</forced_lib>\n<forced_lib>nose.tools</forced_lib>\n<forced_lib>nt</forced_lib>\n<forced_lib>numpy</forced_lib>\n<forced_lib>operator</forced_lib>\n<forced_lib>os</forced_lib>\n<forced_lib>os.path</forced_lib>\n<forced_lib>parser</forced_lib>\n<forced_lib>posix</forced_lib>\n<forced_lib>pwd</forced_lib>\n<forced_lib>pytest</forced_lib>\n<forced_lib>scipy</forced_lib>\n<forced_lib>select</forced_lib>\n<forced_lib>signal</forced_lib>\n<forced_lib>socket</forced_lib>\n<forced_lib>spwd</forced_lib>\n<forced_lib>strop</forced_lib>\n<forced_lib>sys</forced_lib>\n<forced_lib>syslog</forced_lib>\n<forced_lib>thread</forced_lib>\n<forced_lib>time</forced_lib>\n<forced_lib>unicodedata</forced_lib>\n<forced_lib>werkzeug</forced_lib>\n<forced_lib>wx</forced_lib>\n<forced_lib>wxPython</forced_lib>\n<forced_lib>xxsubtype</forced_lib>\n<forced_lib>zipimport</forced_lib>\n<forced_lib>zlib</forced_lib>\n</xml>&&&&&
 /instance/org.cfeclipse.cfml/cfcommentBackgroundColor=16,16,32
 @org.eclipse.help.base=4.0.0.v20130911-1000
 /instance/org.eclipse.jdt.ui/sp_cleanup.sort_members=false
@@ -1082,8 +1098,13 @@
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.doc_h3.color=204,223,50
 /instance/com.powerflasher.fdt.ui/AS_PRIVATE_color_bold=false
 /instance/org.python.pydev/DECORATOR_STYLE=0
+/instance/org.epic.perleditor/sourceCriticLevel5=Warning
+/instance/org.epic.perleditor/sourceCriticLevel4=Warning
 /instance/org.scala-ide.sdt.core/syntaxColoring.semantic.object.color=255,255,255
+/instance/org.epic.perleditor/sourceCriticLevel3=Warning
+/instance/org.epic.perleditor/sourceCriticLevel2=Warning
 /instance/com.powerflasher.fdt.ui/MULTILINE_COMMENT_TODO_color_bold=true
+/instance/org.epic.perleditor/sourceCriticLevel1=Warning
 /instance/ccw.core/ccw.preferences.editor_color.callableJAVA_CLASS=255,128,128
 /instance/org.scala-ide.sdt.core/syntaxColouring.xml.attributeName.colour=0,208,208
 /instance/org.eclipse.wst.xml.ui/piBorder=\#D0D0D0 | \#101020 | null | null | null | null
@@ -1160,10 +1181,11 @@
 /instance/org.eclipse.jdt.core/org.eclipse.jdt.core.codeComplete.localPrefixes=
 /instance/org.epic.perleditor/searchResultIndicationColor=0,96,128
 /instance/org.scala-ide.sdt.core/syntaxColouring.bracket.colour=208,208,208
+/instance/org.eclipse.cdt.ui/org.eclipse.cdt.ui.editor.UseStructuralMode=true
 /instance/eclihx.ui/hx_editor_keywords_color=0,208,208
 /instance/org.eclipse.team.ui/org.eclipse.team.ui.first_time=false
 /instance/com.adobe.flexide.mxml.core/mxmlProcessingInstructionBold=true
-/instance/org.epic.perleditor/variableColor=121,171,255
+/instance/org.epic.perleditor/variableColor=255,0,75
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.punctuation.color=208,208,208
 /instance/ccw.core/ccw.preferences.editor_color.JAVA_CLASS.italic=false
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.spaces.color=208,208,208
@@ -1196,10 +1218,11 @@
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.deprecatedMember.enabled=true
 /instance/org.erlide.ui/editor/colors/string/style=0
 /instance/org.eclipse.cdt.ui/semanticHighlighting.label.color=255,116,0
+/instance/org.epic.perleditor/sourceCriticSeverity=harsh
 /instance/net.sf.eclipsefp.haskell.core/cabalImplementations/defaultImpl=cabal-0.14.0
 /instance/org.eclipse.wst.jsdt.ui/java_keyword_return=0,208,208
 /instance/org.scala-ide.sdt.core/syntaxColoring.operator.color=208,208,208
-/instance/org.epic.perleditor/invalidColor=255,255,255
+/instance/org.epic.perleditor/invalidColor=165,42,42
 /instance/org.eclipse.cdt.make.ui/org.eclipse.cdt.make.ui.editor.default=208,208,208
 /instance/de.walware.statet.r.ui/text_R_rString.strikethrough=false
 /instance/org.eclipse.jdt.ui/sp_cleanup.always_use_this_for_non_static_field_access=false
@@ -1235,11 +1258,10 @@
 /instance/com.powerflasher.fdt.ui/AS_PUBLIC_color=0,208,208
 /instance/org.eclipse.wst.css.ui/NORMAL=\#D0D0D0 | \#101020 | null | null | null | null
 /instance/com.powerflasher.fdt.ui/com.powerflasher.fdt.ui.BasicSemanticHighlightGenerator.AS3.StaticGetter_enabled=true
-/instance/org.epic.perleditor/functionColor=208,208,208
+/instance/org.epic.perleditor/functionColor=255,0,0
 /instance/org.epic.perleditor/keyword1Color=0,208,208
 /instance/de.walware.statet.r.ui/text_R_rIndexing.color=208,208,208
 /instance/org.eclipse.jdt.ui/semanticHighlighting.method.color=208,208,208
-@org.eclipse.search=3.9.0.v20130312-1625
 /instance/org.eclipse.cdt.make.ui/org.eclipse.cdt.make.ui.editor.macro_ref=190,214,255
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.interface.color=209,151,217
 /instance/com.powerflasher.fdt.ui/AS_PROTECTED_color_underline=false
@@ -1298,7 +1320,6 @@
 /instance/de.walware.statet.r.ui/text_R_rString.color=220,120,220
 /instance/org.eclipse.ui.editors/pydevOccurrenceHighlighting=false
 /instance/org.cfeclipse.cfml/SQLOperatorColor=208,208,208
-/instance/org.epic.perleditor/variableColorBold=false
 @org.eclipse.ui.editors=3.8.100.v20130513-1637
 /instance/org.codehaus.groovy.eclipse.ui/groovy.editor.highlight.strings.color=220,120,220
 /instance/org.erlide.ui/editor/colors/float/style=0
@@ -1422,7 +1443,6 @@ file_export_version=3.0
 /instance/org.cloudsmith.geppetto.pp.dsl.PP/org.cloudsmith.geppetto.pp.dsl.PP.syntaxColorer.tokenStyles.doc_fixed.color=204,223,50
 /instance/org.cfeclipse.cfml/javascriptFunction=208,208,208
 /instance/org.codehaus.groovy.eclipse.ui/semanticHighlighting.methodDeclarationName.enabled=true
-/instance/org.epic.perleditor/keyword2ColorBold=true
 /instance/org.eclipse.php.ui/semanticHighlighting.org.eclipse.php.internal.ui.editor.highlighters.SuperGlobalHighlighting.color=\#79ABFF
 /instance/org.eclipse.jdt.ui/sp_cleanup.add_missing_nls_tags=false
 /configuration/org.eclipse.ui.ide/RECENT_WORKSPACES_PROTOCOL=3
