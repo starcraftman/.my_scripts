@@ -5,6 +5,7 @@ Languages:
     pyDev - http://pydev.org/updates
     Haskell - http://eclipsefp.sf.net/updates
     Eclox (doxygen) - http://download.gna.org/eclox/update
+    AndroidDev - https://dl-ssl.google.com/android/eclipse/
 
 UI:
     AnyEdit - http://andrei.gmxhome.de/eclipse/
