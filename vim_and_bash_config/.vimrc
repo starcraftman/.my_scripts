@@ -21,7 +21,7 @@
 "
 "   Get Vundle:
 "       Plugin to manage installation of others
-"       https://github.com/gmarik/vundle#about
+"       git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "
 "   Run BundleInstall:
 "       Run the command to get all bundles.
@@ -29,8 +29,8 @@
 "       After install see YCM page for further compilation.
 "
 "   YCM Config:
-"       Very good autocomplete, you need to compile with clang for c completion functions. 
-"       Info at url below or use ycm_compile.py in my repo (assumes default repo).
+"       Very good autocomplete, you need to compile with clang for c completion functions.
+"       Info at url below or use ycm_compile.py in my repo (assumes you have build tools).
 "       https://github.com/Valloric/YouCompleteMe
 "
 "   Syntastic Config:

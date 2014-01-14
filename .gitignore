@@ -43,5 +43,4 @@ Thumbs.db
 !.git*
 smbHelper
 doxygen
-config_backup/.vim/testing
-config_backup/.vim/bundle
+vim_and_bash_config/.vim/bundle
