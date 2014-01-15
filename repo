@@ -1,6 +1,6 @@
 #!/bin/bash
 # Command is $1, repos in numbers after. If no repo listed, used DEF_REPO list.
-DEF_REPO=(~/.my_scripts ~/programming/AcademicProgramming ~/programming/JavaWork)
+DEF_REPO=(~/.my_scripts ~/programming/UniCourses ~/programming/OldStuff)
 CMD=$1
 CURDIR=`pwd`
 
