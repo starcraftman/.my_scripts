@@ -3,7 +3,7 @@ My Scripts
 
 This repo contains some scripts I use.
 If anyone else likes them, use them.
-Some are very handy, I'll detail them below.
+I've also added in some configs that I don't want to lose like my vimrc and eclipse settings.
 
 mksource.py 
 -----------
