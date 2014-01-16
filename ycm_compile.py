@@ -27,7 +27,7 @@ B_DIR = 'build'
 def check_clang():
     """ Check if we have clang, else retrieve it. """
     ext_index = CLANG_FILE.rindex('.tar')
-    file_no_ext = CLANG_FILE[0:ext_index]
+    extracted_dir = CLANG_FILE[0:ext_index]
     list_dir = os.listdir()
 
     # Protection if clang dir exists.
@@ -39,21 +39,21 @@ def check_clang():
         urllib.request.urlretrieve(CLANG_URL, CLANG_FILE)
         print('Finished download.')
 
-    if file_no_ext in list_dir:
-        shutil.rmtree(file_no_ext)
+    if extracted_dir in list_dir:
+        shutil.rmtree(extracted_dir)
 
     tar_file = tarfile.open(CLANG_FILE, 'r')
     tar_file.extractall()
     os.remove(CLANG_FILE)
-    os.rename(file_no_ext, CLANG_DIR)
+    os.rename(extracted_dir, CLANG_DIR)
 
 # Main
 if __name__ == '__main__':
+    check_clang()
+
     # Protection in case build exists prior.
     if B_DIR in os.listdir():
         shutil.rmtree(B_DIR)
-
-    check_clang()
 
     os.mkdir(B_DIR)
     os.chdir(B_DIR)
