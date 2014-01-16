@@ -18,6 +18,8 @@
 "   Update Vim:
 "       YCM Requires Vim 7.4:
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
+"       If can't install, try build from source:
+"       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
 "   Get Vundle:
 "       Plugin to manage installation of others
