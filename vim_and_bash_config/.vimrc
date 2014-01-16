@@ -158,6 +158,9 @@ let g:ycm_complete_in_comments = 1
 " Allow ctags for identifier help.
 let g:ycm_collect_identifiers_from_tags_files = 1
 
+" Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
+let g:ycm_extra_conf_globlist = []
+
 " Format the syntastic message
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
@@ -284,7 +287,7 @@ let hide_s = hide_s[:-3]
 let &wildignore = wild_s
 
 " When browsing with netrw, ignore all matching files to this regex.
-let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)$\c,\.git/$'
+let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,\.git/$'
 
 " Customize netrw use a tree style and ignore some extensions.
 let g:netrw_liststyle = 3
