@@ -137,6 +137,9 @@ Bundle 'vim-scripts/DeleteTrailingWhitespace'
 " Bundle 'flazz/vim-colorschemes'
 Bundle 'tomasr/molokai'
 
+" Turn on after vundle works.
+filetype plugin indent on
+
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
 
@@ -154,6 +157,13 @@ let g:syntastic_check_on_open = 1
 " Put errors on left side
 let g:syntastic_enable_signs = 1
 
+" Format the syntastic message
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+
+" Manually set important checkers:
+let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
+let g:syntastic_perl_checkers = ['perl', 'perlcritic']
+
 " Allow completion of identifiers in comments too.
 let g:ycm_complete_in_comments = 1
 
@@ -163,19 +173,9 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 " Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
 let g:ycm_extra_conf_globlist = []
 
-" Format the syntastic message
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-
-" Manually set important checkers:
-let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
-let g:syntastic_perl_checkers = ['perl', 'perlcritic']
-
 " Always delete trailing whitespace from lines on save.
 "let g:DeleteTrailingWhitespace = 1
 "let g:DeleteTrailingWhitespace_Action = 'delete'
-
-" Turn on after vundle works.
-filetype plugin indent on
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -213,9 +213,6 @@ if has('persistent_undo')
     set undodir=~/.vim/.undo
     set undofile
 endif
-
-" Enable filetype plugins and indenting.
-filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
