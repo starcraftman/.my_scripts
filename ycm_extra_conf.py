@@ -59,6 +59,7 @@ HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
 
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
+    """ Processes paths in FLAGS var and makes them absolute. """
     if not working_directory:
         return list(flags)
     new_flags = []
@@ -88,6 +89,7 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
 
 
 def IsHeaderFile(filename):
+    """ Return true only if filename ends in a header extension. """
     extension = os.path.splitext(filename)[1]
     return extension in HEADER_EXTENSIONS
 
@@ -112,6 +114,7 @@ def GetCompilationInfoForFile(filename):
 
 
 def FlagsForFile(filename, **kwargs):
+    """ Given a filename, return the flags to compile it. """
     if DB:
         # Bear in mind that compilation_info.compiler_flags_ does NOT return a
         # python list, but a "list-like" StringVec object
