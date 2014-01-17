@@ -210,7 +210,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions.
 if has('persistent_undo')
-    set undodir=~/.vim/.undo
+    set undodir=~/.vim/undo
     set undofile
 endif
 
