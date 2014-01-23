@@ -24,6 +24,22 @@ B_DIR = 'build'
 # Functions
 
 
+def get_procs():
+    """ Use BASH one liner to determine number of threads available. """
+    f1 = open('temp', 'w')
+    subprocess.call('cat /proc/cpuinfo | grep "processor" | wc -l',
+                    stdout=f1, shell=True)
+    f1.close()
+
+    f1 = open('temp', 'r')
+    procs = int(f1.read())
+    f1.close()
+
+    os.remove('temp')
+
+    return procs
+
+
 def check_clang():
     """ Check if we have clang, else retrieve it. """
     ext_index = CLANG_FILE.rindex('.tar')
@@ -58,10 +74,12 @@ if __name__ == '__main__':
     os.mkdir(B_DIR)
     os.chdir(B_DIR)
 
+    NUM_PROCS = get_procs()
+    print(NUM_PROCS)
     subprocess.call(['cmake', '-GUnix Makefiles',
                      '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
                      '~/.vim/bundle/YouCompleteMe/cpp'])
-    subprocess.call(['make', '-j8', 'ycm_support_libs'])
+    subprocess.call(['make', '-j{}'.format(NUM_PROCS), 'ycm_support_libs'])
 
     os.chdir('..')
     shutil.rmtree(B_DIR)
