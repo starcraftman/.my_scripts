@@ -75,7 +75,6 @@ if __name__ == '__main__':
     os.chdir(B_DIR)
 
     NUM_PROCS = get_procs()
-    print(NUM_PROCS)
     subprocess.call(['cmake', '-GUnix Makefiles',
                      '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
                      '~/.vim/bundle/YouCompleteMe/cpp'])
