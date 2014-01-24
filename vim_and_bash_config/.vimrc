@@ -1,5 +1,8 @@
 " This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
 "
+" * Vim NETRW remote editting.
+"       http://www.vim.org/scripts/script.php?script_id=1075
+"
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
@@ -208,7 +211,35 @@ set statusline+=%*
 " set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => Key Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" For custom key combos, use leader. See :help <Leader>
+let mapleader = ","
+
+" Rebinding some commands for managing edits and tabs.
+" For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current.
+" The tab commands attach to current session for easy swapping.
+cnoreabbrev bn bnext
+cnoreabbrev bp bprevious
+cnoreabbrev tn tabn
+cnoreabbrev tp tabp
+cnoreabbrev te tabe
+cnoreabbrev td tabclose
+
+" I always forget for explore, make some shortcuts. sE for v split, tE for tab.
+cnoreabbrev E Explore
+cnoreabbrev Et Texplore
+cnoreabbrev Ev Sexplore!
+
+" Remap Alt + Arrow keys to move between split windows.
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+nnoremap <silent> <F3> :TagbarToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=1000
@@ -242,8 +273,19 @@ set wildmode=longest,list,full
 " Show command in last line, usually on by default.
 set showcmd
 
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+" => VIM User Interface & Search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nu "set left side numbers
 set ruler "set position in bottom right
@@ -262,12 +304,9 @@ set magic
 " When searching ignore case unless contains a cap. Override with \c|\C to force at end of regexp.
 set smartcase
 
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NETRW File Explorer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This list is used to build the strings for wildignore and netrw_list_hide.
 let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
 let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'deb', 'pdf']
@@ -297,31 +336,6 @@ let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,\.git/$'
 " Customize netrw use a tree style and ignore some extensions.
 let g:netrw_liststyle = 3
 
-" Rebinding some commands for managing edits and tabs.
-" For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current.
-" The tab commands attach to current session for easy swapping.
-cnoreabbrev bn bnext
-cnoreabbrev bp bprevious
-cnoreabbrev tn tabn
-cnoreabbrev tp tabp
-cnoreabbrev te tabe
-cnoreabbrev td tabclose
-
-" I always forget for explore, make some shortcuts. sE for v split, tE for tab.
-cnoreabbrev E Explore
-cnoreabbrev tE Texplore
-cnoreabbrev sE Sexplore!
-
-" Remap Alt + Arrow keys to move between split windows.
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-nmap <silent> <F3> :TagbarToggle<CR>
-
-" For custom key combos, use leader. See :help <Leader>
-let mapleader = ","
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -347,14 +361,6 @@ if has('gui_running')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
@@ -376,4 +382,3 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
-
