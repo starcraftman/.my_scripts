@@ -1,46 +1,51 @@
 #!/bin/bash
-
+# Note: This script is to convert a vanilla Ubuntu/Debian install
+# to a suitable dev platform.
 function step_1 {
-sudo apt-get install yakuake plasma-widget-quickaccess build-essential kubuntu-restricted-extras kubuntu-restricted-addons firefox aptitude ant abiword apache2 automake baobab brother-cups-wrapper-laser* brother-lpr-drivers-laser* bzr bzr-builddeb bzr-doc bzr-grep bzrtools checkinstall checkbox chm2pdf chromium-browser codeblocks debian-keyring debian-archive-keyring debian-ports-archive-keyring gnome-keyring python-gnomekeyring python-keyring ubuntu-keyring debianutils dia dkms docbook dvdrip easytag vim vim-addon-manager vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc emacs erlang ffmpeg-doc ffmpeg  gimp gimp-plugin-registry ghc ghc-doc ghc-haddock ghc-prof git git-gui git-doc haskell-debian-utils haskell-devscripts haskell-doc junit-doc junit jython k3b kdevelop kdiff3 kdiff3-doc kid3 krita kolourpaint4 lynx make-doc maven mercurial mplayer p7zip-full gparted patch perl perl-doc perl-modules perlmagick php5 php5-mysql phpunit php5-dev python quicksynergy ncurses-doc ncurses-examples rar rpm2cpio rpm runit samba samba-doc samba-tools fuse synaptic ubuntuone-client ubuntuone-control-panel-qt virtualbox-qt vlc wine wireshark gcc-4.6-source gcc-4.6-doc openjdk-7-doc openjdk-7-jdk openjdk-7-dbg openjdk-7-source openjdk-7-demo icedtea-7* ruby1.9.1-full subversion cvs geany geany-plugin-lua geany-plugin-doc geany-plugin-debugger geany-plugin-gdb geany-plugin-addons gdb gdb-doc cgdb xxgdb lua5.2 lua5.2-doc luadoc clisp clisp-doc clisp-dev clisp-module-gdbm wine ant-doc automake1.9-doc gfortran ubuntu-dev-tools ttf-xfree86-nonfree mencoder rubybook libpadwalker-perl kchmviewer perlprimer perlprimer-doc cabal-install numlockx subversion libboost-all-dev kdm colormake colordiff colorgcc libglm-dev libglew-dev libglfw-dev redshift geoclue geoclue-hostip #libdvdcss2 medibuntu-keyring
+sudo apt-get install yakuake plasma-widget-quickaccess build-essential kubuntu-restricted-extras kubuntu-restricted-addons firefox aptitude ant abiword automake baobab brother-cups-wrapper-laser* brother-lpr-drivers-laser* bzr bzr-builddeb bzr-doc bzr-grep bzrtools checkinstall checkbox chm2pdf chromium-browser codeblocks debian-keyring debian-archive-keyring debian-ports-archive-keyring gnome-keyring python-gnomekeyring python-keyring ubuntu-keyring debianutils dia dkms \
+    docbook dvdrip easytag vim vim-addon-manager vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc emacs erlang ffmpeg-doc ffmpeg  gimp gimp-plugin-registry ghc ghc-doc ghc-haddock ghc-prof git git-gui git-doc haskell-debian-utils haskell-devscripts haskell-doc junit-doc junit jython k3b kdevelop kdiff3 kdiff3-doc kid3 krita kolourpaint4 lynx make-doc maven mercurial mplayer p7zip-full gparted patch perl perl-doc perl-modules perlmagick php5 php5-mysql phpunit php5-dev python \
+    quicksynergy ncurses-doc ncurses-examples rar rpm2cpio rpm runit samba samba-doc samba-tools fuse synaptic ubuntuone-client ubuntuone-control-panel-qt virtualbox-qt vlc wine wireshark gcc-4.6-source gcc-4.6-doc openjdk-7-doc openjdk-7-jdk openjdk-7-dbg openjdk-7-source openjdk-7-demo icedtea-7* ruby1.9.1-full subversion cvs gdb gdb-doc cgdb xxgdb lua5.2 lua5.2-doc luadoc clisp \
+    clisp-doc clisp-dev clisp-module-gdbm wine ant-doc automake1.9-doc gfortran ubuntu-dev-tools ttf-xfree86-nonfree mencoder rubybook libpadwalker-perl kchmviewer perlprimer perlprimer-doc cabal-install numlockx subversion libboost-all-dev colormake colordiff colorgcc libglm-dev libglew-dev libglfw-dev redshift geoclue geoclue-hostip flex flex-doc bison bison-doc graphviz exuberant-ctags #libdvdcss2 medibuntu-keyring
 }
 
 function step_2 {
-	sudo -E wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update && sudo apt-get dist-upgrade && sudo apt-get install w32codecs w64codecs non-free-codecs mencoder mplayer mplayer-doc
+pushd ~/.my_scripts/vim_and_bash_config
+cp -R .vimrc .vim .bash_aliases ~
+popd
 }
 
 function step_3 {
-	sudo cabal install buildwrapper scion-browser hoogle terminfo happy hlint
+sudo cabal install buildwrapper scion-browser hoogle terminfo happy hlint
 }
 
 function usage {
-	echo "Pass the step function number you'd like to call in."
-	echo "Possible args, # -> [1, 2, 3, 4]"
+echo "Pass the step function number you'd like to call in."
+echo "Possible args, # -> [1, 2, 3]"
+echo "1 -> Install dev packages."
+echo "2 -> Setup vim files from .my_scripts."
+echo "3 -> Setup local haskell directory."
 }
 
 echo "Time for installation"
 
 if [ -z $1 ]; then
-	usage
-	exit 0;
+    usage
+    exit 0;
 fi
 
 case $1 in
-	1)
-		echo "Performing step 1"
-		step_1
-		;;
-	2)
-		echo "Performing step 2"
-		step_2
-		;;
-	3)
-		echo "Performing step 3"
-		step_3
-		;;
-	4)
-		echo "Performing step 4"
-		step_4
-		;;
+    1)
+        echo "Performing step 1"
+        step_1
+        ;;
+    2)
+        echo "Performing step 2"
+        step_2
+        ;;
+    3)
+        echo "Performing step 3"
+        step_3
+        ;;
 esac
 
 echo "Thanks for using installCmd.sh"

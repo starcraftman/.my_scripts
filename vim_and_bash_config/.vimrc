@@ -236,7 +236,12 @@ nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
+
+" Shortcut for tagbar outline of file.
 nnoremap <silent> <F3> :TagbarToggle<CR>
+
+" Shortcut to remember how to reindent file.
+nnoremap <Leader>t gg=G
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options
