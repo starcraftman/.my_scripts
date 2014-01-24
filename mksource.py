@@ -21,7 +21,7 @@ SRC_DICT = {'perl': '.pl',
             'python': '.py',
             'ruby': '.rb',
             'lisp': '.lisp',
-            'prolog': '.pro',
+            'prolog': '.pdb',
             'c': '.c',
             'c++': '.cpp',
             }
