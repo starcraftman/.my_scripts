@@ -62,6 +62,11 @@
 "       Modify the tags or brackets of code.
 "       https://github.com/tpope/vim-surround
 "
+"   TagBar:
+"       A outline of the files contents.
+"       Uses exuberant ctags, not default.
+"       See info at: https://github.com/majutsushi/tagbar
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -132,6 +137,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
+Bundle 'majutsushi/tagbar'
 
 " Color schemes
 " Bundle 'flazz/vim-colorschemes'
@@ -311,6 +317,7 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+nmap <silent> <F3> :TagbarToggle<CR>
 
 " For custom key combos, use leader. See :help <Leader>
 let mapleader = ","
