@@ -133,14 +133,16 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
-Bundle 'majutsushi/tagbar'
+
+" Disable if you can't be bothered doing the install work.
+Bundle 'Valloric/YouCompleteMe'
 
 " Color schemes
 " Bundle 'flazz/vim-colorschemes'
