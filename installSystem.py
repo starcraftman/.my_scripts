@@ -7,14 +7,12 @@
 
 # Imports
 import apt
-import sys
 import argparse
-import glob
 import os
-import stat
 import shutil
 import subprocess
-import getpass
+import urllib.request
+import re
 
 # Packages to install follow, broken down into categories.
 
@@ -70,6 +68,9 @@ PROGRAMMING = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
+#URLs Follow
+ECLIPSE_URL = 'http://www.eclipse.org/downloads/?osType=linux'
+
 
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
@@ -100,6 +101,28 @@ def install_packages():
     cache.close()
 
 
+def get_eclipse():
+    """ Fetch the latest eclipse from the site. """
+    handle = urllib.request.urlopen(ECLIPSE_URL)
+
+    for line in handle:
+        s_line = line.decode('utf-8')
+        if 'downloadLink' in s_line and 'x86_64' in s_line:
+            d_str = s_line
+            break
+
+    print(d_str)
+    match = re.match(r'^.*href="//(.*?)"', d_str)
+    download_url = 'http://' + match.group(1)
+
+    print(download_url)
+    download_file = download_url[download_url.rindex('/')+1:]
+    #download_url = download_url.replace(download_file, '')
+    print(download_file)
+    print(download_url)
+    #urllib.request.urlretrieve(download_url, 'eclipse.tar.gz')
+
+
 def setup_dev():
     """ Setup the dev environment, stuff goes in ~ and ~/.optSoftware. """
     src = './vim_and_bash_config/{}'
@@ -111,6 +134,8 @@ def setup_dev():
     shutil.copytree(src.format('.vim'), dst + '/.vim')
 
     # Download eclipse and copy eclipse config.
+    # Incomplete so disabled for now.
+    #get_eclipse()
 
 
 def install_cabal():
