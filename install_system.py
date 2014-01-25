@@ -85,6 +85,7 @@ def install_packages():
     cache = apt.Cache()
     print("One moment while we update cache.")
     cache.update()
+    cache.open(None)
     print("Update done.")
 
     for pack in packages:
