@@ -3,7 +3,7 @@
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
 #	unittest package for xUnit.
-''' Implements code to support my templating system for source files. '''
+""" This module helps setup a fresh install the way I like it. """
 
 # Imports
 import apt
