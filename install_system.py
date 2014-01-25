@@ -96,7 +96,7 @@ def install_packages():
     cache.close()
 
 
-def setup_dev():
+def copy_config():
     """ Setup the dev environment, stuff goes in ~ and ~/.optSoftware. """
     src = './vim_and_bash_config/{}'
     dst = os.path.expanduser('~')
@@ -123,7 +123,7 @@ def take_choice(choice):
     if choice == 1:
         install_packages()
     elif choice == 2:
-        setup_dev()
+        copy_config()
     elif choice == 3:
         install_cabal()
 
