@@ -70,6 +70,12 @@
 "       Uses exuberant ctags, not default.
 "       See info at: https://github.com/majutsushi/tagbar
 "
+"   CtrlP:
+"       Fuzzy file finding that is a bit easier than CtrlT.
+"       Searches under root, looks for .hg/.git or so to define top.
+"       Use Ctlr+P to access.
+"       https://github.com/kien/ctrlp.vim
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -132,6 +138,7 @@ call vundle#rc()
 " List bundles after here.
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
+Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
