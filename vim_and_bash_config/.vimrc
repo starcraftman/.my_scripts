@@ -33,35 +33,44 @@
 "       Go to below sites to see configs.
 "       After install see YCM page for further compilation.
 "
-"   YCM Config:
+"   See YCM & Airline in Plugin index for further config.
+"
+"Plugin Info:
+"
+"   YouCompleteMe:
 "       Very good autocomplete, you need to compile with clang for c completion functions.
 "       Info at url below or use ycm_compile.py in my repo (assumes you have build tools).
 "       https://github.com/Valloric/YouCompleteMe
 "
-"   Syntastic Config:
+"   Syntastic:
 "       Syntax checking without running code
 "       https://github.com/scrooloose/syntastic
 "
-"   A.vim Config:
+"   A.vim:
 "       Swap to a c header for a file with :A.
 "       https://github.com/vim-scripts/a.vim
 "
-"   NERDComment Config:
+"   NERDComment:
 "       Bunch of comment commands. Mainly , c c/i to comment line.
 "       https://github.com/scrooloose/nerdcommenter
 "
-"   Vim-airline Config:
+"   NERDTree:
+"       Plugin that is a pretty NETRW replacement.
+"       Open with :NERDTree command.
+"       https://github.com/scrooloose/nerdtree
+"
+"   vim-airline:
 "       Plugin that gives nice colored status line.
 "       https://github.com/bling/vim-airline
 "       See :help airline and AirlineToggle
 "       NB: Be sure to patch ~/.fonts with https://github.com/Lokaltog/powerline-fonts
 "
-"   Delete Trailing Whitespace:
+"   DeleteTrailingWhitespace:
 "       Use [Range]DeleteTrailingWhitespace, where range
 "       is an optional line range.
 "       https://github.com/vim-scripts/DeleteTrailingWhitespace
 "
-"   Vim Surround:
+"   vim-surround:
 "       Modify the tags or brackets of code.
 "       https://github.com/tpope/vim-surround
 "
@@ -80,11 +89,14 @@
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 "
+"Unused Plugins:
+"
 "   Completion Alternatives:
 "       omniPerl and pydiction.
 "       https://github.com/rkulla/pydiction
 "
-"   Pathogen (Vundle Alternative):
+"   Pathogen:
+"       A manual alternative to Vundle.
 "       https://github.com/tpope/vim-pathogen
 "
 " Notes:
@@ -142,6 +154,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -239,6 +252,8 @@ cnoreabbrev td tabclose
 cnoreabbrev E Explore
 cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
+
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 
 " Remap Alt + Arrow keys to move between split windows.
 nnoremap <silent> <A-Up> :wincmd k<CR>
