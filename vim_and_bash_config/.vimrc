@@ -24,6 +24,11 @@
 "       If can't install, try build from source:
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
+"   Ensure Vim Python Support:
+"       Some plugins use pyhon (like Gundo), check support.
+"       If not, recompile with it.
+"       :echo has('python')
+"
 "   Get Vundle:
 "       Plugin to manage installation of others
 "       git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
