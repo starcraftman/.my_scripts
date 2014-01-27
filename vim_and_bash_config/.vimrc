@@ -85,6 +85,11 @@
 "       Use Ctlr+P to access.
 "       https://github.com/kien/ctrlp.vim
 "
+"   Gundo:
+"       Graphical tree like explorer for visualizing undo history.
+"       Project: https://github.com/sjl/gundo.vim
+"       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -156,6 +161,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
 "Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/a.vim'
@@ -261,11 +267,17 @@ nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
 
+" Shortcut to remember how to reindent file.
+nnoremap <Leader>t gg=G
+
+" Paste toggle button.
+set pastetoggle=<F2>
+
 " Shortcut for tagbar outline of file.
 nnoremap <silent> <F3> :TagbarToggle<CR>
 
-" Shortcut to remember how to reindent file.
-nnoremap <Leader>t gg=G
+" Shortcut for gundo sidebar.
+nnoremap <silent> <F5> :GundoToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options
@@ -285,9 +297,6 @@ set autoread
 
 " Minimum number of lines that will always be above/below cursor.
 set scrolloff=10
-
-" Paste toggle button.
-set pastetoggle=<F2>
 
 " Allow hiding of files, when using standard :e filename option.
 set hidden
