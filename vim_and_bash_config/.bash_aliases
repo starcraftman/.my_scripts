@@ -31,6 +31,9 @@ alias lla='ls -la'
 # Enable the windows key on Ubuntu as F13
 xmodmap -e 'keycode 133 = F13'
 
+# Disable the Ctrl+s/q button that freezes terminal output.
+stty -ixon
+
 # KDE DEV Options:
 
 # I have a kde-bashrc file with shortcuts for building.
