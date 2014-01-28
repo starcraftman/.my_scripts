@@ -20,11 +20,6 @@ install_system.py
 * Keeps track of packages I need and reinstalls them on a fresh Ubuntu machine.
 * Does basic file copy of config and local cabal update for eclipseFp plugin.
 
-ddback
-------
-* Simple script that does a backup/restore of your root partition and mbr.
-* Ensure you have the space required. Fill in paths into the script.
-
 repo
 ----
 * Bash script to simply repeat a git command over several git repos.
