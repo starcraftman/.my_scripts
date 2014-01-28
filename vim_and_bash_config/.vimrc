@@ -59,11 +59,6 @@
 "       Bunch of comment commands. Mainly , c c/i to comment line.
 "       https://github.com/scrooloose/nerdcommenter
 "
-"   NERDTree:
-"       Plugin that is a pretty NETRW replacement.
-"       Open with :NERDTree command.
-"       https://github.com/scrooloose/nerdtree
-"
 "   vim-airline:
 "       Plugin that gives nice colored status line.
 "       https://github.com/bling/vim-airline
@@ -100,6 +95,11 @@
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 "
 "Unused Plugins:
+"
+"   NERDTree:
+"       Plugin that is a pretty NETRW replacement.
+"       Open with :NERDTree command.
+"       https://github.com/scrooloose/nerdtree
 "
 "   Completion Alternatives:
 "       omniPerl and pydiction.
@@ -169,11 +169,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
-
-" Disable if you can't be bothered doing the install work.
-Bundle 'Valloric/YouCompleteMe'
 
 " Color schemes
 " Bundle 'flazz/vim-colorschemes'
@@ -351,6 +349,7 @@ set smartcase
 " => NETRW File Explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This list is used to build the strings for wildignore and netrw_list_hide.
+" Any file ending in one of these extensions will be ignored in command completion & netrw browser.
 let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
 let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'deb', 'pdf']
 
@@ -378,6 +377,9 @@ let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,\.git/$'
 
 " Customize netrw use a tree style and ignore some extensions.
 let g:netrw_liststyle = 3
+
+" Set the explorer sorting to case insensitive.
+let g:netrw_sort_options = 'i'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
