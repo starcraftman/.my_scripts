@@ -8,13 +8,13 @@
 "
 " * Vim regex: http://www.vimregex.com/
 "
-" * For detailed breakdown of basic vim options:
+" * For detailed breakdown of basic vim options, I started by looking at this one:
 "       http://amix.dk/vim/vimrc.html
 "
 " * For color schemes:
 "       Large selection of schemes: https://github.com/flazz/vim-colorschemes
 "       For molokai latest: https://github.com/tomasr/molokai
-"       Put colors folder into ~/.vim/ or use vundle install
+"       Put colors folder into ~/.vim/ or use vundle install from github.
 "       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 "
 " * To install the plugins:
@@ -26,37 +26,38 @@
 "
 "   Ensure Vim Python Support:
 "       Some plugins use pyhon (like Gundo), check support.
-"       If not, recompile with it.
+"       If not, recompile with it. See above for debian or source compile.
 "       :echo has('python')
 "
 "   Get Vundle:
-"       Plugin to manage installation of others
+"       Plugin to manage installation of others.
+"       For initial setup:
 "       git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+"       Further information:
+"       https://github.com/gmarik/vundle
 "
 "   Run BundleInstall:
 "       Run the command to get all bundles.
 "       Go to below sites to see configs.
-"       After install see YCM page for further compilation.
-"
-"   See YCM & Airline in Plugin index for further config.
+"       See YouCompleteMevim & airline in plugin index for further config.
 "
 "Plugin Info:
 "
 "   YouCompleteMe:
 "       Very good autocomplete, you need to compile with clang for c completion functions.
-"       Info at url below or use ycm_compile.py in my repo (assumes you have build tools).
+"       Info at url below or use ycm_compile.py in my repo (assumes you have build tools for c++ compilation).
 "       https://github.com/Valloric/YouCompleteMe
 "
 "   Syntastic:
-"       Syntax checking without running code
+"       Syntax checking without running code usually on buffer write. Errors highlighted in left margin.
 "       https://github.com/scrooloose/syntastic
 "
 "   A.vim:
-"       Swap to a c header for a file with :A.
+"       Swap between a c source and header file with :A.
 "       https://github.com/vim-scripts/a.vim
 "
 "   NERDComment:
-"       Bunch of comment commands. Mainly , c c/i to comment line.
+"       Bunch of comment commands. Mainly <Leader>ci to comment line.
 "       https://github.com/scrooloose/nerdcommenter
 "
 "   vim-airline:
@@ -66,8 +67,7 @@
 "       NB: Be sure to patch ~/.fonts with https://github.com/Lokaltog/powerline-fonts
 "
 "   DeleteTrailingWhitespace:
-"       Use [Range]DeleteTrailingWhitespace, where range
-"       is an optional line range.
+"       Use [Range]DeleteTrailingWhitespace, where range is an optional line range.
 "       https://github.com/vim-scripts/DeleteTrailingWhitespace
 "
 "   vim-surround:
@@ -76,7 +76,7 @@
 "
 "   TagBar:
 "       A outline of the files contents.
-"       Uses exuberant ctags, not default.
+"       Uses exuberant ctags, not GNU ctags.
 "       See info at: https://github.com/majutsushi/tagbar
 "
 "   CtrlP:
@@ -97,7 +97,7 @@
 "Unused Plugins:
 "
 "   NERDTree:
-"       Plugin that is a pretty NETRW replacement.
+"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate.
 "       Open with :NERDTree command.
 "       https://github.com/scrooloose/nerdtree
 "
@@ -116,11 +116,9 @@
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
 "   paste mode that will prevent the auto indenting/format.
 "
-" * See scrolloff value for interesting effect on vim.
+" * See scrolloff value for interesting effect on vim. Keeps certain amount of lines always below cursor when scrolling.
 "
 " * See list for ability to see trailing whitespace.
-"
-" * "acommand puts the result into the buffer a.
 "
 " * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier.
 "
@@ -140,6 +138,9 @@
 "   block comment (with visual) -> V (select) , c c
 "   toggle comment for lines: , c i
 "
+" * Reindent a file:
+"       ,t
+"
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
@@ -157,7 +158,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
-" List bundles after here.
+" List bundles after here. No comments on bundle line.
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
@@ -257,12 +258,13 @@ cnoreabbrev tp tabp
 cnoreabbrev te tabe
 cnoreabbrev td tabclose
 
-" I always forget for explore, make some shortcuts. sE for v split, tE for tab.
+" I always forget for explore, make some shortcuts. Ev for v split, Et for tab.
 cnoreabbrev E Explore
 cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
 
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+" To open NERDTree when used.
+"nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 
 " Remap Alt + Arrow keys to move between split windows.
 nnoremap <silent> <A-Up> :wincmd k<CR>
@@ -328,18 +330,21 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM User Interface & Search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nu "set left side numbers
-set ruler "set position in bottom right
+" Set line numbering on left.
+set nu
 
-" Highlight search results
+" Set position indicator on bottom right.
+set ruler
+
+" Highlight search results.
 set hlsearch
 
-" Show matching brackets when text indicator is over them
+" Show matching brackets when text indicator is over them.
 set showmatch
-" How many tenths of a second to blink when matching brackets
+" How many tenths of a second to blink when matching brackets.
 set mat=1
 
-" For regular expressions turn magic on
+" For regular expressions turn magic on. Means don't need to \* in regex.
 set magic
 
 " When searching ignore case unless contains a cap. Override with \c|\C to force at end of regexp.
@@ -356,7 +361,7 @@ let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar
 " Add to ignore docs.
 "let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
 
-" Build that string.
+" Processing here to build a large regexp, basically ignores all files ending in above extensions.
 let wild_s = ''
 let hide_s = ''
 
@@ -387,17 +392,19 @@ let g:netrw_sort_options = 'i'
 " Enable syntax highlighting
 syntax enable
 
-set t_Co=256 " Required to make molokai work.
-"let g:molokai_original = 1 " Option to molokai theme.
-"let g:rehash256 = 1
+" Required to make molokai work.
+set t_Co=256
+
+" Set dark background before, else colors off.
 set background=dark
 colorscheme molokai
-" Good colorschemes: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
+" Other good colorschemes:
+"   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
-" Set utf8 as standard encoding and en_US as the standard language
+" Set UTF-8 for file enconding.
 set encoding=utf8
 
-" Use Unix as the standard file type
+" Use Unix as the standard file type.
 set ffs=unix,dos,mac
 
 " Set font when using gui version.
@@ -411,7 +418,7 @@ endif
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" When push tab in insert shift by tabstop, when backspace delete tabstop amount.
 set smarttab
 
 " 1 tab == 4 spaces
@@ -419,7 +426,7 @@ set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak on 500 characters, affects when you paste long lines.
 set lbr
 set tw=500
 
