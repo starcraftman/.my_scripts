@@ -90,11 +90,25 @@
 "       Project: https://github.com/sjl/gundo.vim
 "       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
 "
+"   EasyMotion
+"       Provides alternative motion for word jumping.
+"       Use <Leader><Leader>w to jump then select.
+"       https://github.com/Lokaltog/vim-easymotion
+"
+"   vim-matchit:
+"       Extends the % command to jump to matching xml or if/fi tags.
+"       https://github.com/edsono/vim-matchit
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 "
 "Unused Plugins:
+"
+"   SnipMate:
+"       Allows you to expand boilerplate code.
+"       Usage: http://www.bestofvim.com/plugin/snipmate/
+"       https://github.com/msanders/snipmate.vim
 "
 "   NERDTree:
 "       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate.
@@ -161,11 +175,12 @@ call vundle#rc()
 " List bundles after here. No comments on bundle line.
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
+Bundle 'edsono/vim-matchit'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
-"Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
@@ -175,8 +190,9 @@ Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
 " Color schemes
-" Bundle 'flazz/vim-colorschemes'
 Bundle 'tomasr/molokai'
+" Large number of schemes to try:
+"Bundle 'flazz/vim-colorschemes'
 
 " Turn on after vundle works.
 filetype plugin indent on
