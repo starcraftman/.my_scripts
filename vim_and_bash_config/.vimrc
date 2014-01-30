@@ -107,8 +107,9 @@
 "
 "   SnipMate:
 "       Allows you to expand boilerplate code.
-"       Usage: http://www.bestofvim.com/plugin/snipmate/
 "       https://github.com/msanders/snipmate.vim
+"       Usage: http://www.bestofvim.com/plugin/snipmate/
+"       Related: https://github.com/scrooloose/snipmate-snippets
 "
 "   NERDTree:
 "       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate.
