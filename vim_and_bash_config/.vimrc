@@ -129,6 +129,10 @@
 "
 " Notes:
 "
+" * To indent:
+"       5>>: Indent next 5 lines 1 tab.
+"       5<<: De-Indent next 5 lines 1 tab.
+"
 " * Use :help [option|key] to get info.
 "   For plugins: :help syntastic, :help YCM
 "
@@ -293,14 +297,14 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 " Shortcut to remember how to reindent file.
 nnoremap <Leader>t gg=G
 
-" Paste toggle button.
-set pastetoggle=<F2>
+" Paste toggle button, disables f1 help use command instead.
+set pastetoggle=<F1>
 
 " Shortcut for tagbar outline of file.
-nnoremap <silent> <F3> :TagbarToggle<CR>
+nnoremap <silent> <F2> :TagbarToggle<CR>
 
 " Shortcut for gundo sidebar.
-nnoremap <silent> <F5> :GundoToggle<CR>
+nnoremap <silent> <F3> :GundoToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options
@@ -452,3 +456,14 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype Specific (avoids too many files)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType ruby call SetRubyOptions()
+function SetRubyOptions()
+    " 1 tab == 2 spaces, seems ruby tradition
+    setl softtabstop=2
+    setl shiftwidth=2
+    setl tabstop=2
+endfunction
