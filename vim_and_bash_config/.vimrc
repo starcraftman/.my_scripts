@@ -1,12 +1,15 @@
-" This vimrc is highly customised, these are my top level notes. I've tried to document clearly.
-"
-" * Vim NETRW remote editting.
-"       http://www.vim.org/scripts/script.php?script_id=1075
+" This vimrc tailors vim to be a good programmers tool.
 "
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
 " * Vim regex: http://www.vimregex.com/
+"
+" * Vim Script: Used to make plugins and in vimrc for looping etc...
+"       http://learnvimscriptthehardway.stevelosh.com/
+"
+" * Vim NETRW remote editting.
+"       http://www.vim.org/scripts/script.php?script_id=1075
 "
 " * For detailed breakdown of basic vim options, I started by looking at this one:
 "       http://amix.dk/vim/vimrc.html
@@ -126,6 +129,9 @@
 "
 " Notes:
 "
+" * Use :help [option|key] to get info.
+"   For plugins: :help syntastic, :help YCM
+"
 " * To override language specific settings, see ~/.vim/ftplugin for lang files.
 "
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
@@ -137,16 +143,10 @@
 "
 " * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier.
 "
-" * Use :help [option|key] to get info.
-"   For plugins: :help syntastic, :help YCM
-"
 " * To see all errors list:
 "   open -> :Errors
 "   close -> :lclose
 "   NB: Overrides location list when called.
-"
-" * To add identifiers use ctags:
-"       https://jeremywsherman.com/blog/2013/07/25/surf-code-with-ctags/
 "
 " * Code comment:
 "   current line -> , c c
@@ -154,7 +154,8 @@
 "   toggle comment for lines: , c i
 "
 " * Reindent a file:
-"       ,t
+"       Whole File: ,t
+"       Some Lines: <movement>=
 "
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
