@@ -1,16 +1,21 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
 #	unittest package for xUnit.
-''' Implements code to support my templating system for source files. '''
+''' Implements code to support my templating system for source files.
+    For autocomplete functionality, see the docs which contain setup info.
+'''
 
 # Imports
-import sys
+from __future__ import print_function
+import argcomplete
 import argparse
 import glob
 import os
 import stat
+import sys
 from shutil import copyfile
 
 # These are languages that get execute.
@@ -58,11 +63,13 @@ if __name__ == '__main__':
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=DESC)
-    parser.add_argument('lang', action='store', help='the language to make')
+    parser.add_argument('lang', action='store', help='the language to make',
+                        choices=SRC_DICT.keys())
     parser.add_argument('s_files', nargs='*', help='source files to create')
     parser.add_argument('-i', action='append', dest='h_files',
                         default=[], help='header file to create')
 
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
 
     if args.lang not in SRC_DICT:
