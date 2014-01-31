@@ -108,6 +108,10 @@
 "
 "Unused Plugins:
 "
+"   ultisnips:
+"       Same as SnipMate, seems that project may be unmaintained.
+"       https://github.com/SirVer/ultisnips
+"
 "   SnipMate:
 "       Allows you to expand boilerplate code.
 "       https://github.com/msanders/snipmate.vim
