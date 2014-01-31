@@ -198,6 +198,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
+"Bundle 'SirVer/ultisnips'
 
 " Color schemes
 Bundle 'tomasr/molokai'
@@ -239,6 +240,16 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 
 " Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
 let g:ycm_extra_conf_globlist = []
+
+" UltiSnips settings.
+" Set dir to .vim section.
+let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
+
+" Key bindings for UltiSnips.
+let g:UltiSnipsExpandTrigger       = '<c-j>'
+"let g:UltiSnipsListSnippets        = '<c-tab>'
+let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " Always delete trailing whitespace from lines on save.
 "let g:DeleteTrailingWhitespace = 1
