@@ -41,8 +41,12 @@
 "
 "   Run BundleInstall:
 "       Run the command to get all bundles.
-"       Go to below sites to see configs.
-"       See YouCompleteMe & airline in plugin index for further config.
+"
+"   Further Config:
+"       YouCompleteMe: Requires cpp compilation, see notes.
+"       vim-airline: Requires powerline font modification.
+"       TagBar: Requires exhuberant tags instead of gnu ctags.
+"       Dirs: Make ~/.vim/undo and ~/.vim/snippets
 "
 "Plugin Info:
 "
@@ -107,6 +111,10 @@
 "       Extends the % command to jump to matching xml or if/fi tags.
 "       https://github.com/edsono/vim-matchit
 "
+"   ultisnips:
+"       Same as SnipMate, seems that project may be unmaintained.
+"       https://github.com/SirVer/ultisnips
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -117,10 +125,6 @@
 "       Provides alternative motion for word jumping.
 "       Use <Leader><Leader>w to jump then select.
 "       https://github.com/Lokaltog/vim-easymotion
-"
-"   ultisnips:
-"       Same as SnipMate, seems that project may be unmaintained.
-"       https://github.com/SirVer/ultisnips
 "
 "   SnipMate:
 "       Allows you to expand boilerplate code.
@@ -252,6 +256,9 @@ let g:ycm_complete_in_comments = 1
 " Allow ctags for identifier help.
 "let g:ycm_collect_identifiers_from_tags_files = 1
 
+" Use next line to disable ultisnips completion.
+"let g:ycm_use_ultisnips_completer = 0
+
 " Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
 let g:ycm_extra_conf_globlist = []
 
@@ -260,9 +267,9 @@ let g:ycm_extra_conf_globlist = []
 " Set dir to .vim section.
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
 
-" Key bindings for UltiSnips.
+" Key bindings for UltiSnips. All of these are ctrl + key.
 let g:UltiSnipsExpandTrigger       = '<c-j>'
-"let g:UltiSnipsListSnippets        = '<c-tab>'
+let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
