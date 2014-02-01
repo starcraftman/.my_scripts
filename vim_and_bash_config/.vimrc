@@ -199,7 +199,7 @@ call vundle#rc()
 " List bundles after here. No comments on bundle line.
 Bundle 'gmarik/vundle'
 
-" Heaviest plugins. 
+" Heaviest plugins.
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
