@@ -327,7 +327,7 @@ set statusline+=%*
 " For custom key combos, use leader. See :help <Leader>
 let mapleader = ","
 
-" Rebinding some commands for managing edits and tabs.
+" Rebinding some commands for managing edits and tabs. Some of these exist, I put them here to remember.
 " For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current.
 " The tab commands attach to current session for easy swapping.
 cnoreabbrev bn bnext
@@ -397,7 +397,7 @@ set showcmd
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " No annoying sound on errors
@@ -410,7 +410,7 @@ set tm=500
 " => VIM User Interface & Search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set line numbering on left.
-set nu
+set number
 
 " Set position indicator on bottom right.
 set ruler
@@ -421,7 +421,7 @@ set hlsearch
 " Show matching brackets when text indicator is over them.
 set showmatch
 " How many tenths of a second to blink when matching brackets.
-set mat=1
+set matchtime=1
 
 " For regular expressions turn magic on. Means don't need to \* in regex.
 set magic
@@ -471,7 +471,7 @@ let g:netrw_sort_options = 'i'
 " Enable syntax highlighting
 syntax enable
 
-" Required to make molokai work.
+" Required to make molokai work. Sets color mode to 256.
 set t_Co=256
 
 " Set dark background before, else colors off.
@@ -483,8 +483,8 @@ colorscheme molokai
 " Set UTF-8 for file enconding.
 set encoding=utf8
 
-" Use Unix as the standard file type.
-set ffs=unix,dos,mac
+" The order of EOL symbols to try. Prefer unix.
+set fileformats=unix,dos,mac
 
 " Set font when using gui version.
 if has('gui_running')
@@ -494,25 +494,31 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 1 tab == 4 spaces
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+
 " Use spaces instead of tabs.
 set expandtab
 
 " When push tab in insert shift by tabstop, when backspace delete tabstop amount.
 set smarttab
 
-" 1 tab == 4 spaces
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
+" Copy indent at current when inserting new line.
+set autoindent
 
-" Linebreak on 500 characters, affects when you paste long lines.
-set lbr
-set tw=500
+" Automatically insert some indents after certain actions.
+set smartindent
 
-" Indenting options and wrapping lines.
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+" Wrap lines when hit right side, doesn't affect buffer.
+set wrap
+
+" Makes smarter decisions about what stays on wrapped line.
+set linebreak
+
+" When inserting text, force a line break at this amount. Set to 0 to disable.
+set textwidth=500
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype Specific (avoids too many files)
