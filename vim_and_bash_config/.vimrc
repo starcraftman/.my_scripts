@@ -395,12 +395,12 @@ set wildmode=longest,list,full
 " Show command in last line, usually on by default.
 set showcmd
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most files in a VCS.
 set nobackup
 set nowritebackup
 set noswapfile
 
-" No annoying sound on errors
+" No annoying sound on errors.
 set noerrorbells
 set novisualbell
 set t_vb=
