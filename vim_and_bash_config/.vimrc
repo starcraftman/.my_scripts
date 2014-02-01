@@ -42,7 +42,7 @@
 "   Run BundleInstall:
 "       Run the command to get all bundles.
 "       Go to below sites to see configs.
-"       See YouCompleteMevim & airline in plugin index for further config.
+"       See YouCompleteMe & airline in plugin index for further config.
 "
 "Plugin Info:
 "
@@ -54,6 +54,7 @@
 "   Syntastic:
 "       Syntax checking without running code usually on buffer write. Errors highlighted in left margin.
 "       https://github.com/scrooloose/syntastic
+"       Extra Info: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
 "
 "   A.vim:
 "       Swap between a c source and header file with :A.
@@ -220,9 +221,8 @@ filetype plugin indent on
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
 
-" Syntastic, syntax checker.
-" Info at: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
-
+" Syntastic
+"""""""""""
 " Set what chechers are active or passive.
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'ruby', 'sh', 'xml', 'json'],
@@ -231,26 +231,32 @@ let g:syntastic_mode_map={ 'mode': 'active',
 " Check syntax on file open.
 let g:syntastic_check_on_open = 1
 
-" Put errors on left side
+" Show errors in the line numbers to left. Signs can be configured, see help.
 let g:syntastic_enable_signs = 1
 
 " Format the syntastic message
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
+" List of files to ignore checking, may be useful later.
+let g:syntastic_ignore_files = ['\m^/usr/include/']
+
 " Manually set important checkers:
 let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
 let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 
+" YouCompleteMe
+"""""""""""""""
 " Allow completion of identifiers in comments too.
 let g:ycm_complete_in_comments = 1
 
 " Allow ctags for identifier help.
-let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_collect_identifiers_from_tags_files = 1
 
 " Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
 let g:ycm_extra_conf_globlist = []
 
-" UltiSnips settings.
+" UltiSnips
+"""""""""""
 " Set dir to .vim section.
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
 
@@ -260,9 +266,20 @@ let g:UltiSnipsExpandTrigger       = '<c-j>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-" Sneak settings.
+" Sneak
+"""""""
+" Allows quick motion when more than 2 matches.
 let g:sneak#streak = 1
 
+" Allows smart case usage of sneak.
+let g:sneak#use_ic_scs = 1
+
+" Toggle to allow or prevent sneak in netrw.
+" When enabled, moves old s binding to <Leader>s/S.
+let g:sneak#map_netrw = 1
+
+" DeleteTrailingWhitespace
+""""""""""""""""""""""""""
 " Always delete trailing whitespace from lines on save.
 "let g:DeleteTrailingWhitespace = 1
 "let g:DeleteTrailingWhitespace_Action = 'delete'
@@ -270,8 +287,9 @@ let g:sneak#streak = 1
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
-set laststatus=2
-"let g:airline_theme = 'powerlineish'
+" vim-Airline
+"""""""""""""
+" Enable syntastic integration.
 let g:airline_enable_syntastic = 1
 
 " Enable a smart tab top.
@@ -280,7 +298,8 @@ let g:airline#extensions#tabline#enabled = 1
 " Enable powerline fonts.
 let g:airline_powerline_fonts = 1
 
-" Old status line
+" Regular Status Line
+"""""""""""""""""""""
 set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
 " Syntastic modification to line.
@@ -464,7 +483,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
+" Use spaces instead of tabs.
 set expandtab
 
 " When push tab in insert shift by tabstop, when backspace delete tabstop amount.
@@ -489,7 +508,7 @@ set wrap "Wrap lines
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType ruby call SetRubyOptions()
 function SetRubyOptions()
-    " 1 tab == 2 spaces, seems ruby tradition
+    " Set tabs to 2 spaces, seems ruby tradition.
     setl softtabstop=2
     setl shiftwidth=2
     setl tabstop=2
