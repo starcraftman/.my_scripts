@@ -198,19 +198,23 @@ call vundle#rc()
 
 " List bundles after here. No comments on bundle line.
 Bundle 'gmarik/vundle'
+
+" Heaviest plugins. 
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
+Bundle 'SirVer/ultisnips'
+
+" Regular plugins.
 Bundle 'edsono/vim-matchit'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/syntastic'
-Bundle 'SirVer/ultisnips'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
