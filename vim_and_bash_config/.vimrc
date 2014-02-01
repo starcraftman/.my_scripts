@@ -93,10 +93,14 @@
 "       Project: https://github.com/sjl/gundo.vim
 "       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
 "
-"   EasyMotion
-"       Provides alternative motion for word jumping.
-"       Use <Leader><Leader>w to jump then select.
-"       https://github.com/Lokaltog/vim-easymotion
+"   vim-sneak:
+"       Provies quick motion for cursor.
+"       Keys:
+"           s<char><char> - search for word
+"           s/; - next word
+"           S/, - prev word match
+"           ctrl + o - back to start
+"       https://github.com/justinmk/vim-sneak
 "
 "   vim-matchit:
 "       Extends the % command to jump to matching xml or if/fi tags.
@@ -107,6 +111,11 @@
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 "
 "Unused Plugins:
+"
+"   EasyMotion
+"       Provides alternative motion for word jumping.
+"       Use <Leader><Leader>w to jump then select.
+"       https://github.com/Lokaltog/vim-easymotion
 "
 "   ultisnips:
 "       Same as SnipMate, seems that project may be unmaintained.
@@ -186,8 +195,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'edsono/vim-matchit'
+Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdcommenter'
@@ -250,6 +259,9 @@ let g:UltiSnipsExpandTrigger       = '<c-j>'
 "let g:UltiSnipsListSnippets        = '<c-tab>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+" Sneak settings.
+let g:sneak#streak = 1
 
 " Always delete trailing whitespace from lines on save.
 "let g:DeleteTrailingWhitespace = 1
