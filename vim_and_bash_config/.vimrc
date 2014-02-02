@@ -32,6 +32,15 @@
 "       If not, recompile with it. See above for debian or source compile.
 "       :echo has('python')
 "
+"   Two Options to continue, use automated script or manually setup.
+"   A) install_system.py
+"       Will symbolically link .vimrc and .bash_aliases to .my_scripts.
+"       Copys basic .vim folder to users home folder.
+"       Will download NeoBundle to right location.
+"       Will download powerline fonts for airline.
+"       Will download and setup hg-prompt and git-bash-prompt.
+"
+"   B) Manually continue to do the above.
 "   Get NeoBundle:
 "       Plugin to manage installation of others.
 "       For initial setup:
@@ -40,7 +49,7 @@
 "       Further information:
 "       https://github.com/Shougo/neobundle.vim
 "
-"   Run BundleInstall:
+"   Run NeoBundleInstall:
 "       Run the command to get all bundles.
 "
 "   Further Config:
@@ -303,6 +312,11 @@ let g:sneak#use_ic_scs = 1
 " Toggle to allow or prevent sneak in netrw.
 " When enabled, moves old s binding to <Leader>s/S.
 let g:sneak#map_netrw = 1
+
+" CtrlP
+"""""""
+" Index hidden files.
+let g:ctrlp_show_hidden = 1
 
 " DeleteTrailingWhitespace
 """"""""""""""""""""""""""

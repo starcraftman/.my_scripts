@@ -99,6 +99,7 @@ def install_packages():
 
 def get_code(command, target):
     """ Wrapper function to clone repos.
+    Protects against overwriting if target exists.
     command: The command that would run in bash.
     target: Where to clone to.
     """
@@ -139,6 +140,14 @@ def setup_config():
              dst + '/.hg-prompt')
     get_code('git clone git@github.com:magicmonty/bash-git-prompt.git',
              dst + '/.bash-git-prompt')
+
+    # Setup powerline fonts if not done.
+    ddir = dst + '/.fonts'
+    if not os.path.exists(ddir):
+        os.mkdir(ddir)
+        get_code('git clone https://github.com/Lokaltog/powerline-fonts',
+                 ddir + '/powerline-fonts')
+        subprocess.call(['fc-cache', '-vf', ddir])
 
 
 def install_cabal():
