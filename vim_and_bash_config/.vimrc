@@ -32,12 +32,13 @@
 "       If not, recompile with it. See above for debian or source compile.
 "       :echo has('python')
 "
-"   Get Vundle:
+"   Get NeoBundle:
 "       Plugin to manage installation of others.
 "       For initial setup:
-"       git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+"           mkdir -p ~/.vim/bundle
+"           git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 "       Further information:
-"       https://github.com/gmarik/vundle
+"       https://github.com/Shougo/neobundle.vim
 "
 "   Run BundleInstall:
 "       Run the command to get all bundles.
@@ -141,6 +142,10 @@
 "       omniPerl and pydiction.
 "       https://github.com/rkulla/pydiction
 "
+"   Vundle:
+"       NeoBundle is a fork of this.
+"       https://github.com/gmarik/vundle
+"
 "   Pathogen:
 "       A manual alternative to Vundle.
 "       https://github.com/tpope/vim-pathogen
@@ -182,49 +187,58 @@
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install (update) bundles
-" :BundleSearch(!) foo - search (or refresh cache first) for foo
-" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install (update) bundles
+" :NeoBundleSearch(!) foo - search (or refresh cache first) for foo
+" :NeoBundleClean(!)      - confirm (or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
+" NOTE: comments after NeoBundle commands are not allowed.
 
-" Setup required to use Vundle
-set nocompatible
+" Disable compatability mode. Set runtime path.
+if has('vim_starting')
+   set nocompatible
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+" Turn off filetype stuff during NeoBundle ops.
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
 
-" List bundles after here. No comments on bundle line.
-Bundle 'gmarik/vundle'
+" Init call.
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" List bundles after here. No comments on bundle line. Optional revision number after bundle to lock it.
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Heaviest plugins.
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-airline'
-Bundle 'SirVer/ultisnips'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'SirVer/ultisnips'
 
 " Regular plugins.
-Bundle 'edsono/vim-matchit'
-Bundle 'justinmk/vim-sneak'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/a.vim'
-Bundle 'vim-scripts/DeleteTrailingWhitespace'
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'justinmk/vim-sneak'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ludovicchabant/vim-lawrencium'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'vim-scripts/a.vim'
+NeoBundle 'vim-scripts/DeleteTrailingWhitespace'
 
 " Color schemes
-Bundle 'tomasr/molokai'
+NeoBundle 'tomasr/molokai'
 " Large number of schemes to try:
-"Bundle 'flazz/vim-colorschemes'
+"NeoBundle 'flazz/vim-colorschemes'
 
 " Turn on after vundle works.
 filetype plugin indent on
+
+" On startup check if any bundles not installed.
+NeoBundleCheck
 
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:
@@ -341,6 +355,11 @@ cnoreabbrev td tabclose
 cnoreabbrev E Explore
 cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
+
+" Shortcuts for bundle management.
+cnoreabbrev nbi NeoBundleInstall
+cnoreabbrev nbu NeoBundleUpdate
+cnoreabbrev nbc NeoBundleClean
 
 " To open NERDTree when used.
 "nnoremap <silent> <Leader>n :NERDTreeToggle<CR>

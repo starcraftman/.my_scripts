@@ -97,14 +97,14 @@ def install_packages():
     cache.close()
 
 
-def copy_config():
+def setup_config():
     """ Setup the dev environment, stuff goes in ~ and ~/.optSoftware. """
     src = './vim_and_bash_config/{}'
     dst = os.path.expanduser('~')
 
     # Copy config files for vim and bash into home.
     for fil in ['.vimrc', '.bash_aliases']:
-        shutil.copy2(src.format(fil), dst)
+        os.symlink(src, dst+'/'+fil)
     shutil.copytree(src.format('.vim'), dst + '/.vim')
 
 
@@ -124,7 +124,7 @@ def take_choice(choice):
     if choice == 1:
         install_packages()
     elif choice == 2:
-        copy_config()
+        setup_config()
     elif choice == 3:
         install_cabal()
 
