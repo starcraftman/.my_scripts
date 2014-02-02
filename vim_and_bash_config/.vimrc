@@ -73,7 +73,8 @@
 "       Plugin that gives nice colored status line.
 "       https://github.com/bling/vim-airline
 "       See :help airline and AirlineToggle
-"       NB: Be sure to patch ~/.fonts with https://github.com/Lokaltog/powerline-fonts
+"       NB: Be sure to patch ~/.fonts with powerline-fonts
+"       See: https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
 "
 "   DeleteTrailingWhitespace:
 "       Use [Range]DeleteTrailingWhitespace, where range is an optional line range.
