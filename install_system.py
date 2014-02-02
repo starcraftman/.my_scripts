@@ -113,14 +113,15 @@ def setup_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
     script_dir = os.path.realpath(__file__)
     script_dir = script_dir[0:script_dir.rindex(os.path.sep)]
-    src = script_dir + '/vim_and_bash_config/{}'
+    src = script_dir + '/vim_and_bash_config'
     dst = os.path.expanduser('~')
 
     # Link to config files, copy .vim folder.
     for fil in ['.vimrc', '.bash_aliases']:
+        sfile = src + '/' + fil
         dfile = dst + '/' + fil
         if not os.path.exists(dfile):
-            os.symlink(src.format(fil), dfile)
+            os.symlink(sfile, dfile)
 
     # Copy vim folder if not there.
     ddir = dst + '/.vim'
@@ -130,7 +131,7 @@ def setup_config():
     # Init NeoBundle.
     ddir = dst + '/.vim/bundle'
     if not os.path.exists(ddir):
-        print('Creating bunlde dir {}.'.format(ddir))
+        print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
     get_code('git clone https://github.com/Shougo/neobundle.vim',
              dst + '/.vim/bundle/neobundle.vim')
