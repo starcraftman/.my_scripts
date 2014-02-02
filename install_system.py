@@ -98,14 +98,28 @@ def install_packages():
 
 
 def setup_config():
-    """ Setup the dev environment, stuff goes in ~ and ~/.optSoftware. """
+    """ Setup the dev environment, stuff goes in the user's home folder. """
     src = './vim_and_bash_config/{}'
     dst = os.path.expanduser('~')
 
-    # Copy config files for vim and bash into home.
+    # Link to config files, copy .vim folder.
     for fil in ['.vimrc', '.bash_aliases']:
-        os.symlink(src, dst+'/'+fil)
-    shutil.copytree(src.format('.vim'), dst + '/.vim')
+        dfile = dst + '/' + fil
+        if not os.path.exists(dfile):
+            os.symlink(src, dfile)
+
+    # Copy vim folder if not there.
+    ddir = dst + '/.vim'
+    if not os.path.exists(ddir):
+        shutil.copytree(src.format('.vim'), ddir)
+
+    # Init NeoBundle.
+    ddir = dst + '/.vim/bundle'
+    if not os.path.exists(ddir):
+        os.mkdir(ddir)
+        cmd = ['git', 'clone', 'https://github.com/Shougo/neobundle.vim',
+               '~/.vim/bundle/neobundle.vim']
+        subprocess.call(cmd)
 
 
 def install_cabal():
