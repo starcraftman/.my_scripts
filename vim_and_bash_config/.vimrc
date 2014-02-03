@@ -21,26 +21,26 @@
 "       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 "
 " * To install the plugins:
-"   Update Vim:
+"   1) Update Vim:
 "       YCM Requires Vim 7.4:
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
 "       If can't install, try build from source:
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
-"   Ensure Vim Python Support:
+"   2) Ensure Vim Python Support:
 "       Some plugins use pyhon (like Gundo), check support.
 "       If not, recompile with it. See above for debian or source compile.
 "       :echo has('python')
 "
 "   Two Options to continue, use automated script or manually setup.
-"   A) install_system.py 2
+"   3a) install_system.py 2
 "       Will symbolically link .vimrc and .bash_aliases to .my_scripts.
 "       Copys basic .vim folder to users home folder.
 "       Will download NeoBundle to right location.
 "       Will download powerline fonts for airline.
 "       Will download and setup hg-prompt and git-bash-prompt.
 "
-"   B) Manually continue to do the above. Copy/link manually.
+"   3b) Manually continue to do the above. Copy/link manually.
 "   Get NeoBundle:
 "       Plugin to manage installation of others.
 "       For initial setup:
@@ -49,10 +49,10 @@
 "       Further information:
 "       https://github.com/Shougo/neobundle.vim
 "
-"   Run NeoBundleInstall:
+"   4) Run NeoBundleInstall:
 "       Run the command to get all bundles.
 "
-"   Further Config:
+"   5) Further Config:
 "       YouCompleteMe: Requires cpp compilation, see notes.
 "       vim-airline: Requires powerline font modification.
 "       TagBar: Requires exhuberant tags instead of gnu ctags.
