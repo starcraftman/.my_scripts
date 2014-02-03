@@ -115,42 +115,44 @@ def get_code(command, target):
 def setup_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
     script_dir = os.path.realpath(__file__)
-    script_dir = script_dir[0:script_dir.rindex(os.path.sep)]
-    src = script_dir + '/vim_and_bash_config'
-    dst = os.path.expanduser('~')
+    script_dir = script_dir[0:script_dir.rindex(os.sep)]
+
+    # Leaving trailing sep for ease later.
+    src = script_dir + os.sep + 'vim_and_bash_config' + os.sep
+    dst = os.path.expanduser('~') + os.sep
 
     # Link to config files, copy .vim folder.
     for fil in ['.vimrc', '.bash_aliases']:
-        sfile = src + '/' + fil
-        dfile = dst + '/' + fil
+        sfile = src + fil
+        dfile = dst + fil
         if not os.path.exists(dfile):
             os.symlink(sfile, dfile)
 
     # Copy vim folder if not there.
-    ddir = dst + '/.vim'
+    ddir = dst + '.vim'
     if not os.path.exists(ddir):
-        shutil.copytree(src.format('.vim'), ddir)
+        shutil.copytree(src + '.vim', ddir)
 
     # Init NeoBundle.
-    ddir = dst + '/.vim/bundle'
+    ddir = dst + '.vim/bundle'
     if not os.path.exists(ddir):
         print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
     get_code('git clone https://github.com/Shougo/neobundle.vim',
-             dst + '/.vim/bundle/neobundle.vim')
+             dst + '.vim/bundle/neobundle.vim')
 
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
-             dst + '/.hg-prompt')
+             dst + '.hg-prompt')
     get_code('git clone git@github.com:magicmonty/bash-git-prompt.git',
-             dst + '/.bash-git-prompt')
+             dst + '.bash-git-prompt')
 
     # Setup powerline fonts if not done.
-    ddir = dst + '/.fonts'
+    ddir = dst + '.fonts'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
         get_code('git clone https://github.com/Lokaltog/powerline-fonts',
-                 ddir + '/powerline-fonts')
+                 ddir + os.sep + 'powerline-fonts')
         subprocess.call(['fc-cache', '-vf', ddir])
 
 
