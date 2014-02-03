@@ -67,6 +67,8 @@ PROGRAMMING = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
+PY_PACKS = "argcomplete"
+
 
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
@@ -162,6 +164,20 @@ def install_cabal():
     subprocess.call(cmd)
 
 
+def py_packages():
+    """ Installs python packages using pip. """
+    if os.geteuid() != 0:
+        raise NotSudo('This stage must be run as root.')
+
+    # Use python package manager.
+    cmd = 'sudo pip install ' + PY_PACKS
+    subprocess.call(cmd.split())
+
+    # Install python completion to system bash_completion.d.
+    cmd = 'sudo activate-global-python-argcomplete'
+    subprocess.call(cmd.split())
+
+
 def take_choice(choice):
     """ Simple wrapper function to select right action. """
     choice = int(choice)
@@ -171,6 +187,8 @@ def take_choice(choice):
         setup_config()
     elif choice == 3:
         install_cabal()
+    elif choice == 4:
+        py_packages()
 
 if __name__ == '__main__':
     DESC = """ This program sets up a vanilla Ubuntu install.
@@ -178,6 +196,7 @@ if __name__ == '__main__':
     1 -> Install most packages.
     2 -> Setup vim, bash_aliases and development environment.
     3 -> Setup cabal for haskell development.
+    4 -> Setup python packages through pip.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
