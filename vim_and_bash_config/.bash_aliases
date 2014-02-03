@@ -103,7 +103,7 @@ function prompt_callback {
 
 # Formats to:
 # directory
-# user@host$dir [vcsInfo]
+# user@host [vcsInfo]
 #GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}$PS1_RED\w$PS1_RESET\n\u@\h$"
 #GIT_PROMPT_END=' '
 
