@@ -170,11 +170,11 @@ def py_packages():
         raise NotSudo('This stage must be run as root.')
 
     # Use python package manager.
-    cmd = 'sudo pip install ' + PY_PACKS
+    cmd = 'pip install ' + PY_PACKS
     subprocess.call(cmd.split())
 
     # Install python completion to system bash_completion.d.
-    cmd = 'sudo activate-global-python-argcomplete'
+    cmd = 'activate-global-python-argcomplete'
     subprocess.call(cmd.split())
 
 
