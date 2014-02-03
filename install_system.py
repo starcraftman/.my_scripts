@@ -51,6 +51,7 @@ PROGRAMMING = """ \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev \
     libncursesw5-dev \
+    openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     haskell-devscripts haskell-doc cabal-install \
