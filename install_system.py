@@ -48,7 +48,7 @@ PROGRAMMING = """ \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     erlang erlang-eunit \
-    gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb \
+    gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev \
     libncursesw5-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
