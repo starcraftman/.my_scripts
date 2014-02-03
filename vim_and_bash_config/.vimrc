@@ -385,6 +385,9 @@ nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
 
+" Add shortcut to jump to definition/declaration of c file.
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 " Shortcut to remember how to reindent file.
 nnoremap <Leader>t gg=G
 
