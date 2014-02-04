@@ -288,7 +288,7 @@ let g:ycm_complete_in_comments = 1
 "let g:ycm_use_ultisnips_completer = 0
 
 " Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
-let g:ycm_extra_conf_globlist = []
+let g:ycm_extra_conf_globlist = [ '~/programming/ReconstructingCaveStory/.ycm_extra_conf.py' ]
 
 " UltiSnips
 """""""""""
