@@ -31,12 +31,12 @@ INC_DIRS:=
 F_PROF:=-pg # Use in both compile/link.
 F_GCOV:=-fprofile-arcs -ftest-coverage # Use in both compile/link.
 F_DIRECT:=-D_REENTRANT
-F_OPT:=-O3 # For efficient build.
+F_OPT:=-O2 # For efficient build.
 F_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
 
 # Rule Flag Variables
-CFLAGS:=-gnu99
-CXXFLAGS:=-Weffc++
+CFLAGS:=--std=gnu99
+CXXFLAGS:=--Weffc++
 CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT)
 LDFLAGS:=$(F_DEBUG)
 LIBFLAGS:=$(F_DEBUG) -fPIC
@@ -54,6 +54,7 @@ EXT_ARC:=.a
 LIBS:=-lpthread -lm -ldl
 TESTLIBS:=-lcpptest
 BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lboost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lboost_thread -lboost_unit_test_framework -lboost_wave
+LDLIBS=$(LIBS) $(TESTLIBS)
 
 # OS Strings
 LIN64:=linux64
@@ -63,7 +64,11 @@ WIN32:=win32
 # Generic files to clean.
 FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 
-
+# Default Rules:
+# 	$(CC) $(CPPFLAGS) $(CFLAGS) -c
+# 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c
+# 	$(CC) $(LDFLAGS) n.o $(LOADLIBES) $(LDLIBS)
+ 	
 # ------------------------ Reference Notes -----------------------------------
 # Template for all src Makefiles. Use .cc for c++, .c for c.
 # Useful options to make:

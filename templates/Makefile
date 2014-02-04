@@ -19,6 +19,11 @@ $(T1): $(OBJ1) $(H1)
 clean:
 	rm -f $(TARGETS) $(FILES_TO_CLEAN)
 
+# Default Rules:
+# 	$(CC) $(CPPFLAGS) $(CFLAGS) -c
+# 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c
+# 	$(CC) $(LDFLAGS) n.o $(LOADLIBES) $(LDLIBS)
+
 # ------------------------ Reference Notes -----------------------------------
 # Template for all src Makefiles. Use .cc for c++, .c for c.
 # Useful options to make:
