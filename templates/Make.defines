@@ -28,7 +28,7 @@ CC:=gcc
 CXX:=g++
 
 # Include directories, append as needed. Format -I./dir -I/dir/to/files
-INC_DIRS:=-I$(DIR)/lib/cunit/include -I$(DIR)/lib/cppunit1.13.2/include
+INC_DIRS:=-I$(DIR)/lib/cunit/include -I$(DIR)/lib/cppunit/include
 
 # Generic Flags
 # To profile: 1) Compile/link with PROF flag. 2) Run file as normally to make gmon.out. 3) Run command: gprof program gmon.out > program.txt. Read output text.
@@ -43,7 +43,7 @@ F_DEBUG:=-ggdb -Wall -Werror -Wextra -Winline -pedantic
 CFLAGS:=--std=gnu99
 CXXFLAGS:=-Weffc++
 CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT)
-LDFLAGS:=-L$(DIR)/lib/cunit/lib -L$(DIR)/lib/cppunit1.13.2/lib
+LDFLAGS:=-L$(DIR)/libs/cunit/lib -L$(DIR)/libs/cppunit/lib
 LIBFLAGS:=$(F_DEBUG) -fPIC
 ARFLAGS:=-rv
 
