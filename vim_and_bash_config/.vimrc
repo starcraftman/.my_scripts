@@ -61,7 +61,8 @@
 "Plugin Info:
 "
 "   Vundle:
-"       Very good plugin manager, version revision on v branch.
+"       Very good plugin manager, only supports git.
+"       Need to look into revision support, doesn't work at this time.
 "       https://github.com/gmarik/vundle
 "
 "   YouCompleteMe:
@@ -215,7 +216,7 @@ filetype off
 " Init call.
 call vundle#rc()
 
-" List bundles after here. No comments on bundle line. Optional revision number after bundle to lock it.
+" List bundles after here. No comments on bundle line.
 Bundle 'gmarik/vundle'
 
 " Heaviest plugins.
