@@ -6,37 +6,35 @@
 import os
 import ycm_core
 
-# These are the compilation flags that will be used in case there's no
-# compilation database set (by default, one is not set).
-# CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
+# These are the compilation flags that will be used by YCM to check c files.
 FLAGS = [
-    # Debug warnings and general D flags here.
     # C Flags
     '-ggdb',
     '-Wall',
     '-Wextra',
-    '-Werror',
+    #'-Werror',
     '-Winline',
     '-pedantic',
     '-fexceptions',
     # C++ Flags
-    -Weffc++
-    -D_REENTRANT
-    # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know
-    # which language to use when compiling headers. So it will guess. Badly.
-    # So C++ headers will be compiled as C headers.
-    # You don't want that so ALWAYS specify a "-std=<something>".
-    # For a C project, set 'c99' instead of 'c++11'.
+    '-Weffc++',
+    # Defines
+    '-D_REENTRANT',
+    # Important for clang, choose a standard below.
+    # C++: (gnu++98), c/gnu++11,
+    # C: c/gnu89, (gnu99), c/gnu99, c/gnu11
     '-std=c++11',
-    # ...and the same thing goes for the magic -x option which specifies the
-    # language that the files to be compiled are written in. This is mostly
-    # relevant for c++ headers.
-    # For a C project, you would set this to 'c' instead of 'c++'.
+    # Need to tell clang language of headers.
+    # For a C project set to 'c' instead of 'c++'.
     '-x',
     'c++',
-    # Includes follow.
+    # Includes.
     '-I',
-    './lib/cunit/include'
+    './libs/cunit/include',
+    '-I',
+    './libs/cppunit/include',
+    '-I',
+    '/usr/include',
 ]
 
 
@@ -54,8 +52,8 @@ else:
     DB = None
 
 # Extensions that will be looked for.
-SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
-HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
+SOURCE_EXTENSIONS = ['.c', '.cpp', '.cxx', '.cc', '.m', '.mm']
+HEADER_EXTENSIONS = ['.h', '.hpp', '.hxx', '.hh']
 
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
