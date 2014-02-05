@@ -36,7 +36,7 @@
 "   3a) install_system.py 2
 "       Will symbolically link .vimrc and .bash_aliases to .my_scripts.
 "       Copys basic .vim folder to users home folder.
-"       Will download NeoBundle to right location.
+"       Will download Vundle to right location.
 "       Will download powerline fonts for airline.
 "       Will download and setup hg-prompt and git-bash-prompt.
 "
@@ -59,6 +59,10 @@
 "       Dirs: Make ~/.vim/undo and ~/.vim/snippets
 "
 "Plugin Info:
+"
+"   Vundle:
+"       Very good plugin manager, version revision on v branch.
+"       https://github.com/gmarik/vundle
 "
 "   YouCompleteMe:
 "       Very good autocomplete, you need to compile with clang for c completion functions.
@@ -151,10 +155,6 @@
 "   Completion Alternatives:
 "       omniPerl and pydiction.
 "       https://github.com/rkulla/pydiction
-"
-"   Vundle:
-"       NeoBundle is a fork of this.
-"       https://github.com/gmarik/vundle
 "
 "   Pathogen:
 "       A manual alternative to Vundle.
@@ -367,9 +367,9 @@ cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
 
 " Shortcuts for bundle management.
-cnoreabbrev nbi NeoBundleInstall
-cnoreabbrev nbu NeoBundleUpdate
-cnoreabbrev nbc NeoBundleClean
+cnoreabbrev bi BundleInstall
+cnoreabbrev bu BundleUpdate
+cnoreabbrev bc BundleClean
 
 " To open NERDTree when used.
 "nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
