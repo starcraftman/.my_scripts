@@ -35,7 +35,7 @@ CXX:=g++
 F_PROF:=-pg # Use in both compile/link.
 F_GCOV:=-fprofile-arcs -ftest-coverage # Use in both compile/link.
 F_DIRECT:=-D_REENTRANT
-F_OPT:=-O2 # For efficient build.
+F_OPT:=-O2 # -O0-3 for speed, Og for debug with some speed, Os for space.
 F_DEBUG:=-ggdb -Wall -Wextra -Winline -pedantic
 # Disabled -Werror for now.
 
