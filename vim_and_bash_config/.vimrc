@@ -41,15 +41,15 @@
 "       Will download and setup hg-prompt and git-bash-prompt.
 "
 "   3b) Manually continue to do the above. Copy/link manually.
-"   Get NeoBundle:
+"   Get Vundle:
 "       Plugin to manage installation of others.
 "       For initial setup:
 "           mkdir -p ~/.vim/bundle
-"           git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+"           git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "       Further information:
-"       https://github.com/Shougo/neobundle.vim
+"       https://github.com/gmarik/vundle
 "
-"   4) Run NeoBundleInstall:
+"   4) Run BundleInstall:
 "       Run the command to get all bundles.
 "
 "   5) Further Config:
@@ -197,58 +197,53 @@
 """"""""""""""""""""""""""""""
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""
-" :NeoBundleList          - list configured bundles
-" :NeoBundleInstall(!)    - install (update) bundles
-" :NeoBundleSearch(!) foo - search (or refresh cache first) for foo
-" :NeoBundleClean(!)      - confirm (or auto-approve) removal of unused bundles
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install (update) bundles
+" :BundleSearch(!) foo - search (or refresh cache first) for foo
+" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after NeoBundle commands are not allowed.
+" NOTE: comments after Bundle commands are not allowed.
 
 " Disable compatability mode. Set runtime path.
-if has('vim_starting')
-   set nocompatible
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+set nocompatible
+set runtimepath+=~/.vim/bundle/vundle/
 
-" Turn off filetype stuff during NeoBundle ops.
+" Turn off filetype stuff during Bundle ops.
 filetype off
 
 " Init call.
-call neobundle#rc(expand('~/.vim/bundle/'))
+call vundle#rc()
 
 " List bundles after here. No comments on bundle line. Optional revision number after bundle to lock it.
-NeoBundleFetch 'Shougo/neobundle.vim'
+Bundle 'gmarik/vundle'
 
 " Heaviest plugins.
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'SirVer/ultisnips'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+Bundle 'bling/vim-airline'
+Bundle 'SirVer/ultisnips'
 
 " Regular plugins.
-NeoBundle 'edsono/vim-matchit'
-NeoBundle 'justinmk/vim-sneak'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'ludovicchabant/vim-lawrencium'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/a.vim'
-NeoBundle 'vim-scripts/DeleteTrailingWhitespace'
+Bundle 'edsono/vim-matchit'
+Bundle 'justinmk/vim-sneak'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'sjl/gundo.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/a.vim'
+Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
 " Color schemes
-NeoBundle 'tomasr/molokai'
+Bundle 'tomasr/molokai'
 " Large number of schemes to try:
-"NeoBundle 'flazz/vim-colorschemes'
+"Bundle 'flazz/vim-colorschemes'
 
 " Turn on after vundle works.
 filetype plugin indent on
-
-" On startup check if any bundles not installed.
-NeoBundleCheck
 
 " Perl Autocomplete, allow : to be in keywords.
 " set iskeyword+=:

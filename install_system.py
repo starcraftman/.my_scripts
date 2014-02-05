@@ -133,13 +133,13 @@ def setup_config():
     if not os.path.exists(ddir):
         shutil.copytree(src + '.vim', ddir)
 
-    # Init NeoBundle.
+    # Init vundle for vim plugin install.
     ddir = dst + '.vim/bundle'
     if not os.path.exists(ddir):
         print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
-    get_code('git clone https://github.com/Shougo/neobundle.vim',
-             dst + '.vim/bundle/neobundle.vim')
+    get_code('git clone https://github.com/gmarik/vundle.git',
+             dst + '.vim/bundle/vundle')
 
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
