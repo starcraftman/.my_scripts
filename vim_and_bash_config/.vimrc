@@ -471,8 +471,8 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Folding method.
-set foldmethod=marker
+" Folding method, for most code use indent, no need to clutter source.
+set foldmethod=indent
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -613,6 +613,7 @@ set textwidth=500
 augroup filetype_funcs
     autocmd!
     autocmd FileType ruby call SetRubyOptions()
+    autocmd FileType vim call SetVimOptions()
 augroup END
 
 function SetRubyOptions()
@@ -620,6 +621,11 @@ function SetRubyOptions()
     setl softtabstop=2
     setl shiftwidth=2
     setl tabstop=2
+endfunction
+
+function SetVimOptions()
+    " Set fold to marker for vim files.
+    setl foldmethod=marker
 endfunction
 
 " }}}
