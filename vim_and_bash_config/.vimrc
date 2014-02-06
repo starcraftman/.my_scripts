@@ -205,6 +205,9 @@
 "
 " * To see folded code:
 "       za
+"
+" * To see conflicting maps:
+"       :verbose map <leader>jd
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
