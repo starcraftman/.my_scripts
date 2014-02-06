@@ -22,13 +22,14 @@ from shutil import copyfile
 SCRIPT_LANGS = ('python', 'perl', 'ruby')
 
 # Static data, I define here the dicts for extensions
-SRC_DICT = {'perl': '.pl',
+SRC_DICT = {'c': '.c',
+            'c++': '.cpp',
+            'lisp': '.lisp',
+            'perl': '.pl',
+            'prolog': '.pdb',
             'python': '.py',
             'ruby': '.rb',
-            'lisp': '.lisp',
-            'prolog': '.pdb',
-            'c': '.c',
-            'c++': '.cpp',
+            'ycm': '.py',
             }
 
 H_DICT = {'c': '.h',
@@ -76,12 +77,17 @@ if __name__ == '__main__':
         print("Language selected is not supported: %s" % args.lang)
         sys.exit(0)
 
-    src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
-
     # Select the template via globing relative location of file.
     script_dir = os.path.dirname(os.path.realpath(__file__))
     templates = glob.glob("{}/templates/{}_*".format(script_dir, args.lang))
     templates.sort()  # Source template first.
+
+    # Quick hack for ycm, not a standard language so avoid rest.
+    if args.lang == 'ycm':
+        copyfile(templates[0], '.ycm_extra_conf.py')
+        sys.exit(0)
+
+    src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
 
     # I've added extension and found template, now simply copy files.
     for s_file in src_files:
