@@ -426,9 +426,6 @@ nnoremap <silent> <F2> :TagbarToggle<CR>
 " Shortcut for gundo sidebar.
 nnoremap <silent> <F3> :GundoToggle<CR>
 
-" Grep operator mapping.
-"nnoremap <leader>g :execute "grep! -r " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
-
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options

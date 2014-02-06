@@ -1,8 +1,8 @@
-nnoremap <leader>g :set operatorfunc=GrepOperator<cr>g@
-vnoremap <leader>g :<c-u>call GrepOperator(visualmode())<cr>
+nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
+vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
 
-function! GrepOperator(type)
-    "echom a:type
+function! s:GrepOperator(type)
+    let l:unnamed_reg = @@
 
     if a:type ==# 'v'
         execute "normal! `<v`>y"
@@ -12,7 +12,8 @@ function! GrepOperator(type)
         return
     endif
 
-    echom shellescape(@@)
     execute "grep! -R " . shellescape(@@) . " ."
     copen
+
+    let @@ = l:unnamed_reg
 endfunction
