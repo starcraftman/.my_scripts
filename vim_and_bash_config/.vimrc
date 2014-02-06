@@ -399,7 +399,7 @@ cnoreabbrev bu BundleUpdate
 cnoreabbrev bc BundleClean
 
 " Faster binding to escape insert.
-inoremap <leader>i <esc>
+inoremap jk <esc>
 "inoremap <esc> <nop>
 
 " To open NERDTree when used.
@@ -425,6 +425,9 @@ nnoremap <silent> <F2> :TagbarToggle<CR>
 
 " Shortcut for gundo sidebar.
 nnoremap <silent> <F3> :GundoToggle<CR>
+
+" Grep operator mapping.
+"nnoremap <leader>g :execute "grep! -r " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
