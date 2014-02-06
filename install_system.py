@@ -9,7 +9,6 @@
 import apt
 import argparse
 import os
-import shutil
 import subprocess
 
 # Packages to install follow, broken down into categories.
@@ -131,7 +130,7 @@ def setup_config():
     # Copy vim folder if not there.
     ddir = dst + '.vim'
     if not os.path.exists(ddir):
-        shutil.copytree(src + '.vim', ddir)
+        os.symlink(src + '.vim', ddir)
 
     # Init vundle for vim plugin install.
     ddir = dst + '.vim/bundle'
