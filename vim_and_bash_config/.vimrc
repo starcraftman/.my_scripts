@@ -1,4 +1,4 @@
-" Place marker, ch 25 in vim script hard way.
+" Place marker, ch 32 in vim script hard way.
 " If you are confused by not seeing a lot of text, push zi.
 " For more info, see :help folding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -485,6 +485,9 @@ set ruler
 
 " Highlight search results.
 set hlsearch
+
+" Incrementally highlight first matching word as you type a search.
+set incsearch
 
 " Show matching brackets when text indicator is over them.
 set showmatch
