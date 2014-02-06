@@ -14,7 +14,7 @@ import subprocess
 # Packages to install follow, broken down into categories.
 
 PROGRAMS = """ \
-    aptitude synaptic \
+    htop aptitude synaptic \
     kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
