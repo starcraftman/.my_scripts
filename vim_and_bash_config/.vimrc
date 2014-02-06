@@ -1,3 +1,4 @@
+" Place marker, ch 25 in vim script hard way.
 " If you are confused by not seeing a lot of text, push zi.
 " For more info, see :help folding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
