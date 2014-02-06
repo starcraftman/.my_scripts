@@ -1,3 +1,10 @@
+" If you are confused by not seeing a lot of text, push zi.
+" For more info, see :help folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimrc General Notes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " This vimrc tailors vim to be a good programmers tool.
 "
 " * Vim Cheatsheet and Tutorial:
@@ -80,7 +87,7 @@
 "       https://github.com/vim-scripts/a.vim
 "
 "   NERDComment:
-"       Bunch of comment commands. Mainly <Leader>ci to comment line.
+"       Bunch of comment commands. Mainly <leader>ci to comment line.
 "       https://github.com/scrooloose/nerdcommenter
 "
 "   vim-airline:
@@ -139,7 +146,7 @@
 "
 "   EasyMotion
 "       Provides alternative motion for word jumping.
-"       Use <Leader><Leader>w to jump then select.
+"       Use <leader><leader>w to jump then select.
 "       https://github.com/Lokaltog/vim-easymotion
 "
 "   SnipMate:
@@ -195,9 +202,14 @@
 "       Whole File: ,t
 "       Some Lines: <movement>=
 "
-""""""""""""""""""""""""""""""
+" * To see folded code:
+"       za
+
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins with Vundle
-""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 " :BundleList          - list configured bundles
 " :BundleInstall(!)    - install (update) bundles
 " :BundleSearch(!) foo - search (or refresh cache first) for foo
@@ -306,7 +318,7 @@ let g:sneak#streak = 1
 let g:sneak#use_ic_scs = 1
 
 " Toggle to allow or prevent sneak in netrw.
-" When enabled, moves old s binding to <Leader>s/S.
+" When enabled, moves old s binding to <leader>s/S.
 let g:sneak#map_netrw = 1
 
 " CtrlP
@@ -320,9 +332,12 @@ let g:ctrlp_show_hidden = 1
 "let g:DeleteTrailingWhitespace = 1
 "let g:DeleteTrailingWhitespace_Action = 'delete'
 
-""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
-""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " vim-Airline
 """""""""""""
 " Enable syntastic integration.
@@ -346,11 +361,17 @@ set statusline+=%*
 " Old line without syntastic.
 " set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key Mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" For custom key combos, use leader. See :help <Leader>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
+" For custom key combos, use leader. See :help <leader>
 let mapleader = ","
+
+" Apparently used for buffer/filetype specific bindings.
+let maplocalleader = '\\'
 
 " Rebinding some commands for managing edits and tabs. Some of these exist, I put them here to remember.
 " For regular sessions, use :e file, :bn, :bp to move next, prev buffer. :bd to delete current.
@@ -372,8 +393,12 @@ cnoreabbrev bi BundleInstall
 cnoreabbrev bu BundleUpdate
 cnoreabbrev bc BundleClean
 
+" Faster binding to escape insert.
+inoremap <leader>i <esc>
+"inoremap <esc> <nop>
+
 " To open NERDTree when used.
-"nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+"nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 
 " Remap Alt + Arrow keys to move between split windows.
 nnoremap <silent> <A-Up> :wincmd k<CR>
@@ -385,7 +410,7 @@ nnoremap <silent> <A-Right> :wincmd l<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Shortcut to remember how to reindent file.
-nnoremap <Leader>t gg=G
+nnoremap <leader>t gg=G
 
 " Paste toggle button, disables f1 help use command instead.
 set pastetoggle=<F1>
@@ -396,9 +421,12 @@ nnoremap <silent> <F2> :TagbarToggle<CR>
 " Shortcut for gundo sidebar.
 nnoremap <silent> <F3> :GundoToggle<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " Sets how many lines of history VIM has to remember
 set history=1000
 set undolevels=1000
@@ -439,9 +467,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Folding method.
+set foldmethod=marker
+
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM User Interface & Search
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " Set line numbering on left.
 set number
 
@@ -462,9 +496,12 @@ set magic
 " When searching ignore case unless contains a cap. Override with \c|\C to force at end of regexp.
 set smartcase
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NETRW File Explorer
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " This list is used to build the strings for wildignore and netrw_list_hide.
 " Any file ending in one of these extensions will be ignored in command completion & netrw browser.
 let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
@@ -498,9 +535,12 @@ let g:netrw_liststyle = 3
 " Set the explorer sorting to case insensitive.
 let g:netrw_sort_options = 'i'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " Enable syntax highlighting
 syntax enable
 
@@ -524,9 +564,12 @@ if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " 1 tab == 4 spaces
 set softtabstop=4
 set shiftwidth=4
@@ -553,13 +596,23 @@ set linebreak
 " When inserting text, force a line break at this amount. Set to 0 to disable.
 set textwidth=500
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype Specific (avoids too many files)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType ruby call SetRubyOptions()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
+" Always wrap autocmds in this structure, autocmds get duped on each source of this file.
+augroup filetype_funcs
+    autocmd!
+    autocmd FileType ruby call SetRubyOptions()
+augroup END
+
 function SetRubyOptions()
     " Set tabs to 2 spaces, seems ruby tradition.
     setl softtabstop=2
     setl shiftwidth=2
     setl tabstop=2
 endfunction
+
+" }}}
