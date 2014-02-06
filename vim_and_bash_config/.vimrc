@@ -6,8 +6,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" This vimrc tailors vim to be a good programmers tool.
-"
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
@@ -74,12 +72,13 @@
 "       https://github.com/gmarik/vundle
 "
 "   YouCompleteMe:
-"       Very good autocomplete, you need to compile with clang for c completion functions.
-"       Info at url below or use ycm_compile.py in my repo (assumes you have build tools for c++ compilation).
+"       Very good autocomplete, includes path completion,
+"       automatic function indexing and clang checking with syntastic.
+"       Info at url below or use ycm_compile.py in my repo.
 "       https://github.com/Valloric/YouCompleteMe
 "
 "   Syntastic:
-"       Syntax checking without running code usually on buffer write. Errors highlighted in left margin.
+"       Syntax checking without running code usually on buffer write.
 "       https://github.com/scrooloose/syntastic
 "       Extra Info: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
 "
@@ -183,7 +182,8 @@
 " * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
 "   paste mode that will prevent the auto indenting/format.
 "
-" * See scrolloff value for interesting effect on vim. Keeps certain amount of lines always below cursor when scrolling.
+" * See scrolloff value for interesting effect on vim.
+"   Keeps certain amount of lines always below cursor when scrolling.
 "
 " * See list for ability to see trailing whitespace.
 "
@@ -265,9 +265,11 @@ filetype plugin indent on
 " Syntastic
 """""""""""
 " Set what chechers are active or passive.
-let g:syntastic_mode_map={ 'mode': 'active',
-                     \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'ruby', 'sh', 'xml', 'json'],
-                     \ 'passive_filetypes': ['lisp', 'xhtml', 'html', 'css', 'javascript'] }
+let g:syntastic_mode_map={
+        \ 'mode': 'active',
+        \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'ruby',
+        \                      'sh', 'xml', 'json'],
+        \ 'passive_filetypes': ['lisp', 'xhtml', 'html', 'css', 'javascript'] }
 
 " Check syntax on file open.
 let g:syntastic_check_on_open = 1
@@ -296,8 +298,9 @@ let g:ycm_complete_in_comments = 1
 " Use next line to disable ultisnips completion.
 "let g:ycm_use_ultisnips_completer = 0
 
-" Use the following to whitelist dirs with .ycm_extra_conf.py, see my_scripts dir for template. It is a bunch of dir paths.
-let g:ycm_extra_conf_globlist = [ '~/programming/ReconstructingCaveStory/.ycm_extra_conf.py' ]
+" Use the following to whitelist dirs for .ycm_extra_conf.py.
+let g:ycm_extra_conf_globlist = [
+    \ '~/programming/ReconstructingCaveStory/.ycm_extra_conf.py' ]
 
 " UltiSnips
 """""""""""
@@ -514,7 +517,7 @@ let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar
 " Add to ignore docs.
 "let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
 
-" Processing here to build a large regexp, basically ignores all files ending in above extensions.
+" Processing here to build the large regexp.
 let wild_s = ''
 let hide_s = ''
 
@@ -606,7 +609,7 @@ set textwidth=500
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Always wrap autocmds in this structure, autocmds get duped on each source of this file.
+" Always wrap autocmds in augroup, autocmds get duped on each source vimrc.
 augroup filetype_funcs
     autocmd!
     autocmd FileType ruby call SetRubyOptions()
