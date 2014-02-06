@@ -9,7 +9,7 @@
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
-" * Vim regex: 
+" * Vim regex:
 "       http://www.vimregex.com/
 "
 " * Vim Script: Used to make plugins and in vimrc for looping etc...
