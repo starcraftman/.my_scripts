@@ -616,16 +616,17 @@ augroup filetype_funcs
     autocmd FileType vim call SetVimOptions()
 augroup END
 
+" In functions below, always set locally otherwise you will impact other buffers.
 function SetRubyOptions()
     " Set tabs to 2 spaces, seems ruby tradition.
-    setl softtabstop=2
-    setl shiftwidth=2
-    setl tabstop=2
+    setlocal softtabstop=2
+    setlocal shiftwidth=2
+    setlocal tabstop=2
 endfunction
 
 function SetVimOptions()
     " Set fold to marker for vim files.
-    setl foldmethod=marker
+    setlocal foldmethod=marker
 endfunction
 
 " }}}
