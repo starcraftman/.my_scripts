@@ -503,7 +503,8 @@ set matchtime=1
 set magic
 
 " When searching ignore case unless contains a capital
-" Override with \c|\C to force at end of regexp
+" Override with \c/\C flag in regex -- /\cword
+set ignorecase
 set smartcase
 
 " }}}
