@@ -5,6 +5,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" Quick Links
+"""""""""""""
+" {{{
+
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
@@ -25,8 +29,12 @@
 "       For molokai latest: https://github.com/tomasr/molokai
 "       Put colors folder into ~/.vim/ or use vundle install from github
 "       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
-"
-" * To install the plugins:
+
+" }}}
+" Installation Procedure
+""""""""""""""""""""""""
+" {{{
+
 "   1) Update Vim:
 "       YCM Requires Vim 7.4:
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
@@ -63,9 +71,12 @@
 "       vim-airline: Requires powerline font modification
 "       TagBar: Requires exhuberant tags instead of gnu ctags
 "       Dirs: Make ~/.vim/undo and ~/.vim/snippets
-"
-"Plugin Info:
-"
+
+" }}}
+" Plugin Information
+""""""""""""""""""""
+" {{{
+
 "   Vundle:
 "       Very good plugin manager, only supports git
 "       Need to look into revision support, doesn't work at this time
@@ -141,9 +152,12 @@
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
-"
-"Unused Plugins:
-"
+
+" }}}
+" Unused Plugins, May Revisit
+"""""""""""""""""""""""""""""
+" {{{
+
 "   EasyMotion
 "       Provides alternative motion for word jumping
 "       Use <leader><leader>w to jump then select
@@ -167,9 +181,12 @@
 "   Pathogen:
 "       A manual alternative to Vundle
 "       https://github.com/tpope/vim-pathogen
-"
-" Notes:
-"
+
+" }}}
+" Notes To Remember
+"""""""""""""""""""
+" {{{
+
 " * To indent:
 "       5>>: Indent next 5 lines 1 tab
 "       5<<: De-Indent next 5 lines 1 tab
@@ -208,6 +225,8 @@
 "
 " * To see conflicting maps:
 "       :verbose map <leader>jd
+
+" }}}
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
