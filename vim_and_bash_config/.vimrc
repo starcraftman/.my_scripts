@@ -235,16 +235,10 @@
 " {{{
 
 " Vundle docs -> :help vundle
-" Disable compatability mode for vi
+" Vundle requires these options, keep bundles in this region.
 set nocompatible
-
-" Set runtime path, lookup for plugins
 set runtimepath+=~/.vim/bundle/vundle/
-
-" Turn off filetype stuff during Bundle ops
 filetype off
-
-" Init call
 call vundle#rc()
 
 " List bundles after here, no comments on bundle line
