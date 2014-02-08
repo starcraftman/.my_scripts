@@ -439,11 +439,24 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General Options
+" => General Options & Features
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Sets how many lines of history VIM has to remember
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Allow hiding of files, when using standard :e filename option
+set hidden
+
+" Set UTF-8 for file enconding
+set encoding=utf8
+
+" Folding method, for most code use indent, no need to clutter source
+set foldmethod=indent
+set foldminlines=5
+
+" Sets how many lines of history & undo VIM has to remember
 set history=1000
 set undolevels=1000
 
@@ -453,24 +466,9 @@ if has('persistent_undo')
     set undofile
 endif
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" Minimum number of lines that will always be above/below cursor
-set scrolloff=10
-
-" Allow hiding of files, when using standard :e filename option
-set hidden
-
-" Show whitespace markers on screen, disabled by default
-"set list
-
 " Autocomplete feature for command mode (i.e. :command)
 set wildmenu
 set wildmode=longest,list,full
-
-" Show command in last line, usually on by default
-set showcmd
 
 " Turn backup off, since most files in a VCS
 set nobackup
@@ -483,9 +481,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Folding method, for most code use indent, no need to clutter source
-set foldmethod=indent
-
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM User Interface & Search
@@ -497,6 +492,16 @@ set number
 
 " Set position indicator on bottom right
 set ruler
+
+" Show command in last line, usually on by default
+set showcmd
+
+" Show whitespace markers on screen, disabled by default
+"set list
+"set listchars=
+
+" Minimum number of lines that will always be above/below cursor
+set scrolloff=10
 
 " Highlight search results
 set hlsearch
@@ -574,12 +579,6 @@ set background=dark
 colorscheme molokai
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
-
-" Set UTF-8 for file enconding
-set encoding=utf8
-
-" The order of EOL symbols to try
-set fileformats=unix,dos,mac
 
 " Set font when using gui version
 if has('gui_running')
