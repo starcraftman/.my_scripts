@@ -571,7 +571,7 @@ let g:netrw_sort_options = 'i'
 syntax enable
 
 " Required to make molokai display correctly
-" Sets color mode to 256
+" Sets color mode to 256, sometimes term not set correctly
 set t_Co=256
 
 " Set dark background before, else colors off
