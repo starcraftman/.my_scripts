@@ -66,7 +66,7 @@ PROGRAMMING = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
-PY_PACKS = "argcomplete"
+PY_PACKS = "argcomplete trash-cli"
 
 
 class NotSudo(Exception):

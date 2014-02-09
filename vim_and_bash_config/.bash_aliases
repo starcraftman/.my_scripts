@@ -28,6 +28,17 @@ export HGMERGE=/usr/bin/kdiff3
 #Bash Aliases
 alias lla='ls -la'
 
+# Reruns the last command with sudo.
+alias please="sudo  !!"
+
+# Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
+alias trash-restore="restore-trash"
+alias tr="restore-trash"
+alias tp="trash-put"
+alias tl="trash-list"
+alias te="trash-empty"
+alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
+
 # Enable the windows key on Ubuntu as F13
 xmodmap -e 'keycode 133 = F13'
 
