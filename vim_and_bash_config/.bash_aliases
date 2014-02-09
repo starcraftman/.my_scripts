@@ -29,7 +29,7 @@ export HGMERGE=/usr/bin/kdiff3
 alias lla='ls -la'
 
 # Reruns the last command with sudo.
-alias please="sudo  !!"
+alias please='sudo `fc -l -n -1`'
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
 alias trash-restore="restore-trash"
