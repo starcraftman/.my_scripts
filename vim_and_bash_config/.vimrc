@@ -524,6 +524,63 @@ set smartcase
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
+" Enable syntax highlighting
+syntax enable
+
+" Required to make molokai display correctly
+" Sets color mode to 256, sometimes term not set correctly
+set t_Co=256
+
+" Set dark background before, else colors off
+set background=dark
+colorscheme molokai
+" Other good colorschemes:
+"   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
+
+" Set font when using gui version
+if has('gui_running')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
+endif
+
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tab & Indents
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
+" 1 tab == 4 spaces
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+
+" Use spaces instead of tabs
+set expandtab
+
+" When push tab in insert shift by tabstop, when backspace delete tabstop amount
+set smarttab
+
+" Copy indent at current when inserting new line
+set autoindent
+
+" Automatically insert some indents after certain actions
+set smartindent
+
+" Wrap lines when hit right side, doesn't affect buffer
+set wrap
+
+" Makes smarter decisions about what stays on wrapped line
+set linebreak
+
+" When inserting text, force a line break at this amount
+" Set to 0 to disable
+set textwidth=500
+
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NETRW File Explorer
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
@@ -562,64 +619,7 @@ let g:netrw_liststyle = 3
 let g:netrw_sort_options = 'i'
 
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
-
-" Enable syntax highlighting
-syntax enable
-
-" Required to make molokai display correctly
-" Sets color mode to 256, sometimes term not set correctly
-set t_Co=256
-
-" Set dark background before, else colors off
-set background=dark
-colorscheme molokai
-" Other good colorschemes:
-"   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
-
-" Set font when using gui version
-if has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
-endif
-
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
-
-" 1 tab == 4 spaces
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-
-" Use spaces instead of tabs
-set expandtab
-
-" When push tab in insert shift by tabstop, when backspace delete tabstop amount
-set smarttab
-
-" Copy indent at current when inserting new line
-set autoindent
-
-" Automatically insert some indents after certain actions
-set smartindent
-
-" Wrap lines when hit right side, doesn't affect buffer
-set wrap
-
-" Makes smarter decisions about what stays on wrapped line
-set linebreak
-
-" When inserting text, force a line break at this amount
-" Set to 0 to disable
-set textwidth=500
-
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype Specific (avoids too many files)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
