@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
-# This is a bunch of bash paths and also tweaks to the ps1 and aliases.
+# I know this file is traditionally for user aliases.
+# I am using it for all my custom bash modifications from standard.
 
+# Default editor for things like sudoedit.
+export EDITOR=vim
+
+############################################################################
+# Path Settings
+############################################################################
 # Local dir to install to.
 LOCAL=~/.optSoftware
 
@@ -20,13 +27,20 @@ export LD_RUN_PATH=$LIBDIR:$LD_RUN_PATH
 export PATH=$JAVA_HOME/bin:$MYSCRIPTS:$HASKELL_BIN:$ANDROID:$LOCAL/bin:$PATH
 export CLASSPATH=$JAVA_HOME/lib:$EXTRALIB:.
 
-# Vars for special purposes.
+# Paths for specific tools.
 export ANT_HOME=/usr/share/ant
-export EDITOR=vim
 export HGMERGE=/usr/bin/kdiff3
 
+#CCache Directory
+#Info: https://ccache.samba.org/manual.html
+export CCACHE_DIR=~/code/ccache
+
+############################################################################
+# Aliases
+############################################################################
 #Bash Aliases
 alias lla='ls -la'
+alias mkdir='mkdir -vp'
 
 # Reruns the last command with sudo.
 alias please='sudo `fc -l -n -1`'
@@ -39,6 +53,9 @@ alias tl="trash-list"
 alias te="trash-empty"
 alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 
+############################################################################
+# Misc Options
+############################################################################
 # Enable the windows key on Ubuntu as F13
 xmodmap -e 'keycode 133 = F13'
 
@@ -55,9 +72,47 @@ stty -ixon
 # Set default config environment. If need specialize, copy into dir of src tree.
 #. ~/.build-config-default
 
-#CCache Directory
-#Info: https://ccache.samba.org/manual.html
-export CCACHE_DIR=~/code/ccache
+############################################################################
+# Functions
+############################################################################
+# Universal extract function, later versions of tar -xvf may work
+# more universally but not with older versions.
+function extract()
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar)       tar xvf "$1"     ;;
+            *.tar.bz2)   tar xvjf "$1"    ;;
+            *.tar.gz)    tar xvzf "$1"    ;;
+            *.tar.xz)    tar xvf "$1"     ;;
+            *.tbz2)      tar xvjf "$1"    ;;
+            *.tgz)       tar xvzf "$1"    ;;
+            *.bz2)       bunzip2 "$1"     ;;
+            *.gz)        gunzip "$1"      ;;
+            *.rar)       unrar x "$1"     ;;
+            *.zip)       unzip "$1"       ;;
+            *.Z)         uncompress "$1"  ;;
+            *.7z)        7z x "$1"        ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+# Function to go back up when deep in directories.
+# Example: .. 3 == cd ../../..
+..() {
+    if [ $1 -ge 0 2> /dev/null ]; then
+        x=$1;
+    else
+        x=1;
+    fi;
+
+    for (( i = 0; i < $x; i++ )); do
+        cd ..;
+    done
+}
 
 ############################################################################
 # ALL PS1 past this point. This stuff used to modify the bash prompt to show
