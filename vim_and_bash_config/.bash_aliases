@@ -81,6 +81,8 @@ function extract()
 {
     if [ -f $1 ] ; then
         case $1 in
+            *.deb)       ar p "$1" data.tar.gz | tar zx ;;
+            *.rpm)       rpm2cpio "$1" | cpio -vid ;;
             *.tar)       tar xvf "$1"     ;;
             *.tar.bz2)   tar xvjf "$1"    ;;
             *.tar.gz)    tar xvzf "$1"    ;;
