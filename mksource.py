@@ -23,7 +23,7 @@ SCRIPT_LANGS = ('python', 'perl', 'ruby')
 
 # Static data, I define here the dicts for extensions
 SRC_DICT = {'c': '.c',
-            'c++': '.cpp',
+            'cpp': '.cpp',
             'lisp': '.lisp',
             'perl': '.pl',
             'prolog': '.pdb',
