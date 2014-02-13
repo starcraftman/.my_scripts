@@ -65,9 +65,6 @@ using std::string;
 /****************** Class Definitions *********************/
 
 
-/**************** Static Data Definitions *****************/
-
-
 /****************** Static Functions **********************/
 
 

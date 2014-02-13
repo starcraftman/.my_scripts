@@ -28,13 +28,8 @@
  * } name_t;
  */
 
-/**************** Static Data Definitions *****************/
 
-
-/****************** Static Functions **********************/
-
-
-/**************** Global Data Definitions *****************/
+/**************** Static Data/Functions *******************/
 
 
 /****************** Global Functions **********************/
