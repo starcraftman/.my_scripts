@@ -33,7 +33,7 @@ SRC_DICT = {'c': '.c',
             }
 
 H_DICT = {'c': '.h',
-          'c++': '.hpp',
+          'cpp': '.hpp',
           }
 
 # Functions
