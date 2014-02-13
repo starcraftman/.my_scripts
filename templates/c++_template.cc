@@ -65,9 +65,6 @@ using std::string;
 /****************** Class Definitions *********************/
 
 
-/****************** Static Functions **********************/
-
-
 /****************** Global Functions **********************/
 /**
  * Main loop of the function.
