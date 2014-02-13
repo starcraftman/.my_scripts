@@ -296,7 +296,8 @@ let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 let g:syntastic_ignore_files = ['\m^/usr/include/']
 
 " Manually set important checkers:
-let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
+"let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
+let g:syntastic_python_checkers = ['python',]
 let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 
 " YouCompleteMe
@@ -427,6 +428,9 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Shortcut to remember how to reindent file
 nnoremap <leader>t gg=G
+
+" Mapping to trigger make build and run.
+nnoremap <leader>m :!make && make run<CR>
 
 " Paste toggle button, disables f1 help use command instead
 set pastetoggle=<F1>
