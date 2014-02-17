@@ -624,9 +624,15 @@ let g:netrw_sort_options = 'i'
 
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Filetype Specific (avoids too many files)
+" => Autocommands & Filetype Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
+
+"  Prevent undo files in some paths.
+augroup undo_mod
+    autocmd!
+    autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
 
 " Always wrap autocmds in augroup, autocmds get duped on each source vimrc
 augroup filetype_funcs
