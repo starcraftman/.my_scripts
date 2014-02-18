@@ -149,6 +149,10 @@
 "       Same as SnipMate, seems that project may be unmaintained
 "       https://github.com/SirVer/ultisnips
 "
+"   vim-Markdown:
+"       Adds support for markdown syntax.
+"       https://github.com/plasticboy/vim-markdown/
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -256,6 +260,7 @@ Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
+Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
