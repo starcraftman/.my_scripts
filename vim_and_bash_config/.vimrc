@@ -42,7 +42,7 @@
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
 "   2) Ensure Vim Python Support:
-"       Some plugins use pyhon (like Gundo), check support
+"       Some plugins use python (like Gundo), check support
 "       If not, recompile with it. See above for debian or source compile
 "       :echo has('python')
 "
