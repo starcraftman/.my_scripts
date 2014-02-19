@@ -346,7 +346,7 @@ let g:sneak#map_netrw = 1
 " CtrlP
 """""""
 " Index hidden files
-let g:ctrlp_show_hidden = 1
+"let g:ctrlp_show_hidden = 1
 
 " DeleteTrailingWhitespace
 """"""""""""""""""""""""""
