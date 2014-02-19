@@ -413,7 +413,7 @@ cnoreabbrev Ev Sexplore!
 " Shortcuts for bundle management
 cnoreabbrev bi BundleInstall
 cnoreabbrev bu BundleUpdate
-cnoreabbrev bc BundleClean
+cnoreabbrev bc BundleClean!
 
 " Faster binding to escape insert
 inoremap jk <esc>
@@ -633,10 +633,12 @@ let g:netrw_sort_options = 'i'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-"  Prevent undo files in some paths.
-augroup undo_mod
+augroup buf_cmds
     autocmd!
+    " Prevent undo files in some paths.
     autocmd BufWritePre /tmp/* setlocal noundofile
+    " All .md files should be markdown.
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
 augroup END
 
 " Always wrap autocmds in augroup, autocmds get duped on each source vimrc
@@ -647,14 +649,14 @@ augroup filetype_funcs
 augroup END
 
 " In functions below, always set locally otherwise you will impact other buffers
-function SetRubyOptions()
+function! SetRubyOptions()
     " Set tabs to 2 spaces, seems ruby tradition
     setlocal softtabstop=2
     setlocal shiftwidth=2
     setlocal tabstop=2
 endfunction
 
-function SetVimOptions()
+function! SetVimOptions()
     " Set fold to marker for vim files
     setlocal foldmethod=marker
 endfunction
