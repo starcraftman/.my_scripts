@@ -331,7 +331,8 @@ let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-let g:UltiSnipsUsePythonVersion = 2
+" Force a version of python.
+"let g:UltiSnipsUsePythonVersion = 2
 
 " Sneak
 """""""
