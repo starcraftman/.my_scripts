@@ -331,6 +331,8 @@ let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
+let g:UltiSnipsUsePythonVersion = 2
+
 " Sneak
 """""""
 " Allows quick motion when more than 2 matches
@@ -574,9 +576,6 @@ set smarttab
 
 " Copy indent at current when inserting new line
 set autoindent
-
-" Automatically insert some indents after certain actions
-set smartindent
 
 " Wrap lines when hit right side, doesn't affect buffer
 set wrap
