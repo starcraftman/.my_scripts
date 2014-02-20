@@ -512,6 +512,9 @@ set showcmd
 "set list
 "set listchars=
 
+" Highlight current line in number side.
+set cursorline
+
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
 
