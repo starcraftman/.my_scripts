@@ -150,11 +150,11 @@
 "       https://github.com/vim-scripts/DeleteTrailingWhitespace
 "
 "   vim-Markdown:
-"       Adds support for markdown syntax.
+"       Adds support for markdown syntax
 "       https://github.com/plasticboy/vim-markdown/
 "
 "   vim-signify:
-"       Shows the diff of file being eddited to left of numbers, i.e. 'gutter'.
+"       Shows the diff of file being eddited to left of numbers, i.e. 'gutter'
 "       https://github.com/mhinz/vim-signify
 "
 "   Version Control:
@@ -243,7 +243,7 @@
 " {{{
 
 " Vundle docs -> :help vundle
-" Vundle requires these options, keep bundles in this region.
+" Vundle requires these options, keep bundles in this region
 set nocompatible
 set runtimepath+=~/.vim/bundle/vundle/
 filetype off
@@ -336,7 +336,7 @@ let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
-" Force a version of python.
+" Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
 
 " Sneak
@@ -430,21 +430,25 @@ inoremap jk <esc>
 " To open NERDTree when used
 "nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 
-" Remap Alt + Arrow keys to move between split windows.
+" Remap Alt + Arrow keys to move between split windows
 nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
 
-" Change window down (<C-W>j) then maximize buffer height (<C-W>_).
+" Change window down (<C-W>j) then maximize buffer height (<C-W>_)
 nnoremap <C-J> <C-W>j<C-W>_
 nnoremap <C-K> <C-W>k<C-W>_
-" Change window right (<C-W>l) then maximize buffer width (<C-W>|).
+" Change window right (<C-W>l) then maximize buffer width (<C-W>|)
 nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
-" Make all windows equal in size.
+" Make all windows equal in size
 nnoremap <leader>= <C-W>=
+
+" Binding for extra search modes
+nnoremap <leader>p :CtrlPBuffer<CR>
+nnoremap <leader>pm :CtrlPMRUFiles<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -452,13 +456,13 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Shortcut to remember how to reindent file
 nnoremap <leader>t gg=G
 
-" Shortcut to swap to header file, horizontal split.
+" Shortcut to swap to header file, horizontal split
 nnoremap <leader>a :AS<CR>
 
-" Shortcut to swap to header file, horizontal split.
+" Shortcut to swap to header file, horizontal split
 nnoremap <leader>av :AV<CR>
 
-" Mapping to trigger make build and run.
+" Mapping to trigger make build and run
 nnoremap <leader>m :!make && make run<CR>
 
 " Paste toggle button, disables f1 help use command instead
@@ -520,7 +524,7 @@ set tm=500
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Enable the mouse in all modes of operation.
+" Enable the mouse in all modes of operation
 "set mouse=a
 
 " Set line numbering on left
@@ -536,7 +540,7 @@ set showcmd
 "set list
 "set listchars=
 
-" Highlight current line in number side.
+" Highlight current line in number side
 set cursorline
 
 " Minimum number of lines that will always be above/below cursor
@@ -662,11 +666,11 @@ let g:netrw_sort_options = 'i'
 
 augroup buf_cmds
     autocmd!
-    " Prevent undo files in some paths.
+    " Prevent undo files in some paths
     autocmd BufWritePre /tmp/* setlocal noundofile
-    " All .md files should be markdown.
+    " All .md files should be markdown
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    " When leaving window, save state to a file. Restore on return.
+    " When leaving window, save state to a file. Restore on return
     " Includes cursor position, fold states,
     "au BufWinLeave *.* silent! mkview
     "au BufWinEnter *.* silent! loadview
