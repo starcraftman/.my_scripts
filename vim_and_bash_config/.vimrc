@@ -679,8 +679,17 @@ let g:netrw_sort_options = 'i'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Protection against older Vim versions.
-if has('autocmd') && has('augroup')
+" Protection against older Vim versions. Gvim reports falsely augroup = 0 sometimes.
+if has('autocmd') 
+	
+	if has('gui')
+		augroup gui_cmds
+			autocmd!
+			" Stop bell on gvim.
+			autocmd GuiEnter * set visualbell t_vb=
+		augroup END
+	endif
+
     augroup buf_cmds
         autocmd!
         " Prevent undo files in some paths
