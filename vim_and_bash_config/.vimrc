@@ -680,8 +680,8 @@ let g:netrw_sort_options = 'i'
 " {{{
 
 " Protection against older Vim versions. Gvim reports falsely augroup = 0 sometimes.
-if has('autocmd') 
-	
+if has('autocmd')
+
     if has('gui')
         augroup gui_cmds
             autocmd!
