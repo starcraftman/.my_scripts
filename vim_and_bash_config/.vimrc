@@ -488,6 +488,9 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" Timeout length for key combinations like <leader>
+set timeout=500
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -522,9 +525,8 @@ set noswapfile
 
 " No annoying sound on errors
 set noerrorbells
-set novisualbell
+set visualbell
 set t_vb=
-set tm=500
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -672,36 +674,40 @@ let g:netrw_sort_options = 'i'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-augroup buf_cmds
-    autocmd!
-    " Prevent undo files in some paths
-    autocmd BufWritePre /tmp/* setlocal noundofile
-    " All .md files should be markdown
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
-    " When leaving window, save state to a file. Restore on return
-    " Includes cursor position, fold states,
-    "au BufWinLeave *.* silent! mkview
-    "au BufWinEnter *.* silent! loadview
-augroup END
+" Protection against older Vim versions.
+if has('autocmd') && has('augroup')
+    augroup buf_cmds
+        autocmd!
+        " Prevent undo files in some paths
+        autocmd BufWritePre /tmp/* setlocal noundofile
+        " All .md files should be markdown
+        autocmd BufRead,BufNewFile *.md set filetype=markdown
+        " When leaving window, save state to a file. Restore on return
+        " Includes cursor position, fold states,
+        "au BufWinLeave *.* silent! mkview
+        "au BufWinEnter *.* silent! loadview
+    augroup END
 
-" Always wrap autocmds in augroup, autocmds get duped on each source vimrc
-augroup filetype_funcs
-    autocmd!
-    autocmd FileType ruby call SetRubyOptions()
-    autocmd FileType vim call SetVimOptions()
-augroup END
+    " Always wrap autocmds in augroup, autocmds get duped on each source vimrc
+    augroup filetype_funcs
+        autocmd!
+        autocmd FileType ruby call SetRubyOptions()
+        autocmd FileType vim call SetVimOptions()
+        autocmd GUIEnter * set visualbell t_vb=
+    augroup END
 
-" In functions below, always set locally otherwise you will impact other buffers
-function! SetRubyOptions()
-    " Set tabs to 2 spaces, seems ruby tradition
-    setlocal softtabstop=2
-    setlocal shiftwidth=2
-    setlocal tabstop=2
-endfunction
+    " In functions below, always set locally otherwise you will impact other buffers
+    function! SetRubyOptions()
+        " Set tabs to 2 spaces, seems ruby tradition
+        setlocal softtabstop=2
+        setlocal shiftwidth=2
+        setlocal tabstop=2
+    endfunction
 
-function! SetVimOptions()
-    " Set fold to marker for vim files
-    setlocal foldmethod=marker
-endfunction
+    function! SetVimOptions()
+        " Set fold to marker for vim files
+        setlocal foldmethod=marker
+    endfunction
+endif
 
 " }}}
