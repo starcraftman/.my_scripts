@@ -390,9 +390,11 @@ let g:airline_powerline_fonts = 1
 set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
 
 " Syntastic modification to line
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if has('SyntasticStatuslineFlag')
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+endif
 
 " Old line without syntastic
 " set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
@@ -533,6 +535,10 @@ set tm=500
 " Enable the mouse in all modes of operation
 "set mouse=a
 
+" Show end of line and tabs on screen
+"set list
+set listchars=eol:$,tab:→→
+
 " Set line numbering on left
 set number
 
@@ -541,10 +547,6 @@ set ruler
 
 " Show command in last line, usually on by default
 set showcmd
-
-" Show whitespace markers on screen, disabled by default
-"set list
-"set listchars=
 
 " Highlight current line in number side
 set cursorline
