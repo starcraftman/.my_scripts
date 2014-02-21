@@ -707,7 +707,6 @@ if has('autocmd')
         autocmd!
         autocmd FileType ruby call SetRubyOptions()
         autocmd FileType vim call SetVimOptions()
-        autocmd GUIEnter * set visualbell t_vb=
     augroup END
 
     " In functions below, always set locally otherwise you will impact other buffers
