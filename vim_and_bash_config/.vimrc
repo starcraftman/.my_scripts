@@ -489,7 +489,9 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 " {{{
 
 " Timeout length for key combinations like <leader>
-set timeout=500
+if has('timeout')
+    set timeout=500
+endif
 
 " Set to auto read when a file is changed from the outside
 set autoread
