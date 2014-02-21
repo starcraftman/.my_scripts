@@ -248,9 +248,9 @@ set nocompatible
 filetype off
 
 " On windows use vimfiles
-let s:bundleDir="$HOME/.vim/bundle"
+let s:bundleDir='$HOME/.vim/bundle'
 if has('win32') || has('win64')
-    let s:bundleDir="$HOME/vimfiles/bundle"
+    let s:bundleDir='$HOME/vimfiles/bundle'
 endif
 let &runtimepath .= ',' .  s:bundleDir . '/vundle'
 call vundle#rc(s:bundleDir)
