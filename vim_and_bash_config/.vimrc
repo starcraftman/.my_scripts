@@ -245,9 +245,15 @@
 " Vundle docs -> :help vundle
 " Vundle requires these options, keep bundles in this region
 set nocompatible
-set runtimepath+=~/.vim/bundle/vundle/
 filetype off
-call vundle#rc()
+
+" On windows use vimfiles
+let s:bundleDir="$HOME/.vim/bundle"
+if has('win32') || has('win64')
+    let s:bundleDir="$HOME/vimfiles/bundle"
+endif
+let &runtimepath .= ',' .  s:bundleDir . '/vundle'
+call vundle#rc(s:bundleDir)
 
 " List bundles after here, no comments on bundle line
 Bundle 'gmarik/vundle'
