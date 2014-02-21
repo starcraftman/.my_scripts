@@ -93,14 +93,6 @@
 "       https://github.com/scrooloose/syntastic
 "       Extra Info: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
 "
-"   A.vim:
-"       Swap between a c source and header file with :A
-"       https://github.com/vim-scripts/a.vim
-"
-"   NERDComment:
-"       Bunch of comment commands. Mainly <leader>ci to comment line
-"       https://github.com/scrooloose/nerdcommenter
-"
 "   vim-airline:
 "       Plugin that gives nice colored status line
 "       https://github.com/bling/vim-airline
@@ -108,29 +100,9 @@
 "       NB: Be sure to patch ~/.fonts with powerline-fonts
 "       See: https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
 "
-"   DeleteTrailingWhitespace:
-"       Use [Range]DeleteTrailingWhitespace, where range is an optional line range
-"       https://github.com/vim-scripts/DeleteTrailingWhitespace
-"
-"   vim-surround:
-"       Modify the tags or brackets of code
-"       https://github.com/tpope/vim-surround
-"
-"   TagBar:
-"       A outline of the files contents
-"       Uses exuberant ctags, not GNU ctags
-"       See info at: https://github.com/majutsushi/tagbar
-"
-"   CtrlP:
-"       Fuzzy file finding that is a bit easier than CtrlT
-"       Searches under root, looks for .hg/.git or so to define top
-"       Use Ctlr+P to access
-"       https://github.com/kien/ctrlp.vim
-"
-"   Gundo:
-"       Graphical tree like explorer for visualizing undo history
-"       Project: https://github.com/sjl/gundo.vim
-"       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
+"   ultisnips:
+"       Same as SnipMate, seems that project may be unmaintained
+"       https://github.com/SirVer/ultisnips
 "
 "   vim-sneak:
 "       Provies quick motion for cursor
@@ -141,17 +113,49 @@
 "           ctrl + o - back to start
 "       https://github.com/justinmk/vim-sneak
 "
+"   CtrlP:
+"       Fuzzy file finding that is a bit easier than CtrlT
+"       Searches under root, looks for .hg/.git or so to define top
+"       Use Ctlr+P to access
+"       https://github.com/kien/ctrlp.vim
+"
+"   TagBar:
+"       A outline of the files contents
+"       Uses exuberant ctags, not GNU ctags
+"       See info at: https://github.com/majutsushi/tagbar
+"
+"   Gundo:
+"       Graphical tree like explorer for visualizing undo history
+"       Project: https://github.com/sjl/gundo.vim
+"       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
+"
+"   NERDComment:
+"       Bunch of comment commands. Mainly <leader>ci to comment line
+"       https://github.com/scrooloose/nerdcommenter
+"
+"   vim-surround:
+"       Modify the tags or brackets of code
+"       https://github.com/tpope/vim-surround
+"
 "   vim-matchit:
 "       Extends the % command to jump to matching xml or if/fi tags
 "       https://github.com/edsono/vim-matchit
 "
-"   ultisnips:
-"       Same as SnipMate, seems that project may be unmaintained
-"       https://github.com/SirVer/ultisnips
+"   A.vim:
+"       Swap between a c source and header file with :A
+"       https://github.com/vim-scripts/a.vim
+"
+"   DeleteTrailingWhitespace:
+"       Use [Range]DeleteTrailingWhitespace, where range is an optional line range
+"       https://github.com/vim-scripts/DeleteTrailingWhitespace
 "
 "   vim-Markdown:
 "       Adds support for markdown syntax.
 "       https://github.com/plasticboy/vim-markdown/
+"
+"   vim-signify:
+"       Shows the diff of file being eddited to left of numbers, i.e. 'gutter'.
+"       https://github.com/mhinz/vim-signify
 "
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
@@ -260,6 +264,7 @@ Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'majutsushi/tagbar'
+Bundle 'mhinz/vim-signify'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/gundo.vim'
@@ -425,17 +430,33 @@ inoremap jk <esc>
 " To open NERDTree when used
 "nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 
-" Remap Alt + Arrow keys to move between split windows
+" Remap Alt + Arrow keys to move between split windows.
 nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
 nnoremap <silent> <A-Left> :wincmd h<CR>
 nnoremap <silent> <A-Right> :wincmd l<CR>
+
+" Change window down (<C-W>j) then maximize buffer height (<C-W>_).
+nnoremap <C-J> <C-W>j<C-W>_
+nnoremap <C-K> <C-W>k<C-W>_
+" Change window right (<C-W>l) then maximize buffer width (<C-W>|).
+nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+
+" Make all windows equal in size.
+nnoremap <leader>= <C-W>=
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Shortcut to remember how to reindent file
 nnoremap <leader>t gg=G
+
+" Shortcut to swap to header file, horizontal split.
+nnoremap <leader>a :AS<CR>
+
+" Shortcut to swap to header file, horizontal split.
+nnoremap <leader>av :AV<CR>
 
 " Mapping to trigger make build and run.
 nnoremap <leader>m :!make && make run<CR>
@@ -498,6 +519,9 @@ set tm=500
 " => VIM User Interface & Search
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
+
+" Enable the mouse in all modes of operation.
+"set mouse=a
 
 " Set line numbering on left
 set number
@@ -642,6 +666,10 @@ augroup buf_cmds
     autocmd BufWritePre /tmp/* setlocal noundofile
     " All .md files should be markdown.
     autocmd BufRead,BufNewFile *.md set filetype=markdown
+    " When leaving window, save state to a file. Restore on return.
+    " Includes cursor position, fold states,
+    "au BufWinLeave *.* silent! mkview
+    "au BufWinEnter *.* silent! loadview
 augroup END
 
 " Always wrap autocmds in augroup, autocmds get duped on each source vimrc
