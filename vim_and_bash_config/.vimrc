@@ -457,7 +457,7 @@ nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Make all windows equal in size
-nnoremap <leader>= <C-W>=
+nnoremap <leader>q <C-W>=
 
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
