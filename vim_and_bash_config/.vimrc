@@ -247,11 +247,16 @@
 set nocompatible
 filetype off
 
-" On windows use vimfiles, set rtp for vundle and set install path for scripts
-let s:bundleDir='$HOME/.vim/bundle'
+" On Windows use vimfiles, else use normal unix path.
+let s:vimDir='$HOME/.vim'
 if has('win32') || has('win64')
-    let s:bundleDir='$HOME/vimfiles/bundle'
+    let s:vimDir='$HOME/vimfiles'
 endif
+" Expand because undodir doesn't expand symbols.
+let s:vimDir=resolve(expand(s:vimDir))
+
+" Set rtp for vundle and set install path for scripts
+let s:bundleDir=s:vimDir . '/bundle'
 let &runtimepath .= ',' .  s:bundleDir . '/vundle'
 call vundle#rc(s:bundleDir)
 
@@ -334,7 +339,7 @@ let g:ycm_extra_conf_globlist = [
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
+let g:UltiSnipsSnippetsDir = s:vimDir . '/snippets'
 
 " Key bindings for UltiSnips, all of these are ctrl + key
 let g:UltiSnipsExpandTrigger       = '<c-j>'
@@ -515,7 +520,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    set undodir=~/.vim/undo
+    let &undodir = s:vimDir . '/undo'
     set undofile
 endif
 
