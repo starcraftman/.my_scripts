@@ -488,6 +488,9 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" Ensure backspace works as you'd expect, over lines/indents.
+set backspace=indent,eol,start
+
 " Timeout length for key combinations like <leader>
 if has('timeout')
     set timeout=500
