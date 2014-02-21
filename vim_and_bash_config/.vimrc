@@ -465,7 +465,7 @@ nnoremap <leader>t gg=G
 " Shortcut to swap to header file, horizontal split
 nnoremap <leader>a :AS<CR>
 
-" Shortcut to swap to header file, horizontal split
+" Shortcut to swap to header file, vertical split
 nnoremap <leader>av :AV<CR>
 
 " Mapping to trigger make build and run
