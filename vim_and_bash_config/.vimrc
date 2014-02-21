@@ -247,7 +247,7 @@
 set nocompatible
 filetype off
 
-" On windows use vimfiles, set rtp for vundle and path install path
+" On windows use vimfiles, set rtp for vundle and set install path for scripts
 let s:bundleDir='$HOME/.vim/bundle'
 if has('win32') || has('win64')
     let s:bundleDir='$HOME/vimfiles/bundle'
