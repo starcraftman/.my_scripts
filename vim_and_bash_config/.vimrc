@@ -341,12 +341,6 @@ let g:ycm_extra_conf_globlist = [
 " Set dir to .vim section
 let g:UltiSnipsSnippetsDir = s:vimDir . '/snippets'
 
-" Key bindings for UltiSnips, all of these are ctrl + key
-let g:UltiSnipsExpandTrigger       = '<c-j>'
-let g:UltiSnipsListSnippets        = '<c-l>'
-let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
 
@@ -440,9 +434,6 @@ cnoreabbrev bc BundleClean!
 inoremap jk <esc>
 "inoremap <esc> <nop>
 
-" To open NERDTree when used
-"nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-
 " Remap Alt + Arrow keys to move between split windows
 nnoremap <silent> <A-Up> :wincmd k<CR>
 nnoremap <silent> <A-Down> :wincmd j<CR>
@@ -459,15 +450,28 @@ nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 " Make all windows equal in size
 nnoremap <leader>q <C-W>=
 
+" Shortcut to remember how to reindent file
+nnoremap <leader>t gg=G
+
+" To open NERDTree when used
+"nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+
+" Signify binding to jump between hunks.
+let g:signify_mapping_next_hunk = '<leader>hj'
+let g:signify_mapping_prev_hunk = '<leader>hk'
+
+" Key bindings for UltiSnips, all of these are ctrl + key
+let g:UltiSnipsExpandTrigger       = '<c-j>'
+let g:UltiSnipsListSnippets        = '<c-l>'
+let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
 nnoremap <leader>pm :CtrlPMRUFiles<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" Shortcut to remember how to reindent file
-nnoremap <leader>t gg=G
 
 " Shortcut to swap to header file, horizontal split
 nnoremap <leader>a :AS<CR>
