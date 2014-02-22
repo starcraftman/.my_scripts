@@ -166,10 +166,10 @@
 """""""""""""""""""""""""""""
 " {{{
 
-"   EasyMotion
-"       Provides alternative motion for word jumping
-"       Use <leader><leader>w to jump then select
-"       https://github.com/Lokaltog/vim-easymotion
+"   NERDTree:
+"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
+"       Open with :NERDTree command
+"       https://github.com/scrooloose/nerdtree
 "
 "   SnipMate:
 "       Allows you to expand boilerplate code
@@ -177,10 +177,14 @@
 "       Usage: http://www.bestofvim.com/plugin/snipmate/
 "       Related: https://github.com/scrooloose/snipmate-snippets
 "
-"   NERDTree:
-"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
-"       Open with :NERDTree command
-"       https://github.com/scrooloose/nerdtree
+"   EasyMotion
+"       Provides alternative motion for word jumping
+"       Use <leader><leader>w to jump then select
+"       https://github.com/Lokaltog/vim-easymotion
+"
+"   Golden Ratio:
+"       Plugin that resizes windows on focus gain. Neat.
+"       https://github.com/roman/golden-ratio
 "
 "   Completion Alternatives:
 "       omniPerl and pydiction
