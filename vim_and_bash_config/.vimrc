@@ -252,7 +252,7 @@ let s:vimDir='$HOME/.vim'
 if has('win32') || has('win64')
     let s:vimDir='$HOME/vimfiles'
 endif
-" Expand because undodir doesn't expand symbols.
+" Expand because undodir doesn't expand symbols right on Windows.
 let s:vimDir=resolve(expand(s:vimDir))
 
 " Set rtp for vundle and set install path for scripts
@@ -496,10 +496,9 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 " Ensure backspace works as you'd expect, over lines/indents.
 set backspace=indent,eol,start
 
-" Timeout length for key combinations like <leader>
-if has('timeout')
-    set timeout=500
-endif
+" This is the timeout on key combos and map commands.
+set timeout
+set timeoutlen=500
 
 " Set to auto read when a file is changed from the outside
 set autoread
