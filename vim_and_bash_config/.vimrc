@@ -166,6 +166,10 @@
 """""""""""""""""""""""""""""
 " {{{
 
+"   neocomplete:
+"       Fairly complete YCM replacement for on Windows.
+"       https://github.com/Shougo/neocomplete.vim#requirements
+"
 "   NERDTree:
 "       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
 "       Open with :NERDTree command
