@@ -678,11 +678,14 @@ endfor
 let wild_s = wild_s[:-2]
 let hide_s = hide_s[:-3]
 
+" Hide VCS folders in this list.
+let vcs_hide = '\.git/,\.hg/,\.svn/,\.bzr/'
+
 " When using autocomplete tab, ignore all matching strings
-let &wildignore = wild_s
+let &wildignore = wild_s . ',' . vcs_hide
 
 " When browsing with netrw, ignore all matching files to this regex
-let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,\.git/$'
+let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,' . vcs_hide
 
 " Customize netrw use a tree style and ignore some extensions
 let g:netrw_liststyle = 3
