@@ -551,6 +551,11 @@ set t_vb=
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" Set minimum screen size for GVim, on console just fill
+if has('gui_running')
+    set lines=60 columns=140
+endif
+
 " Enable the mouse in all modes of operation
 "set mouse=a
 
