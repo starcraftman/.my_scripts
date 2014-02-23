@@ -612,7 +612,11 @@ set t_Co=256
 
 " Set dark background before, else colors off
 set background=dark
-colorscheme molokai
+try
+    colorscheme molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
