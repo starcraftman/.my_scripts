@@ -168,7 +168,7 @@
 
 "   neocomplete:
 "       Fairly complete YCM replacement for on Windows.
-"       https://github.com/Shougo/neocomplete.vim#requirements
+"       https://github.com/Shougo/neocomplete.vim
 "
 "   NERDTree:
 "       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
@@ -273,6 +273,7 @@ Bundle 'gmarik/vundle'
 
 " Heaviest plugins
 Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Shougo/neocomplete.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'SirVer/ultisnips'
@@ -343,6 +344,18 @@ let g:ycm_complete_in_comments = 1
 " Use the following to whitelist dirs for .ycm_extra_conf.py
 let g:ycm_extra_conf_globlist = [
     \ '~/programming/ReconstructingCaveStory/.ycm_extra_conf.py' ]
+
+" Neocomplete
+"""""""""""""
+" Uses enter key to accept completion
+" Enable neocomplete at startup
+let g:neocomplete#enable_at_startup = 1
+
+" Use smartcase
+let g:neocomplete#enable_smart_case = 1
+
+" Automatically select first option.
+let g:neocomplete#enable_auto_select = 1
 
 " UltiSnips
 """""""""""
