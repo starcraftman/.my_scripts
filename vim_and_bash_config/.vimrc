@@ -103,6 +103,8 @@
 "   ultisnips:
 "       Same as SnipMate, seems that project may be unmaintained
 "       https://github.com/SirVer/ultisnips
+"       Extra snippets that may be useful.
+"       https://github.com/honza/vim-snippets
 "
 "   vim-sneak:
 "       Provies quick motion for cursor
