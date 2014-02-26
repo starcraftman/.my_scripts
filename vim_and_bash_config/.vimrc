@@ -535,7 +535,7 @@ set encoding=utf8
 
 " Folding method, for most code use indent, no need to clutter source
 set foldmethod=indent
-set foldminlines=5
+set foldminlines=10
 
 " Sets how many lines of history & undo VIM has to remember
 set history=1000
@@ -669,7 +669,7 @@ set linebreak
 
 " When inserting text, force a line break at this amount
 " Set to 0 to disable
-set textwidth=500
+set textwidth=150
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
