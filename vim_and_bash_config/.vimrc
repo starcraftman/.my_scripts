@@ -636,6 +636,11 @@ endtry
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
+" Molokai CursorLine isn't bright enough.
+if &t_Co > 255
+    hi CursorLine  ctermbg=237
+endif
+
 " Set font when using gui version
 if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
