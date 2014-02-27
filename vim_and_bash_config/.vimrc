@@ -641,6 +641,10 @@ if &t_Co > 255
     hi CursorLine  ctermbg=237
 endif
 
+" Highlight with ColorColumn lines over a certain  limit.
+"highlight ColorColumn ctermbg=8
+call matchadd('ColorColumn', '\%100v', 100)
+
 " Set font when using gui version
 if has('gui_running')
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
