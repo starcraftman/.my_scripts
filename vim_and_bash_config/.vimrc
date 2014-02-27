@@ -638,7 +638,7 @@ endtry
 
 " Molokai CursorLine isn't bright enough.
 if &t_Co > 255
-    hi CursorLine  ctermbg=237
+    hi CursorLine  ctermbg=236
 endif
 
 " Highlight with ColorColumn lines over a certain  limit.
