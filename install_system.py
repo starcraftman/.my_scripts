@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
@@ -6,6 +6,7 @@
 """ This module helps setup a fresh install the way I like it. """
 
 # Imports
+from __future__ import print_function
 import apt
 import argparse
 import os
@@ -26,7 +27,7 @@ PROGRAMS = """ \
     redshift geoclue geoclue-hostip numlockx \
     samba samba-doc samba-tools wireshark \
     ubuntuone-client ubuntuone-control-panel-qt \
-    vlc ffmpeg-doc ffmpeg mplayer mencoder \
+    vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip \
     virtualbox-qt wine \
     ttf-xfree86-nonfree"""
@@ -77,7 +78,6 @@ class NotSudo(Exception):
 
 
 def install_packages():
-    """ Installs required packages on this system. """
     if os.getuid() != 0:
         raise NotSudo('This stage must be run as root.')
 
@@ -90,14 +90,17 @@ def install_packages():
     cache.open(None)
     print("Update done.")
 
+    cmd = ['apt-get', 'install']
     for pack in packages:
-        package = cache[pack]
-        if not package.is_installed:
-            package.mark_install()
+        try:
+            package = cache[pack]
+            if not package.is_installed:
+                cmd.append(pack)
+        except Exception as e:
+            print("Package couldn't be selected: %s" % pack)
 
-    cache.commit()
-    cache.close()
-
+    print("Please wait, running: {}".format(" ".join(cmd)))
+    subprocess.call(cmd)
 
 def get_code(command, target):
     """ Wrapper function to clone repos.
