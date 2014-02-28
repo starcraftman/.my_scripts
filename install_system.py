@@ -39,7 +39,7 @@ KEYRINGS = """ \
     ubuntu-keyring"""
 
 PROGRAMMING = """ \
-    build-essential debianutils ubuntu-dev-tools \
+    build-essential debianutils ubuntu-dev-tools mesa-utils \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk \
