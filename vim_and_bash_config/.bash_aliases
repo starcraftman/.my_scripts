@@ -152,8 +152,8 @@ PS1_R="\[\033[00m\]"
 
 # Set colors for user/directory different if root or over ssh..
 PS1_DIR=$PS1_REDBOLD
-PS1_USER=$PS1_BLUEBOLD
-PS1_HOST=$PS1_GREENBOLD
+PS1_USER=$PS1_CYAN
+PS1_HOST=$PS1_GREEN
 if [[ $UID -eq 0 ]]; then
     PS1_USER=$PS1_WHITEBOLD
 fi
