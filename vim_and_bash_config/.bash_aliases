@@ -8,11 +8,6 @@
 # Default editor for things like sudoedit.
 export EDITOR=vim
 
-# Detect session type, may want ps1 mods for ssh.
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_SSH=true
-fi
-
 ############################################################################
 # Path Settings
 ############################################################################
@@ -156,14 +151,18 @@ PS1_MAGENTA="\[\e[1;95m\]"
 # To (R)eset colors.
 PS1_R="\[\e[0m\]"
 
-# Set colors for user/directory different if root or over ssh..
+# Just aliases for common colors used later.
 PS1_DIR=$PS1_REDBOLD
 PS1_USER=$PS1_CYAN
 PS1_HOST=$PS1_GREEN
+
+# If root, highlight it
 if [[ $UID -eq 0 ]]; then
     PS1_USER=$PS1_YELLOWBOLD
 fi
-if [ -n "$PS1_SSH" ]; then
+
+# If using ssh, usually set
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
     PS1_HOST=$PS1_PURPLEBOLD
 fi
 
