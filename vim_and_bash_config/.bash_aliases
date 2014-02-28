@@ -129,26 +129,32 @@ function extract()
 # the status of git and hg repos as well as move directory line up one.
 ############################################################################
 
+# Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
+
 # PS1 Color Codes
-PS1_BLACK="\[\033[0;30m\]"
-PS1_BLACKBOLD="\[\033[1;30m\]"
-PS1_RED="\[\033[0;31m\]"
-PS1_REDBOLD="\[\033[1;31m\]"
-PS1_GREEN="\[\033[0;32m\]"
-PS1_GREENBOLD="\[\033[1;32m\]"
-PS1_YELLOW="\[\033[0;33m\]"
-PS1_YELLOWBOLD="\[\033[1;33m\]"
-PS1_BLUE="\[\033[0;34m\]"
-PS1_BLUEBOLD="\[\033[1;34m\]"
-PS1_PURPLE="\[\033[0;35m\]"
-PS1_PURPLEBOLD="\[\033[1;35m\]"
-PS1_CYAN="\[\033[0;36m\]"
-PS1_CYANBOLD="\[\033[1;36m\]"
-PS1_WHITE="\[\033[0;37m\]"
-PS1_WHITEBOLD="\[\033[1;37m\]"
-PS1_MAGENTA="\[\033[1;95m\]"
+# Old code (might still see): \[\033[x;yy;zzm\]
+# General format: \[\e[x;yy;zzm\]
+# Style code x: 1 -> bold, 4 -> underline, 7 -> invert color.
+# Color code, yy -> 30s for foreground, zz-> background in 40s.
+PS1_BLACK="\[\e[0;30m\]"
+PS1_BLACKBOLD="\[\e[1;30m\]"
+PS1_RED="\[\e[0;31m\]"
+PS1_REDBOLD="\[\e[1;31m\]"
+PS1_GREEN="\[\e[0;32m\]"
+PS1_GREENBOLD="\[\e[1;32m\]"
+PS1_YELLOW="\[\e[0;33m\]"
+PS1_YELLOWBOLD="\[\e[1;33m\]"
+PS1_BLUE="\[\e[0;34m\]"
+PS1_BLUEBOLD="\[\e[1;34m\]"
+PS1_PURPLE="\[\e[0;35m\]"
+PS1_PURPLEBOLD="\[\e[1;35m\]"
+PS1_CYAN="\[\e[0;36m\]"
+PS1_CYANBOLD="\[\e[1;36m\]"
+PS1_WHITE="\[\e[0;37m\]"
+PS1_WHITEBOLD="\[\e[1;37m\]"
+PS1_MAGENTA="\[\e[1;95m\]"
 # To (R)eset colors.
-PS1_R="\[\033[00m\]"
+PS1_R="\[\e[0m\]"
 
 # Set colors for user/directory different if root or over ssh..
 PS1_DIR=$PS1_REDBOLD
