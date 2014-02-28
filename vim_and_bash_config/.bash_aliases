@@ -11,7 +11,7 @@ export EDITOR=vim
 ############################################################################
 # Path Settings
 ############################################################################
-# Local dir to install to.
+# Local dir to install to, put binaries into ~/.optSoftware/bin.
 LOCAL=~/.optSoftware
 
 # Personal scripts go here to stay outside of root.
