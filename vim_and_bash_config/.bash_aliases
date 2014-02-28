@@ -3,6 +3,7 @@
 # I am using it for all my custom bash modifications from standard.
 
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
+# File to test: http://www.robmeerman.co.uk/_media/unix/256colors2.pl
 
 # Default editor for things like sudoedit.
 export EDITOR=vim
