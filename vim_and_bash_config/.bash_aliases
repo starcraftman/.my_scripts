@@ -2,8 +2,15 @@
 # I know this file is traditionally for user aliases.
 # I am using it for all my custom bash modifications from standard.
 
+# Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
+
 # Default editor for things like sudoedit.
 export EDITOR=vim
+
+# Detect session type, may want ps1 mods for ssh.
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
+    PS1_SSH=true
+fi
 
 ############################################################################
 # Path Settings
@@ -139,14 +146,26 @@ PS1_CYANBOLD="\[\033[1;36m\]"
 PS1_WHITE="\[\033[0;37m\]"
 PS1_WHITEBOLD="\[\033[1;37m\]"
 PS1_MAGENTA="\[\033[1;95m\]"
-PS1_RESET="\[\033[00m\]"
+# To (R)eset colors.
+PS1_R="\[\033[00m\]"
+
+# Set colors for user/directory different if root or over ssh..
+PS1_DIR=$PS1_REDBOLD
+PS1_USER=$PS1_BLUEBOLD
+PS1_HOST=$PS1_GREENBOLD
+if [[ $UID -eq 0 ]]; then
+    PS1_USER=$PS1_WHITEBOLD
+fi
+if [ -n "$PS1_SSH" ]; then
+    PS1_HOST=$PS1_PURPLEBOLD
+fi
 
 # I am modifying the PS1 prompt to give info for both git and hg vcs.
 # This callback fetches the hg stuff to insert only if in hg repo, looks like bash-git-prompt message.
 # HG Prompt: http://sjl.bitbucket.org/hg-prompt/
 # Git Prompt: https://github.com/magicmonty/bash-git-prompt
 function prompt_callback {
-    local HG=`hg prompt "[${PS1_MAGENTA}{branch}${PS1_RESET}{ ${PS1_RED}↓{incoming|count}${PS1_RESET}}{ ${PS1_GREEN}↑{outgoing|count}${PS1_RESET}}|${PS1_YELLOW}{status}{update}${PS1_RESET}]" 2>/dev/null`
+    local HG=`hg prompt "[${PS1_MAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}{ ${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}]" 2>/dev/null`
 
     # Strip everything except where status to outgoing would be.
     local T=${HG##*|}
@@ -157,7 +176,7 @@ function prompt_callback {
         if [[ ${T} =~ [!?^↓↑] ]]; then
             :
         else
-            HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_RESET}]"
+            HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_R}]"
         fi
     fi
 
@@ -172,14 +191,14 @@ function prompt_callback {
 # Formats to:
 # directory
 # user@host [vcsInfo]
-#GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}$PS1_RED\w$PS1_RESET\n\u@\h$"
+#GIT_PROMPT_START="\[\e]0;\u@\h:\w\a\]${debian_chroot:+($debian_chroot)}$PS1_DIR\w$PS1_R\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$"
 #GIT_PROMPT_END=' '
 
 # Formats to:
 # directory [vcsInfo]
 # user@host
-GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}$PS1_RED\w$PS1_RESET"
-GIT_PROMPT_END="\n\u@\h$ "
+GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}$PS1_DIR\w$PS1_R"
+GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$ "
 
 . ~/.bash-git-prompt/gitprompt.sh
 
