@@ -626,7 +626,10 @@ syntax enable
 
 " Required to make molokai display correctly
 " Sets color mode to 256, sometimes term not set correctly
-set t_Co=256
+" Most windows terms don't support, so check for them
+if !(g:os_windows && has('gui_running') ==# 0)
+    set t_Co=256
+endif
 
 " Set dark background before, else colors off
 set background=dark
