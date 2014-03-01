@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Common tools:
 #	pip/pip3 : install packages
 #	pep8/pylint/pychecker : verify syntax
@@ -6,6 +6,7 @@
 """ This is a simple script to recompile ycm everytime it gets updated. """
 
 # Imports
+from __future__ import print_function
 import os
 import shutil
 import subprocess

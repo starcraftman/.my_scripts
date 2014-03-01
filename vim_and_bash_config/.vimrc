@@ -257,18 +257,20 @@
 set nocompatible
 filetype off
 
-" On Windows use vimfiles, else use normal unix path.
-let s:vimDir='$HOME/.vim'
-if has('win32') || has('win64')
-    let s:vimDir='$HOME/vimfiles'
+" OS detection
+let g:os_windows = (has('win16') || has('win32') || has('win64')) && &shellcmdflag =~ '/'
+let g:os_cygwin = has('win32unix')
+
+" On Windows use vimfiles, else use normal unix path. Count cygwin as posix.
+let s:vimDir='~/.vim'
+if g:os_windows
+    let s:vimDir='~/vimfiles'
 endif
-" Expand because undodir doesn't expand symbols right on Windows.
-let s:vimDir=resolve(expand(s:vimDir))
 
 " Set rtp for vundle and set install path for scripts
 let s:bundleDir=s:vimDir . '/bundle'
-let &runtimepath .= ',' .  s:bundleDir . '/vundle'
-call vundle#rc(s:bundleDir)
+let &runtimepath .= ',' . fnameescape(expand(s:bundleDir . '/vundle'))
+call vundle#rc(fnameescape(expand(s:bundleDir)))
 
 " List bundles after here, no comments on bundle line
 Bundle 'gmarik/vundle'
