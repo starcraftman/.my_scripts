@@ -364,7 +364,7 @@ let g:neocomplete#enable_auto_select = 1
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = s:vimDir . '/snippets'
+let g:UltiSnipsSnippetsDir = fnameescape(expand(s:vimDir . '/snippets'))
 
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
@@ -545,7 +545,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = s:vimDir . '/undo'
+    let &undodir = fnameescape(expand(s:vimDir . '/undo'))
     set undofile
 endif
 
