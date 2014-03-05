@@ -56,6 +56,9 @@ alias tl="trash-list"
 alias te="trash-empty"
 alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 
+# Silence parallel
+alias parallel="parallel --no-notice"
+
 ############################################################################
 # Misc Options
 ############################################################################
