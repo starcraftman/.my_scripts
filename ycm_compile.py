@@ -44,18 +44,17 @@ def check_clang():
     """ Check if we have clang, else retrieve it. """
     ext_index = CLANG_FILE.rindex('.tar')
     extracted_dir = CLANG_FILE[0:ext_index]
-    list_dir = os.listdir()
 
     # Protection if clang dir exists.
-    if CLANG_DIR in list_dir:
+    if CLANG_DIR in os.listdir():
         return
 
-    if CLANG_FILE not in list_dir:
+    if CLANG_FILE not in os.listdir():
         print('Please wait, downloading clang.')
         urllib.request.urlretrieve(CLANG_URL, CLANG_FILE)
         print('Finished download.')
 
-    if extracted_dir in list_dir:
+    if extracted_dir in os.listdir():
         shutil.rmtree(extracted_dir)
 
     tar_file = tarfile.open(CLANG_FILE, 'r')
