@@ -182,6 +182,22 @@ def py_packages():
     subprocess.call(cmd.split())
 
 
+def setup_pipelight():
+    """ Silverlight plugin for firefox/chrome on linux. """
+    """ See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
+    if os.getuid() != 0:
+        raise NotSudo('This stage must be run as root.')
+
+    cmd1 = ['sudo', 'apt-add-repository', 'ppa:pipelight/stable']
+    cmd2 = ['sudo', 'apt-get', 'update']
+    cmd3 = ['sudo', 'apt-get', 'install', 'pipelight-multi']
+    cmd4 = ['pipelight-plugin', '--enable', 'silverlight']
+    cmds = [cmd1, cmd2, cmd3, cmd4]
+    for c in cmds:
+        subprocess.call(c)
+
+    print("Installation over, remember to use a useragent switcher.")
+
 def take_choice(choice):
     """ Simple wrapper function to select right action. """
     choice = int(choice)
@@ -193,6 +209,8 @@ def take_choice(choice):
         install_cabal()
     elif choice == 4:
         py_packages()
+    elif choice == 5:
+        setup_pipelight()
 
 if __name__ == '__main__':
     DESC = """ This program sets up a vanilla Ubuntu install.
