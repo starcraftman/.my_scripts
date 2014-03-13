@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
@@ -7,8 +8,9 @@
 
 # Imports
 from __future__ import print_function
-import apt
+import argcomplete
 import argparse
+import apt
 import os
 import subprocess
 
@@ -222,7 +224,8 @@ if __name__ == '__main__':
     5 -> Setup pipelight to get netflix support via wine.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
-    PARSER.add_argument('choice', action='store', help='the stage')
+    PARSER.add_argument('choice', action='store', help='the stage',
+            choices=[1, 2, 3, 4, 5])
 
     ARGS = PARSER.parse_args()  # Default parses argv[1:]
 
