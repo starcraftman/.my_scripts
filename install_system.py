@@ -219,6 +219,7 @@ if __name__ == '__main__':
     2 -> Setup vim, bash_aliases and development environment.
     3 -> Setup cabal for haskell development.
     4 -> Setup python packages through pip.
+    5 -> Setup pipelight to get netflix support via wine.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
