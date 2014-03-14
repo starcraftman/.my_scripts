@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# PYTHON_ARGCOMPLETE_OK
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
@@ -8,7 +7,6 @@
 
 # Imports
 from __future__ import print_function
-import argcomplete
 import argparse
 import apt
 import os
@@ -62,7 +60,7 @@ PROGRAMMING = """ \
     lua5.2 lua5.2-doc luadoc \
     perl perl-doc perl-modules libpadwalker-perl \
     php5 php5-mysql phpunit php5-dev \
-    python python-doc python3-doc jython jython-doc \
+    python python-doc python3-doc python-pip python3-pip jython jython-doc \
     ruby1.9.1-full shunit2 \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
@@ -224,8 +222,7 @@ if __name__ == '__main__':
     5 -> Setup pipelight to get netflix support via wine.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
-    PARSER.add_argument('choice', action='store', help='the stage',
-            choices=[1, 2, 3, 4, 5])
+    PARSER.add_argument('choice', action='store', help='the stage')
 
     ARGS = PARSER.parse_args()  # Default parses argv[1:]
 
