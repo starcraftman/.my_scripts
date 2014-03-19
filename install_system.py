@@ -15,7 +15,7 @@ import subprocess
 # Packages to install follow, broken down into categories.
 
 PROGRAMS = """ \
-    htop aptitude synaptic oxygen-molecule \
+    htop aptitude synaptic dos2unix oxygen-molecule \
     kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \

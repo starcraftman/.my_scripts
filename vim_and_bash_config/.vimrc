@@ -284,6 +284,7 @@ Bundle 'SirVer/ultisnips'
 
 " Regular plugins
 Bundle 'edsono/vim-matchit'
+Bundle 'elzr/vim-json'
 Bundle 'justinmk/vim-sneak'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ludovicchabant/vim-lawrencium'
