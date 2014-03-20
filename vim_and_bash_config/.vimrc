@@ -762,6 +762,8 @@ if has('autocmd')
         autocmd!
         autocmd FileType ruby call SetRubyOptions()
         autocmd FileType vim call SetVimOptions()
+        autocmd FileType xml call SetXMLOptions()
+        autocmd FileType json call SetJSONOptions()
     augroup END
 
     " In functions below, always set locally otherwise you will impact other buffers
@@ -775,6 +777,16 @@ if has('autocmd')
     function! SetVimOptions()
         " Set fold to marker for vim files
         setlocal foldmethod=marker
+    endfunction
+
+    function! SetXMLOptions()
+        " Disable text modification in case of long lines.
+        setlocal textwidth=0
+    endfunction
+
+    function! SetJSONOptions()
+        " Disable text modification in case of long lines.
+        setlocal textwidth=0
     endfunction
 endif
 
