@@ -452,6 +452,7 @@ cnoreabbrev Ev Sexplore!
 cnoreabbrev bi BundleInstall
 cnoreabbrev bu BundleUpdate
 cnoreabbrev bc BundleClean!
+cnoreabbrev bs BundleSearch
 
 " Faster binding to escape insert
 inoremap jk <esc>
