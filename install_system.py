@@ -20,7 +20,7 @@ PROGRAMS = """ \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
-    chromium-browser firefox \
+    chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia \
     gimp gimp-plugin-registry \
     fuse gparted quicksynergy \
