@@ -163,6 +163,10 @@
 "       Detects the right whitespace useage based on file detection.
 "       https://github.com/tpope/vim-sleuth
 "
+"   open-browser:
+"       Provides OpenBrowser URI to go directly to your local browser.
+"       https://github.com/tyru/open-browser.vim
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -300,6 +304,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
+Plugin 'tyru/open-browser.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/DeleteTrailingWhitespace'
 
