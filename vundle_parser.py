@@ -23,7 +23,7 @@ def main(path):
         cnt += 1
         try:
             val = float(l[0:3])
-            if (l.count('~') > 0 or l.count('norl') > 0):
+            if l.count('~') > 0:
                 if first:
                     first = 0
                     print('{}'.format(l.rstrip()), end='')
