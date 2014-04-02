@@ -167,6 +167,23 @@
 "       Provides OpenBrowser URI to go directly to your local browser.
 "       https://github.com/tyru/open-browser.vim
 "
+"   vim-css-color:
+"       Provides highlighting of color codes like hex and regular words like red.
+"       https://github.com/ap/vim-css-color
+"
+"   vim-css3-syntax:
+"       Provides better highlighting for css3 files.
+"       https://github.com/hail2u/vim-css3-syntax
+"
+"   jshint:
+"       Provides javascript checking, requires node.js and other installation steps.
+"       Check the github page for details.
+"       https://github.com/Shutnik/jshint2.vim
+"
+"   html5.vim:
+"       Provides better highlighting for new html5 elements.
+"       https://github.com/Sothree/html5.vim
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -308,6 +325,12 @@ Bundle 'tyru/open-browser.vim'
 Bundle 'vim-scripts/a.vim'
 Bundle 'vim-scripts/DeleteTrailingWhitespace'
 
+" Web programming
+Bundle 'ap/vim-css-color'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'othree/html5.vim'
+Bundle 'Shutnik/jshint2.vim'
+
 " Color schemes
 Bundle 'tomasr/molokai'
 " Large number of schemes to try:
@@ -324,9 +347,8 @@ filetype plugin indent on
 " Set what chechers are active or passive
 let g:syntastic_mode_map={
         \ 'mode': 'active',
-        \ 'active_filetypes': ['c', 'cpp', 'java', 'python', 'perl', 'ruby',
-        \                      'sh', 'xml', 'json'],
-        \ 'passive_filetypes': ['lisp', 'xhtml', 'html', 'css', 'javascript'] }
+        \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
+        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']}
 
 " Check syntax on file open
 let g:syntastic_check_on_open = 1
@@ -775,6 +797,7 @@ if has('autocmd')
         autocmd FileType vim call SetVimOptions()
         autocmd FileType xml call SetXMLOptions()
         autocmd FileType json call SetJSONOptions()
+        autocmd FileType css call SetCSSOptions()
     augroup END
 
     " In functions below, always set locally otherwise you will impact other buffers
@@ -798,6 +821,10 @@ if has('autocmd')
     function! SetJSONOptions()
         " Disable text modification in case of long lines.
         setlocal textwidth=0
+    endfunction
+
+    function! SetCSSOptions()
+        setlocal iskeyword+=-
     endfunction
 endif
 

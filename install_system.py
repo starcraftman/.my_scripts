@@ -60,6 +60,7 @@ PROGRAMMING = """ \
     lua5.2 lua5.2-doc luadoc \
     perl perl-doc perl-modules libpadwalker-perl \
     php5 php5-mysql phpunit php5-dev \
+    nodejs nodejs-dev nodejs-legacy \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
     ruby1.9.1-full shunit2 \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
@@ -79,7 +80,7 @@ class NotSudo(Exception):
 
 def install_packages():
     if os.getuid() != 0:
-        raise NotSudo('This stage must be run as root.')
+        raise NotSudo
 
     packages = '{} {} {}'.format(PROGRAMS, PROGRAMMING, KEYRINGS)
     packages = packages.split()
@@ -186,7 +187,7 @@ def setup_pipelight():
     """ Silverlight plugin for firefox/chrome on linux. """
     """ See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
     if os.getuid() != 0:
-        raise NotSudo('This stage must be run as root.')
+        raise NotSudo
 
     cmd1 = ['sudo', 'apt-add-repository', 'ppa:pipelight/stable']
     cmd2 = ['sudo', 'apt-get', 'update']
@@ -197,6 +198,14 @@ def setup_pipelight():
         subprocess.call(c)
 
     print("Installation over, remember to use a useragent switcher.")
+
+def setup_jshint():
+    """ Simple cache to set up jshint, uses npm. """
+    if os.getuid() != 0:
+        raise NotSudo
+
+    cmd = ['sudo', 'npm', 'install', 'jshint', '-g']
+    subprocess.call(cmd)
 
 def take_choice(choice):
     """ Simple wrapper function to select right action. """
@@ -220,6 +229,7 @@ if __name__ == '__main__':
     3 -> Setup cabal for haskell development.
     4 -> Setup python packages through pip.
     5 -> Setup pipelight to get netflix support via wine.
+    6 -> Setup jshint for javascript checking.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
@@ -230,5 +240,5 @@ if __name__ == '__main__':
         take_choice(ARGS.choice)
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
-    except NotSudo as exc:
+    except NotSudo:
         print("Rerun this part of script with sudo.")
