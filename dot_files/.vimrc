@@ -496,10 +496,10 @@ inoremap jk <esc>
 "inoremap <esc> <nop>
 
 " Remap Alt + Arrow keys to move between split windows
-nnoremap <silent> <A-Up> :wincmd k<CR>
-nnoremap <silent> <A-Down> :wincmd j<CR>
-nnoremap <silent> <A-Left> :wincmd h<CR>
-nnoremap <silent> <A-Right> :wincmd l<CR>
+nnoremap <silent> <space>k :wincmd k<CR>
+nnoremap <silent> <space>j :wincmd j<CR>
+nnoremap <silent> <space>h :wincmd h<CR>
+nnoremap <silent> <space>l :wincmd l<CR>
 
 " Change window down (<C-W>j) then maximize buffer height (<C-W>_)
 nnoremap <C-J> <C-W>j<C-W>_
@@ -789,6 +789,8 @@ if has('autocmd')
         autocmd BufWritePre /tmp/* setlocal noundofile
         " All .md files should be markdown
         autocmd BufRead,BufNewFile *.md set filetype=markdown
+        " When change vimrc, reload it on write.
+        autocmd BufWritePost $MYVIMRC source $MYVIMRC
         " When leaving window, save state to a file. Restore on return
         " Includes cursor position, fold states,
         "au BufWinLeave *.* silent! mkview
