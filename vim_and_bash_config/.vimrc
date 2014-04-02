@@ -184,10 +184,6 @@
 "       Provides better highlighting for new html5 elements.
 "       https://github.com/Sothree/html5.vim
 "
-"   vim-javascript-syntax:
-"       Provides better syntax highlighting for vim.
-"       https://github.com/jelera/vim-javascript-syntax
-"
 "   vim-javascript:
 "       Has some improvements to syntax and indents.
 "       https://github.com/pangloss/vim-javascript
@@ -336,7 +332,6 @@ Bundle 'vim-scripts/DeleteTrailingWhitespace'
 " Web programming
 Bundle 'ap/vim-css-color'
 Bundle 'hail2u/vim-css3-syntax'
-Bundle 'jelera/vim-javascript-syntax'
 Bundle 'othree/html5.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'Shutnik/jshint2.vim'
