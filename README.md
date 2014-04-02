@@ -30,12 +30,12 @@ eclipseBackup
 * Folder stores list of plugins I use and my metadata folder.
 * Extract that to .metadata in workspace to have settings.
 
-vim_and_bash_config
+dot_files
 -------------------
-* Stores my [`.vimrc`](https://github.com/starcraftman/.my_scripts/blob/master/vim_and_bash_config/.vimrc) file for vim config.
+* Stores my [`.vimrc`](https://github.com/starcraftman/.my_scripts/blob/master/dot_files/.vimrc) file for vim config.
 * Read it, some plugins require extra steps like vundle/YCM.
 * .vim folder has some stuff I don't download with vundle like colors, ftplugin custom files and such.
-* [`.bash_aliases`](https://github.com/starcraftman/.my_scripts/blob/master/vim_and_bash_config/.bash_aliases) some cool PS1 hacks for git/hg and other assorted bash conveniences.
+* [`.bash_aliases`](https://github.com/starcraftman/.my_scripts/blob/master/dot_files/.bash_aliases) some cool PS1 hacks for git/hg and other assorted bash conveniences.
 
 archive
 -------

@@ -121,7 +121,7 @@ def setup_config():
     script_dir = script_dir[0:script_dir.rindex(os.sep)]
 
     # Leaving trailing sep for ease later.
-    src = script_dir + os.sep + 'vim_and_bash_config' + os.sep
+    src = script_dir + os.sep + 'dot_files' + os.sep
     dst = os.path.expanduser('~') + os.sep
 
     # Link to config files, copy .vim folder.
