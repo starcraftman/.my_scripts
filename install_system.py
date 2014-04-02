@@ -60,7 +60,7 @@ PROGRAMMING = """ \
     lua5.2 lua5.2-doc luadoc \
     perl perl-doc perl-modules libpadwalker-perl \
     php5 php5-mysql phpunit php5-dev \
-    nodejs nodejs-dev nodejs-legacy \
+    nodejs nodejs-dev nodejs-legacy npm \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
     ruby1.9.1-full shunit2 \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
@@ -218,8 +218,8 @@ def take_choice(choice):
         install_cabal()
     elif choice == 4:
         py_packages()
-    elif choice == 5:
         setup_pipelight()
+        setup_jshint()
 
 if __name__ == '__main__':
     DESC = """ This program sets up a vanilla Ubuntu install.
@@ -227,9 +227,7 @@ if __name__ == '__main__':
     1 -> Install most packages.
     2 -> Setup vim, bash_aliases and development environment.
     3 -> Setup cabal for haskell development.
-    4 -> Setup python packages through pip.
-    5 -> Setup pipelight to get netflix support via wine.
-    6 -> Setup jshint for javascript checking.
+    4 -> Setup python packages through pip, pipelight and jshint.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
