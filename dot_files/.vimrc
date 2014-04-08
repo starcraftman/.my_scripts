@@ -292,8 +292,8 @@ let cygwin_shell = has('win32unix')
 
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . fnameescape(expand(vimDir . '/bundle/vundle'))
-call vundle#begin(fnameescape(expand(vimDir . '/bundle')))
+let &runtimepath .= ',' . expand(vimDir . '/bundle/vundle')
+call vundle#begin(expand(vimDir . '/bundle'))
 
 " List bundles after here, no comments on bundle line
 Plugin 'gmarik/vundle'
@@ -397,7 +397,7 @@ let g:neocomplete#enable_auto_select = 1
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = fnameescape(expand(vimDir . '/snippets'))
+let g:UltiSnipsSnippetsDir = expand(vimDir . '/snippets')
 
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
@@ -579,7 +579,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = fnameescape(expand(vimDir . '/undo'))
+    let &undodir = expand(vimDir . '/undo')
     set undofile
 endif
 
