@@ -287,61 +287,56 @@ set nocompatible
 filetype off
 
 " OS detection
-let g:os_windows = (has('win16') || has('win32') || has('win64')) && &shellcmdflag =~ '/'
-let g:os_cygwin = has('win32unix')
+let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
+let cygwin_shell = has('win32unix')
 
-" On Windows use vimfiles, else use normal unix path. Count cygwin as posix.
-let s:vimDir='~/.vim'
-if g:os_windows
-    let s:vimDir='~/vimfiles'
-endif
-
-" Set rtp for vundle and set install path for scripts
-let s:bundleDir=s:vimDir . '/bundle'
-let &runtimepath .= ',' . fnameescape(expand(s:bundleDir . '/vundle'))
-call vundle#rc(fnameescape(expand(s:bundleDir)))
+" On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
+let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
+let &runtimepath .= ',' . fnameescape(expand(vimDir . '/bundle/vundle'))
+call vundle#begin(fnameescape(expand(vimDir . '/bundle')))
 
 " List bundles after here, no comments on bundle line
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Heaviest plugins
-Bundle 'Valloric/YouCompleteMe'
-"Bundle 'Shougo/neocomplete.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-airline'
-Bundle 'SirVer/ultisnips'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Shougo/neocomplete.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'SirVer/ultisnips'
 
 " Regular plugins
-Bundle 'edsono/vim-matchit'
-Bundle 'elzr/vim-json'
-Bundle 'justinmk/vim-sneak'
-Bundle 'kien/ctrlp.vim'
-Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'majutsushi/tagbar'
-Bundle 'mhinz/vim-signify'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-sleuth'
-Bundle 'tpope/vim-surround'
-Bundle 'tyru/open-browser.vim'
-Bundle 'vim-scripts/a.vim'
-Bundle 'vim-scripts/DeleteTrailingWhitespace'
+Plugin 'edsono/vim-matchit'
+Plugin 'elzr/vim-json'
+Plugin 'justinmk/vim-sneak'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ludovicchabant/vim-lawrencium'
+Plugin 'majutsushi/tagbar'
+Plugin 'mhinz/vim-signify'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-surround'
+Plugin 'tyru/open-browser.vim'
+Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/DeleteTrailingWhitespace'
 
 " Web programming
-Bundle 'ap/vim-css-color'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'othree/html5.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'Shutnik/jshint2.vim'
+Plugin 'ap/vim-css-color'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'Shutnik/jshint2.vim'
 
 " Color schemes
-Bundle 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 " Large number of schemes to try:
-"Bundle 'flazz/vim-colorschemes'
+"Plugin 'flazz/vim-colorschemes'
 
 " Turn on after vundle works
+call vundle#end()
 filetype plugin indent on
 
 " Perl Autocomplete, allow : to be in keywords
@@ -402,7 +397,7 @@ let g:neocomplete#enable_auto_select = 1
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = fnameescape(expand(s:vimDir . '/snippets'))
+let g:UltiSnipsSnippetsDir = fnameescape(expand(vimDir . '/snippets'))
 
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
@@ -584,7 +579,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = fnameescape(expand(s:vimDir . '/undo'))
+    let &undodir = fnameescape(expand(vimDir . '/undo'))
     set undofile
 endif
 
@@ -666,7 +661,7 @@ syntax enable
 " Required to make molokai display correctly
 " Sets color mode to 256, sometimes term not set correctly
 " Most windows terms don't support, so check for them
-if !(g:os_windows && has('gui_running') ==# 0)
+if !(win_shell && has('gui_running') ==# 0)
     set t_Co=256
 endif
 
