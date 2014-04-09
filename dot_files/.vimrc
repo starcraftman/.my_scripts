@@ -35,11 +35,18 @@
 """"""""""""""""""""""""
 " {{{
 
-"   1) Update Vim:
+"   1) Install Vim:
+"       a) Linux
 "       YCM Requires Vim 7.4:
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
 "       If can't install, try build from source:
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+"
+"       b) Windows
+"       Download and extract:
+"       http://tuxproject.de/projects/vim/complete.7z
+"       Put the lua52.dll in the root project
+"       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
 "
 "   2) Ensure Vim Python Support:
 "       Some plugins use python (like Gundo), check support
