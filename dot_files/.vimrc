@@ -103,7 +103,7 @@
 "   ultisnips:
 "       Same as SnipMate, seems that project may be unmaintained
 "       https://github.com/SirVer/ultisnips
-"       Extra snippets that may be useful.
+"       Required default snippets now externalized to below
 "       https://github.com/honza/vim-snippets
 "
 "   vim-sneak:
@@ -308,6 +308,7 @@ Plugin 'SirVer/ultisnips'
 " Regular plugins
 Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
+Plugin 'honza/vim-snippets'
 Plugin 'justinmk/vim-sneak'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
@@ -324,11 +325,11 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/DeleteTrailingWhitespace'
 
 " Web programming
-Plugin 'ap/vim-css-color'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Shutnik/jshint2.vim'
+"Plugin 'ap/vim-css-color'
+"Plugin 'hail2u/vim-css3-syntax'
+"Plugin 'othree/html5.vim'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'Shutnik/jshint2.vim'
 
 " Color schemes
 Plugin 'tomasr/molokai'
