@@ -293,7 +293,11 @@ let cygwin_shell = has('win32unix')
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/vundle')
-call vundle#begin(expand(vimDir . '/bundle'))
+if exists('vundle#begin')
+    call vundle#begin(expand(vimDir . '/bundle'))
+else
+    call vundle#rc(expand(vimDir . '/bundle'))
+endif
 
 " List bundles after here, no comments on bundle line
 Plugin 'gmarik/vundle'
@@ -337,7 +341,9 @@ Plugin 'tomasr/molokai'
 "Plugin 'flazz/vim-colorschemes'
 
 " Turn on after vundle works
-call vundle#end()
+if exists('vundle#end')
+    call vundle#end()
+endif
 filetype plugin indent on
 
 " Perl Autocomplete, allow : to be in keywords
