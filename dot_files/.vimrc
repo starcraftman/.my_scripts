@@ -310,8 +310,11 @@ endif
 Plugin 'gmarik/vundle'
 
 " Heaviest plugins
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'Shougo/neocomplete.vim'
+if has('lua') && (has('win32') || has('win64'))
+    Plugin 'Shougo/neocomplete.vim'
+else
+    Plugin 'Valloric/YouCompleteMe'
+endif
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
