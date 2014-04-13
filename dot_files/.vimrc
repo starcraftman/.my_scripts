@@ -700,7 +700,11 @@ call matchadd('ColorColumn', '\%100v', 100)
 
 " Set font when using gui version
 if has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
+    if has('gui_gtk2')
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+    elseif has('gui_win32')
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:10
+    endif
 endif
 
 " }}}
