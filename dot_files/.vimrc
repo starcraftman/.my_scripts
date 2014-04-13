@@ -703,7 +703,7 @@ if has('gui_running')
     if has('gui_gtk2')
         set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
     elseif has('gui_win32')
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:10
+        set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
     endif
 endif
 
