@@ -335,6 +335,7 @@ Plugin 'vim-scripts/DeleteTrailingWhitespace'
 " Web programming
 "Plugin 'ap/vim-css-color'
 "Plugin 'hail2u/vim-css3-syntax'
+"Plugin 'jQuery'
 "Plugin 'othree/html5.vim'
 "Plugin 'pangloss/vim-javascript'
 "Plugin 'Shutnik/jshint2.vim'
