@@ -289,15 +289,12 @@
 " {{{
 
 " Vundle docs -> :help vundle
-" Vundle requires these options, keep bundles in this region
 set nocompatible
 filetype off
 
-" OS detection
+" On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let cygwin_shell = has('win32unix')
-
-" On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/vundle')
 if exists('vundle#begin')
@@ -306,7 +303,7 @@ else
     call vundle#rc(expand(vimDir . '/bundle'))
 endif
 
-" List bundles after here, no comments on bundle line
+" Let Vundle manage itself.
 Plugin 'gmarik/vundle'
 
 " Heaviest plugins
