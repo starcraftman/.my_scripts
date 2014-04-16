@@ -37,7 +37,7 @@ def main(path):
 # Main
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        path = '~/.vim/bundle/vundle/doc/vundle.txt'
+        path = '~/.vim/bundle/Vundle.vim/doc/vundle.txt'
     else:
         path = sys.argv[1]
     main(os.path.expanduser(path))

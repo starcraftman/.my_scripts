@@ -296,15 +296,11 @@ filetype off
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let cygwin_shell = has('win32unix')
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . expand(vimDir . '/bundle/vundle')
-if exists('vundle#begin')
-    call vundle#begin(expand(vimDir . '/bundle'))
-else
-    call vundle#rc(expand(vimDir . '/bundle'))
-endif
+let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
+call vundle#begin(expand(vimDir . '/bundle'))
 
 " Let Vundle manage itself.
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " Heaviest plugins
 "Plugin 'Shougo/neocomplete.vim'
@@ -346,9 +342,7 @@ Plugin 'tomasr/molokai'
 "Plugin 'flazz/vim-colorschemes'
 
 " Turn on after vundle works
-if exists('vundle#end')
-    call vundle#end()
-endif
+call vundle#end()
 filetype plugin indent on
 
 " Perl Autocomplete, allow : to be in keywords
