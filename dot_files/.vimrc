@@ -77,6 +77,7 @@
 "       YouCompleteMe: Requires cpp compilation, see notes
 "       vim-airline: Requires powerline font modification
 "       TagBar: Requires exhuberant tags instead of gnu ctags
+"       ag.vim: Install 'silversearcher-ag' package.
 "       Dirs: Make ~/.vim/undo and ~/.vim/snippets
 
 " }}}
@@ -173,6 +174,10 @@
 "   open-browser:
 "       Provides OpenBrowser URI to go directly to your local browser.
 "       https://github.com/tyru/open-browser.vim
+"
+"   Silver Searcher:
+"       Searches code quickly, faster than grep. Requires silversearcher-ag.
+"       https://github.com/rking/ag.vim
 "
 "   vim-css-color:
 "       Provides highlighting of color codes like hex and regular words like red.
@@ -319,6 +324,7 @@ Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
 Plugin 'mhinz/vim-signify'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
