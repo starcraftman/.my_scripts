@@ -175,9 +175,13 @@
 "       Provides OpenBrowser URI to go directly to your local browser.
 "       https://github.com/tyru/open-browser.vim
 "
-"   Silver Searcher:
+"   ag.vim (Silver Searcher):
 "       Searches code quickly, faster than grep. Requires silversearcher-ag.
 "       https://github.com/rking/ag.vim
+"
+"   ack.vim
+"       Same as ag.vim, though based on ack-grep a perl file.
+"       https://github.com/mileszs/ack.vim
 "
 "   vim-css-color:
 "       Provides highlighting of color codes like hex and regular words like red.
@@ -323,6 +327,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
 Plugin 'mhinz/vim-signify'
+Plugin 'mileszs/ack.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'

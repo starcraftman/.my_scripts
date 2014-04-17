@@ -43,7 +43,7 @@ PROGRAMMING = """ \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk \
-    colormake colordiff colorgcc silversearcher-ag \
+    colormake colordiff colorgcc silversearcher-ag ack-grep \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
