@@ -320,8 +320,8 @@ call vundle#begin(expand(vimDir . '/bundle'))
 Plugin 'gmarik/Vundle.vim'
 
 " Heaviest plugins
-Plugin 'Shougo/neocomplete.vim'
-"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Shougo/neocomplete.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
