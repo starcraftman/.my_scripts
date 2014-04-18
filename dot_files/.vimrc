@@ -129,6 +129,10 @@
 "       Use Ctlr+P to access
 "       https://github.com/kien/ctrlp.vim
 "
+"   CtrlP Switcher:
+"       Finds files in the tree similar to current buffer
+"       https://github.com/ivan-cukic/vim-ctrlp-switcher
+"
 "   TagBar:
 "       A outline of the files contents
 "       Uses exuberant ctags, not GNU ctags
@@ -174,6 +178,10 @@
 "   open-browser:
 "       Provides OpenBrowser URI to go directly to your local browser.
 "       https://github.com/tyru/open-browser.vim
+"
+"   vim-togglelist:
+"       Provides simple keystroke to toggle lists.
+"       https://github.com/kshenoy/vim-togglelist
 "
 "   ag.vim (Silver Searcher):
 "       Searches code quickly, faster than grep. Requires silversearcher-ag.
@@ -312,8 +320,8 @@ call vundle#begin(expand(vimDir . '/bundle'))
 Plugin 'gmarik/Vundle.vim'
 
 " Heaviest plugins
-"Plugin 'Shougo/neocomplete.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
@@ -321,9 +329,11 @@ Plugin 'SirVer/ultisnips'
 " Regular plugins
 Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
-Plugin 'honza/vim-snippets'
+Plugin 'ivan-cukic/vim-ctrlp-switcher' " Extension for ctrlp
+Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 Plugin 'justinmk/vim-sneak'
 Plugin 'kien/ctrlp.vim'
+Plugin 'kshenoy/vim-togglelist'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
 Plugin 'mhinz/vim-signify'
@@ -433,6 +443,10 @@ let g:sneak#map_netrw = 1
 
 " CtrlP
 """""""
+
+" Enable extensions for CtrlP:
+let g:ctrlp_extensions = ['funky','switcher']
+
 " Index hidden files
 "let g:ctrlp_show_hidden = 1
 
@@ -500,7 +514,7 @@ cnoreabbrev Ev Sexplore!
 " Shortcuts for bundle management
 cnoreabbrev pi PluginInstall
 cnoreabbrev pu PluginUpdate
-cnoreabbrev pc PluginClean!
+cnoreabbrev pc PluginClean
 cnoreabbrev ps PluginSearch
 
 " Faster binding to escape insert
@@ -520,11 +534,15 @@ nnoremap <C-K> <C-W>k<C-W>_
 nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
+" Toggles for the location and quickfix
+nnoremap <leader>q :ToggleQF<CR>
+nnoremap <leader>l :ToggleLL<CR>
+
 " Make all windows equal in size
-nnoremap <leader>q <C-W>=
+"nnoremap <leader>q <C-W>=
 
 " Shortcut to remember how to reindent file
-nnoremap <leader>t gg=G
+"nnoremap <leader>t gg=G
 
 " To open NERDTree when used
 "nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -542,6 +560,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
 nnoremap <leader>pm :CtrlPMRUFiles<CR>
+nnoremap <leader>ps :CtrlPSwitch<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
