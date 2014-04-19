@@ -445,7 +445,7 @@ let g:sneak#map_netrw = 1
 """""""
 
 " Enable extensions for CtrlP:
-let g:ctrlp_extensions = ['funky','switcher']
+let g:ctrlp_extensions = ['switcher']
 
 " Index hidden files
 "let g:ctrlp_show_hidden = 1
