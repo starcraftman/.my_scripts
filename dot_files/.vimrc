@@ -359,6 +359,8 @@ Plugin 'vim-scripts/DeleteTrailingWhitespace'
 
 " Color schemes
 Plugin 'tomasr/molokai'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'tpope/vim-vividchalk'
 " Large number of schemes to try:
 "Plugin 'flazz/vim-colorschemes'
 
