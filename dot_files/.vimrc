@@ -872,10 +872,19 @@ if has('autocmd')
     endfunction
 endif
 
-function! NextScheme()
-    " Pick next one
+" Easy means to try different schemes for a file
+com! -nargs=0 NScheme call NextScheme(0)
+com! -nargs=0 PScheme call NextScheme(1)
+
+function! NextScheme(reverse)
+    " Populate list
     let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
     let schemes = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
+    if a:reverse == 1
+        let schemes = reverse(schemes)
+    endif
+
+    " Find next
     let next = 0
     for scheme in schemes
         let next = next + 1
@@ -889,6 +898,7 @@ function! NextScheme()
     exec 'colorscheme ' . schemes[next]
     syntax off
     syntax on
+    echom 'set scheme to: ' . g:colors_name
 endfunction
 
 " }}}
