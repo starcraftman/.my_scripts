@@ -804,7 +804,7 @@ let g:netrw_liststyle = 3
 let g:netrw_sort_options = 'i'
 
 " }}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autocommands & Filetype Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
@@ -871,5 +871,24 @@ if has('autocmd')
         setlocal iskeyword+=-
     endfunction
 endif
+
+function! NextScheme()
+    " Pick next one
+    let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
+    let schemes = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
+    let next = 0
+    for scheme in schemes
+        let next = next + 1
+        if scheme ==? g:colors_name
+            break
+        endif
+    endfor
+
+    " Set new scheme
+    set background=dark
+    exec 'colorscheme ' . schemes[next]
+    syntax off
+    syntax on
+endfunction
 
 " }}}
