@@ -879,6 +879,8 @@ com! -nargs=0 PScheme call NextScheme(1)
 function! NextScheme(reverse)
     " Populate list
     let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
+    let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
+    let schemes = filter(schemes, "v:val !~ pattern")
     let schemes = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
     if a:reverse == 1
         let schemes = reverse(schemes)
