@@ -189,11 +189,13 @@ def setup_pipelight():
     if os.getuid() != 0:
         raise NotSudo
 
+    cmd0 = ['sudo', 'apt-get' 'remove' 'flashplugin-installer']
     cmd1 = ['sudo', 'apt-add-repository', 'ppa:pipelight/stable']
     cmd2 = ['sudo', 'apt-get', 'update']
     cmd3 = ['sudo', 'apt-get', 'install', 'pipelight-multi']
     cmd4 = ['pipelight-plugin', '--enable', 'silverlight']
-    cmds = [cmd1, cmd2, cmd3, cmd4]
+    cmd5 = ['pipelight-plugin', '--enable', 'flash']
+    cmds = [cmd0, cmd1, cmd2, cmd3, cmd4, cmd5]
     for c in cmds:
         subprocess.call(c)
 
