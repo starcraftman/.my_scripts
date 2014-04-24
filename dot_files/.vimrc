@@ -876,28 +876,39 @@ endif
 com! -nargs=0 NScheme call NextScheme(0)
 com! -nargs=0 PScheme call NextScheme(1)
 
-function! NextScheme(reverse)
+function! InitScheme(remDefaults)
+    if exists('s:c_init')
+        return
+    endif
+    let s:c_init = 1
+
     " Populate list
     let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
-    let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
-    let schemes = filter(schemes, "v:val !~ pattern")
-    let schemes = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
-    if a:reverse == 1
-        let schemes = reverse(schemes)
+    if a:remDefaults == 1
+        let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
+        let schemes = filter(schemes, "v:val !~ pattern")
     endif
+    let s:c_list= sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
 
-    " Find next
-    let next = 0
+    " Find current index
+    let s:c_ind = 0
     for scheme in schemes
-        let next = next + 1
         if scheme ==? g:colors_name
             break
         endif
+        let s:c_ind += 1
     endfor
+endfunction
+
+function! NextScheme(reverse)
+    call InitScheme(1)
+
+    " Set next index
+    let s:c_ind = (a:reverse ? s:c_ind - 1 : s:c_ind + 1) % len(s:c_list)
 
     " Set new scheme
     set background=dark
-    exec 'colorscheme ' . schemes[next]
+    exec 'colorscheme ' . s:c_list[s:c_ind]
     syntax off
     syntax on
     echom 'set scheme to: ' . g:colors_name
