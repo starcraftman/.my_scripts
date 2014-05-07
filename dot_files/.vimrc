@@ -828,7 +828,7 @@ if has('autocmd')
         " All .md files should be markdown
         autocmd BufRead,BufNewFile *.md set filetype=markdown
         " When change vimrc, reload it on write.
-        autocmd BufWritePost $MYVIMRC source $MYVIMRC
+        "autocmd BufWritePost $MYVIMRC source $MYVIMRC
         " When leaving window, save state to a file. Restore on return
         " Includes cursor position, fold states,
         "au BufWinLeave *.* silent! mkview
@@ -878,39 +878,6 @@ com! -nargs=0 NScheme call s:NextScheme(0)
 com! -nargs=0 PScheme call s:NextScheme(1)
 com! -nargs=0 PickScheme call s:PickScheme()
 
-function! s:SetScheme()
-    " Set new scheme
-    syntax off
-    set background=dark
-    exec 'colorscheme ' . s:c_list[s:c_ind]
-    syntax on
-    echom 'colorscheme now:: ' . g:colors_name
-endfunction
-
-
-function! s:PickScheme()
-    call s:InitScheme(1)
-
-    if (len(s:c_list) > 26)
-        echom 'too many schemes'
-        return
-    endif
-
-    " Message creator
-    let msg = ""
-    let char = "A"
-    for s in s:c_list
-        let msg .= "&" . char . s . "\n"
-        let char = nr2char(char2nr(char) + 1)
-    endfor
-    let msg = msg[0:-3]
-
-    " Returns index of 1 - n choices
-    let s:c_ind = confirm("Pick Scheme From:", msg) - 1
-
-    call s:SetScheme()
-endfunction
-
 function! s:InitScheme(remDefaults)
     if exists('s:c_init')
         return
@@ -935,11 +902,43 @@ function! s:InitScheme(remDefaults)
     endfor
 endfunction
 
+function! s:SetScheme()
+    " Set new scheme
+    syntax off
+    set background=dark
+    exec 'colorscheme ' . s:c_list[s:c_ind]
+    syntax on
+    echom 'colorscheme now:: ' . g:colors_name
+endfunction
+
 function! s:NextScheme(reverse)
     call s:InitScheme(1)
 
     " Set next index
     let s:c_ind = (a:reverse ? s:c_ind - 1 : s:c_ind + 1) % len(s:c_list)
+
+    call s:SetScheme()
+endfunction
+
+function! s:PickScheme()
+    call s:InitScheme(1)
+
+    if (len(s:c_list) > 26)
+        echom 'too many schemes'
+        return
+    endif
+
+    " Message creator
+    let msg = ""
+    let char = "A"
+    for s in s:c_list
+        let msg .= "&" . char . s . "\n"
+        let char = nr2char(char2nr(char) + 1)
+    endfor
+    let msg = msg[0:-3]
+
+    " Returns index of 1 - n choices
+    let s:c_ind = confirm("Pick Scheme From:", msg) - 1
 
     call s:SetScheme()
 endfunction
