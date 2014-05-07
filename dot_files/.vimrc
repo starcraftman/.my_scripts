@@ -693,8 +693,7 @@ set smartcase
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Enable syntax highlighting
-syntax enable
+syntax off
 
 " Required to make molokai display correctly
 " Sets color mode to 256, sometimes term not set correctly
@@ -712,6 +711,8 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
+
+syntax on
 
 " Molokai CursorLine isn't bright enough.
 if &t_Co > 255
@@ -873,12 +874,29 @@ if has('autocmd')
 endif
 
 " Easy means to try different schemes for a file
-com! -nargs=0 NScheme call NextScheme(0)
-com! -nargs=0 PScheme call NextScheme(1)
+com! -nargs=0 NScheme call s:NextScheme(0)
+com! -nargs=0 PScheme call s:NextScheme(1)
+com! -nargs=0 PickScheme call s:PickScheme()
 
-function! PickScheme()
-    call InitScheme(1)
+function! s:SetScheme()
+    " Set new scheme
+    syntax off
+    set background=dark
+    exec 'colorscheme ' . s:c_list[s:c_ind]
+    syntax on
+    echom 'colorscheme now:: ' . g:colors_name
+endfunction
 
+
+function! s:PickScheme()
+    call s:InitScheme(1)
+
+    if (len(s:c_list) > 26)
+        echom 'too many schemes'
+        return
+    endif
+
+    " Message creator
     let msg = ""
     let char = "A"
     for s in s:c_list
@@ -890,15 +908,10 @@ function! PickScheme()
     " Returns index of 1 - n choices
     let s:c_ind = confirm("Pick Scheme From:", msg) - 1
 
-    " Set new scheme
-    set background=dark
-    exec 'colorscheme ' . s:c_list[s:c_ind]
-    syntax off
-    syntax on
-    echom 'set scheme to: ' . g:colors_name
+    call s:SetScheme()
 endfunction
 
-function! InitScheme(remDefaults)
+function! s:InitScheme(remDefaults)
     if exists('s:c_init')
         return
     endif
@@ -922,18 +935,13 @@ function! InitScheme(remDefaults)
     endfor
 endfunction
 
-function! NextScheme(reverse)
-    call InitScheme(1)
+function! s:NextScheme(reverse)
+    call s:InitScheme(1)
 
     " Set next index
     let s:c_ind = (a:reverse ? s:c_ind - 1 : s:c_ind + 1) % len(s:c_list)
 
-    " Set new scheme
-    set background=dark
-    exec 'colorscheme ' . s:c_list[s:c_ind]
-    syntax off
-    syntax on
-    echom 'set scheme to: ' . g:colors_name
+    call s:SetScheme()
 endfunction
 
 " }}}
