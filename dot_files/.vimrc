@@ -876,6 +876,28 @@ endif
 com! -nargs=0 NScheme call NextScheme(0)
 com! -nargs=0 PScheme call NextScheme(1)
 
+function! PickScheme()
+    call InitScheme(1)
+
+    let msg = ""
+    let char = "A"
+    for s in s:c_list
+        let msg .= "&" . char . s . "\n"
+        let char = nr2char(char2nr(char) + 1)
+    endfor
+    let msg = msg[0:-3]
+
+    " Returns index of 1 - n choices
+    let s:c_ind = confirm("Pick Scheme From:", msg) - 1
+
+    " Set new scheme
+    set background=dark
+    exec 'colorscheme ' . s:c_list[s:c_ind]
+    syntax off
+    syntax on
+    echom 'set scheme to: ' . g:colors_name
+endfunction
+
 function! InitScheme(remDefaults)
     if exists('s:c_init')
         return
