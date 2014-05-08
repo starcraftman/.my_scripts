@@ -341,6 +341,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sleuth'
@@ -452,6 +453,12 @@ let g:ctrlp_extensions = ['switcher']
 " Index hidden files
 "let g:ctrlp_show_hidden = 1
 
+" Nerdtree
+"""""""""""""
+
+" Width of window
+let g:NERDTreeWinSize = 70
+
 " DeleteTrailingWhitespace
 """"""""""""""""""""""""""
 " Always delete trailing whitespace from lines on save
@@ -547,7 +554,7 @@ nnoremap <leader>l :ToggleLL<CR>
 "nnoremap <leader>t gg=G
 
 " To open NERDTree when used
-"nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 
 " Signify binding to jump between hunks.
 let g:signify_mapping_next_hunk = '<leader>hj'
@@ -764,7 +771,7 @@ set textwidth=150
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NETRW File Explorer
+" => NETRW File Explorer & File Ignore
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
@@ -796,13 +803,16 @@ let vcs_hide = '\.git/,\.hg/,\.svn/,\.bzr/'
 let &wildignore = wild_s . ',' . vcs_hide
 
 " When browsing with netrw, ignore all matching files to this regex
-let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$,' . vcs_hide
+let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$\c,' . vcs_hide
 
 " Customize netrw use a tree style and ignore some extensions
 let g:netrw_liststyle = 3
 
 " Set the explorer sorting to case insensitive
 let g:netrw_sort_options = 'i'
+
+" NERDTreeIgnore if used
+let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
