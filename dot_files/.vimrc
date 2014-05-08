@@ -873,6 +873,12 @@ if has('autocmd')
     endfunction
 endif
 
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colorscheme Switcher
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
 " Easy means to try different schemes for a file
 com! -nargs=0 NScheme call s:NextScheme(0)
 com! -nargs=0 PScheme call s:NextScheme(1)
