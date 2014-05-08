@@ -916,6 +916,7 @@ function! s:InitScheme(remDefaults)
         endif
         let s:c_ind += 1
     endfor
+    let s:c_default = s:c_ind + 1
 endfunction
 
 function! s:SetScheme()
@@ -954,7 +955,7 @@ function! s:PickScheme()
     let msg = msg[0:-3]
 
     " Returns index of 1 - n choices
-    let s:c_ind = confirm("Pick Scheme From:", msg) - 1
+    let s:c_ind = confirm("Pick Scheme From:", msg, s:c_default) - 1
 
     call s:SetScheme()
 endfunction
