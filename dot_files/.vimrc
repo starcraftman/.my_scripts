@@ -531,10 +531,10 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
-nnoremap <right> :bn<cr>
-nnoremap <left> :bp<cr>
-nnoremap <up> :tn<cr>
-nnoremap <down> :tp<cr>
+nnoremap <right>    :bnext<CR>
+nnoremap <left>     :bprevious<CR>
+nnoremap <up>       :tabn<CR>
+nnoremap <down>     :tabp<CR>
 
 " Remap Space + direction to move between split windows
 nnoremap <silent> <space>k :wincmd k<CR>
