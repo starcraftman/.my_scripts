@@ -325,14 +325,14 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 
 " Regular plugins
 Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
-Plugin 'ivan-cukic/vim-ctrlp-switcher' " Extension for ctrlp
-Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 Plugin 'justinmk/vim-sneak'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ivan-cukic/vim-ctrlp-switcher' " Extension for ctrlp
 Plugin 'kshenoy/vim-togglelist'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
@@ -528,9 +528,15 @@ cnoreabbrev ps PluginSearch
 
 " Faster binding to escape insert
 inoremap jk <esc>
-"inoremap <esc> <nop>
+inoremap <esc> <nop>
 
-" Remap Alt + Arrow keys to move between split windows
+" Arrow keys to move through buffers/tabs
+nnoremap <right> :bn<cr>
+nnoremap <left> :bp<cr>
+nnoremap <up> :tn<cr>
+nnoremap <down> :tp<cr>
+
+" Remap Space + direction to move between split windows
 nnoremap <silent> <space>k :wincmd k<CR>
 nnoremap <silent> <space>j :wincmd j<CR>
 nnoremap <silent> <space>h :wincmd h<CR>
