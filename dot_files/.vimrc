@@ -620,6 +620,9 @@ set hidden
 " Set UTF-8 for file enconding
 set encoding=utf8
 
+" File format order attempted, use to override native
+set fileformats=unix,dos,mac
+
 " Folding method, for most code use indent, no need to clutter source
 set foldmethod=indent
 set foldminlines=10
