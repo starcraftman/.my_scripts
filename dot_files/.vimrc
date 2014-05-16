@@ -48,6 +48,9 @@
 "       Put the lua52.dll in the root project
 "       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
 "
+"       c) Windows Babun (Cygwin)
+"       Use - https://github.com/babun/babun
+"
 "   2) Ensure Vim Python Support:
 "       Some plugins use python (like Gundo), check support
 "       If not, recompile with it. See above for debian or source compile
