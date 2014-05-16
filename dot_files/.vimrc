@@ -598,6 +598,10 @@ nnoremap <silent> <F2> :TagbarToggle<CR>
 " Shortcut for gundo sidebar
 nnoremap <silent> <F3> :GundoToggle<CR>
 
+" Toggle line numbers
+nnoremap <F5> :set number!<CR>
+inoremap <F5> <Esc>:set number!<CR>:call feedkeys('i', 'n')<CR>
+
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options & Features
