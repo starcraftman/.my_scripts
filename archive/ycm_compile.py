@@ -39,6 +39,21 @@ def get_procs():
 
     return procs
 
+class Cnt:
+    def __init__(self, init):
+        self.percent = init
+    def update(self, new_percent):
+        if new_percent > self.percent:
+            print('Clang Download Progress: {}% '.format(self.percent))
+            self.percent = new_percent
+
+def gen_hook():
+    counter = Cnt(0)
+    def report_down(block_count, bytes_per_block, total_size):
+        new_percent = (block_count / (total_size/bytes_per_block)) * 100
+        counter.update(round(new_percent))
+    return report_down
+
 
 def check_clang():
     """ Check if we have clang, else retrieve it. """
@@ -51,7 +66,7 @@ def check_clang():
 
     if CLANG_FILE not in os.listdir():
         print('Please wait, downloading clang.')
-        urllib.request.urlretrieve(CLANG_URL, CLANG_FILE)
+        urllib.request.urlretrieve(CLANG_URL, CLANG_FILE, gen_hook())
         print('Finished download.')
 
     if extracted_dir in os.listdir():
@@ -76,7 +91,7 @@ if __name__ == '__main__':
     NUM_PROCS = get_procs()
     subprocess.call(['cmake', '-GUnix Makefiles',
                      '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
-                     '~/.vim/bundle/YouCompleteMe/cpp'])
+                     '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp'])
     subprocess.call(['make', '-j{}'.format(NUM_PROCS), 'ycm_support_libs'])
 
     os.chdir('..')
