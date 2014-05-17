@@ -39,7 +39,7 @@ def get_procs():
 
     return procs
 
-class Cnt:
+class Counter:
     def __init__(self, init):
         self.percent = init
     def update(self, new_percent):
@@ -48,7 +48,7 @@ class Cnt:
             self.percent = new_percent
 
 def gen_hook():
-    counter = Cnt(0)
+    counter = Counter(0)
     def report_down(block_count, bytes_per_block, total_size):
         new_percent = (block_count / (total_size/bytes_per_block)) * 100
         counter.update(round(new_percent))
