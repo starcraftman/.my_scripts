@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+cd ~/.vim/bundle/YouCompleteMe
+bash ./install.sh --clang-completer
+cd -
