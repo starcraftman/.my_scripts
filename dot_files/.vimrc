@@ -362,8 +362,10 @@ Plugin 'vim-scripts/DeleteTrailingWhitespace'
 "Plugin 'Shutnik/jshint2.vim'
 
 " Color schemes
-Plugin 'tomasr/molokai'
 Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'Lokaltog/vim-distinguished'
+Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-vividchalk'
 " Large number of schemes to try:
 "Plugin 'flazz/vim-colorschemes'
