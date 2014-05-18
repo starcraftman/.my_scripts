@@ -967,7 +967,7 @@ function! s:PickScheme()
         let msg .= "&" . char . s . "\n"
         let char = nr2char(char2nr(char) + 1)
     endfor
-    let msg = msg[0:-3]
+    let msg = msg[0:-2]
 
     " Returns index of 1 - n choices
     let s:c_ind = confirm("Pick Scheme From:", msg, s:c_default) - 1
