@@ -194,6 +194,43 @@
 "       Same as ag.vim, though based on ack-grep a perl file.
 "       https://github.com/mileszs/ack.vim
 "
+"   Version Control:
+"       GIT -> https://github.com/tpope/vim-fugitive
+"       Hg -> https://github.com/ludovicchabant/vim-lawrencium
+
+" }}}
+" Unused Plugins, May Revisit
+"""""""""""""""""""""""""""""
+" {{{
+
+"   neocomplete:
+"       Fairly complete YCM replacement for on Windows.
+"       https://github.com/Shougo/neocomplete.vim
+"
+"   NERDTree:
+"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
+"       Open with :NERDTree command
+"       https://github.com/scrooloose/nerdtree
+"
+"   Local Vimrc:
+"       Allows project specific settings with .lvimrc files
+"       https://github.com/embear/vim-localvimrc
+"
+"   SnipMate:
+"       Allows you to expand boilerplate code
+"       https://github.com/msanders/snipmate.vim
+"       Usage: http://www.bestofvim.com/plugin/snipmate/
+"       Related: https://github.com/scrooloose/snipmate-snippets
+"
+"   EasyMotion
+"       Provides alternative motion for word jumping
+"       Use <leader><leader>w to jump then select
+"       https://github.com/Lokaltog/vim-easymotion
+"
+"   Golden Ratio:
+"       Plugin that resizes windows on focus gain. Neat.
+"       https://github.com/roman/golden-ratio
+"
 "   vim-css-color:
 "       Provides highlighting of color codes like hex and regular words like red.
 "       https://github.com/ap/vim-css-color
@@ -214,24 +251,6 @@
 "   vim-javascript:
 "       Has some improvements to syntax and indents.
 "       https://github.com/pangloss/vim-javascript
-"
-"   Version Control:
-"       GIT -> https://github.com/tpope/vim-fugitive
-"       Hg -> https://github.com/ludovicchabant/vim-lawrencium
-
-" }}}
-" Unused Plugins, May Revisit
-"""""""""""""""""""""""""""""
-" {{{
-
-"   neocomplete:
-"       Fairly complete YCM replacement for on Windows.
-"       https://github.com/Shougo/neocomplete.vim
-"
-"   NERDTree:
-"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
-"       Open with :NERDTree command
-"       https://github.com/scrooloose/nerdtree
 "
 "   SnipMate:
 "       Allows you to expand boilerplate code
