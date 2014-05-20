@@ -371,6 +371,7 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'Lokaltog/vim-distinguished'
 Plugin 'tomasr/molokai'
 Plugin 'tpope/vim-vividchalk'
+Plugin 'vim-scripts/desert256.vim'
 " Large number of schemes to try:
 "Plugin 'flazz/vim-colorschemes'
 
@@ -673,7 +674,7 @@ if has('gui_running')
 endif
 
 " Enable the mouse in all modes of operation
-"set mouse=a
+set mouse=a
 
 " Show end of line and tabs on screen
 "set list
