@@ -146,6 +146,10 @@
 "       Project: https://github.com/sjl/gundo.vim
 "       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
 "
+"  abolish:
+"       Help for renaming, has easy syntax alternative to regexp.
+"       https://github.com/tpope/vim-abolish
+"
 "   NERDComment:
 "       Bunch of comment commands. Mainly <leader>ci to comment line
 "       https://github.com/scrooloose/nerdcommenter
@@ -350,6 +354,7 @@ Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
