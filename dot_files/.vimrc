@@ -307,6 +307,8 @@
 "
 " * To see conflicting maps:
 "       :verbose map <leader>jd
+"
+" * To repeat last command (colon): `@:`, to repeat last register `@@`.
 
 " }}}
 
