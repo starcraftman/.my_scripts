@@ -593,7 +593,7 @@ nnoremap <leader>pm :CtrlPMRUFiles<CR>
 nnoremap <leader>ps :CtrlPSwitch<CR>
 
 " Add shortcut to jump to definition/declaration of c file
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>j :YcmCompleter GoTo<CR>
 
 " Shortcut to swap to header file, horizontal split
 nnoremap <leader>a :AS<CR>
