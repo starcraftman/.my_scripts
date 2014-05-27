@@ -944,6 +944,24 @@ function! s:InitScheme(remDefaults)
         let s:c_ind += 1
     endfor
     let s:c_default = s:c_ind + 1
+
+    if (len(s:c_list) > 26)
+        echom 'too many schemes, listing first 26'
+        return
+    endif
+
+    " Create Message
+    let msg = ""
+    let char = "A"
+    for s in s:c_list
+        let msg .= "&" . char . s . "\n"
+        let char = nr2char(char2nr(char) + 1)
+        " Stop at 26th
+        if char == "["
+            break
+        endif
+    endfor
+    let s:c_msg = msg[0:-2]
 endfunction
 
 function! s:SetScheme()
@@ -967,22 +985,8 @@ endfunction
 function! s:PickScheme()
     call s:InitScheme(1)
 
-    if (len(s:c_list) > 26)
-        echom 'too many schemes'
-        return
-    endif
-
-    " Message creator
-    let msg = ""
-    let char = "A"
-    for s in s:c_list
-        let msg .= "&" . char . s . "\n"
-        let char = nr2char(char2nr(char) + 1)
-    endfor
-    let msg = msg[0:-2]
-
     " Returns index of 1 - n choices
-    let s:c_ind = confirm("Pick Scheme From:", msg, s:c_default) - 1
+    let s:c_ind = confirm("Pick Scheme From:", s:c_msg, s:c_default) - 1
 
     call s:SetScheme()
 endfunction
