@@ -970,7 +970,7 @@ function! s:SetScheme()
     set background=dark
     exec 'colorscheme ' . s:c_list[s:c_ind]
     syntax on
-    echom 'colorscheme now:: ' . g:colors_name
+    echom 'colorscheme is now: ' . g:colors_name
 endfunction
 
 function! s:NextScheme(reverse)
