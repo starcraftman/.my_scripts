@@ -5,8 +5,16 @@
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
 # File to test: http://www.robmeerman.co.uk/_media/unix/256colors2.pl
 
+############################################################################
+# Environment Variables
+############################################################################
+
 # Default editor for things like sudoedit.
 export EDITOR=vim
+
+# Default ack options, use smart case, sort output by file and follow symlinks.
+# Filter by type with --type, i.e. --cc, --cpp, --java
+export ACK_OPTIONS="--smart-case --sort-files --follow"
 
 ############################################################################
 # Path Settings
@@ -58,6 +66,9 @@ alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 
 # Silence parallel
 alias parallel="parallel --no-notice"
+
+# Alias for silver search
+alias ag='ag --smart-case --follow'
 
 ############################################################################
 # Misc Options
