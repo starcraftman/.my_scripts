@@ -141,8 +141,8 @@ def setup_config():
     if not os.path.exists(ddir):
         print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
-    get_code('git clone https://github.com/gmarik/vundle.git',
-             dst + '.vim/bundle/vundle')
+    get_code('git clone https://github.com/gmarik/Vundle.vim.git',
+             dst + '.vim/bundle/Vundle.vim')
 
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
