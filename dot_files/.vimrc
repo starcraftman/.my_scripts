@@ -309,6 +309,8 @@
 "       :verbose map <leader>jd
 "
 " * To repeat last command (colon): `@:`, to repeat last register `@@`.
+"
+" * To fix tabs, see `retab`. By default, %retab!
 
 " }}}
 
