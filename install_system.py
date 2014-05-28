@@ -151,7 +151,7 @@ def setup_config():
              dst + '.bash-git-prompt')
 
     # Highlighter to replace grepping a pipe
-    get_code('git clone https://github.com/paoloantinori/hhighlighter.git',
+    get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             dst + '.hhighlighter')
 
     # Setup powerline fonts if not done.
