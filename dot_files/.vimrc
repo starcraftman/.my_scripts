@@ -482,6 +482,16 @@ let g:NERDTreeWinSize = 70
 "let g:DeleteTrailingWhitespace = 1
 "let g:DeleteTrailingWhitespace_Action = 'delete'
 
+" Ack.vim
+"""""""""
+" Options when using ack
+let g:ack_default_options = " -s -H --nocolor --nogroup --column --sort-files --smart-case --follow"
+
+" Ag (Silver Searcher)
+""""""""""""""""""""""
+" Options to use when searching with ag
+let g:agprg="ag --column --smart-case --follow"
+
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
