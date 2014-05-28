@@ -16,6 +16,10 @@ export EDITOR=vim
 # Filter by type with --type, i.e. --cc, --cpp, --java
 export ACK_OPTIONS="--smart-case --sort-files --follow"
 
+# Highlight many terms with different colors
+# Usage: find | h term1 term2 term3
+source $HOME/.hhighlighter/h.sh
+
 ############################################################################
 # Path Settings
 ############################################################################

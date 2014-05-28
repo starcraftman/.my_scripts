@@ -150,6 +150,10 @@ def setup_config():
     get_code('git clone git@github.com:magicmonty/bash-git-prompt.git',
              dst + '.bash-git-prompt')
 
+    # Highlighter to replace grepping a pipe
+    get_code('git clone https://github.com/paoloantinori/hhighlighter.git',
+            dst + '.hhighlighter')
+
     # Setup powerline fonts if not done.
     ddir = dst + '.fonts'
     if not os.path.exists(ddir):
