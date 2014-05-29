@@ -14,7 +14,10 @@ export EDITOR=vim
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, i.e. --cc, --cpp, --java
-export ACK_OPTIONS="--smart-case --sort-files --follow"
+export ACK_OPTIONS="--smart-case --sort-files --follow --color-match=\"bold blue\""
+
+# Change grep color to bold blue
+export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
 # Highlight many terms with different colors
 # Usage: find | h term1 term2 term3
@@ -72,7 +75,12 @@ alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 alias parallel="parallel --no-notice"
 
 # Alias for silver search
-alias ag='ag --smart-case --follow'
+alias ag='ag --smart-case --follow --color-match="1;34"'
+
+# Grep should always print line
+alias grep='grep --color=auto -nR'
+alias fgrep='fgrep --color=auto -nR'
+alias egrep='egrep --color=auto -nR'
 
 ############################################################################
 # Misc Options
