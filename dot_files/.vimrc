@@ -411,6 +411,9 @@ let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 " List of files to ignore checking, may be useful later
 let g:syntastic_ignore_files = ['\m^/usr/include/']
 
+" Override, don't think I'll run any unsecure perl files.
+let g:syntastic_enable_perl_checker = 1
+
 " Manually set important checkers:
 "let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
 let g:syntastic_python_checkers = ['python',]
