@@ -78,9 +78,9 @@ alias parallel="parallel --no-notice"
 alias ag='ag --smart-case --follow --color-match="1;34"'
 
 # Grep should always print line
-alias grep='grep --color=auto -nR'
-alias fgrep='fgrep --color=auto -nR'
-alias egrep='egrep --color=auto -nR'
+alias grep='grep --color=auto -n'
+alias fgrep='fgrep --color=auto -n'
+alias egrep='egrep --color=auto -n'
 
 ############################################################################
 # Misc Options
