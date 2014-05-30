@@ -414,6 +414,9 @@ let g:syntastic_ignore_files = ['\m^/usr/include/']
 " Override, don't think I'll run any unsecure perl files.
 let g:syntastic_enable_perl_checker = 1
 
+" Always use location list
+let g:syntastic_always_populate_loc_list = 1
+
 " Manually set important checkers:
 "let g:syntastic_python_checkers = ['python', 'pep8', 'pylint']
 let g:syntastic_python_checkers = ['python',]
