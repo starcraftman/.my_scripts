@@ -60,7 +60,7 @@ Thumbs.db
 
 # Extra #
 #########
-.ycm_extra_conf
+.ycm_extra_conf.py*
 *.kdev4
 *-swp
 *.swp
