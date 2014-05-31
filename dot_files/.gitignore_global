@@ -1,3 +1,21 @@
+# This file is a global file to ignore things that probably shouldn't
+# be committed to git.
+#
+# Its contents overrides (well, appends to) the per-repo glob exclusions.
+# NOTE: that this obviously prevents these files from bein displayed in git
+# status, git add --all, etc. etc. Since that's the point of it; that way you
+# won't end up accidentally committing useless files/dirs, and cluttering
+# your output from 'git status' for example.
+#
+# Feel free to add on to it.
+#
+# In order to use this file, copy it to ~/.gitignore_global, and add the
+# following to your "~/.gitconfig" file.
+#
+# [core]
+#     excludesfile = ~/.gitignore_global
+
+
 # Compiled source #
 ###################
 *.com
@@ -5,20 +23,24 @@
 *.dll
 *.exe
 *.o
+*.pyc
 *.so
 
-# Packages #
-############
+# Archive #
+###########
 # it's better to unpack these files and commit the raw source
 # git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
 *.tar
+*.gz
+*.bz2
+*.7z
+*.rar
 *.zip
+*.deb
+*.rpm
+*.dmg
+*.jar
+*.iso
 
 # Logs and databases #
 ######################
@@ -36,6 +58,20 @@
 ehthumbs.db
 Thumbs.db
 
-# My Extra #
-############
-.ycm_extra_conf.py*
+# Extra #
+#########
+.ycm_extra_conf
+*.kdev4
+*-swp
+*.swp
+/build
+*.pro
+
+# You can uncomment the ".directory" it if you don't care about e.g.:
+#
+# kde-baseapps/konqueror/sidebar/trees/init/remote/.directory
+# kde-baseapps/konqueror/sidebar/trees/init/remote/web/.directory
+# kde-baseapps/konqueror/sidebar/trees/init/remote/ftp/.directory
+# kde-baseapps/konqueror/sidebar/trees/init/services/.directory
+#
+#*.directory
