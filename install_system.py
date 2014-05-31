@@ -50,7 +50,7 @@ PROGRAMMING = """ \
     erlang erlang-eunit \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev \
-    libncursesw5-dev \
+    libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
