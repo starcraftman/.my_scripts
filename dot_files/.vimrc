@@ -435,7 +435,7 @@ let g:ycm_complete_in_comments = 1
 
 " Use the following to whitelist dirs for .ycm_extra_conf.py
 let g:ycm_extra_conf_globlist = [
-    \ '~/programming/ReconstructingCaveStory/.ycm_extra_conf.py' ]
+    \ '~/programming/*' ]
 
 " Neocomplete
 """""""""""""
