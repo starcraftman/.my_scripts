@@ -19,10 +19,6 @@ export ACK_OPTIONS="--smart-case --sort-files --follow --color-match=\"bold blue
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
-# Highlight many terms with different colors
-# Usage: find | h term1 term2 term3
-source $HOME/.hhighlighter/h.sh
-
 ############################################################################
 # Path Settings
 ############################################################################
@@ -144,6 +140,10 @@ function extract()
         cd ..;
     done
 }
+
+# Highlight many terms with different colors
+# Usage: find . | h term1 term2 term3
+source $HOME/.hhighlighter/h.sh
 
 ############################################################################
 # ALL PS1 past this point. This stuff used to modify the bash prompt to show
