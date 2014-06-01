@@ -52,12 +52,11 @@ export CCACHE_DIR=~/code/ccache
 ############################################################################
 # Aliases
 ############################################################################
-#Bash Aliases
-unalias ls ll la l
+# Make ls and mkdir useful
 alias ls='ls --color=auto'
-alias ll='ls -AlF'
+alias ll='ls -Al'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls'
 alias mkdir='mkdir -vp'
 
 # Reruns the last command with sudo.
