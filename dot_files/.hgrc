@@ -1,5 +1,5 @@
 [ui]
-username = username
+username = userName
 ssh = ssh -C
 
 [defaults]
@@ -14,13 +14,13 @@ git=True
 
 [email]
 method = smtp
-from = username <none@dummy.net>
+from = userName <userEmail>
 
 [smtp]
 tls = True
-host = none@dummy.net
-#username = username
-#password = password
+host = userEmail
+#username = userEmailName
+#password = userEmailPassword
 
 [extensions]
 prompt = ~/.hg-prompt/prompt.py

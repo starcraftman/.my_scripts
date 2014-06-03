@@ -1,6 +1,6 @@
 [user]
-    name = username
-    email = email
+    name = userName
+    email = userEmail
 [color]
     ui = auto
     diff = auto
