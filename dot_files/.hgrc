@@ -5,15 +5,6 @@ ssh = ssh -C
 [defaults]
 email = --diffstat --git
 
-[extensions]
-prompt = ~/.hg-prompt/prompt.py
-alias=
-convert=
-extdiff
-graphlog=
-patchbomb=
-record=
-
 [alias]
 blame=annotate -u -n
 rec=record
@@ -23,13 +14,22 @@ git=True
 
 [email]
 method = smtp
-from = starcraft.man <none@dummy.net>
+from = username <none@dummy.net>
 
 [smtp]
 tls = True
 host = none@dummy.net
 #username = username
 #password = password
+
+[extensions]
+prompt = ~/.hg-prompt/prompt.py
+alias=
+convert=
+extdiff
+graphlog=
+patchbomb=
+record=
 
 [extdiff]
 cmd.sbsdiff  = diff
