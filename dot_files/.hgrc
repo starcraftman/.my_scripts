@@ -1,0 +1,36 @@
+[ui]
+username = username
+ssh = ssh -C
+
+[defaults]
+email = --diffstat --git
+
+[extensions]
+prompt = ~/.hg-prompt/prompt.py
+alias=
+convert=
+extdiff
+graphlog=
+patchbomb=
+record=
+
+[alias]
+blame=annotate -u -n
+rec=record
+
+[diff]
+git=True
+
+[email]
+method = smtp
+from = starcraft.man <none@dummy.net>
+
+[smtp]
+tls = True
+host = none@dummy.net
+#username = username
+#password = password
+
+[extdiff]
+cmd.sbsdiff  = diff
+opts.sbsdiff = -N -b --side-by-side --width=90
