@@ -22,6 +22,10 @@
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s' --abbrev-commit --date=relative
     lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local
     ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local --numstat
+    incoming = !(git fetch --quiet &amp;&amp; git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' ..$(git rev-parse –abbrev-ref –symbolic-full-name @{u}))
+    outgoing = !(git fetch --quiet &amp;&amp; git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' $(git rev-parse –abbrev-ref –symbolic-full-name @{u})..)
+    in = incoming
+    out = outgoing
 [branch]
     autosetupmerge = true
 [merge]
