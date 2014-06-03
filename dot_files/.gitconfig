@@ -1,0 +1,43 @@
+[user]
+    name = username
+    email = email
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+[core]
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    df = diff
+    di = diff
+    st = status
+    g = grep --heading --break
+    last = log -1 HEAD
+    lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s' --abbrev-commit --date=relative
+    lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local
+    ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local --numstat
+[branch]
+    autosetupmerge = true
+[merge]
+    tool = kdiff3
+[grep]
+    lineNumber = true
+    extendedRegexp = true
+[diff "odf"]
+    textconv = odt2txt
+[diff "word"]
+    textconv = catdoc
+[commit]
+    template = /home/starcraftman/.commit-template-kde
+[push]
+    default = nothing
+[url "git://anongit.kde.org/"]
+    insteadOf = kde:
+[url "git@git.kde.org:"]
+    pushInsteadOf = kde:
