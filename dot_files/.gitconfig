@@ -40,7 +40,7 @@
 [diff "word"]
     textconv = catdoc
 [commit]
-    template = /home/starcraftman/.commit-template-kde
+    template = ~/.commit-template-kde
 [push]
     default = nothing
 [url "git://anongit.kde.org/"]
