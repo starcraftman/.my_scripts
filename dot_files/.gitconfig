@@ -15,6 +15,7 @@
     br = branch
     ci = commit
     co = checkout
+    dc = diff --cached
     df = diff
     di = diff
     r = reset

@@ -75,6 +75,10 @@ alias parallel="parallel --no-notice"
 
 # Alias for silver search
 alias ag='ag --smart-case --follow --color-match="1;34"'
+alias agf="ag -g"
+
+# Alias for ack find file
+alias ackf="ack -g"
 
 # Grep should always print line
 alias grep='grep --color=auto -n'
