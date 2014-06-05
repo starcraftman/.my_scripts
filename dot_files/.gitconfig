@@ -28,6 +28,9 @@
     outgoing = !git fetch --quiet && git ldr @{u}..
     in = !git incoming
     out = !git outgoing
+    ;Incoming or outgoing diff
+    ind = !git fetch --quiet && git diff ..@{u}
+    outd = !git fetch --quiet && git diff @{u}..
 [branch]
     autosetupmerge = true
 [merge]
