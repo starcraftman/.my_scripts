@@ -85,6 +85,11 @@ alias grep='grep --color=auto -n'
 alias fgrep='fgrep --color=auto -n'
 alias egrep='egrep --color=auto -n'
 
+# Alias for color tools.
+alias cod='colordiff'
+alias com='colormake'
+alias cog='colorgcc'
+
 ############################################################################
 # Misc Options
 ############################################################################
