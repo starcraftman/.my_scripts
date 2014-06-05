@@ -11,18 +11,23 @@
     autocrlf = input
     excludesfile = ~/.gitignore_global
 [alias]
+    ;Simple shortucts
     br = branch
     ci = commit
     co = checkout
     df = diff
     di = diff
+    r = reset
+    rh = reset --hard
     st = status
     g = grep --heading --break
-    last = log -1 HEAD
-    lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s' --abbrev-commit --date=relative
-    lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local
-    ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=local --numstat
-    ldr= log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)<%an>%Creset %s%n%b' --abbrev-commit --date=relative --numstat
+    lt = describe --tags --abbrev=0
+    ;Logging commands
+    last = lgb -1 HEAD
+    lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s' --abbrev-commit --date=relative
+    lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local
+    ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local --numstat
+    ldr= log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=relative --numstat
     ;Based on the excellent post: https://coderwall.com/p/fowimq
     incoming = !git fetch --quiet && git ldr ..@{u}
     outgoing = !git fetch --quiet && git ldr @{u}..
@@ -31,6 +36,9 @@
     ;Incoming or outgoing diff
     ind = !git fetch --quiet && git diff ..@{u}
     outd = !git fetch --quiet && git diff @{u}..
+    ;Merging stuff
+    ours = "!f() { git co --ours $@ && git add $@; }; f"
+    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
 [branch]
     autosetupmerge = true
 [merge]
