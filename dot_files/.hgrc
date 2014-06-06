@@ -1,13 +1,9 @@
-[ui]
-username = userName
-ssh = ssh -C
-
-[defaults]
-email = --diffstat --git
-
 [alias]
 blame=annotate -u -n
 rec=record
+
+[defaults]
+email = --diffstat --git
 
 [diff]
 git=True
@@ -16,11 +12,9 @@ git=True
 method = smtp
 from = userName <userEmail>
 
-[smtp]
-tls = True
-host = userEmail
-#username = userEmailName
-#password = userEmailPassword
+[extdiff]
+cmd.sbsdiff  = diff
+opts.sbsdiff = -N -b --side-by-side --width=90
 
 [extensions]
 prompt = ~/.hg-prompt/prompt.py
@@ -30,6 +24,12 @@ graphlog=
 patchbomb=
 record=
 
-[extdiff]
-cmd.sbsdiff  = diff
-opts.sbsdiff = -N -b --side-by-side --width=90
+[smtp]
+tls = True
+host = userEmail
+#username = userEmailName
+#password = userEmailPassword
+
+[ui]
+username = userName
+ssh = ssh -C

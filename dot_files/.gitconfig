@@ -1,15 +1,3 @@
-[user]
-    name = userName
-    email = userEmail
-[color]
-    ui = auto
-    diff = auto
-    status = auto
-    branch = auto
-[core]
-    editor = vim
-    autocrlf = input
-    excludesfile = ~/.gitignore_global
 [alias]
     ;Simple shortucts
     br = branch
@@ -20,6 +8,7 @@
     di = diff
     r = reset
     rh = reset --hard
+    s = status --short
     st = status
     g = grep --heading --break
     lt = describe --tags --abbrev=0
@@ -44,20 +33,32 @@
     restore = "!f() { git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1; }; f"
 [branch]
     autosetupmerge = true
-[merge]
-    tool = kdiff3
-[grep]
-    lineNumber = true
-    extendedRegexp = true
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+[commit]
+    template = ~/.commit-template-kde
+[core]
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
 [diff "odf"]
     textconv = odt2txt
 [diff "word"]
     textconv = catdoc
-[commit]
-    template = ~/.commit-template-kde
+[grep]
+    lineNumber = true
+    extendedRegexp = true
+[merge]
+    tool = kdiff3
 [push]
     default = nothing
 [url "git://anongit.kde.org/"]
     insteadOf = kde:
 [url "git@git.kde.org:"]
     pushInsteadOf = kde:
+[user]
+    name = userName
+    email = userEmail
