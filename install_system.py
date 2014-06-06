@@ -21,7 +21,7 @@ PROGRAMS = """ \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
     chromium-browser firefox rekonq \
-    abiword baobab dvdrip easytag chm2pdf dia \
+    abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
     fuse gparted quicksynergy \
     redshift geoclue geoclue-hostip numlockx \
