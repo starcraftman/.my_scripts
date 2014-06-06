@@ -24,7 +24,6 @@ host = userEmail
 
 [extensions]
 prompt = ~/.hg-prompt/prompt.py
-alias=
 convert=
 extdiff
 graphlog=
