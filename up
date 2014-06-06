@@ -5,23 +5,23 @@ sudo apt-get autoremove
 sudo apt-get -f install
 vim +PluginUpdate +qa
 
+echo 'updating git repos'
 DIR=~/.hg-prompt
 if [[ -d $DIR ]]; then
-  cd $DIR
+  pushd $DIR
   hg pull
-  cd -
 fi
 
 DIR=~/.bash-git-prompt
 if [[ -d $DIR ]]; then
   cd $DIR
   git pull
-  cd -
 fi
 
 DIR=~/.hhighlighter
 if [[ -d $DIR ]]; then
   cd $DIR
   git pull
-  cd -
 fi
+
+popd
