@@ -36,6 +36,7 @@ dot_files
 * Read it, some plugins require extra steps like vundle/YCM.
 * .vim folder has some stuff I don't download with vundle like colors, ftplugin custom files and such.
 * [`.bash_aliases`](https://github.com/starcraftman/.my_scripts/blob/master/dot_files/.bash_aliases) some cool PS1 hacks for git/hg and other assorted bash conveniences.
+* .gitconfig, .gitignore_global, .hgrc are my config files for vcs. Some very useful aliases and excludes.
 
 archive
 -------
