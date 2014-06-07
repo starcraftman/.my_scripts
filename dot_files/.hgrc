@@ -13,20 +13,22 @@ method = smtp
 from = userName <userEmail>
 
 [extdiff]
-cmd.sbsdiff  = diff
-opts.sbsdiff = -N -b --side-by-side --width=90
+cmd.kdiff3 =
 
 [extensions]
-prompt = ~/.hg-prompt/prompt.py
-convert=
-extdiff
-graphlog=
-patchbomb=
-record=
+hgext.prompt = ~/.hg-prompt/prompt.py
+hgext.convert =
+hgext.extdiff =
+hgext.graphlog =
+hgext.patchbomb =
+hgext.record =
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
 
 [smtp]
 tls = True
-host = userEmail
+#host = userEmail
 #username = userEmailName
 #password = userEmailPassword
 
