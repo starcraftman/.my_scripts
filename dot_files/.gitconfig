@@ -13,7 +13,7 @@
     g = grep --heading --break
     lt = describe --tags --abbrev=0
     ;Logging commands
-    last = lgb -1 HEAD
+    last = !git ld -1 HEAD
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s' --abbrev-commit --date=relative
     lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local
     ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local --numstat
