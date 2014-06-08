@@ -125,7 +125,9 @@ def setup_config():
     dst = os.path.expanduser('~') + os.sep
 
     # Link to config files, copy .vim folder.
-    for fil in ['.bash_aliases', '.gitignore_global', '.vimrc', '.ycm_extra_conf.py']:
+    files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
+            '.vimrc', '.ycm_extra_conf.py']
+    for fil in files:
         sfile = src + fil
         dfile = dst + fil
         if not os.path.exists(dfile):
