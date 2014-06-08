@@ -1,7 +1,7 @@
 # This file is a global file to ignore things that probably shouldn't
-# be committed to git. Mirror of my gitconfig ignore.
+# be committed to hg. Mirror of my gitconfig ignore.
 #
-# In order to use this file, copy/link it to ~/.gitignore_global, and add the
+# In order to use this file, copy/link it to ~/.hgignore_global, and add the
 # following to your "~/.hgrc" file.
 #
 # [ui]
