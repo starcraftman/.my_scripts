@@ -11,6 +11,7 @@ import argparse
 import apt
 import os
 import subprocess
+import shutil
 
 # Packages to install follow, broken down into categories.
 
@@ -124,8 +125,21 @@ def setup_config():
     src = script_dir + os.sep + 'dot_files' + os.sep
     dst = os.path.expanduser('~') + os.sep
 
+    # Copy files that get user details in plain text
+    sfile = src + '.bazaar'
+    dfile = dst + '.bazaar'
+    if not os.path.exists(dfile):
+        shutil.copytree(sfile, dfile, True)
+
+    files = ['.gitconfig', '.hgrc']
+    for fil in files:
+        sfile = src + fil
+        dfile = dst + fil
+        if not os.path.exists(dfile):
+            shutil.copy(sfile, dfile)
+
     # Link to config files, and vim folder
-    files = ['.bash_aliases', '.bazaar', '.gitignore_global', '.hgignore_global',
+    files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
              '.vim', '.vimrc', '.ycm_extra_conf.py']
     for fil in files:
         sfile = src + fil
