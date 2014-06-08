@@ -1,20 +1,32 @@
 # This file is a global file to ignore things that probably shouldn't
-# be committed to git.
+# be committed to git, hg, bzr. To be global, has to use glob.
 #
-# Its contents overrides (well, appends to) the per-repo glob exclusions.
+# The contents appends to the per-repo glob exclusions.
 # NOTE: that this obviously prevents these files from bein displayed in git
 # status, git add --all, etc. etc. Since that's the point of it; that way you
 # won't end up accidentally committing useless files/dirs, and cluttering
 # your output from 'git status' for example.
-#
-# Feel free to add on to it.
-#
-# In order to use this file, copy it to ~/.gitignore_global, and add the
-# following to your "~/.gitconfig" file.
+
+# GIT #
+#######
+# Copy/link to ~/.gitignore_global.
+# Add to your ~/.gitconfig
 #
 # [core]
 #     excludesfile = ~/.gitignore_global
 
+# HG #
+######
+# Copy/link to ~/.hgignore_global
+# Add to your ~/.hgrc
+#
+# [ui]
+# ignore = ~/.hgignore_global
+
+# BZR #
+#######
+# Copy/link to ~/.bazaar/ignore
+syntax: glob
 
 # Compiled source #
 ###################

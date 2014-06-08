@@ -124,19 +124,14 @@ def setup_config():
     src = script_dir + os.sep + 'dot_files' + os.sep
     dst = os.path.expanduser('~') + os.sep
 
-    # Link to config files, copy .vim folder.
-    files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
-            '.vimrc', '.ycm_extra_conf.py']
+    # Link to config files, and vim folder
+    files = ['.bash_aliases', '.bazaar', '.gitignore_global', '.hgignore_global',
+             '.vim', '.vimrc', '.ycm_extra_conf.py']
     for fil in files:
         sfile = src + fil
         dfile = dst + fil
         if not os.path.exists(dfile):
             os.symlink(sfile, dfile)
-
-    # Copy vim folder if not there.
-    ddir = dst + '.vim'
-    if not os.path.exists(ddir):
-        os.symlink(src + '.vim', ddir)
 
     # Init vundle for vim plugin install.
     ddir = dst + '.vim/bundle'
