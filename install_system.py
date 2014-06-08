@@ -44,7 +44,7 @@ PROGRAMMING = """ \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk \
-    colormake colordiff colorgcc silversearcher-ag ack-grep \
+    colormake colordiff colorgcc ack-grep \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
@@ -164,6 +164,16 @@ def setup_config():
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             dst + '.hhighlighter')
+
+    # Ag silver, repo package is old
+    ddir = dst + '.ag'
+    if os.name == 'posix' and not os.path.exists(ddir):
+        get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
+                dst + '.ag')
+        subprocess.call('./.ag/build.sh')
+        sfile = ddir + os.sep + 'ag'
+        dfile = dst + '.optSoftware' + os.sep + 'bin'
+        shutil.copy(sfile, dfile)
 
     # Setup powerline fonts if not done.
     ddir = dst + '.fonts'

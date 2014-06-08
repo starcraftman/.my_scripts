@@ -74,6 +74,7 @@ alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 alias parallel="parallel --no-notice"
 
 # Alias for silver search
+# For type use --type, i.e. --cpp
 alias ag='ag --smart-case --follow --color-match="1;34"'
 alias agf="ag -g"
 
