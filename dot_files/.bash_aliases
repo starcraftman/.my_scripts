@@ -92,7 +92,7 @@ alias com='colormake'
 alias cog='colorgcc'
 
 # Always open with splits
-alias vim='vim -o'
+alias vims='vim -o'
 
 ############################################################################
 # Misc Options
