@@ -169,8 +169,8 @@ def setup_config():
     ddir = dst + '.ag'
     if os.name == 'posix' and not os.path.exists(ddir):
         get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
-                dst + '.ag')
-        subprocess.call('./.ag/build.sh')
+                ddir)
+        subprocess.call(ddir + os.sep + 'build.sh')
         sfile = ddir + os.sep + 'ag'
         dfile = dst + '.optSoftware' + os.sep + 'bin'
         shutil.copy(sfile, dfile)
