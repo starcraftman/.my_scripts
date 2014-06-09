@@ -94,6 +94,9 @@ alias cog='colorgcc'
 # Always open with splits
 alias vims='vim -o'
 
+# Exit code alias
+alias exitcode="echo \"$?\""
+
 ############################################################################
 # Misc Options
 ############################################################################
