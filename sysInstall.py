@@ -44,7 +44,7 @@ PROGRAMMING = """ \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk \
-    colormake colordiff colorgcc ack-grep \
+    colormake colordiff colorgcc \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
@@ -173,6 +173,18 @@ def setup_config():
         subprocess.call(ddir + os.sep + 'build.sh')
         sfile = ddir + os.sep + 'ag'
         dfile = dst + '.optSoftware' + os.sep + 'bin'
+        shutil.copy(sfile, dfile)
+
+    # Ack, may sometimes be preferred over ag
+    ddir = dst + '.ack'
+    if not os.path.exists(ddir):
+        get_code('git clone https://github.com/petdance/ack2.git', ddir)
+        os.chdir(ddir)
+        subprocess.call('perl Makefile.PL'.split())
+        subprocess.call('make ack-standalone'.split())
+        os.chdir(dst)
+        sfile = ddir + os.sep + 'ack-standalone'
+        dfile = dst + '.optSoftware' + os.sep + 'bin' + os.sep + 'ack'
         shutil.copy(sfile, dfile)
 
     # Setup powerline fonts if not done.
