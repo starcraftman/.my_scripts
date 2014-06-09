@@ -54,7 +54,7 @@ export CCACHE_DIR=~/code/ccache
 ############################################################################
 # Make ls and mkdir useful
 alias ls='ls --color=auto -F'
-alias ll='ls -Al'
+alias ll='ls -Alh'
 alias la='ls -A'
 alias l='ls'
 alias mkdir='mkdir -vp'
