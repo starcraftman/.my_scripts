@@ -190,9 +190,7 @@ def setup_config():
     # Setup powerline fonts if not done.
     ddir = dst + '.fonts'
     if not os.path.exists(ddir):
-        os.mkdir(ddir)
-        get_code('git clone https://github.com/Lokaltog/powerline-fonts',
-                 ddir + os.sep + 'powerline-fonts')
+        get_code('git clone https://github.com/Lokaltog/powerline-fonts', ddir)
         subprocess.call(['fc-cache', '-vf', ddir])
 
 
