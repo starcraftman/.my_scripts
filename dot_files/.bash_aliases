@@ -94,9 +94,6 @@ alias cog='colorgcc'
 # Always open with splits
 alias vims='vim -o'
 
-# Exit code alias
-alias exitcode="echo \"$?\""
-
 ############################################################################
 # Misc Options
 ############################################################################
@@ -148,7 +145,8 @@ function extract()
 
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
-..() {
+..()
+{
     if [ $1 -ge 0 2> /dev/null ]; then
         x=$1;
     else
@@ -158,6 +156,11 @@ function extract()
     for (( i = 0; i < $x; i++ )); do
         cd ..;
     done
+}
+
+lastExit()
+{
+    echo $?
 }
 
 # Highlight many terms with different colors
