@@ -14,10 +14,10 @@
     lt = describe --tags --abbrev=0
     ;Logging commands
     last = !git ld -1 HEAD
-    lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s' --abbrev-commit --date=relative
-    lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local
-    ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=local --numstat
-    ldr= log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --abbrev-commit --date=relative --numstat
+    lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s' --date=relative
+    lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local
+    ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local --numstat
+    ldr= log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=relative --numstat
     ;Based on the excellent post: https://coderwall.com/p/fowimq
     incoming = !git fetch --quiet && git ldr ..@{u}
     outgoing = !git fetch --quiet && git ldr @{u}..
