@@ -59,7 +59,7 @@ PROGRAMMING = """ \
     junit junit-doc maven openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
     openjdk-7-source openjdk-7-demo icedtea-7-plugin \
     lua5.2 lua5.2-doc luadoc \
-    perl perl-doc perl-modules libpadwalker-perl \
+    perl perl-doc perl-modules libpadwalker-perl libfile-next-perl \
     php5 php5-mysql phpunit php5-dev \
     nodejs nodejs-dev nodejs-legacy npm \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
@@ -179,7 +179,9 @@ def setup_config():
     if not os.path.exists(ddir):
         get_code('git clone https://github.com/petdance/ack2.git', ddir)
         os.chdir(ddir)
-        cmd = 'perl Makefile.PL && make ack-standalone'.split()
+        cmd = 'perl Makefile.PL'.split()
+        subprocess.call(cmd)
+        cmd = 'make ack-standalone'.split()
         subprocess.call(cmd)
         os.chdir(dst)
         sfile = ddir + os.sep + 'ack-standalone'
