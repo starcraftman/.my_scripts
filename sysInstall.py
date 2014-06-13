@@ -83,8 +83,7 @@ def install_packages():
     if os.getuid() != 0:
         raise NotSudo
 
-    packages = '{} {} {}'.format(PROGRAMS, PROGRAMMING, KEYRINGS)
-    packages = packages.split()
+    packages = (PROGRAMS + PROGRAMMING + KEYRINGS).split()
 
     cache = apt.Cache()
     print("One moment while we update cache.")
@@ -92,7 +91,7 @@ def install_packages():
     cache.open(None)
     print("Update done.")
 
-    cmd = ['apt-get', 'install']
+    cmd = 'apt-get install'.split()
     for pack in packages:
         try:
             package = cache[pack]
@@ -101,7 +100,7 @@ def install_packages():
         except Exception as e:
             print("Package couldn't be selected: %s" % pack)
 
-    print("Please wait, running: {}".format(" ".join(cmd)))
+    print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
 
 def get_code(command, target):
@@ -118,8 +117,8 @@ def get_code(command, target):
 
 def setup_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
-    script_dir = os.path.realpath(__file__)
-    script_dir = script_dir[0:script_dir.rindex(os.sep)]
+    script_path = os.path.realpath(__file__)
+    script_dir = script_path[0:script_path.rindex(os.sep)]
 
     # Leaving trailing sep for ease later.
     src = script_dir + os.sep + 'dot_files' + os.sep
@@ -180,8 +179,8 @@ def setup_config():
     if not os.path.exists(ddir):
         get_code('git clone https://github.com/petdance/ack2.git', ddir)
         os.chdir(ddir)
-        subprocess.call('perl Makefile.PL'.split())
-        subprocess.call('make ack-standalone'.split())
+        cmd = 'perl Makefile.PL && make ack-standalone'.split()
+        subprocess.call(cmd)
         os.chdir(dst)
         sfile = ddir + os.sep + 'ack-standalone'
         dfile = dst + '.optSoftware' + os.sep + 'bin' + os.sep + 'ack'
@@ -193,16 +192,16 @@ def setup_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
         get_code('git clone https://github.com/Lokaltog/powerline-fonts', dpow)
-        subprocess.call(['fc-cache', '-vf', ddir])
+        cmd = ('fc-cache -vf' + ddir).split()
+        subprocess.call(cmd)
 
 
 def install_cabal():
     """ Installs locally some haskell packages for Eclipse Haskell plugin. """
-    cmd = ['cabal', 'update']
+    cmd = 'cabal update'.split()
     subprocess.call(cmd)
 
-    cmd = 'cabal install {}'.format(CABAL)
-    cmd = cmd.split()
+    cmd = ('cabal install ' + CABAL).split()
     subprocess.call(cmd)
 
 
@@ -212,12 +211,12 @@ def py_packages():
         raise NotSudo('This stage must be run as root.')
 
     # Use python package manager.
-    cmd = 'pip install ' + PY_PACKS
-    subprocess.call(cmd.split())
+    cmd = ('pip install' + PY_PACKS).split()
+    subprocess.call(cmd)
 
     # Install python completion to system bash_completion.d.
-    cmd = 'activate-global-python-argcomplete'
-    subprocess.call(cmd.split())
+    cmd = ['activate-global-python-argcomplete']
+    subprocess.call(cmd)
 
 
 def setup_pipelight():
@@ -226,16 +225,14 @@ def setup_pipelight():
     if os.getuid() != 0:
         raise NotSudo
 
-    cmd0 = ['sudo', 'apt-get' 'remove' 'flashplugin-installer']
-    cmd1 = ['sudo', 'apt-add-repository', 'ppa:pipelight/stable']
-    cmd2 = ['sudo', 'apt-get', 'update']
-    cmd3 = ['sudo', 'apt-get', 'install', 'pipelight-multi']
-    cmd4 = ['pipelight-plugin', '--enable', 'silverlight']
-    cmd5 = ['pipelight-plugin', '--enable', 'flash']
-    cmds = [cmd0, cmd1, cmd2, cmd3, cmd4, cmd5]
-    for c in cmds:
-        subprocess.call(c)
-
+    cmds = ['sudo apt-get remove flashplugin-installer',
+            'sudo apt-add-repository ppa:pipelight/stable',
+            'sudo apt-get update',
+            'sudo apt-get install pipelight-multi',
+            'pipelight-plugin --enable silverlight',
+            'pipelight-plugin --enable flash',]
+    map(split, cmds)
+    map(subprocess.call, cmds)
     print("Installation over, remember to use a useragent switcher.")
 
 def setup_jshint():
@@ -243,7 +240,7 @@ def setup_jshint():
     if os.getuid() != 0:
         raise NotSudo
 
-    cmd = ['sudo', 'npm', 'install', 'jshint', '-g']
+    cmd = 'sudo npm install jshint -g'.split()
     subprocess.call(cmd)
 
 def take_choice(choice):
