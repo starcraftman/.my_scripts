@@ -169,7 +169,8 @@ def setup_config():
     if os.name == 'posix' and not os.path.exists(ddir):
         get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
                 ddir)
-        subprocess.call(ddir + os.sep + 'build.sh')
+        cmd = (ddir + os.sep + 'build.sh').split()
+        subprocess.call(cmd)
         sfile = ddir + os.sep + 'ag'
         dfile = dst + '.optSoftware' + os.sep + 'bin'
         shutil.copy(sfile, dfile)
@@ -217,7 +218,7 @@ def py_packages():
     subprocess.call(cmd)
 
     # Install python completion to system bash_completion.d.
-    cmd = ['activate-global-python-argcomplete']
+    cmd = 'activate-global-python-argcomplete'.split()
     subprocess.call(cmd)
 
 
