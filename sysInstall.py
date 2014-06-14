@@ -26,7 +26,7 @@ PROGRAMS = """ \
     gimp gimp-plugin-registry \
     fuse gparted quicksynergy \
     redshift geoclue geoclue-hostip numlockx \
-    samba samba-doc samba-tools wireshark \
+    samba samba-doc samba-tools wireshark wondershaper \
     ubuntuone-client ubuntuone-control-panel-qt \
     vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip \

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo 'updating platform'
-sudo apt-get update && sudo apt-get dist-upgrade
+sudo apt-get update && sudo apt-get -y dist-upgrade
 sudo apt-get autoremove
 sudo apt-get -f install
 vim +PluginUpdate +qa
