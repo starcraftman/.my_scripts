@@ -33,7 +33,6 @@ PROGRAMS = """ \
     virtualbox-qt wine \
     ttf-xfree86-nonfree"""
 
-# Series of packages follow, separated to be easily modified.
 KEYRINGS = """ \
     debian-keyring debian-archive-keyring gnome-keyring \
     debian-ports-archive-keyring python-gnomekeyring python-keyring \
@@ -80,6 +79,7 @@ class NotSudo(Exception):
 
 
 def install_packages():
+    """ Install packages on the current system. """
     if os.getuid() != 0:
         raise NotSudo
 
@@ -147,18 +147,18 @@ def setup_config():
             os.symlink(sfile, dfile)
 
     # Init vundle for vim plugin install.
-    ddir = dst + '.vim/bundle'
+    ddir = dst + '.vim' + os.sep + 'bundle' + os.sep
     if not os.path.exists(ddir):
         print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
     get_code('git clone https://github.com/gmarik/Vundle.vim.git',
-             dst + '.vim/bundle/Vundle.vim')
+            ddir + 'Vundle.vim')
 
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
-             dst + '.hg-prompt')
+            dst + '.hg-prompt')
     get_code('git clone git@github.com:magicmonty/bash-git-prompt.git',
-             dst + '.bash-git-prompt')
+            dst + '.bash-git-prompt')
 
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
@@ -199,7 +199,7 @@ def setup_config():
 
 
 def install_cabal():
-    """ Installs locally some haskell packages for Eclipse Haskell plugin. """
+    """ Installs haskell packages for Eclipse Haskell plugin. """
     cmd = 'cabal update'.split()
     subprocess.call(cmd)
 
@@ -222,8 +222,8 @@ def py_packages():
 
 
 def setup_pipelight():
-    """ Silverlight plugin for firefox/chrome on linux. """
-    """ See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
+    """ Silverlight plugin for firefox/chrome on linux.
+        See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
     if os.getuid() != 0:
         raise NotSudo
 
@@ -238,7 +238,7 @@ def setup_pipelight():
     print("Installation over, remember to use a useragent switcher.")
 
 def setup_jshint():
-    """ Simple cache to set up jshint, uses npm. """
+    """ Setup jshint for progrmaming javascript with vim. """
     if os.getuid() != 0:
         raise NotSudo
 
@@ -246,7 +246,7 @@ def setup_jshint():
     subprocess.call(cmd)
 
 def take_choice(choice):
-    """ Simple wrapper function to select right action. """
+    """ Select cprrect action, replicates case switch. """
     choice = int(choice)
     if choice == 1:
         install_packages()
