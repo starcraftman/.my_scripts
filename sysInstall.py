@@ -157,7 +157,7 @@ def setup_config():
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
             dst + '.hg-prompt')
-    get_code('git clone git@github.com:magicmonty/bash-git-prompt.git',
+    get_code('git clone https://github.com/magicmonty/bash-git-prompt.git',
             dst + '.bash-git-prompt')
 
     # Highlighter to replace grepping a pipe
