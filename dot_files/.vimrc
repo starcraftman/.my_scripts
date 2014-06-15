@@ -641,6 +641,10 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 nnoremap <F5> :set number!<CR>
 inoremap <F5> <Esc>:set number!<CR>:call feedkeys('i', 'n')<CR>
 
+" Toggle showing whitespace
+nnoremap <F6> :set list!<CR>
+inoremap <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
+
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Options & Features
@@ -707,7 +711,7 @@ endif
 
 " Show end of line and tabs on screen
 "set list
-set listchars=eol:$,tab:→→
+set listchars=eol:$,tab:→→,trail:✘
 
 " Set line numbering on left
 set number
