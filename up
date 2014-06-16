@@ -27,3 +27,9 @@ if [[ -d $DIR ]]; then
 fi
 
 popd
+
+# Force ag/ack update
+echo 'updating ack and ag'
+\rm -Rf ~/.ag ~/.ack
+sysInstall.py 2 > /dev/null 2>&1
+echo 'done'
