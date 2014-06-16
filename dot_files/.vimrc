@@ -589,8 +589,8 @@ nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Toggles for the location and quickfix
-nnoremap <leader>q :ToggleQF<CR>
-nnoremap <leader>l :ToggleLL<CR>
+nnoremap <silent> <leader>q :ToggleQF<CR>
+nnoremap <silent> <leader>l :ToggleLL<CR>
 
 " Make all windows equal in size
 "nnoremap <leader>q <C-W>=
@@ -633,17 +633,19 @@ set pastetoggle=<F1>
 
 " Shortcut for tagbar outline of file
 nnoremap <silent> <F2> :TagbarToggle<CR>
+inoremap <silent> <F2> <Esc>:TagbarToggle<CR>:call feedkeys('i', 'n')<CR>
 
 " Shortcut for gundo sidebar
 nnoremap <silent> <F3> :GundoToggle<CR>
+inoremap <silent> <F3> <Esc>:GundoToggle<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle line numbers
-nnoremap <F5> :set number!<CR>
-inoremap <F5> <Esc>:set number!<CR>:call feedkeys('i', 'n')<CR>
+nnoremap <silent> <F5> :set number!<CR>
+inoremap <silent> <F5> <Esc>:set number!<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle showing whitespace
-nnoremap <F6> :set list!<CR>
-inoremap <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
+nnoremap <silent> <F6> :set list!<CR>
+inoremap <silent> <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
