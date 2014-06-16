@@ -6,9 +6,11 @@ sudo apt-get -f install
 vim +PluginUpdate +qa
 
 echo 'updating git repos'
+pushd .
+
 DIR=~/.hg-prompt
 if [[ -d $DIR ]]; then
-  pushd $DIR
+  cd $DIR
   hg pull
 fi
 
