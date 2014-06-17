@@ -628,6 +628,10 @@ nnoremap <leader>av :AV<CR>
 " Mapping to trigger make build and run
 nnoremap <leader>m :!make && make run<CR>
 
+" Hex editting command on x
+nnoremap <leader>x :%!xxd<CR>
+nnoremap <leader>X :%!xxd -r<CR>
+
 " Paste toggle button, disables f1 help use command instead
 set pastetoggle=<F1>
 
