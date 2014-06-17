@@ -10,6 +10,7 @@
     rh = reset --hard
     s = status --short
     st = status
+    unstage = reset HEAD --
     g = grep --heading --break
     lt = describe --tags --abbrev=0
     ;Logging commands
