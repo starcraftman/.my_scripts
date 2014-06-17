@@ -59,9 +59,9 @@ alias la='ls -A'
 alias l='ls'
 alias mkdir='mkdir -vp'
 
-# df/du defaults
+# df/du defaults, du follows symlinks
 alias df='df -h'
-alias du='du -h'
+alias du='du -h --dereference'
 
 # type used to determine what command is, list all entries
 alias types='type -a'
