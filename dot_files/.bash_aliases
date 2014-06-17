@@ -145,7 +145,7 @@ function extract()
 
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
-..()
+function ..()
 {
     if [ $1 -ge 0 2> /dev/null ]; then
         x=$1;
@@ -158,9 +158,14 @@ function extract()
     done
 }
 
-lastExit()
+function lastExit()
 {
     echo $?
+}
+
+function jsonFix()
+{
+    cat "$1" | python -m json.tool > "fix_$1"
 }
 
 # Highlight many terms with different colors
