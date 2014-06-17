@@ -632,6 +632,10 @@ nnoremap <leader>m :!make && make run<CR>
 nnoremap <leader>x :%!xxd<CR>
 nnoremap <leader>X :%!xxd -r<CR>
 
+" Fix oneline json files
+nnoremap <leader>jq :%!jq .<CR>
+nnoremap <leader>jQ :%!jq . -c<CR>
+
 " Paste toggle button, disables f1 help use command instead
 set pastetoggle=<F1>
 
