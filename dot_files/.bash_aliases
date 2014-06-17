@@ -59,6 +59,13 @@ alias la='ls -A'
 alias l='ls'
 alias mkdir='mkdir -vp'
 
+# df/du defaults
+alias df='df -h'
+alias du='du -h'
+
+# type used to determine what command is, list all entries
+alias types='type -a'
+
 # Reruns the last command with sudo.
 alias please='sudo `fc -l -n -1`'
 
@@ -112,6 +119,10 @@ stty -ixon
 
 # Set default config environment. If need specialize, copy into dir of src tree.
 #. ~/.build-config-default
+
+# Bash termianl options
+# When making small typos with cd, go to best match
+shopt -s cdspell
 
 ############################################################################
 # Functions
