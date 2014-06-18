@@ -139,7 +139,7 @@ def setup_config():
 
     # Link to config files, and vim folder
     files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
-             '.vim', '.vimrc', '.ycm_extra_conf.py']
+             '.inputrc', '.vim', '.vimrc', '.ycm_extra_conf.py']
     for fil in files:
         sfile = src + fil
         dfile = dst + fil

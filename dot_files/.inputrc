@@ -1,0 +1,2 @@
+# Make tab complete display when ambiugous right away
+set show-all-if-ambiguous on
