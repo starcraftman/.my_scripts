@@ -109,8 +109,10 @@ alias ackf='ack -g'
 
 # Grep should always print line
 alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
-alias fgrep='fgrep --color=auto -n'
-alias egrep='egrep --color=auto -n'
+# Re alias these to take advantage of above
+alias egrep='grep -E'
+alias fgrep='grep -F'
+alias rgrep='grep -r'
 
 # Alias for color tools.
 alias cod='colordiff'
