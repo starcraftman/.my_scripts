@@ -67,6 +67,7 @@ export CCACHE_DIR=~/code/ccache
 # Aliases
 ############################################################################
 #{{{
+# Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
 # Make ls and mkdir useful#
 alias ls='ls --color=auto -F'
 alias ll='ls -Alh'
