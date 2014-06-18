@@ -1,2 +1,10 @@
+# For more information: http://blog.sanctum.geek.nz/lazier-tab-completion/
+
 # Make tab complete display when ambiugous right away
 set show-all-if-ambiguous on
+
+# Make tab complete case insensitive
+#set completion-ignore-case on
+
+# Tab complete guesses between '_' and '-', requires ignore case on
+#set completion-map-case on
