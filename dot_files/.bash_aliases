@@ -8,7 +8,7 @@
 ############################################################################
 # Environment Variables
 ############################################################################
-
+#{{{
 # Default editor for things like sudoedit.
 export EDITOR=vim
 
@@ -19,9 +19,22 @@ export ACK_OPTIONS="--smart-case --sort-files --follow --color-match=\"bold blue
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
+# Bash history options
+# Set large history file & line limit
+export HISTFILESIZE=100000
+export HISTSIZE=100000
+
+# Ignore some commands
+export HISTIGNORE='ls:l:bg:fg:history'
+
+# Timestamps in history file
+export HISTTIMEFORMAT='%F %T '
+
+#}}}
 ############################################################################
 # Path Settings
 ############################################################################
+#{{{
 # Local dir to install to, put binaries into ~/.optSoftware/bin.
 LOCAL=~/.optSoftware
 
@@ -48,11 +61,12 @@ export HGMERGE=/usr/bin/kdiff3
 #CCache Directory
 #Info: https://ccache.samba.org/manual.html
 export CCACHE_DIR=~/code/ccache
-
+#}}}
 ############################################################################
 # Aliases
 ############################################################################
-# Make ls and mkdir useful
+#{{{
+# Make ls and mkdir useful#
 alias ls='ls --color=auto -F'
 alias ll='ls -Alh'
 alias la='ls -A'
@@ -100,33 +114,11 @@ alias cog='colorgcc'
 
 # Always open with splits
 alias vims='vim -o'
-
-############################################################################
-# Misc Options
-############################################################################
-# Enable the windows key on Ubuntu as F13
-xmodmap -e 'keycode 133 = F13'
-
-# Disable the Ctrl+s/q button that freezes terminal output.
-stty -ixon
-
-# KDE DEV Options:
-
-# I have a kde-bashrc file with shortcuts for building.
-# http://techbase.kde.org/Getting_Started/Build/Environment
-#. ~/.kde-bashrc
-#echo "NOTE IMPORTANT: make is now aliased to makeobj. Remove line from .bash_alias."
-
-# Set default config environment. If need specialize, copy into dir of src tree.
-#. ~/.build-config-default
-
-# Bash termianl options
-# When making small typos with cd, go to best match
-shopt -s cdspell
-
+#}}}
 ############################################################################
 # Functions
 ############################################################################
+#{{{
 # Universal extract function, later versions of tar -xvf may work
 # more universally but not with older versions.
 function extract()
@@ -182,12 +174,42 @@ function jsonFix()
 # Highlight many terms with different colors
 # Usage: find . | h term1 term2 term3
 source $HOME/.hhighlighter/h.sh
+#}}}
+############################################################################
+# Misc Options
+############################################################################
+#{{{
+# Enable the windows key on Ubuntu as F13
+xmodmap -e 'keycode 133 = F13'
 
+# Disable the Ctrl+s/q button that freezes terminal output.
+stty -ixon
+
+# KDE DEV Options:
+
+# I have a kde-bashrc file with shortcuts for building.
+# http://techbase.kde.org/Getting_Started/Build/Environment
+#. ~/.kde-bashrc
+#echo "NOTE IMPORTANT: make is now aliased to makeobj. Remove line from .bash_alias."
+
+# Set default config environment. If need specialize, copy into dir of src tree.
+#. ~/.build-config-default
+
+# Bash termianl options
+# When making small typos with cd, go to best match
+shopt -s cdspell
+
+# Always append instead of overwriting history
+shopt -s histappend
+
+# Multiline commands to be on single lines in history
+shopt -s cmdhist
+#}}}
 ############################################################################
 # ALL PS1 past this point. This stuff used to modify the bash prompt to show
 # the status of git and hg repos as well as move directory line up one.
 ############################################################################
-
+#{{{
 # Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
 
 # PS1 Color Codes
@@ -283,3 +305,5 @@ source ~/.bash-git-prompt/gitprompt.sh
 # http://techbase.kde.org/Development/Git/Configuration
 # More info: http://blog.sanctum.geek.nz/bash-prompts/
 # PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ $(__git_ps1 "${color_blue}(%s)${color_reset}")'
+#}}}
+# vim: set foldmethod=marker:
