@@ -5,16 +5,15 @@
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
 # File to test: http://www.robmeerman.co.uk/_media/unix/256colors2.pl
 
+# Neat bash tricks, http://blog.sanctum.geek.nz/category/bash
 ############################################################################
 # Environment Variables
 ############################################################################
 #{{{
 # Default editor for things like sudoedit.
-export EDITOR=vim
-
-# Default ack options, use smart case, sort output by file and follow symlinks.
-# Filter by type with --type, i.e. --cc, --cpp, --java
-export ACK_OPTIONS="--smart-case --sort-files --follow --color-match=\"bold blue\""
+if hash vim 2>/dev/null; then
+    export EDITOR=vim
+fi
 
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
@@ -25,11 +24,13 @@ export HISTFILESIZE=100000
 export HISTSIZE=100000
 
 # Ignore some commands
-export HISTIGNORE='ls:l:bg:fg:history'
+export HISTIGNORE='ls *:l *:bg:fg:history'
 
 # Timestamps in history file
 export HISTTIMEFORMAT='%F %T '
 
+# Ignore duplicate commands in history
+#export HISTCONTROL=ignoredups
 #}}}
 ############################################################################
 # Path Settings
@@ -95,15 +96,19 @@ alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 alias parallel="parallel --no-notice"
 
 # Alias for silver search
-# For type use --type, i.e. --cpp
+# For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
 alias ag='ag --smart-case --follow --color-match="1;34"'
+# Alias for file name searc
 alias agf="ag -g"
 
+# Default ack options, use smart case, sort output by file and follow symlinks.
+# Filter by type with --type, supported types `ack --help-types`
+alias ack="ack --smart-case --sort-files --follow --color-match=\"bold blue\""
 # Alias for ack find file
 alias ackf="ack -g"
 
 # Grep should always print line
-alias grep='grep --color=auto -n'
+alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
 alias fgrep='fgrep --color=auto -n'
 alias egrep='egrep --color=auto -n'
 
@@ -206,10 +211,11 @@ shopt -s histappend
 shopt -s cmdhist
 #}}}
 ############################################################################
-# ALL PS1 past this point. This stuff used to modify the bash prompt to show
-# the status of git and hg repos as well as move directory line up one.
+# PS1 Bash Propmt
 ############################################################################
 #{{{
+# ALL PS1 past this point. This stuff used to modify the bash prompt to show
+# the status of git and hg repos as well as move directory line up one.
 # Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
 
 # PS1 Color Codes
@@ -265,9 +271,7 @@ function prompt_callback {
 
     # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
     if [ "x${HG}" != "x" ]; then
-        if [[ ${T} =~ [!?^↓↑] ]]; then
-            :
-        else
+        if ! [[ ${T} =~ [!?^↓↑] ]]; then
             HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_R}]"
         fi
     fi
