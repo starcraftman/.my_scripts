@@ -85,27 +85,27 @@ alias types='type -a'
 alias please='sudo `fc -l -n -1`'
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
-alias trash-restore="restore-trash"
-alias tr="restore-trash"
-alias tp="trash-put"
-alias tl="trash-list"
-alias te="trash-empty"
+alias trash-restore='restore-trash'
+alias tr='restore-trash'
+alias tp='trash-put'
+alias tl='trash-list'
+alias te='trash-empty'
 alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 
 # Silence parallel
-alias parallel="parallel --no-notice"
+alias parallel='parallel --no-notice'
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
 alias ag='ag --smart-case --follow --color-match="1;34"'
 # Alias for file name searc
-alias agf="ag -g"
+alias agf='ag -g'
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-alias ack="ack --smart-case --sort-files --follow --color-match=\"bold blue\""
+alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
 # Alias for ack find file
-alias ackf="ack -g"
+alias ackf='ack -g'
 
 # Grep should always print line
 alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
@@ -293,7 +293,7 @@ function prompt_callback {
 # Formats to:
 # directory [vcsInfo]
 # user@host
-GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}$PS1_DIR\w$PS1_R"
+GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}{ $PS1_DIR\w$PS1_R }"
 GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$ "
 
 source ~/.bash-git-prompt/gitprompt.sh
