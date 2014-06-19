@@ -5,7 +5,7 @@
 set show-all-if-ambiguous on
 
 # Make tab complete case insensitive
-#set completion-ignore-case on
+set completion-ignore-case on
 
 # Tab complete guesses between '_' and '-', requires ignore case on
-#set completion-map-case on
+set completion-map-case on
