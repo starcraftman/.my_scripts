@@ -6,6 +6,7 @@
 # File to test: http://www.robmeerman.co.uk/_media/unix/256colors2.pl
 
 # Neat bash tricks, http://blog.sanctum.geek.nz/category/bash
+# Some other tricks, http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 ############################################################################
 # Environment Variables
 ############################################################################
@@ -31,6 +32,9 @@ export HISTTIMEFORMAT='%F %T '
 
 # Ignore duplicate commands in history
 export HISTCONTROL=ignoredups:erasedups
+
+# Default pager
+export PAGER=less
 #}}}
 ############################################################################
 # Path Settings
@@ -68,15 +72,27 @@ export CCACHE_DIR=~/code/ccache
 ############################################################################
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
-# Make ls and mkdir useful#
-alias ls='ls --color=auto -F'
+# Make ls more convenient
+alias ls='ls --color=auto -F --group-directories-first'
 alias ll='ls -Alh'
 alias la='ls -A'
 alias l='ls'
+
+# Different sorts
+alias lx='ll -XB'
+alias lk='ll -Sr'
+alias lt='ll -tr'
+alias lc='ll -tcr'
+alias lu='ll -tur'
+
+# Tree program, use instead of recursive ls. Very pretty.
+alias tree='tree -Csuh'
+
+# Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
 
 # df/du defaults, du -L to follow symlinks
-alias df='df -h'
+alias df='df -hT'
 alias du='du -h'
 
 # type used to determine what command is, list all entries
@@ -122,6 +138,10 @@ alias cog='colorgcc'
 
 # Always open with splits
 alias vims='vim -o'
+
+# Set debug for bash
+alias debug='set -o nounset; set -o xtrace'
+alias debugoff='set +o nounset; set +o xtrace'
 #}}}
 ############################################################################
 # Functions
@@ -179,9 +199,102 @@ function jsonFix()
     cat "$1" | python -m json.tool > "fix_$1"
 }
 
+# Useful functions almost entirely taken from:
+#http://www.tldp.org/LDP/abs/html/sample-bashrc.html
+function my_ip() # Get IP adress on ethernet.
+{
+    MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
+      sed -e s/addr://)
+    echo ${MY_IP:-"Not connected"}
+}
+function mydf()         # Pretty-print of 'df' output.
+{                       # Inspired by 'dfc' utility.
+    for fs ; do
+
+        if [ ! -d $fs ]
+        then
+          echo -e $fs" :No such file or directory" ; continue
+        fi
+
+        local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
+        local free=( $(command df -Pkh $fs | awk 'END{ print $4 }') )
+        local nbstars=$(( 20 * ${info[1]} / ${info[0]} ))
+        local out="["
+        for ((j=0;j<20;j++)); do
+            if [ ${j} -lt ${nbstars} ]; then
+               out=$out"*"
+            else
+               out=$out"-"
+            fi
+        done
+        out=${info[2]}" "$out"] ("$free" free on "$fs")"
+        echo -e $out
+    done
+}
+
+function ii()   # Get current host related info.
+{
+    local BBlue='\e[1;34m'
+    local NC="\e[m"
+    echo
+    echo -e "You are logged on ${BBlue}$HOSTNAME"
+    echo -e "${BBlue}Additionnal information:$NC " ; uname -a
+    echo -e "${BBlue}Users logged on:$NC " ; w -hs |
+             cut -d " " -f1 | sort | uniq
+    echo -e "${BBlue}Current date :$NC " ; date
+    echo -e "${BBlue}Machine stats :$NC " ; uptime
+    echo -e "${BBlue}Memory stats :$NC " ; free
+    echo -e "${BBlue}Diskspace :$NC " ; mydf / $HOME
+    echo -e "${BBlue}Local IP Address :$NC" ; my_ip
+    echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
+    echo
+}
+
 # Highlight many terms with different colors
 # Usage: find . | h term1 term2 term3
 source $HOME/.hhighlighter/h.sh
+#}}}
+############################################################################
+# Shell Settings
+############################################################################
+#{{{
+# https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
+# Set debug flags permanently on
+#set -o nounset
+#set -o xtrace
+
+# Brace expand allows: echo a{b,c}e -> abe ace
+set -o braceexpand
+
+# Bg jobs notify immediately on terminate, else only when next prompt draw
+set -o notify
+
+# http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+# If arg to cd doesn't exist, must be var to expand
+shopt -s cdable_vars
+
+# When making small typos with cd, go to best match
+shopt -s cdspell
+
+# Always append instead of overwriting history
+shopt -s histappend
+
+# Multiline commands to be on single lines in history
+shopt -s cmdhist
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# Ensure extended globbing allowed
+shopt -s extglob
+
+# Don't expand empty commands
+shopt -s no_empty_cmd_completion
+
+# Shell not needed for mail checking
+shopt -u mailwarn
+unset MAILCHECK
 #}}}
 ############################################################################
 # Misc Options
@@ -203,19 +316,6 @@ stty -ixon
 # Set default config environment. If need specialize, copy into dir of src tree.
 #. ~/.build-config-default
 
-# Bash termianl options
-# When making small typos with cd, go to best match
-shopt -s cdspell
-
-# Always append instead of overwriting history
-shopt -s histappend
-
-# Multiline commands to be on single lines in history
-shopt -s cmdhist
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
 #}}}
 ############################################################################
 # PS1 Bash Propmt
@@ -230,22 +330,22 @@ shopt -s checkwinsize
 # General format: \[\e[x;yy;zzm\]
 # Style code x: 1 -> bold, 4 -> underline, 7 -> invert color.
 # Color code, yy -> 30s for foreground, zz-> background in 40s.
-PS1_BLACK="\[\e[0;30m\]"
-PS1_BLACKBOLD="\[\e[1;30m\]"
+#PS1_BLACK="\[\e[0;30m\]"
+#PS1_BLACKBOLD="\[\e[1;30m\]"
 PS1_RED="\[\e[0;31m\]"
 PS1_REDBOLD="\[\e[1;31m\]"
 PS1_GREEN="\[\e[0;32m\]"
 PS1_GREENBOLD="\[\e[1;32m\]"
 PS1_YELLOW="\[\e[0;33m\]"
 PS1_YELLOWBOLD="\[\e[1;33m\]"
-PS1_BLUE="\[\e[0;34m\]"
+#PS1_BLUE="\[\e[0;34m\]"
 PS1_BLUEBOLD="\[\e[1;34m\]"
-PS1_PURPLE="\[\e[0;35m\]"
+#PS1_PURPLE="\[\e[0;35m\]"
 PS1_PURPLEBOLD="\[\e[1;35m\]"
 PS1_CYAN="\[\e[0;36m\]"
-PS1_CYANBOLD="\[\e[1;36m\]"
-PS1_WHITE="\[\e[0;37m\]"
-PS1_WHITEBOLD="\[\e[1;37m\]"
+#PS1_CYANBOLD="\[\e[1;36m\]"
+#PS1_WHITE="\[\e[0;37m\]"
+#PS1_WHITEBOLD="\[\e[1;37m\]"
 PS1_MAGENTA="\[\e[1;95m\]"
 # To (R)eset colors.
 PS1_R="\[\e[0m\]"

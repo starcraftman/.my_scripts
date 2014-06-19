@@ -24,7 +24,7 @@ PROGRAMS = """ \
     chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
-    fuse gparted quicksynergy \
+    fuse gparted quicksynergy tree \
     libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx \
     samba samba-doc samba-tools wireshark wondershaper \
