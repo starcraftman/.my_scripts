@@ -276,7 +276,7 @@ set -o notify
 
 # http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # If arg to cd doesn't exist, must be var to expand
-shopt -s cdable_vars
+#shopt -s cdable_vars
 
 # When making small typos with cd, go to best match
 shopt -s cdspell
