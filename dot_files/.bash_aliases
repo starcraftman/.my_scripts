@@ -30,7 +30,7 @@ export HISTIGNORE='ls *:l *:bg:fg:history'
 export HISTTIMEFORMAT='%F %T '
 
 # Ignore duplicate commands in history
-#export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups:erasedups
 #}}}
 ############################################################################
 # Path Settings
@@ -212,6 +212,10 @@ shopt -s histappend
 
 # Multiline commands to be on single lines in history
 shopt -s cmdhist
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 #}}}
 ############################################################################
 # PS1 Bash Propmt

@@ -25,6 +25,7 @@ PROGRAMS = """ \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
     fuse gparted quicksynergy \
+    libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx \
     samba samba-doc samba-tools wireshark wondershaper \
     ubuntuone-client ubuntuone-control-panel-qt \
