@@ -73,7 +73,7 @@ export CCACHE_DIR=~/code/ccache
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
 # Make ls more convenient
-alias ls='ls --color=auto -F --group-directories-first'
+alias ls='ls --color=auto -F --group-directories-first --sort=extension'
 alias ll='ls -Alh'
 alias la='ls -A'
 alias l='ls'
