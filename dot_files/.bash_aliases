@@ -94,6 +94,7 @@ alias mkdir='mkdir -vp'
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
+alias dfc='dfc -T'
 
 # type used to determine what command is, list all entries
 alias types='type -a'
@@ -201,10 +202,14 @@ function jsonFix()
 
 # Useful functions almost entirely taken from:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
-function my_ip() # Get IP adress on ethernet.
+function my_ip() # Get IP adress on ethernet or wlan.
 {
     MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
       sed -e s/addr://)
+    if [[ -z $MY_IP ]]; then
+        MY_IP=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' |
+        sed -e s/addr://)
+    fi
     echo ${MY_IP:-"Not connected"}
 }
 function mydf()         # Pretty-print of 'df' output.
