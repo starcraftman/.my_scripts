@@ -25,7 +25,7 @@ export HISTFILESIZE=100000
 export HISTSIZE=100000
 
 # Ignore some commands
-export HISTIGNORE='ls *:l *:bg:fg:history'
+#export HISTIGNORE='ls *:l *:bg:fg:history'
 
 # Timestamps in history file
 export HISTTIMEFORMAT='%F %T '
