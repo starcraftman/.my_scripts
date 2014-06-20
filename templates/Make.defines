@@ -26,8 +26,8 @@ AWK:=awk
 SED:=sed
 RANLIB:=ranlib
 TEST:=test
-CC:=gcc
-CXX:=g++
+CC:=ccache gcc
+CXX:=ccache g++
 
 # Generic Flags
 # To profile: 1) Compile/link with PROF flag. 2) Run file as normally to make gmon.out. 3) Run command: gprof program gmon.out > program.txt. Read output text.
