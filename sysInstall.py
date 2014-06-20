@@ -199,6 +199,11 @@ def setup_config():
         cmd = ('fc-cache -vf' + ddir).split()
         subprocess.call(cmd)
 
+    # Create dir for ccache
+    ddir = dst + '.ccache'
+    if not os.path.exists(ddir):
+        os.mkdir(ddir)
+
 
 def install_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
