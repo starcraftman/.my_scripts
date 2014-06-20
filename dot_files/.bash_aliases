@@ -21,8 +21,15 @@ fi
 # If you want to have a fallback path lookup, use CDPAth.
 #export CDPATH=~/programming
 
+#CCache Directory
+#Info: https://ccache.samba.org/manual.html
+export CCACHE_DIR=~/.ccache
+
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+
+# Merge tool for hg
+export HGMERGE=/usr/bin/kdiff3
 
 # Bash history options
 # Set large history file & line limit
@@ -69,11 +76,6 @@ export CLASSPATH=$JAVA_HOME/lib:$EXTRALIB:.
 
 # Paths for specific tools.
 export ANT_HOME=/usr/share/ant
-export HGMERGE=/usr/bin/kdiff3
-
-#CCache Directory
-#Info: https://ccache.samba.org/manual.html
-export CCACHE_DIR=~/code/ccache
 #}}}
 ############################################################################
 # Aliases
