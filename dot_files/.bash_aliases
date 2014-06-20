@@ -16,6 +16,11 @@ if hash vim 2>/dev/null; then
     export EDITOR=vim
 fi
 
+# When debugging bash, $LINENO refers to current line of script
+
+# If you want to have a fallback path lookup, use CDPAth.
+#export CDPATH=~/programming
+
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
@@ -32,6 +37,9 @@ export HISTTIMEFORMAT='%F %T '
 
 # Ignore duplicate commands in history
 export HISTCONTROL=ignoredups:erasedups
+
+# The number of EOF to ignore before terminating shell
+export IGNOREEOF=2
 
 # Default pager
 export PAGER=less
@@ -204,7 +212,7 @@ function jsonFix()
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 function my_ip() # Get IP adress on ethernet or wlan.
 {
-    MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
+    local MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
       sed -e s/addr://)
     if [[ -z $MY_IP ]]; then
         MY_IP=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' |
