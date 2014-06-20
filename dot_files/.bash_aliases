@@ -241,15 +241,18 @@ function ii()   # Get current host related info.
 {
     local BBlue='\e[1;34m'
     local NC="\e[m"
+    local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
     echo
     echo -e "You are logged on ${BBlue}$HOSTNAME"
-    echo -e "${BBlue}Additionnal information:$NC " ; uname -a
-    echo -e "${BBlue}Users logged on:$NC " ; w -hs |
+    echo -e "${BBlue}Additionnal information :$NC " ; uname -a
+    echo -e "${BBlue}Users logged on :$NC " ; w -hs |
              cut -d " " -f1 | sort | uniq
     echo -e "${BBlue}Current date :$NC " ; date
     echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Memory stats :$NC " ; free
+    echo -e "${BBlue}Memory stats :$NC " ; free -h
     echo -e "${BBlue}Diskspace :$NC " ; mydf / $HOME
+    echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
+    echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
     echo -e "${BBlue}Local IP Address :$NC" ; my_ip
     echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
     echo
