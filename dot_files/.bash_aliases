@@ -324,7 +324,9 @@ if hash xmodmap 2>/dev/null; then
 fi
 
 # Disable the Ctrl+s/q button that freezes terminal output.
-stty -ixon
+if hash stty 2>/dev/null; then
+    stty -ixon
+fi
 
 # KDE DEV Options:
 
