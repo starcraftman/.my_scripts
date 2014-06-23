@@ -96,7 +96,9 @@ alias lc='ll -tcr'
 alias lu='ll -tur'
 
 # Tree program, use instead of recursive ls. Very pretty.
-alias tree='tree -Csuh'
+if hash tree 2>/dev/null; then
+    alias tree='tree -Csuh'
+fi
 
 # Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
@@ -104,7 +106,9 @@ alias mkdir='mkdir -vp'
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
-alias dfc='dfc -T'
+if hash dfc 2>/dev/null; then
+    alias dfc='dfc -T'
+fi
 
 # type used to determine what command is, list all entries
 alias types='type -a'
@@ -113,15 +117,19 @@ alias types='type -a'
 alias please='sudo `fc -l -n -1`'
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
-alias trash-restore='restore-trash'
-alias tr='restore-trash'
-alias tp='trash-put'
-alias tl='trash-list'
-alias te='trash-empty'
-alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
+if hash trash-put 2>/dev/null; then
+    alias trash-restore='restore-trash'
+    alias tr='restore-trash'
+    alias tp='trash-put'
+    alias tl='trash-list'
+    alias te='trash-empty'
+    alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
+fi
 
 # Silence parallel
-alias parallel='parallel --no-notice'
+if hash parallel 2>/dev/null; then
+    alias parallel='parallel --no-notice'
+fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
@@ -143,9 +151,11 @@ alias fgrep='grep -F'
 alias rgrep='grep -r'
 
 # Alias for color tools.
-alias cod='colordiff'
-alias com='colormake'
-alias cog='colorgcc'
+if hash colordiff 2>/dev/null; then
+    alias cod='colordiff'
+    alias com='colormake'
+    alias cog='colorgcc'
+fi
 
 # Always open with splits
 alias vims='vim -o'
