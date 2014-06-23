@@ -319,7 +319,9 @@ unset MAILCHECK
 ############################################################################
 #{{{
 # Enable the windows key on Ubuntu as F13
-xmodmap -e 'keycode 133 = F13'
+if hash xmodmap 2>/dev/null; then
+    xmodmap -e 'keycode 133 = F13'
+fi
 
 # Disable the Ctrl+s/q button that freezes terminal output.
 stty -ixon
