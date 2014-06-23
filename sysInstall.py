@@ -171,7 +171,7 @@ def setup_config():
     # Custom bins go here, ensure it exists
     ddir = dst + '.optSoftware' + os.sep + 'bin'
     if not os.path.exists(ddir):
-        os.mkdir(ddir)
+        os.makedirs(ddir)
 
     # Ag silver, repo package is old
     ddir = dst + '.ag'
