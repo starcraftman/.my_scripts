@@ -8,10 +8,13 @@
 # Imports
 from __future__ import print_function
 import argparse
-import apt
 import os
 import subprocess
 import shutil
+try:
+    __import__('apt')
+except:
+    print('not on debian system, don\'t use option 1')
 
 # Packages to install follow, broken down into categories.
 
@@ -164,6 +167,11 @@ def setup_config():
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             dst + '.hhighlighter')
+
+    # Custom bins go here, ensure it exists
+    ddir = dst + '.optSoftware' + os.sep + 'bin'
+    if not os.path.exists(ddir):
+        os.mkdir(ddir)
 
     # Ag silver, repo package is old
     ddir = dst + '.ag'
