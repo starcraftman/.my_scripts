@@ -10,4 +10,4 @@
 #gunzip -c ./Win7_C.img.gz | dd of=/dev/sdb2 conv=sync,noerror bs=64K
 
 # Zero drive first
-#dd if=/dev/zero of=./temp.me bs=8M; rm ./temp.me
+#dd if=/dev/zero of=./temp.me bs=8M; \rm ./temp.me
