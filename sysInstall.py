@@ -66,7 +66,7 @@ PROGRAMMING = """ \
     php5 php5-mysql phpunit php5-dev \
     nodejs nodejs-dev nodejs-legacy npm \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
-    ruby1.9.1-full shunit2 \
+    pychecker pylint ruby1.9.1-full shunit2 \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
 
@@ -198,8 +198,6 @@ def packs_babun():
     subprocess.call(cmd)
 
     # Now prepare then invoke regular setup link common files
-    script_path = os.path.realpath(__file__)
-    script_dir = script_path[0:script_path.rindex(os.sep)]
     dst = os.path.expanduser('~') + os.sep
 
     # Make empty directories to ignore parts of linux setup
@@ -244,7 +242,7 @@ def packs_linux():
             package = cache[pack]
             if not package.is_installed:
                 cmd.append(pack)
-        except Exception as e:
+        except Exception:
             print("Package couldn't be selected: %s" % pack)
 
     print("Please wait, running: " + " ".join(cmd))
@@ -277,12 +275,13 @@ def install_pipelight():
             'sudo apt-get install pipelight-multi',
             'pipelight-plugin --enable silverlight',
             'pipelight-plugin --enable flash',]
-    map(split, cmds)
+    map(lambda x: x.split(), cmds)
     map(subprocess.call, cmds)
     print("Installation over, remember to use a useragent switcher.")
 
-if __name__ == '__main__':
-    DESC = """ This program sets up my dev environment.
+def main():
+    """ Main function. """
+    mesg = """ This program sets up my dev environment.
     Pass any number of keywords to trigger the associated steps.
     linux -> Install debian packages.
     babun -> Install babun packages.
@@ -291,25 +290,28 @@ if __name__ == '__main__':
     jshint -> Install jshint via npm for javascript vim.
     pipelight -> Install pipelight flash & silverlight.
     """
-    PARSER = argparse.ArgumentParser(description=DESC)
-    PARSER.add_argument('choice', nargs='+', action='append', help='the stages')
+    parser = argparse.ArgumentParser(description=mesg)
+    parser.add_argument('choice', nargs='+', action='append', help='the stages')
 
-    ARGS = PARSER.parse_args()  # Default parses argv[1:]
-    CHOICES = ARGS.choice[0]
+    args = parser.parse_args()  # Default parses argv[1:]
+    choices = args.choice[0]
 
     # Use a dict of funcs instead of a case switch
-    ACTION = {  'linux': packs_linux,
+    actions =  {'linux': packs_linux,
                 'babun': packs_babun,
                 'home': home_config,
                 'python': packs_py,
                 'cabal': packs_cabal,
                 'jshint': install_jshint,
                 'pipelight': install_pipelight
-            }
+                }
 
     try:
-        map(lambda x: ACTION[x](), CHOICES)
+        map(lambda x: actions[x](), choices)
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
     except NotSudo:
         print("Rerun this part of script with sudo.")
+
+if __name__ == '__main__':
+    main()
