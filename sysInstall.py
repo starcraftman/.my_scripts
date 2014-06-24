@@ -87,32 +87,6 @@ class NotSudo(Exception):
 
 # Functions
 
-
-def install_packages():
-    """ Install packages on the current system. """
-    if os.getuid() != 0:
-        raise NotSudo
-
-    packages = (PROGRAMS + PROGRAMMING + KEYRINGS).split()
-
-    cache = apt.Cache()
-    print("One moment while we update cache.")
-    cache.update()
-    cache.open(None)
-    print("Update done.")
-
-    cmd = 'sudo apt-get install'.split()
-    for pack in packages:
-        try:
-            package = cache[pack]
-            if not package.is_installed:
-                cmd.append(pack)
-        except Exception as e:
-            print("Package couldn't be selected: %s" % pack)
-
-    print("Please wait, running: " + " ".join(cmd))
-    subprocess.call(cmd)
-
 def get_code(command, target):
     """ Wrapper function to clone repos.
     Protects against overwriting if target exists.
@@ -124,8 +98,7 @@ def get_code(command, target):
     if not os.path.exists(target):
         subprocess.call(cmd)
 
-
-def setup_config():
+def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
     script_path = os.path.realpath(__file__)
     script_dir = script_path[0:script_path.rindex(os.sep)]
@@ -218,49 +191,7 @@ def setup_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-
-def install_cabal():
-    """ Installs haskell packages for Eclipse Haskell plugin. """
-    cmd = 'cabal update'.split()
-    subprocess.call(cmd)
-
-    cmd = ('cabal install ' + CABAL).split()
-    subprocess.call(cmd)
-
-
-def py_packages():
-    """ Installs python packages using pip. """
-    # Use python package manager.
-    cmd = ('pip install' + PY_PACKS).split()
-    subprocess.call(cmd)
-
-    # Install python completion to system bash_completion.d.
-    cmd = 'activate-global-python-argcomplete'.split()
-    subprocess.call(cmd)
-
-
-def setup_pipelight():
-    """ Silverlight plugin for firefox/chrome on linux.
-        See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
-    if os.getuid() != 0:
-        raise NotSudo
-
-    cmds = ['sudo apt-get remove flashplugin-installer',
-            'sudo apt-add-repository ppa:pipelight/stable',
-            'sudo apt-get update',
-            'sudo apt-get install pipelight-multi',
-            'pipelight-plugin --enable silverlight',
-            'pipelight-plugin --enable flash',]
-    map(split, cmds)
-    map(subprocess.call, cmds)
-    print("Installation over, remember to use a useragent switcher.")
-
-def setup_jshint():
-    """ Setup jshint for progrmaming javascript with vim. """
-    cmd = 'npm install jshint -g'.split()
-    subprocess.call(cmd)
-
-def setup_babun():
+def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
     cmd = 'pact install ' + BABUN
@@ -284,42 +215,100 @@ def setup_babun():
         if os.path.exists(dfile) and not os.path.exists(dfile_bak):
             os.rename(dfile, dfile_bak)
 
-    setup_config()
+    home_config()
 
-def take_choice(choice):
-    """ Select cprrect action, replicates case switch. """
-    choice = int(choice)
-    if choice == 1:
-        install_packages()
-    elif choice == 2:
-        setup_config()
-    elif choice == 3:
-        py_packages()
-        setup_jshint()
-    elif choice == 4:
-        setup_pipelight()
-    elif choice == 5:
-        install_cabal()
-    elif choice == 6:
-        setup_babun()
+def packs_cabal():
+    """ Installs haskell packages for Eclipse Haskell plugin. """
+    cmd = 'cabal update'.split()
+    subprocess.call(cmd)
+
+    cmd = ('cabal install ' + CABAL).split()
+    subprocess.call(cmd)
+
+def packs_linux():
+    """ Install packages on the current system. """
+    if os.getuid() != 0:
+        raise NotSudo
+
+    packages = (PROGRAMS + PROGRAMMING + KEYRINGS).split()
+
+    cache = apt.Cache()
+    print("One moment while we update cache.")
+    cache.update()
+    cache.open(None)
+    print("Update done.")
+
+    cmd = 'sudo apt-get install'.split()
+    for pack in packages:
+        try:
+            package = cache[pack]
+            if not package.is_installed:
+                cmd.append(pack)
+        except Exception as e:
+            print("Package couldn't be selected: %s" % pack)
+
+    print("Please wait, running: " + " ".join(cmd))
+    subprocess.call(cmd)
+
+def packs_py():
+    """ Installs python packages using pip. """
+    # Use python package manager.
+    cmd = ('pip install' + PY_PACKS).split()
+    subprocess.call(cmd)
+
+    # Install python completion to system bash_completion.d.
+    cmd = 'activate-global-python-argcomplete'.split()
+    subprocess.call(cmd)
+
+def install_jshint():
+    """ Setup jshint for progrmaming javascript with vim. """
+    cmd = 'npm install jshint -g'.split()
+    subprocess.call(cmd)
+
+def install_pipelight():
+    """ Silverlight plugin for firefox/chrome on linux.
+        See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
+    if os.getuid() != 0:
+        raise NotSudo
+
+    cmds = ['sudo apt-get remove flashplugin-installer',
+            'sudo apt-add-repository ppa:pipelight/stable',
+            'sudo apt-get update',
+            'sudo apt-get install pipelight-multi',
+            'pipelight-plugin --enable silverlight',
+            'pipelight-plugin --enable flash',]
+    map(split, cmds)
+    map(subprocess.call, cmds)
+    print("Installation over, remember to use a useragent switcher.")
 
 if __name__ == '__main__':
-    DESC = """ This program sets up a vanilla Ubuntu install.
-    Pass a number to determine step.
-    1 -> Install most packages.
-    2 -> Setup vim, bash_aliases and development environment.
-    3 -> Setup python utilities inscluding trash-put and jshint.
-    4 -> Install pipelight for silverlight and flash.
-    5 -> Install cabal extensions for haskell.
-    6 -> Install babun pacts and setup folders.
+    DESC = """ This program sets up my dev environment.
+    Pass any number of keywords to trigger the associated steps.
+    linux -> Install debian packages.
+    babun -> Install babun packages.
+    python -> Install python libraries via pip.
+    cabal -> Setup cabal for user and install haskell packages.
+    jshint -> Install jshint via npm for javascript vim.
+    pipelight -> Install pipelight flash & silverlight.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
-    PARSER.add_argument('choice', action='store', help='the stage')
+    PARSER.add_argument('choice', nargs='+', action='append', help='the stages')
 
     ARGS = PARSER.parse_args()  # Default parses argv[1:]
+    CHOICES = ARGS.choice[0]
+
+    # Use a dict of funcs instead of a case switch
+    ACTION = {  'linux': packs_linux,
+                'babun': packs_babun,
+                'home': home_config,
+                'python': packs_py,
+                'cabal': packs_cabal,
+                'jshint': install_jshint,
+                'pipelight': install_pipelight
+            }
 
     try:
-        take_choice(ARGS.choice)
+        map(lambda x: ACTION[x](), CHOICES)
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
     except NotSudo:
