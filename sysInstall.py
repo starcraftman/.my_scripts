@@ -70,6 +70,12 @@ PROGRAMMING = """ \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
 
+BABUN = """ \
+    clisp lua perl python python3 ruby make cmake colordiff colorgcc \
+    p7zip unzip zip gzip ncurses pcre mercurial bzr subversion \
+    libboost-devel libboost_python-devel cppunit
+    """
+
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete trash-cli"
@@ -254,6 +260,32 @@ def setup_jshint():
     cmd = 'npm install jshint -g'.split()
     subprocess.call(cmd)
 
+def setup_babun():
+    """ Setup a fresh babun install. """
+    # Install packages
+    cmd = 'pact install ' + BABUN
+    subprocess.call(cmd)
+
+    # Now prepare then invoke regular setup link common files
+    script_path = os.path.realpath(__file__)
+    script_dir = script_path[0:script_path.rindex(os.sep)]
+    dst = os.path.expanduser('~') + os.sep
+
+    # Make empty directories to ignore parts of linux setup
+    for d in ['.ag', '.ack', '.fonts']:
+        ddir = dst + d
+        if not os.path.exists(ddir):
+            os.mkdir(ddir)
+
+    # Backup defaults and allow for new ones
+    for d in ['.gitconfig', '.vim']:
+        dfile = dst + d
+        dfile_bak = dfile + '_bak'
+        if os.path.exists(dfile) and not os.path.exists(dfile_bak):
+            os.rename(dfile, dfile_bak)
+
+    setup_config()
+
 def take_choice(choice):
     """ Select cprrect action, replicates case switch. """
     choice = int(choice)
@@ -268,6 +300,8 @@ def take_choice(choice):
         setup_pipelight()
     elif choice == 5:
         install_cabal()
+    elif choice == 6:
+        setup_babun()
 
 if __name__ == '__main__':
     DESC = """ This program sets up a vanilla Ubuntu install.
@@ -277,6 +311,7 @@ if __name__ == '__main__':
     3 -> Setup python utilities inscluding trash-put and jshint.
     4 -> Install pipelight for silverlight and flash.
     5 -> Install cabal extensions for haskell.
+    6 -> Install babun pacts and setup folders.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
