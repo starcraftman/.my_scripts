@@ -89,11 +89,11 @@ alias la='ls -A'
 alias l='ls'
 
 # Different sorts
-alias lx='ll -XB'
-alias lk='ll -Sr'
-alias lt='ll -tr'
-alias lc='ll -tcr'
-alias lu='ll -tur'
+alias lx='ll -XB'  # Extension
+alias lk='ll -Sr'  # File size
+alias lt='ll -tr'  # Modification time
+alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
+alias lu='ll -tur' # Access time
 
 # Tree program, use instead of recursive ls. Very pretty.
 if hash tree 2>/dev/null; then
