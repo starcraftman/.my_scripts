@@ -12,8 +12,8 @@ import os
 import subprocess
 import shutil
 try:
-    __import__('apt')
-except:
+    import apt
+except ImportError:
     print('not on debian system, don\'t use option 1')
 
 # Packages to install follow, broken down into categories.
@@ -95,7 +95,7 @@ def install_packages():
     cache.open(None)
     print("Update done.")
 
-    cmd = 'apt-get install'.split()
+    cmd = 'sudo apt-get install'.split()
     for pack in packages:
         try:
             package = cache[pack]
@@ -224,9 +224,6 @@ def install_cabal():
 
 def py_packages():
     """ Installs python packages using pip. """
-    if os.geteuid() != 0:
-        raise NotSudo('This stage must be run as root.')
-
     # Use python package manager.
     cmd = ('pip install' + PY_PACKS).split()
     subprocess.call(cmd)
@@ -254,10 +251,7 @@ def setup_pipelight():
 
 def setup_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
-    if os.getuid() != 0:
-        raise NotSudo
-
-    cmd = 'sudo npm install jshint -g'.split()
+    cmd = 'npm install jshint -g'.split()
     subprocess.call(cmd)
 
 def take_choice(choice):
@@ -268,19 +262,21 @@ def take_choice(choice):
     elif choice == 2:
         setup_config()
     elif choice == 3:
-        install_cabal()
-    elif choice == 4:
         py_packages()
-        setup_pipelight()
         setup_jshint()
+    elif choice == 4:
+        setup_pipelight()
+    elif choice == 5:
+        install_cabal()
 
 if __name__ == '__main__':
     DESC = """ This program sets up a vanilla Ubuntu install.
     Pass a number to determine step.
     1 -> Install most packages.
     2 -> Setup vim, bash_aliases and development environment.
-    3 -> Setup cabal for haskell development.
-    4 -> Setup python packages through pip, pipelight and jshint.
+    3 -> Setup python utilities inscluding trash-put and jshint.
+    4 -> Install pipelight for silverlight and flash.
+    5 -> Install cabal extensions for haskell.
     """
     PARSER = argparse.ArgumentParser(description=DESC)
     PARSER.add_argument('choice', action='store', help='the stage')
