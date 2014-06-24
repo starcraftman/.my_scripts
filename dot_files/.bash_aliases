@@ -153,7 +153,11 @@ alias rgrep='grep -r'
 # Alias for color tools.
 if hash colordiff 2>/dev/null; then
     alias cod='colordiff'
+fi
+if hash colormake 2>/dev/null; then
     alias com='colormake'
+fi
+if hash colorgcc 2>/dev/null; then
     alias cog='colorgcc'
 fi
 
