@@ -14,7 +14,7 @@ import shutil
 try:
     import apt
 except ImportError:
-    print('not on debian system, don\'t use option 1')
+    print('not on debian system, don\'t use option install linux packages')
 
 # Packages to install follow, broken down into categories.
 
@@ -281,16 +281,19 @@ def install_pipelight():
 
 def main():
     """ Main function. """
-    mesg = """ This program sets up my dev environment.
-    Pass any number of keywords to trigger the associated steps.
-    linux -> Install debian packages.
-    babun -> Install babun packages.
-    python -> Install python libraries via pip.
-    cabal -> Setup cabal for user and install haskell packages.
-    jshint -> Install jshint via npm for javascript vim.
-    pipelight -> Install pipelight flash & silverlight.
+    mesg = """ This script sets up a dev environment.
+
+    choice      effect
+    ------------------------------------------------------
+    linux       Install debian packages.
+    babun       Install babun packages.
+    python      Install python libraries via pip.
+    cabal       Install haskell packages for eclipse.
+    jshint      Install jshint via npm for javascript vim.
+    pipelight   Install pipelight flash & silverlight.\
     """
-    parser = argparse.ArgumentParser(description=mesg)
+    parser = argparse.ArgumentParser(description=mesg,
+            formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('choice', nargs='+', action='append', help='the stages')
 
     args = parser.parse_args()  # Default parses argv[1:]
