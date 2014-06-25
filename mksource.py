@@ -58,12 +58,13 @@ def add_ext(lang, sources, headers):
 
     return (new_sources, new_headers)
 
-if __name__ == '__main__':
+def main():
+    """ Main function. """
     # Setup argument parser, very nice. -i for header due to help default.
-    DESC = """ This is my source file creator. The language is required.
+    desc = """ This is my source file creator. The language is required.
     Specify as many source or header files as required.
     """
-    parser = argparse.ArgumentParser(description=DESC)
+    parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('lang', action='store', help='the language to make',
                         choices=SRC_DICT.keys())
     parser.add_argument('s_files', nargs='*', help='source files to create')
@@ -104,3 +105,6 @@ if __name__ == '__main__':
     for h_file in h_files:
         header_text = h_file.upper().replace('.', '_')
         header_copy(templates[1], h_file, header_text)
+
+if __name__ == '__main__':
+    main()
