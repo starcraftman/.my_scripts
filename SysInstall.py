@@ -66,7 +66,7 @@ PROGRAMMING = """ \
     php5 php5-mysql phpunit php5-dev \
     nodejs nodejs-dev nodejs-legacy npm \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
-    pychecker pylint ruby1.9.1-full shunit2 \
+    pychecker pylint pep8 python-autopep8 ruby1.9.1-full shunit2 \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
 
