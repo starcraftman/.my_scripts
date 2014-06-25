@@ -281,7 +281,7 @@ def install_pipelight():
 
 def main():
     """ Main function. """
-    mesg = """ This script sets up a dev environment.
+    mesg = """This script sets up a dev environment.
 
     choice      effect
     ------------------------------------------------------
