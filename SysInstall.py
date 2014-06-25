@@ -98,6 +98,17 @@ def get_code(command, target):
     if not os.path.exists(target):
         subprocess.call(cmd)
 
+def make_cmd(src, dst):
+    """ Generator for helper. """
+    def cmd_when_dst_empty(files, command, opts=[]):
+        """ Execute a command if destination empty. """
+        for fil in files:
+            sfile = src + fil
+            dfile = dst + fil
+            if not os.path.exists(dfile):
+                command(sfile, dfile, *opts)
+    return cmd_when_dst_empty
+
 def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
     script_path = os.path.realpath(__file__)
@@ -107,32 +118,21 @@ def home_config():
     src = script_dir + os.sep + 'dot_files' + os.sep
     dst = os.path.expanduser('~') + os.sep
 
-    # Copy files that get user details in plain text
-    sfile = src + '.bazaar'
-    dfile = dst + '.bazaar'
-    if not os.path.exists(dfile):
-        shutil.copytree(sfile, dfile, True)
+    # Helper function
+    helper = make_cmd(src, dst)
 
-    files = ['.gitconfig', '.hgrc']
-    for fil in files:
-        sfile = src + fil
-        dfile = dst + fil
-        if not os.path.exists(dfile):
-            shutil.copy(sfile, dfile)
+    # Copy files that get user details in plain text
+    helper(['.bazaar'], shutil.copytree, [True])
+    helper(['.gitconfig', '.hgrc'], shutil.copy)
 
     # Link to config files, and vim folder
     files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
              '.inputrc', '.vim', '.vimrc', '.ycm_extra_conf.py']
-    for fil in files:
-        sfile = src + fil
-        dfile = dst + fil
-        if not os.path.exists(dfile):
-            os.symlink(sfile, dfile)
+    helper(files, os.symlink)
 
     # Init vundle for vim plugin install.
     ddir = dst + '.vim' + os.sep + 'bundle' + os.sep
     if not os.path.exists(ddir):
-        print('Creating bunlde dir ' + ddir)
         os.mkdir(ddir)
     get_code('git clone https://github.com/gmarik/Vundle.vim.git',
             ddir + 'Vundle.vim')
