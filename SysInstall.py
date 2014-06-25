@@ -100,8 +100,10 @@ def get_code(command, target):
 
 def make_cmd(src, dst):
     """ Generator for helper. """
-    def cmd_when_dst_empty(files, command, opts=[]):
+    def cmd_when_dst_empty(files, command, opts=None):
         """ Execute a command if destination empty. """
+        if opts == None:
+            opts = []
         for fil in files:
             sfile = src + fil
             dfile = dst + fil
