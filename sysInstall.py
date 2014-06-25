@@ -201,14 +201,14 @@ def packs_babun():
     dst = os.path.expanduser('~') + os.sep
 
     # Make empty directories to ignore parts of linux setup
-    for d in ['.ag', '.ack', '.fonts']:
-        ddir = dst + d
+    for name in ['.ag', '.ack', '.fonts']:
+        ddir = dst + name
         if not os.path.exists(ddir):
             os.mkdir(ddir)
 
     # Backup defaults and allow for new ones
-    for d in ['.gitconfig', '.vim']:
-        dfile = dst + d
+    for name in ['.gitconfig', '.vim']:
+        dfile = dst + name
         dfile_bak = dfile + '_bak'
         if os.path.exists(dfile) and not os.path.exists(dfile_bak):
             os.rename(dfile, dfile_bak)
@@ -275,8 +275,8 @@ def install_pipelight():
             'sudo apt-get install pipelight-multi',
             'pipelight-plugin --enable silverlight',
             'pipelight-plugin --enable flash',]
-    map(lambda x: x.split(), cmds)
-    map(subprocess.call, cmds)
+    cmds = [x.split() for x in cmds]
+    [subprocess.call(x) for x in cmds]
     print("Installation over, remember to use a useragent switcher.")
 
 def main():
@@ -297,7 +297,7 @@ def main():
     choices = args.choice[0]
 
     # Use a dict of funcs instead of a case switch
-    actions =  {'linux': packs_linux,
+    actions = {'linux': packs_linux,
                 'babun': packs_babun,
                 'home': home_config,
                 'python': packs_py,
@@ -307,7 +307,7 @@ def main():
                 }
 
     try:
-        map(lambda x: actions[x](), choices)
+        [actions[x]() for x in choices]
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
     except NotSudo:
