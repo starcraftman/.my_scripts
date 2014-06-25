@@ -242,7 +242,7 @@ def packs_linux():
             package = cache[pack]
             if not package.is_installed:
                 cmd.append(pack)
-        except Exception:
+        except KeyError:
             print("Package couldn't be selected: %s" % pack)
 
     print("Please wait, running: " + " ".join(cmd))
@@ -265,7 +265,8 @@ def install_jshint():
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.
-        See: http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html """
+    http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html
+    """
     if os.getuid() != 0:
         raise NotSudo
 
