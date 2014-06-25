@@ -25,6 +25,9 @@ fi
 #Info: https://ccache.samba.org/manual.html
 export CCACHE_DIR=~/.ccache
 
+# Ignore files with these suffixes for bash completion
+export FIGNORE=.bazaar:.git:.hg:.svn:.pyc
+
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
