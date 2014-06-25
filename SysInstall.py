@@ -194,7 +194,7 @@ def home_config():
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
-    cmd = 'pact install ' + BABUN
+    cmd = ('pact install ' + BABUN).split()
     subprocess.call(cmd)
 
     # Now prepare then invoke regular setup link common files
