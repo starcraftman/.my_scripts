@@ -21,6 +21,7 @@ try:
     from argcomplete import autocomplete
 except ImportError:
     def autocomplete(dummy):
+        """ Dummy func. """
         pass
 # These are languages that get execute.
 SCRIPT_LANGS = ('python', 'perl', 'ruby')

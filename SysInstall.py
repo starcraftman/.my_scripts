@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
 # Common tools:
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
@@ -19,6 +20,7 @@ try:
     from argcomplete import autocomplete
 except ImportError:
     def autocomplete(dummy):
+        """ Dummy func. """
         pass
 # Packages to install follow, broken down into categories.
 
@@ -261,7 +263,7 @@ def packs_py():
     subprocess.call(cmd)
 
     # Install python completion to system bash_completion.d.
-    cmd = 'activate-global-python-argcomplete'.split()
+    cmd = 'activate-global-python-argcomplete --user'.split()
     subprocess.call(cmd)
 
 def install_jshint():
