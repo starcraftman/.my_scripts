@@ -7,6 +7,12 @@
 
 # Neat bash tricks, http://blog.sanctum.geek.nz/category/bash
 # Some other tricks, http://www.tldp.org/LDP/abs/html/sample-bashrc.html
+# List of BASH vals https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
+
+# When debugging bash, $LINENO refers to current line of script
+# Also $RANDOM gives val from 0-32767
+# Note that `caller` builtin prints call stack.
+# Uses BASH_LINENO BASH_SOURCE & FUNCNAME arrays
 ############################################################################
 # Environment Variables
 ############################################################################
@@ -15,8 +21,6 @@
 if hash vim 2>/dev/null; then
     export EDITOR=vim
 fi
-
-# When debugging bash, $LINENO refers to current line of script
 
 # If you want to have a fallback path lookup, use CDPAth.
 #export CDPATH=~/programming
@@ -231,6 +235,7 @@ function jsonFix()
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 function my_ip() # Get IP adress on ethernet or wlan.
 {
+    caller
     local MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
       sed -e s/addr://)
     if [[ -z $MY_IP ]]; then
