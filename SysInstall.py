@@ -15,7 +15,11 @@ try:
     import apt
 except ImportError:
     print('not on debian system, don\'t use option install linux packages')
-
+try:
+    from argcomplete import autocomplete
+except ImportError:
+    def autocomplete(dummy):
+        pass
 # Packages to install follow, broken down into categories.
 
 PROGRAMS = """ \
@@ -295,13 +299,6 @@ def main():
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.\
     """
-    parser = argparse.ArgumentParser(description=mesg,
-            formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('choice', nargs='+', action='append', help='the stages')
-
-    args = parser.parse_args()  # Default parses argv[1:]
-    choices = args.choice[0]
-
     # Use a dict of funcs instead of a case switch
     actions = {'linux': packs_linux,
                 'babun': packs_babun,
@@ -311,6 +308,15 @@ def main():
                 'jshint': install_jshint,
                 'pipelight': install_pipelight
                 }
+
+    parser = argparse.ArgumentParser(description=mesg,
+            formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('choice', nargs='+', action='append', help='the stages',
+            choices=actions.keys())
+
+    autocomplete(parser)
+    args = parser.parse_args()  # Default parses argv[1:]
+    choices = args.choice[0]
 
     try:
         [actions[x]() for x in choices]
