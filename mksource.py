@@ -10,13 +10,17 @@
 
 # Imports
 from __future__ import print_function
-import argcomplete
 import argparse
 import glob
 import os
 import stat
 import sys
 from shutil import copyfile
+try:
+    import argcomplete
+    ARGCOMP = 1
+except ImportError:
+    pass
 
 # These are languages that get execute.
 SCRIPT_LANGS = ('python', 'perl', 'ruby')
@@ -71,7 +75,8 @@ def main():
     parser.add_argument('-i', action='append', dest='h_files',
                         default=[], help='header file to create')
 
-    argcomplete.autocomplete(parser)
+    if ARGCOMP == 1:
+        argcomplete.autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
 
     if args.lang not in SRC_DICT:
