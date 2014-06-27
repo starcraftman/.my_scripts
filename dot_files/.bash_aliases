@@ -174,6 +174,13 @@ alias vims='vim -o'
 # Set debug for bash
 alias debug='set -o nounset; set -o xtrace'
 alias debugoff='set +o nounset; set +o xtrace'
+
+# Apt aliases
+if hash apt 2>/dev/null; then
+    alias apti='sudo apt-get -y install'
+    alias aptr='sudo apt-get -y remove'
+    alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
+fi
 #}}}
 ############################################################################
 # Functions
