@@ -231,7 +231,7 @@ def packs_cabal():
     cmd = ('cabal install ' + CABAL).split()
     subprocess.call(cmd)
 
-def packs_linux():
+def packs_debian():
     """ Install packages on the current system. """
     if os.getuid() != 0:
         raise NotSudo
@@ -294,7 +294,7 @@ def main():
 
     choice      effect
     ------------------------------------------------------
-    linux       Install debian packages.
+    debian      Install debian packages.
     babun       Install babun packages.
     python      Install python libraries via pip.
     cabal       Install haskell packages for eclipse.
@@ -302,7 +302,7 @@ def main():
     pipelight   Install pipelight flash & silverlight.\
     """
     # Use a dict of funcs instead of a case switch
-    actions = {'linux': packs_linux,
+    actions = {'debian': packs_debian,
                 'babun': packs_babun,
                 'home': home_config,
                 'python': packs_py,

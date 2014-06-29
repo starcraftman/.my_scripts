@@ -171,10 +171,6 @@ fi
 # Always open with splits
 alias vims='vim -o'
 
-# Set debug for bash
-alias debug='set -o nounset; set -o xtrace'
-alias debugoff='set +o nounset; set +o xtrace'
-
 # Apt aliases
 if hash apt 2>/dev/null; then
     alias apti='sudo apt-get -y install'
@@ -186,6 +182,35 @@ fi
 # Functions
 ############################################################################
 #{{{
+# Toggles bash debug mode, when on:
+#  * Turns on tracing of every command (xtrace).
+#  * Prevents unsetting vars (nounset).
+#  * Prints lines before execution (verbose).
+#  * Disables bash prompt to avoid pollution with xtrace.
+function debug()
+{
+    local BRed='\e[1;31m'
+    local BGreen='\e[1;32m'
+    local NC="\e[m"
+    # If command is blank, turn off debug mode
+    if [ "x" == "x${PROMPT_COMMAND}" ]; then
+        set +o nounset
+        set +o verbose
+        set +o xtrace
+        PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
+        unset PROMPT_OLD_COMMAND
+        echo -e "Bash Debug Mode: ${BRed}DISABLED${NC}"
+    else
+        PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
+        PROMPT_COMMAND=""
+        set -o nounset
+        set -o verbose
+        set -o xtrace
+        echo -e "Bash Debug Mode: ${BGreen}ENABLED${NC}"
+        echo -e "Disable ${BRed}xtrace${NC} if you want to use completion."
+    fi
+}
+
 # Universal extract function, later versions of tar -xvf may work
 # more universally but not with older versions.
 function extract()
@@ -450,8 +475,11 @@ function prompt_callback {
 # Formats to:
 # directory [vcsInfo]
 # user@host
-GIT_PROMPT_START="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}{ $PS1_DIR\w$PS1_R }"
+GIT_PROMPT_START="$PS1_R\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}{ $PS1_DIR\w$PS1_R }"
 GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$ "
+
+# Shows status of last command.
+GIT_PROMPT_SHOW_LAST_COMMAND_INDICATOR=1
 
 source ~/.bash-git-prompt/gitprompt.sh
 
