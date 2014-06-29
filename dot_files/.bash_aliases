@@ -242,7 +242,6 @@ function jsonFix()
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 function my_ip() # Get IP adress on ethernet or wlan.
 {
-    caller
     local MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
       sed -e s/addr://)
     if [[ -z $MY_IP ]]; then
