@@ -15,7 +15,7 @@ ycm_compile.py
 * See my vim directory, this helper function compiles ycm for use.
 * YCM requires other things, see vimrc for details.
 
-install_system.py
+SysInstall.py
 -----------------
 * Keeps track of packages I need and reinstalls them on a fresh Ubuntu machine.
 * Does basic file copy of config and local cabal update for eclipseFp plugin.
