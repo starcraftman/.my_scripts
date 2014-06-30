@@ -1027,7 +1027,7 @@ function! s:PickScheme()
     call s:SetScheme()
 endfunction
 
-com! -nargs=+ ChangeTab call s:ChangeTab(<f-args>)
+com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
 
 function! s:ChangeSpace(old, new)
     let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old, a:old, a:old)
