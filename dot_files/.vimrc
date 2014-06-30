@@ -1029,7 +1029,7 @@ endfunction
 
 com! -nargs=+ ChangeTab call s:ChangeTab(<f-args>)
 
-function! s:ChangeTab(old, new)
+function! s:ChangeSpace(old, new)
     let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old, a:old, a:old)
     exec l:old
     retab!
