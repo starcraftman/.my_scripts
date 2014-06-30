@@ -1027,4 +1027,14 @@ function! s:PickScheme()
     call s:SetScheme()
 endfunction
 
+com! -nargs=+ ChangeTab call s:ChangeTab(<f-args>)
+
+function! s:ChangeTab(old, new)
+    let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old, a:old, a:old)
+    exec l:old
+    retab!
+    let l:new = printf('set ts=%s sts=%s sw=%s et', a:new, a:new, a:new)
+    exec l:new
+    retab
+endfunction
 " }}}

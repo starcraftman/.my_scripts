@@ -1,48 +1,48 @@
 #!/usr/bin/env bash
 SYS=generic
 if hash apt-get 2>/dev/null; then
-  SYS=debian
+    SYS=debian
 fi
 
 if [ "xdebian" == "x$SYS" ]; then
-  echo 'updating debian platform'
-  sudo apt-get update && sudo apt-get -y dist-upgrade
-  sudo apt-get autoremove
-  sudo apt-get -f install
+    echo 'updating debian platform'
+    sudo apt-get update && sudo apt-get -y dist-upgrade
+    sudo apt-get autoremove
+    sudo apt-get -f install
 fi
 
 if [ -d ~/.vim/bundle/Vundle.vim ]; then
-  echo 'Updating vim plugins.'
-  vim +PluginUpdate +qa
+    echo 'Updating vim plugins.'
+    vim +PluginUpdate +qa
 fi
 
 echo 'updating git repos'
 pushd .
 
 DIR=~/.hg-prompt
-if [[ -d $DIR ]]; then
-  cd $DIR
-  hg pull
+if [ -d $DIR ]; then
+    cd $DIR
+    hg pull
 fi
 
 DIR=~/.bash-git-prompt
-if [[ -d $DIR ]]; then
-  cd $DIR
-  git pull
+if [ -d $DIR ]; then
+    cd $DIR
+    git pull
 fi
 
 DIR=~/.hhighlighter
-if [[ -d $DIR ]]; then
-  cd $DIR
-  git pull
+if [ -d $DIR ]; then
+    cd $DIR
+    git pull
 fi
 
 popd
 
 # Force ag/ack update
 if [ "xdebian" == "x$SYS" ]; then
-  echo 'updating ack and ag'
-  \rm -Rf ~/.ag ~/.ack
-  sysInstall.py 2 > /dev/null 2>&1
+    echo 'updating ack and ag'
+    \rm -Rf ~/.ag ~/.ack
+    sysInstall.py 2 > /dev/null 2>&1
 fi
 echo 'done'
