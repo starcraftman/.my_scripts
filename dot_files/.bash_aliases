@@ -253,11 +253,6 @@ function ..()
     done
 }
 
-function lastExit()
-{
-    echo $?
-}
-
 function jsonFix()
 {
     cat "$1" | python -m json.tool > "fix_$1"
