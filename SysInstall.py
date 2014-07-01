@@ -183,6 +183,11 @@ def src_programs():
     home = os.path.expanduser('~') + os.sep
     bindir = home + '.optSoftware' + os.sep + 'bin'
 
+    # Only use on posix systems.
+    if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
+        print("This command only for unix.")
+        return
+
     # Install GNU Parallel.
     ddir = home + '.parallel'
     dfile = 'parallel.tar.bz2'
@@ -203,7 +208,7 @@ def src_programs():
 
     # Ag silver, repo package is old
     ddir = home + '.ag'
-    if os.name == 'posix' and not os.path.exists(ddir):
+    if not os.path.exists(ddir):
         get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
                 ddir)
         cmd = (ddir + os.sep + 'build.sh').split()
