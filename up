@@ -41,8 +41,8 @@ popd
 
 # Force ag/ack update
 if [ "xdebian" == "x$SYS" ]; then
-    echo 'updating ack and ag'
-    \rm -Rf ~/.ag ~/.ack
+    echo 'updating programs built from source'
+    \rm -Rf ~/.ag ~/.ack ~/.parallel
     SysInstall.py src > /dev/null 2>&1
 fi
 echo 'done'
