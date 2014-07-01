@@ -182,6 +182,7 @@ def build_parallel(temp, target):
     origdir = os.path.realpath(os.curdir)
     url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
     dfile = origdir + os.sep + 'parallel.tar.bz2'
+
     try:
         # Fetch program
         tfile = urllib.URLopener()
@@ -231,7 +232,7 @@ def src_programs():
     ddir = home + '.ack'
     if not os.path.exists(ddir):
         get_code('git clone https://github.com/petdance/ack2.git', ddir)
-        origdir = os.curdir
+        origdir = os.path.realpath(os.curdir)
         os.chdir(ddir)
         cmd = 'perl Makefile.PL'.split()
         subprocess.call(cmd)
