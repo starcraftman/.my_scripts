@@ -566,7 +566,7 @@ cnoreabbrev ps PluginSearch
 
 " Faster binding to escape insert
 inoremap jk <esc>
-vnoremap jk <esc>
+"vnoremap jk <esc>
 "inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
