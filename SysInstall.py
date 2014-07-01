@@ -177,11 +177,36 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
+def build_parallel(temp, target):
+    """ Build GNU Parallel from source, move to target. """
+    curdir = os.path.realpath(os.curdir)
+    url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
+    dfile = curdir + os.sep + 'parallel.tar.bz2'
+    try:
+        # Fetch program
+        tfile = urllib.URLopener()
+        tfile.retrieve(url, dfile)
+        tar = tarfile.open(dfile)
+        tar.extractall()
+        tdir = glob.glob(curdir + os.sep + 'parallel-*')[0]
+        os.rename(tdir, temp)
+
+        # Build & clean
+        os.chdir(temp)
+        subprocess.call('./configure')
+        subprocess.call('make')
+        sfile = temp + os.sep + 'src' + os.sep + 'parallel'
+        shutil.copy(sfile, target)
+        os.chdir(curdir)
+    finally:
+        os.remove(dfile)
+
 def src_programs():
     """ Download an install from source. """
     # Use hidden dir to avoid polluting home
     home = os.path.expanduser('~') + os.sep
     bindir = home + '.optSoftware' + os.sep + 'bin'
+    curdir = os.curdir
 
     # Only use on posix systems.
     if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
@@ -190,21 +215,8 @@ def src_programs():
 
     # Install GNU Parallel.
     ddir = home + '.parallel'
-    dfile = 'parallel.tar.bz2'
     if not os.path.exists(ddir):
-        url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
-        tfile = urllib.URLopener()
-        tfile.retrieve(url, dfile)
-        tar = tarfile.open(dfile)
-        tar.extractall()
-        tdir = glob.glob(home + 'parallel-*')[0]
-        os.rename(tdir, ddir)
-        os.chdir(ddir)
-        subprocess.call('./configure')
-        subprocess.call('make')
-        sfile = ddir + os.sep + 'src' + os.sep + 'parallel'
-        shutil.copy(sfile, bindir)
-        os.chdir(home)
+        build_parallel(ddir, bindir)
 
     # Ag silver, repo package is old
     ddir = home + '.ag'
@@ -225,7 +237,7 @@ def src_programs():
         subprocess.call(cmd)
         cmd = 'make ack-standalone'.split()
         subprocess.call(cmd)
-        os.chdir(home)
+        os.chdir(curdir)
         sfile = ddir + os.sep + 'ack-standalone'
         shutil.copy(sfile, bindir)
 
