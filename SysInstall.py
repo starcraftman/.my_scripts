@@ -179,16 +179,16 @@ def home_config():
 
 def build_parallel(temp, target):
     """ Build GNU Parallel from source, move to target. """
-    curdir = os.path.realpath(os.curdir)
+    origdir = os.path.realpath(os.curdir)
     url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
-    dfile = curdir + os.sep + 'parallel.tar.bz2'
+    dfile = origdir + os.sep + 'parallel.tar.bz2'
     try:
         # Fetch program
         tfile = urllib.URLopener()
         tfile.retrieve(url, dfile)
         tar = tarfile.open(dfile)
         tar.extractall()
-        tdir = glob.glob(curdir + os.sep + 'parallel-*')[0]
+        tdir = glob.glob(origdir + os.sep + 'parallel-*')[0]
         os.rename(tdir, temp)
 
         # Build & clean
@@ -197,7 +197,7 @@ def build_parallel(temp, target):
         subprocess.call('make')
         sfile = temp + os.sep + 'src' + os.sep + 'parallel'
         shutil.copy(sfile, target)
-        os.chdir(curdir)
+        os.chdir(origdir)
     finally:
         os.remove(dfile)
 
@@ -206,7 +206,6 @@ def src_programs():
     # Use hidden dir to avoid polluting home
     home = os.path.expanduser('~') + os.sep
     bindir = home + '.optSoftware' + os.sep + 'bin'
-    curdir = os.curdir
 
     # Only use on posix systems.
     if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
@@ -232,12 +231,13 @@ def src_programs():
     ddir = home + '.ack'
     if not os.path.exists(ddir):
         get_code('git clone https://github.com/petdance/ack2.git', ddir)
+        origdir = os.curdir
         os.chdir(ddir)
         cmd = 'perl Makefile.PL'.split()
         subprocess.call(cmd)
         cmd = 'make ack-standalone'.split()
         subprocess.call(cmd)
-        os.chdir(curdir)
+        os.chdir(origdir)
         sfile = ddir + os.sep + 'ack-standalone'
         shutil.copy(sfile, bindir)
 
