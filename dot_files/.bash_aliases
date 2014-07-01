@@ -207,6 +207,7 @@ function debug()
     else
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
+        export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
         set -o nounset
         set -o verbose
         set -o xtrace
