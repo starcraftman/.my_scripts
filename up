@@ -43,6 +43,6 @@ popd
 if [ "xdebian" == "x$SYS" ]; then
     echo 'updating ack and ag'
     \rm -Rf ~/.ag ~/.ack
-    sysInstall.py 2 > /dev/null 2>&1
+    SysInstall.py src > /dev/null 2>&1
 fi
 echo 'done'

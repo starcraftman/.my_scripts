@@ -140,15 +140,19 @@ fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
-alias ag='ag --smart-case --follow --color-match="1;34"'
-# Alias for file name searc
-alias agf='ag -g'
+if hash ag 2>/dev/null; then
+    alias ag='ag --smart-case --follow --color-match="1;34"'
+    # Alias for file name searc
+    alias agf='ag -g'
+fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
-# Alias for ack find file
-alias ackf='ack -g'
+if hash ag 2>/dev/null; then
+    alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
+    # Alias for ack find file
+    alias ackf='ack -g'
+fi
 
 # Grep should always print line
 alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'

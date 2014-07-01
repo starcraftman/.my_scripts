@@ -9,9 +9,12 @@
 # Imports
 from __future__ import print_function
 import argparse
+import glob
 import os
 import subprocess
 import shutil
+import tarfile
+import urllib
 try:
     import apt
 except ImportError:
@@ -124,10 +127,10 @@ def home_config():
 
     # Leaving trailing sep for ease later.
     src = script_dir + os.sep + 'dot_files' + os.sep
-    dst = os.path.expanduser('~') + os.sep
+    home = os.path.expanduser('~') + os.sep
 
     # Helper function
-    helper = make_cmd(src, dst)
+    helper = make_cmd(src, home)
 
     # Copy files that get user details in plain text
     helper(['.bazaar'], shutil.copytree, [True])
@@ -139,7 +142,7 @@ def home_config():
     helper(files, os.symlink)
 
     # Init vundle for vim plugin install.
-    ddir = dst + '.vim' + os.sep + 'bundle' + os.sep
+    ddir = home + '.vim' + os.sep + 'bundle' + os.sep
     if not os.path.exists(ddir):
         os.mkdir(ddir)
     get_code('git clone https://github.com/gmarik/Vundle.vim.git',
@@ -147,46 +150,21 @@ def home_config():
 
     # Setup git/hg prompt.
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
-            dst + '.hg-prompt')
+            home + '.hg-prompt')
     get_code('git clone https://github.com/magicmonty/bash-git-prompt.git',
-            dst + '.bash-git-prompt')
+            home + '.bash-git-prompt')
 
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
-            dst + '.hhighlighter')
+            home + '.hhighlighter')
 
     # Custom bins go here, ensure it exists
-    ddir = dst + '.optSoftware' + os.sep + 'bin'
+    ddir = home + '.optSoftware' + os.sep + 'bin'
     if not os.path.exists(ddir):
         os.makedirs(ddir)
 
-    # Ag silver, repo package is old
-    ddir = dst + '.ag'
-    if os.name == 'posix' and not os.path.exists(ddir):
-        get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
-                ddir)
-        cmd = (ddir + os.sep + 'build.sh').split()
-        subprocess.call(cmd)
-        sfile = ddir + os.sep + 'ag'
-        dfile = dst + '.optSoftware' + os.sep + 'bin'
-        shutil.copy(sfile, dfile)
-
-    # Ack, may sometimes be preferred over ag
-    ddir = dst + '.ack'
-    if not os.path.exists(ddir):
-        get_code('git clone https://github.com/petdance/ack2.git', ddir)
-        os.chdir(ddir)
-        cmd = 'perl Makefile.PL'.split()
-        subprocess.call(cmd)
-        cmd = 'make ack-standalone'.split()
-        subprocess.call(cmd)
-        os.chdir(dst)
-        sfile = ddir + os.sep + 'ack-standalone'
-        dfile = dst + '.optSoftware' + os.sep + 'bin' + os.sep + 'ack'
-        shutil.copy(sfile, dfile)
-
     # Setup powerline fonts if not done.
-    ddir = dst + '.fonts'
+    ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
@@ -195,9 +173,56 @@ def home_config():
         subprocess.call(cmd)
 
     # Create dir for ccache
-    ddir = dst + '.ccache'
+    ddir = home + '.ccache'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
+
+def src_programs():
+    """ Download an install from source. """
+    # Use hidden dir to avoid polluting home
+    home = os.path.expanduser('~') + os.sep
+    bindir = home + '.optSoftware' + os.sep + 'bin'
+
+    # Install GNU Parallel.
+    ddir = home + '.parallel'
+    dfile = 'parallel.tar.bz2'
+    if not os.path.exists(ddir):
+        url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
+        tfile = urllib.URLopener()
+        tfile.retrieve(url, dfile)
+        tar = tarfile.open(dfile)
+        tar.extractall()
+        tdir = glob.glob(home + 'parallel-*')[0]
+        os.rename(tdir, ddir)
+        os.chdir(ddir)
+        subprocess.call('./configure')
+        subprocess.call('make')
+        sfile = ddir + os.sep + 'src' + os.sep + 'parallel'
+        shutil.copy(sfile, bindir)
+        os.chdir(home)
+
+    # Ag silver, repo package is old
+    ddir = home + '.ag'
+    if os.name == 'posix' and not os.path.exists(ddir):
+        get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
+                ddir)
+        cmd = (ddir + os.sep + 'build.sh').split()
+        subprocess.call(cmd)
+        sfile = ddir + os.sep + 'ag'
+        shutil.copy(sfile, bindir)
+
+    # Ack, may sometimes be preferred over ag
+    ddir = home + '.ack'
+    if not os.path.exists(ddir):
+        get_code('git clone https://github.com/petdance/ack2.git', ddir)
+        os.chdir(ddir)
+        cmd = 'perl Makefile.PL'.split()
+        subprocess.call(cmd)
+        cmd = 'make ack-standalone'.split()
+        subprocess.call(cmd)
+        os.chdir(home)
+        sfile = ddir + os.sep + 'ack-standalone'
+        shutil.copy(sfile, bindir)
 
 def packs_babun():
     """ Setup a fresh babun install. """
@@ -206,17 +231,16 @@ def packs_babun():
     subprocess.call(cmd)
 
     # Now prepare then invoke regular setup link common files
-    dst = os.path.expanduser('~') + os.sep
+    home = os.path.expanduser('~') + os.sep
 
-    # Make empty directories to ignore parts of linux setup
-    for name in ['.ag', '.ack', '.fonts']:
-        ddir = dst + name
-        if not os.path.exists(ddir):
-            os.mkdir(ddir)
+    # Prevent fonts from running with home_config
+    ddir = home + '.fonts'
+    if not os.path.exists(ddir):
+        os.mkdir(ddir)
 
     # Backup defaults and allow for new ones
     for name in ['.gitconfig', '.vim']:
-        dfile = dst + name
+        dfile = home + name
         dfile_bak = dfile + '_bak'
         if os.path.exists(dfile) and not os.path.exists(dfile_bak):
             os.rename(dfile, dfile_bak)
@@ -299,7 +323,8 @@ def main():
     python      Install python libraries via pip.
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
-    pipelight   Install pipelight flash & silverlight.\
+    pipelight   Install pipelight flash & silverlight.
+    src         Install from source ag, ack & parallel.\
     """
     # Use a dict of funcs instead of a case switch
     actions = {'debian': packs_debian,
@@ -308,7 +333,8 @@ def main():
                 'python': packs_py,
                 'cabal': packs_cabal,
                 'jshint': install_jshint,
-                'pipelight': install_pipelight
+                'pipelight': install_pipelight,
+                'src': src_programs,
                 }
 
     parser = argparse.ArgumentParser(description=mesg,
