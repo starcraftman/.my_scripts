@@ -198,7 +198,7 @@ function debug()
     local NC="\e[m"
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT_COMMAND}" ]; then
-        set +o nounset
+        #set +o nounset
         set +o verbose
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
@@ -208,11 +208,11 @@ function debug()
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
         export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
-        set -o nounset
+        #set -o nounset
         set -o verbose
         set -o xtrace
         echo -e "Bash Debug Mode: ${BGreen}ENABLED${NC}"
-        echo -e "Disable ${BRed}xtrace${NC} if you want to use completion."
+        echo -e "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
 }
 
