@@ -270,19 +270,36 @@ function jsonFix()
     cat "$1" | python -m json.tool > "fix_$1"
 }
 
-# Useful functions almost entirely taken from:
+# Useful functions inspired by:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
-function my_ip() # Get IP adress on ethernet or wlan.
+function my_nics() # Get IP adress of all nics of eth*/wlan*
 {
-    local MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
-      sed -e s/addr://)
-    if [ -z $MY_IP ]; then
-        MY_IP=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' |
-        sed -e s/addr://)
-    fi
-    echo ${MY_IP:-"Not connected"}
+    local BGreen='\e[1;32m'
+    local NC="\e[m"
+    local INTS=($(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }'))
+    # Ample use of awk/sed for field extraction.
+    for INT in ${INTS[@]} ; do
+        local MAC=$(ifconfig $INT | awk '/HWaddr/ { print $5 }')
+        local IP=$(/sbin/ifconfig $INT | awk '/inet / { print $2 } ' |
+          sed -e s/addr://)
+        local BCAST=$(/sbin/ifconfig $INT | awk '/inet / { print $3 } ' |
+          sed -e s/Bcast://)
+        local MASK=$(/sbin/ifconfig $INT | awk '/inet / { print $4 } ' |
+          sed -e s/Mask://)
+        local IP6=$(/sbin/ifconfig $INT | awk '/inet6/ { print $3 } ')
+
+        echo -e "Interface: ${BGreen}$INT${NC}"
+        echo -e "\tMac:   ${MAC}"
+        echo -e "\tIPV4:  ${IP:-"Not connected"}"
+        if [[ -n ${IP} ]]; then
+            echo -e "\tBCast: ${BCAST}"
+            echo -e "\tMask:  ${MASK}"
+            echo -e "\tIPV6:  ${IP6:-"N/A."}"
+        fi
+    done
 }
-function mydf()         # Pretty-print of 'df' output.
+
+function my_df()         # Pretty-print of 'df' output.
 {                       # Inspired by 'dfc' utility.
     for fs ; do
 
@@ -319,11 +336,11 @@ function ii()   # Get current host related info.
              cut -d " " -f1 | sort | uniq
     echo -e "${BBlue}Current date :$NC " ; date
     echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Diskspace :$NC " ; mydf / $HOME
+    echo -e "${BBlue}Diskspace :$NC " ; my_df / $HOME
     echo -e "${BBlue}Memory stats :$NC " ; free -h
     echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
     echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    echo -e "${BBlue}Local IP Address :$NC" ; my_ip
+    echo -e "${BBlue}Network Interfaces :$NC" ; my_nics
     echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
     echo
 }
