@@ -290,11 +290,11 @@ function my_nics() # Get IP adress of all nics of eth*/wlan*
 
         echo -e "Interface: ${BGreen}$INT${NC}"
         echo -e "\tMac:   ${MAC}"
-        echo -e "\tIPV4:  ${IP:-"Not connected"}"
+        echo -e "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
             echo -e "\tBCast: ${BCAST}"
             echo -e "\tMask:  ${MASK}"
-            echo -e "\tIPV6:  ${IP6:-"N/A."}"
+            echo -e "\tIPv6:  ${IP6:-"N/A."}"
         fi
     done
 }
