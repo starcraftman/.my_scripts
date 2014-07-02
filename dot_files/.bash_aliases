@@ -405,6 +405,11 @@ if hash stty 2>/dev/null; then
     stty -ixon
 fi
 
+# Set bash tabstop to 4 spaces, default is 8 too wide
+if hash tabs 2>/dev/null; then
+    tabs 4
+fi
+
 # KDE DEV Options:
 
 # I have a kde-bashrc file with shortcuts for building.
