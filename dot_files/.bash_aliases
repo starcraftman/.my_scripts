@@ -276,7 +276,7 @@ function my_ip() # Get IP adress on ethernet or wlan.
 {
     local MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' |
       sed -e s/addr://)
-    if [[ -z $MY_IP ]]; then
+    if [ -z $MY_IP ]; then
         MY_IP=$(/sbin/ifconfig wlan0 | awk '/inet/ { print $2 } ' |
         sed -e s/addr://)
     fi
@@ -438,7 +438,7 @@ PS1_USER=$PS1_CYAN
 PS1_HOST=$PS1_GREEN
 
 # If root, highlight it
-if [[ $UID -eq 0 ]]; then
+if [ $UID -eq 0 ]; then
     PS1_USER=$PS1_YELLOWBOLD
 fi
 
