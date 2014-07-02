@@ -260,7 +260,7 @@ function ..()
 
 function termcolor()
 {
-    curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl
+    curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl 2>/dev/null
     perl ./c.pl
     \rm c.pl
 }
