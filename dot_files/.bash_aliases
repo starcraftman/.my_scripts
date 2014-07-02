@@ -258,6 +258,13 @@ function ..()
     done
 }
 
+function termcolor()
+{
+    curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl
+    perl ./c.pl
+    \rm c.pl
+}
+
 function jsonFix()
 {
     cat "$1" | python -m json.tool > "fix_$1"
