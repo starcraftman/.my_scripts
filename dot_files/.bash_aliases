@@ -191,7 +191,7 @@ fi
 #  * Prevents unsetting vars (nounset).
 #  * Prints lines before execution (verbose).
 #  * Disables bash prompt to avoid pollution with xtrace.
-function debug()
+debug()
 {
     local BRed='\e[1;31m'
     local BGreen='\e[1;32m'
@@ -218,7 +218,7 @@ function debug()
 
 # Universal extract function, later versions of tar -xvf may work
 # more universally but not with older versions.
-function extract()
+extract()
 {
     if [ -f $1 ] ; then
         case $1 in
@@ -245,7 +245,7 @@ function extract()
 
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
-function ..()
+..()
 {
     if [ $1 -ge 0 2> /dev/null ]; then
         x=$1;
@@ -258,21 +258,24 @@ function ..()
     done
 }
 
-function termcolor()
+# Test the term color support
+termcolor()
 {
     curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl 2>/dev/null
     perl ./c.pl
     \rm c.pl
 }
 
-function jsonFix()
+# Format a json file to be pretty
+jsonFix()
 {
     cat "$1" | python -m json.tool > "fix_$1"
 }
 
 # Useful functions inspired by:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
-function my_nics() # Get IP adress of all nics of eth*/wlan*
+# Get info on all network interfaces
+my_nics()
 {
     local BGreen='\e[1;32m'
     local NC="\e[m"
@@ -296,8 +299,9 @@ function my_nics() # Get IP adress of all nics of eth*/wlan*
     done
 }
 
-function my_df()         # Pretty-print of 'df' output.
-{                       # Inspired by 'dfc' utility.
+# Pretty print of df, like dfc.
+my_df()
+{
     for fs ; do
 
         if [ ! -d $fs ]
@@ -321,7 +325,8 @@ function my_df()         # Pretty-print of 'df' output.
     done
 }
 
-function ii()   # Get current host related info.
+# Get information on current system
+ii()
 {
     local BBlue='\e[1;34m'
     local NC="\e[m"
@@ -470,7 +475,8 @@ fi
 # This callback fetches the hg stuff to insert only if in hg repo, looks like bash-git-prompt message.
 # HG Prompt: http://sjl.bitbucket.org/hg-prompt/
 # Git Prompt: https://github.com/magicmonty/bash-git-prompt
-function prompt_callback {
+prompt_callback()
+{
     local HG=`hg prompt "[${PS1_MAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}{ ${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}]" 2>/dev/null`
 
     # Strip everything except where status to outgoing would be.
