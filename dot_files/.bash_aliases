@@ -410,6 +410,7 @@ fi
 # Set bash tabstop to 4 spaces, default is 8 too wide
 if hash tabs 2>/dev/null; then
     tabs 4
+    clear
 fi
 
 # KDE DEV Options:
