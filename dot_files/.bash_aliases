@@ -279,11 +279,11 @@ function my_nics() # Get IP adress of all nics of eth*/wlan*
     local INTS=($(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }'))
     # Ample use of awk/sed for field extraction.
     for INT in ${INTS[@]} ; do
-        local MAC=  $(ifconfig $INT | awk '/HWaddr/ { print $5 }')
-        local IP=   $(ifconfig $INT | awk '/inet / { print $2 } ' | sed -e s/addr://)
+        local   MAC=$(ifconfig $INT | awk '/Waddr/ { print $5 } ')
+        local    IP=$(ifconfig $INT | awk '/inet / { print $2 } ' | sed -e s/addr://)
         local BCAST=$(ifconfig $INT | awk '/inet / { print $3 } ' | sed -e s/Bcast://)
-        local MASK= $(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
-        local IP6=  $(ifconfig $INT | awk '/inet6/ { print $3 } ')
+        local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
+        local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
         echo -e "Interface: ${BGreen}$INT${NC}"
         echo -e "\tMac:   ${MAC}"
