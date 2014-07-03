@@ -11,7 +11,7 @@
 
 # When debugging bash, $LINENO refers to current line of script
 # Also $RANDOM gives val from 0-32767
-# Note that `caller` builtin prints call stack.
+# Note that `caller expr` builtin prints call stack, where expr is framenumber.
 # Uses BASH_LINENO BASH_SOURCE & FUNCNAME arrays
 ############################################################################
 # Environment Variables
