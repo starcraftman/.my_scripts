@@ -102,13 +102,23 @@ alias lt='ll -tr'  # Modification time
 alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
 alias lu='ll -tur' # Access time
 
+# Always create non-existing parent dirs
+alias mkdir='mkdir -vp'
+
+# Grep should always print line
+alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
+# Re alias these to take advantage of above
+alias egrep='grep -E'
+alias fgrep='grep -F'
+alias rgrep='grep -r'
+
+# Always open with splits
+alias vims='vim -o'
+
 # Tree program, use instead of recursive ls. Very pretty.
 if hash tree 2>/dev/null; then
     alias tree='tree -Csuh'
 fi
-
-# Always create non-existing parent dirs
-alias mkdir='mkdir -vp'
 
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
@@ -148,18 +158,11 @@ fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-if hash ag 2>/dev/null; then
+if hash ack 2>/dev/null; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
     # Alias for ack find file
     alias ackf='ack -g'
 fi
-
-# Grep should always print line
-alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
-# Re alias these to take advantage of above
-alias egrep='grep -E'
-alias fgrep='grep -F'
-alias rgrep='grep -r'
 
 # Alias for color tools.
 if hash colordiff 2>/dev/null; then
@@ -171,9 +174,6 @@ fi
 if hash colorgcc 2>/dev/null; then
     alias cog='colorgcc'
 fi
-
-# Always open with splits
-alias vims='vim -o'
 
 # Apt aliases
 if hash apt 2>/dev/null; then
