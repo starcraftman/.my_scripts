@@ -126,7 +126,7 @@ alias please='sudo `fc -l -n -1`'
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
 if hash trash-put 2>/dev/null; then
     alias trash-restore='restore-trash'
-    alias tr='restore-trash'
+    alias tre='restore-trash'
     alias tp='trash-put'
     alias tl='trash-list'
     alias te='trash-empty'
