@@ -182,8 +182,8 @@ def report_down(block_count, bytes_per_block, total_size):
         total_down = block_count * bytes_per_block
         if total_down > total_size:
             total_down = total_size
-        percent = float(total_down * 100) / total_size
-        print("Download is %.1f%% complete." % percent)
+        percent = round((total_down * 100) / total_size)
+        print("Download is %d%% complete." % percent)
 
 def build_parallel(temp, target):
     """ Build GNU Parallel from source, move to target. """
@@ -193,6 +193,7 @@ def build_parallel(temp, target):
 
     try:
         # Fetch program
+        print("Downloading latest parallel source.")
         tfile = urllib.URLopener()
         tfile.retrieve(url, dfile, report_down)
         tar = tarfile.open(dfile)

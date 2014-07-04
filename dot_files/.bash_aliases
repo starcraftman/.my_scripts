@@ -234,7 +234,7 @@ extract()
             *.tar)              tar xvf "$file"                   ;;
             *.tbz2|*.tar.bz2)   tar xvjf "$file"                  ;;
             *.tgz|*.tar.gz)     tar xvzf "$file"                  ;;
-            *.tar.xz)           lzcat "$file" | tar xvf -         ;;
+            *.tar.xz)           tar xvf "$file"                   ;;
             *.tar.Z)            zcat "$file" | tar xvf -          ;;
             *.bz|*.bz2)         bunzip2 "$file"                   ;;
             *.gz)               gunzip "$file"                    ;;
