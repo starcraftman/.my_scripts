@@ -24,9 +24,9 @@ B_DIR = 'build'
 
 # Functions
 
-def out(msg):
+def out(msgs):
     """ Immediate flush for hook. """
-    sys.stdout.write(msg)
+    sys.stdout.write("".join(msgs))
     sys.stdout.flush()
 
 def get_procs():
@@ -43,41 +43,50 @@ def get_procs():
     os.remove('temp')
     return procs
 
-def gen_report(cnt):
+def gen_report(progress):
     """ Report hook generator. """
     def report_down(block_count, bytes_per_block, total_size):
         """ Simple report hook. """
         if block_count == 0:
-            out("Download Progress: [")
+            print("Download Started")
         elif total_size < 0:
             print("Read %d blocks" % block_count)
         else:
             total_down = block_count * bytes_per_block
-            if total_down > total_size:
-                total_down = total_size
-            percent = (total_down * 100) / total_size
-            cnt.update(percent)
+            percent = (total_down * 100.0) / total_size
+            if total_down >= total_size or progress.check_percent(percent):
+                progress.inc()
+                progress.draw()
     return report_down
 
-class Counter(object):
-    """ Counter wrapper, makes horizontal bar based on ticks. """
-    def __init__(self, init, num_ticks, tick):
-        self.percent = init
-        self.tick_mod = 100 / num_ticks
+class Progress(object):
+    """ Draw a simple progress bar. """
+    def __init__(self, tick, empty, total_ticks):
         self.tick = tick
-    def update(self, new_percent):
-        """ Check if we made over our old percent. """
-        if new_percent > self.percent:
-            self.percent = new_percent
-            self.draw()
+        self.empty = empty
+        self.total_ticks = total_ticks
+        self.num_ticks = 0
+        self.old_percent = 0
+    def check_percent(self, new_percent):
+        if new_percent >= self.old_percent + self.tick_threshold():
+            self.old_percent = new_percent
+            return True
+        else:
+            return False
+    def inc(self):
+        self.num_ticks += 1
     def draw(self):
-        """ Draw if we are on a tick. """
-        if self.percent == 0:
-            out("Download Progress: [")
-        elif (self.percent % self.tick_mod) == 0:
-            out(self.tick)
-        if self.percent == 100:
-            print("]")
+        num_empty = self.total_ticks - self.num_ticks
+        sys.stdout.write("Download Progress: [")
+        sys.stdout.write(self.tick * self.num_ticks)
+        sys.stdout.write(self.empty * num_empty)
+        sys.stdout.write("]\n")
+        sys.stdout.flush()
+    def tick_threshold(self):
+        return 100 / self.total_ticks
+    @staticmethod
+    def default_prog():
+        return Progress('=', '*', 20)
 
 def cleanup():
     """ Simple cleanup function. """
@@ -88,35 +97,44 @@ def cleanup():
             else:
                 os.remove(fil)
 
-def main():
-    """ Main function. """
+def get_clang():
+    """ Download clang for ycm. """
     ext_index = CLANG_FILE.rindex('.tar')
     extracted_dir = CLANG_FILE[0:ext_index]
 
+    print('Please wait, downloading clang.')
+    cfile = urllib.URLopener()
+    cfile.retrieve(CLANG_URL, CLANG_FILE,
+            gen_report(Progress.default_prog()))
+
+    cmd = ('tar xf ' + CLANG_FILE).split()
+    subprocess.call(cmd)
+    os.rename(extracted_dir, CLANG_DIR)
+
+def build_ycm():
+    """ Build the shared library for ycm. """
+    os.mkdir(B_DIR)
+    os.chdir(B_DIR)
+
+    n_procs = get_procs()
+    cmd = ['cmake', '-GUnix Makefiles',
+                '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
+                '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp']
+    subprocess.call(cmd)
+
+    cmd = 'make -j{} ycm_support_libs'.format(n_procs).split()
+    subprocess.call(cmd)
+
+def main():
+    """ Main function. """
+    origdir = os.path.realpath(os.curdir)
+
     try:
         if CLANG_DIR not in os.listdir('.'):
-            print('Please wait, downloading clang.')
-            cnt = Counter(0, 20, '=')
-            cfile = urllib.URLopener()
-            cfile.retrieve(CLANG_URL, CLANG_FILE, gen_report(cnt))
-
-            cmd = ('tar xf ' + CLANG_FILE).split()
-            subprocess.call(cmd)
-            os.rename(extracted_dir, CLANG_DIR)
-
-        os.mkdir(B_DIR)
-        os.chdir(B_DIR)
-
-        n_procs = get_procs()
-        cmd = ['cmake', '-GUnix Makefiles',
-                    '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
-                    '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp']
-        subprocess.call(cmd)
-
-        cmd = 'make -j{} ycm_support_libs'.format(n_procs).split()
-        subprocess.call(cmd)
-        os.chdir('..')
+            get_clang()
+        build_ycm()
     finally:
+        os.chdir(origdir)
         cleanup()
 
 # Main
