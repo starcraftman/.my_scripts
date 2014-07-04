@@ -283,7 +283,7 @@ termcolor()
 jsonFix()
 {
     for file ; do
-        cat "$1" | python -m json.tool > "fix_$1"
+        cat "$file" | python -m json.tool > "fix_$file"
     done
 }
 
