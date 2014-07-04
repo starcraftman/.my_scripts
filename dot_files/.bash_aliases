@@ -176,7 +176,7 @@ if hash colorgcc 2>/dev/null; then
 fi
 
 # Apt aliases
-if hash apt 2>/dev/null; then
+if hash apt-get 2>/dev/null; then
     alias apti='sudo apt-get -y install'
     alias aptr='sudo apt-get -y remove'
     alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
@@ -224,6 +224,8 @@ extract()
         case $1 in
             *.deb)       ar p "$1" data.tar.gz | tar zx ;;
             *.rpm)       rpm2cpio "$1" | cpio -vid ;;
+            *.jar)       jar xf "$1"      ;;
+            *.iso)       7z x "$1"        ;;
             *.tar)       tar xvf "$1"     ;;
             *.tar.bz2)   tar xvjf "$1"    ;;
             *.tar.gz)    tar xvzf "$1"    ;;
