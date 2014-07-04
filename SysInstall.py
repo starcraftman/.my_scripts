@@ -158,11 +158,6 @@ def home_config():
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             home + '.hhighlighter')
 
-    # Custom bins go here, ensure it exists
-    ddir = home + '.optSoftware' + os.sep + 'bin'
-    if not os.path.exists(ddir):
-        os.makedirs(ddir)
-
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'
@@ -212,6 +207,10 @@ def src_programs():
     if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
         print("This command only for unix.")
         return
+
+    # Ensure bindir exists
+    if not os.path.exists(bindir):
+        os.makedirs(bindir)
 
     # Install GNU Parallel.
     ddir = home + '.parallel'
