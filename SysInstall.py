@@ -172,6 +172,19 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
+def report_down(block_count, bytes_per_block, total_size):
+    """ Simple report hook. """
+    if block_count == 0:
+        print("Connection open")
+    elif total_size < 0:
+        print("Read %d blocks" % block_count)
+    else:
+        total_down = block_count * bytes_per_block
+        if total_down > total_size:
+            total_down = total_size
+        percent = float(total_down * 100) / total_size
+        print("Download is %.1f%% complete." % percent)
+
 def build_parallel(temp, target):
     """ Build GNU Parallel from source, move to target. """
     origdir = os.path.realpath(os.curdir)
@@ -181,7 +194,7 @@ def build_parallel(temp, target):
     try:
         # Fetch program
         tfile = urllib.URLopener()
-        tfile.retrieve(url, dfile)
+        tfile.retrieve(url, dfile, report_down)
         tar = tarfile.open(dfile)
         tar.extractall()
         tdir = glob.glob(origdir + os.sep + 'parallel-*')[0]
