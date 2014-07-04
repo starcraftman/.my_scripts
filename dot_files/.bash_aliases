@@ -221,39 +221,38 @@ debug()
 extract()
 {
     for file ; do
-        echo "Passed $file to extract."
-        continue
-        if [ -f $file ] ; then
-            case $file in
-                *.deb)              ar p "$file" data.tar.gz | tar zx ;;
-                *.rpm)              rpm2cpio "$file" | cpio -vid      ;;
-                *.jar)              jar xf "$file"                    ;;
-                *.iso)              7z x "$file"                      ;;
-                *.tar)              tar xvf "$file"                   ;;
-                *.tbz2|*.tar.bz2)   tar xvjf "$file"                  ;;
-                *.tgz|*.tar.gz)     tar xvzf "$file"                  ;;
-                *.tar.xz)           lzcat "$file" | tar xvf -         ;;
-                *.tar.Z)            zcat "$file" | tar xvf -          ;;
-                *.bz|*.bz2)         bunzip2 "$file"                   ;;
-                *.gz)               gunzip "$file"                    ;;
-                *.rar)              unrar x "$file"                   ;;
-                *.xz)               unlzma "$file"                    ;;
-                *.Z)                uncompress "$file"                ;;
-                *.zip)              unzip "$file"                     ;;
-                *.7z)               7z x "$file"                      ;;
-                *.dmg)
-                    echo "You will need to mount via loopback."
-                    echo "use: mount -o loop -t hfs "$file" /mnt/point"
-                    ;;
-                *.img|*.dd)
-                    echo "You will need to mount via loopback."
-                    echo "use: mount -o loop -t iso9660 "$file" /mnt/point"
-                    ;;
-                *)  echo "'$file' cannot be extracted via >extract<"  ;;
-            esac
-        else
+        if [ ! -f $file ] ; then
             echo "'$file' is not a valid file!"
+            continue
         fi
+
+        case $file in
+            *.deb)              ar p "$file" data.tar.gz | tar zx ;;
+            *.rpm)              rpm2cpio "$file" | cpio -vid      ;;
+            *.jar)              jar xf "$file"                    ;;
+            *.iso)              7z x "$file"                      ;;
+            *.tar)              tar xvf "$file"                   ;;
+            *.tbz2|*.tar.bz2)   tar xvjf "$file"                  ;;
+            *.tgz|*.tar.gz)     tar xvzf "$file"                  ;;
+            *.tar.xz)           lzcat "$file" | tar xvf -         ;;
+            *.tar.Z)            zcat "$file" | tar xvf -          ;;
+            *.bz|*.bz2)         bunzip2 "$file"                   ;;
+            *.gz)               gunzip "$file"                    ;;
+            *.rar)              unrar x "$file"                   ;;
+            *.xz)               unlzma "$file"                    ;;
+            *.Z)                uncompress "$file"                ;;
+            *.zip)              unzip "$file"                     ;;
+            *.7z)               7z x "$file"                      ;;
+            *.dmg)
+                echo "You will need to mount via loopback."
+                echo "use: mount -o loop -t hfs "$file" /mnt/point"
+                ;;
+            *.img|*.dd)
+                echo "You will need to mount via loopback."
+                echo "use: mount -o loop -t iso9660 "$file" /mnt/point"
+                ;;
+            *)  echo "'$file' cannot be extracted via >extract<"  ;;
+        esac
     done
 }
 
@@ -283,7 +282,9 @@ termcolor()
 # Format a json file to be pretty
 jsonFix()
 {
-    cat "$1" | python -m json.tool > "fix_$1"
+    for file ; do
+        cat "$1" | python -m json.tool > "fix_$1"
+    done
 }
 
 # Useful functions inspired by:
@@ -318,9 +319,9 @@ my_df()
 {
     for fs ; do
 
-        if [ ! -d $fs ]
-        then
-          echo -e $fs" :No such file or directory" ; continue
+        if [ ! -d $fs ]; then
+            echo -e $fs" :No such file or directory"
+            continue
         fi
 
         local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
