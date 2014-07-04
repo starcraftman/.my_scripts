@@ -500,10 +500,8 @@ prompt_callback()
     T=${T%%]}
 
     # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
-    if [ "x${HG}" != "x" ]; then
-        if ! [[ ${T} =~ [!?^↓↑] ]]; then
-            HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_R}]"
-        fi
+    if [ "x${HG}" != "x" ] && [[ ! ${T} =~ [!?^↓↑] ]]; then
+        HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_R}]"
     fi
 
     # Print don't print extra space unless need to.
