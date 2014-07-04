@@ -222,23 +222,31 @@ extract()
 {
     if [ -f $1 ] ; then
         case $1 in
-            *.deb)       ar p "$1" data.tar.gz | tar zx ;;
-            *.rpm)       rpm2cpio "$1" | cpio -vid ;;
-            *.jar)       jar xf "$1"      ;;
-            *.iso)       7z x "$1"        ;;
-            *.tar)       tar xvf "$1"     ;;
-            *.tar.bz2)   tar xvjf "$1"    ;;
-            *.tar.gz)    tar xvzf "$1"    ;;
-            *.tar.xz)    tar xvf "$1"     ;;
-            *.tbz2)      tar xvjf "$1"    ;;
-            *.tgz)       tar xvzf "$1"    ;;
-            *.bz2)       bunzip2 "$1"     ;;
-            *.gz)        gunzip "$1"      ;;
-            *.rar)       unrar x "$1"     ;;
-            *.zip)       unzip "$1"       ;;
-            *.Z)         uncompress "$1"  ;;
-            *.7z)        7z x "$1"        ;;
-            *)           echo "'$1' cannot be extracted via >extract<" ;;
+            *.deb)              ar p "$1" data.tar.gz | tar zx ;;
+            *.rpm)              rpm2cpio "$1" | cpio -vid      ;;
+            *.jar)              jar xf "$1"                    ;;
+            *.iso)              7z x "$1"                      ;;
+            *.tar)              tar xvf "$1"                   ;;
+            *.tbz2|*.tar.bz2)   tar xvjf "$1"                  ;;
+            *.tgz|*.tar.gz)     tar xvzf "$1"                  ;;
+            *.tar.xz)           lzcat "$1" | tar xvf -         ;;
+            *.tar.Z)            zcat "$1" | tar xvf -          ;;
+            *.bz|*.bz2)         bunzip2 "$1"                   ;;
+            *.gz)               gunzip "$1"                    ;;
+            *.rar)              unrar x "$1"                   ;;
+            *.xz)               unlzma "$1"                    ;;
+            *.Z)                uncompress "$1"                ;;
+            *.zip)              unzip "$1"                     ;;
+            *.7z)               7z x "$1"                      ;;
+            *.dmg)
+                echo "You will need to mount via loopback."
+                echo "use: mount -o loop -t hfs "$1" /mnt/point"
+                ;;
+            *.img|*.dd)
+                echo "You will need to mount via loopback."
+                echo "use: mount -o loop -t iso9660 "$1" /mnt/point"
+                ;;
+            *)  echo "'$1' cannot be extracted via >extract<"  ;;
         esac
     else
         echo "'$1' is not a valid file!"
