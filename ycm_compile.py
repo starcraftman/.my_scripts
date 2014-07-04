@@ -11,7 +11,7 @@ import os
 import shutil
 import subprocess
 import urllib
-import sys
+import SysInstall
 
 # Data
 CLANG_SITE = 'http://llvm.org/releases/3.4.1/'
@@ -23,11 +23,6 @@ B_DIR = 'build'
 # Classes
 
 # Functions
-
-def out(msgs):
-    """ Immediate flush for hook. """
-    sys.stdout.write("".join(msgs))
-    sys.stdout.flush()
 
 def get_procs():
     """ Use BASH one liner to determine number of threads available. """
@@ -42,51 +37,6 @@ def get_procs():
 
     os.remove('temp')
     return procs
-
-def gen_report(progress):
-    """ Report hook generator. """
-    def report_down(block_count, bytes_per_block, total_size):
-        """ Simple report hook. """
-        if block_count == 0:
-            print("Download Started")
-        elif total_size < 0:
-            print("Read %d blocks" % block_count)
-        else:
-            total_down = block_count * bytes_per_block
-            percent = (total_down * 100.0) / total_size
-            if total_down >= total_size or progress.check_percent(percent):
-                progress.inc()
-                progress.draw()
-    return report_down
-
-class Progress(object):
-    """ Draw a simple progress bar. """
-    def __init__(self, tick, empty, total_ticks):
-        self.tick = tick
-        self.empty = empty
-        self.total_ticks = total_ticks
-        self.num_ticks = 0
-        self.old_percent = 0
-    def check_percent(self, new_percent):
-        if new_percent >= self.old_percent + self.tick_threshold():
-            self.old_percent = new_percent
-            return True
-        else:
-            return False
-    def inc(self):
-        self.num_ticks += 1
-    def draw(self):
-        num_empty = self.total_ticks - self.num_ticks
-        sys.stdout.write("Download Progress: [")
-        sys.stdout.write(self.tick * self.num_ticks)
-        sys.stdout.write(self.empty * num_empty)
-        sys.stdout.write("]\n")
-        sys.stdout.flush()
-    def tick_threshold(self):
-        return 100 / self.total_ticks
-    @staticmethod
-    def default_prog():
-        return Progress('=', '*', 20)
 
 def cleanup():
     """ Simple cleanup function. """
@@ -103,9 +53,10 @@ def get_clang():
     extracted_dir = CLANG_FILE[0:ext_index]
 
     print('Please wait, downloading clang.')
+    prog = SysInstall.Progress.default_prog()
     cfile = urllib.URLopener()
     cfile.retrieve(CLANG_URL, CLANG_FILE,
-            gen_report(Progress.default_prog()))
+            SysInstall.gen_report(prog))
 
     cmd = ('tar xf ' + CLANG_FILE).split()
     subprocess.call(cmd)

@@ -13,6 +13,7 @@ import glob
 import os
 import subprocess
 import shutil
+import sys
 import tarfile
 import urllib
 try:
@@ -94,7 +95,60 @@ class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
+class Progress(object):
+    """ Draw a simple progress bar. """
+    def __init__(self, tick, empty, total_ticks):
+        self.tick = tick
+        self.empty = empty
+        self.total_ticks = total_ticks
+        self.num_ticks = 0
+        self.old_percent = 0
+    def check_percent(self, new_percent):
+        """ Helper, check if passed a point. """
+        if new_percent >= self.old_percent + self.tick_threshold():
+            self.old_percent = new_percent
+            return True
+        else:
+            return False
+    def draw(self):
+        """ Draw a bar for progress after incrementing. """
+        self.num_ticks += 1
+        num_empty = self.total_ticks - self.num_ticks
+        sys.stdout.write("Download Progress: [")
+        sys.stdout.write(self.tick * self.num_ticks)
+        sys.stdout.write(self.empty * num_empty)
+        sys.stdout.write("]\n")
+        sys.stdout.flush()
+    def tick_threshold(self):
+        """ Return number of % per tick on bar. """
+        return 100 / self.total_ticks
+    @staticmethod
+    def default_prog():
+        """ Factor method, makes a bar with defaults. """
+        return Progress('=', '*', 20)
+
 # Functions
+
+
+def out(msgs):
+    """ Immediate flush for hook. """
+    sys.stdout.write("".join(msgs))
+    sys.stdout.flush()
+
+def gen_report(progress):
+    """ Report hook generator. """
+    def report_down(block_count, bytes_per_block, total_size):
+        """ Simple report hook. """
+        if block_count == 0:
+            print("Download Started")
+        elif total_size < 0:
+            print("Read %d blocks" % block_count)
+        else:
+            total_down = block_count * bytes_per_block
+            percent = (total_down * 100.0) / total_size
+            if total_down >= total_size or progress.check_percent(percent):
+                progress.draw()
+    return report_down
 
 def get_code(command, target):
     """ Wrapper function to clone repos.
@@ -172,19 +226,6 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-def report_down(block_count, bytes_per_block, total_size):
-    """ Simple report hook. """
-    if block_count == 0:
-        print("Connection open")
-    elif total_size < 0:
-        print("Read %d blocks" % block_count)
-    else:
-        total_down = block_count * bytes_per_block
-        if total_down > total_size:
-            total_down = total_size
-        percent = (total_down * 100) / total_size
-        print("Download is %d%% complete." % percent)
-
 def build_parallel(temp, target):
     """ Build GNU Parallel from source, move to target. """
     origdir = os.path.realpath(os.curdir)
@@ -194,8 +235,9 @@ def build_parallel(temp, target):
     try:
         # Fetch program
         print("Downloading latest parallel source.")
+        prog = Progress.default_prog()
         tfile = urllib.URLopener()
-        tfile.retrieve(url, dfile, report_down)
+        tfile.retrieve(url, dfile, gen_report(prog))
         tar = tarfile.open(dfile)
         tar.extractall()
         tdir = glob.glob(origdir + os.sep + 'parallel-*')[0]
