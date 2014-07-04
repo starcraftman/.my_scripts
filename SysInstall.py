@@ -90,7 +90,6 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete trash-cli"
 
-
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
@@ -128,7 +127,6 @@ class Progress(object):
         return Progress('=', '*', 20)
 
 # Functions
-
 
 def out(msgs):
     """ Immediate flush for hook. """
