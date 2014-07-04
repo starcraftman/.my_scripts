@@ -182,7 +182,7 @@ def report_down(block_count, bytes_per_block, total_size):
         total_down = block_count * bytes_per_block
         if total_down > total_size:
             total_down = total_size
-        percent = round((total_down * 100) / total_size)
+        percent = (total_down * 100) / total_size
         print("Download is %d%% complete." % percent)
 
 def build_parallel(temp, target):
