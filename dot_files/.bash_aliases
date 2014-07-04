@@ -245,12 +245,10 @@ extract()
             *.7z)               7z x "$file"                      ;;
             *.dmg)
                 echo "You will need to mount via loopback."
-                echo "use: mount -o loop -t hfs "$file" /mnt/point"
-                ;;
+                echo "mount -o loop -t hfs "$file" /mnt/pt"       ;;
             *.img|*.dd)
                 echo "You will need to mount via loopback."
-                echo "use: mount -o loop -t iso9660 "$file" /mnt/point"
-                ;;
+                echo "mount -o loop -t iso9660 "$file" /mnt/pt"   ;;
             *)  echo "'$file' cannot be extracted via >extract<"  ;;
         esac
     done
