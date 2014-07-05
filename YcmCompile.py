@@ -81,8 +81,7 @@ def main():
     origdir = os.path.realpath(os.curdir)
 
     try:
-        if CLANG_DIR not in os.listdir('.'):
-            get_clang()
+        get_clang()
         build_ycm()
     finally:
         os.chdir(origdir)
