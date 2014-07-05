@@ -192,8 +192,9 @@ def home_config():
     helper(['.gitconfig', '.hgrc'], shutil.copy)
 
     # Link to config files, and vim folder
-    files = ['.bash_aliases', '.gitignore_global', '.hgignore_global',
-             '.inputrc', '.vim', '.vimrc', '.ycm_extra_conf.py']
+    files = ['.bashrc', '.bash_aliases', '.gitignore_global',
+             '.hgignore_global', '.inputrc', '.vim', '.vimrc',
+             '.ycm_extra_conf.py']
     helper(files, os.symlink)
 
     # Init vundle for vim plugin install.
