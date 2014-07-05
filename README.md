@@ -5,12 +5,12 @@ This repo contains some scripts I use.
 If anyone else likes them, use them.
 I've also added in some configs that I don't want to lose like my vimrc and eclipse settings.
 
-mksource.py
+MkSource.py
 -----------
 * I like to use templates when I write scripts/c, this file copies them.
 * See templates folder, some like python maybe should be separated to a notes file...
 
-ycm_compile.py
+YcmCompile.py
 --------------
 * See my vim directory, this helper function compiles ycm for use.
 * YCM requires other things, see vimrc for details.
