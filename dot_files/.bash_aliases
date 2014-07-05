@@ -280,10 +280,10 @@ extract()
 #   repeat 10 echo foo
 repeat()
 {
-    local count="$1" i;
-    shift;
+    local count="$1" i
+    shift
     for i in $(seq 1 "$count"); do
-        eval "$@";
+        eval "$@"
     done
 }
 
