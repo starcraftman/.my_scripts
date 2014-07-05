@@ -106,6 +106,10 @@ alias lu='ll -tur' # Access time
 # Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
 
+# Alias for use of pushd/popd
+alias pu="pushd"
+alias po="popd"
+
 # Grep should always print line
 alias grep='grep --color=auto -n --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.bzr --exclude-dir=.svn --exclude-dir=.cvs'
 # Re alias these to take advantage of above
@@ -267,6 +271,17 @@ extract()
 
     for (( i = 0; i < $x; i++ )); do
         cd ..;
+    done
+}
+
+# Repeat a command n times, example:
+#   repeat 10 echo foo
+repeat()
+{
+    local count="$1" i;
+    shift;
+    for i in $(seq 1 "$count"); do
+        eval "$@";
     done
 }
 
