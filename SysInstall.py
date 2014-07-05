@@ -172,6 +172,7 @@ def make_cmd(src, dst):
             sfile = src + fil
             dfile = dst + fil
             if not os.path.exists(dfile):
+                print("{} >>>>> {}".format(sfile, dfile))
                 command(sfile, dfile, *opts)
     return cmd_when_dst_empty
 
