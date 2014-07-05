@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# I know this file is traditionally for user aliases.
-# I am using it for all my custom bash modifications from standard.
-
-# Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
-# File to test: http://www.robmeerman.co.uk/_media/unix/256colors2.pl
+# This file contains all bash modifications apart from .bashrc by Ubuntu.
 
 # Neat bash tricks, http://blog.sanctum.geek.nz/category/bash
 # Some other tricks, http://www.tldp.org/LDP/abs/html/sample-bashrc.html
@@ -99,9 +95,9 @@ alias l='ls'
 # Different sorts
 alias lx='ll -XB'  # Extension
 alias lk='ll -Sr'  # File size
-alias lt='ll -tr'  # Modification time
-alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
 alias lu='ll -tur' # Access time
+alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
+alias lt='ll -tr'  # Modification time
 
 # Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
@@ -117,13 +113,14 @@ alias egrep='grep -E'
 alias fgrep='grep -F'
 alias rgrep='grep -r'
 
+# Reruns the last command with sudo.
+alias please='sudo `fc -l -n -1`'
+
+# type used to determine what command is, list all entries
+alias types='type -a'
+
 # Always open with splits
 alias vims='vim -o'
-
-# Tree program, use instead of recursive ls. Very pretty.
-if hash tree 2>/dev/null; then
-    alias tree='tree -Csuh'
-fi
 
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
@@ -132,11 +129,50 @@ if hash dfc 2>/dev/null; then
     alias dfc='dfc -T'
 fi
 
-# type used to determine what command is, list all entries
-alias types='type -a'
+# Default ack options, use smart case, sort output by file and follow symlinks.
+# Filter by type with --type, supported types `ack --help-types`
+if hash ack 2>/dev/null; then
+    alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
+    # Alias for ack find file
+    alias ackf='ack -g'
+fi
 
-# Reruns the last command with sudo.
-alias please='sudo `fc -l -n -1`'
+# Alias for silver search
+# For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
+if hash ag 2>/dev/null; then
+    alias ag='ag --smart-case --follow --color-match="1;34"'
+    # Alias for file name searc
+    alias agf='ag -g'
+fi
+
+# Add an "alert" alias for long running commands. Example:
+#   sleep 10; alert
+if hash notify-send 2>/dev/null; then
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+fi
+
+# Apt aliases
+if hash apt-get 2>/dev/null; then
+    alias apti='sudo apt-get -y install'
+    alias aptr='sudo apt-get -y remove'
+    alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
+fi
+
+# Alias for color tools.
+if hash colordiff 2>/dev/null; then
+    alias cod='colordiff'
+fi
+if hash colorgcc 2>/dev/null; then
+    alias cog='colorgcc'
+fi
+if hash colormake 2>/dev/null; then
+    alias com='colormake'
+fi
+
+# Silence parallel
+if hash parallel 2>/dev/null; then
+    alias parallel='parallel --no-notice'
+fi
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
 if hash trash-put 2>/dev/null; then
@@ -148,43 +184,9 @@ if hash trash-put 2>/dev/null; then
     alias rm='echo "Don''t use. If must, \rm -Rf file."; false'
 fi
 
-# Silence parallel
-if hash parallel 2>/dev/null; then
-    alias parallel='parallel --no-notice'
-fi
-
-# Alias for silver search
-# For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
-if hash ag 2>/dev/null; then
-    alias ag='ag --smart-case --follow --color-match="1;34"'
-    # Alias for file name searc
-    alias agf='ag -g'
-fi
-
-# Default ack options, use smart case, sort output by file and follow symlinks.
-# Filter by type with --type, supported types `ack --help-types`
-if hash ack 2>/dev/null; then
-    alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
-    # Alias for ack find file
-    alias ackf='ack -g'
-fi
-
-# Alias for color tools.
-if hash colordiff 2>/dev/null; then
-    alias cod='colordiff'
-fi
-if hash colormake 2>/dev/null; then
-    alias com='colormake'
-fi
-if hash colorgcc 2>/dev/null; then
-    alias cog='colorgcc'
-fi
-
-# Apt aliases
-if hash apt-get 2>/dev/null; then
-    alias apti='sudo apt-get -y install'
-    alias aptr='sudo apt-get -y remove'
-    alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
+# Tree program, use instead of recursive ls. Very pretty.
+if hash tree 2>/dev/null; then
+    alias tree='tree -Csuh'
 fi
 #}}}
 ############################################################################
@@ -285,8 +287,8 @@ repeat()
     done
 }
 
-# Test the term color support
-termcolor()
+# Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
+termColor()
 {
     curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl 2>/dev/null
     perl ./c.pl
@@ -304,7 +306,7 @@ jsonFix()
 # Useful functions inspired by:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 # Get info on all network interfaces
-my_nics()
+listNics()
 {
     local BGreen='\e[1;32m'
     local NC="\e[m"
@@ -329,7 +331,7 @@ my_nics()
 }
 
 # Pretty print of df, like dfc.
-my_df()
+prettyDf()
 {
     for fs ; do
 
@@ -367,11 +369,11 @@ ii()
              cut -d " " -f1 | sort | uniq
     echo -e "${BBlue}Current date :$NC " ; date
     echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Diskspace :$NC " ; my_df / $HOME
+    echo -e "${BBlue}Diskspace :$NC " ; prettyDf / $HOME
     echo -e "${BBlue}Memory stats :$NC " ; free -h
     echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
     echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    echo -e "${BBlue}Network Interfaces :$NC" ; my_nics
+    echo -e "${BBlue}Network Interfaces :$NC" ; listNics
     echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
     echo
 }
@@ -402,18 +404,23 @@ set -o notify
 # When making small typos with cd, go to best match
 shopt -s cdspell
 
-# Always append instead of overwriting history
-shopt -s histappend
-
-# Multiline commands to be on single lines in history
-shopt -s cmdhist
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# Multiline commands to be on single lines in history
+shopt -s cmdhist
+
 # Ensure extended globbing allowed
+# http://www.linuxjournal.com/content/bash-extended-globbing
 shopt -s extglob
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+# Always append instead of overwriting history
+shopt -s histappend
 
 # Don't expand empty commands
 shopt -s no_empty_cmd_completion
