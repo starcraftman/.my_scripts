@@ -90,6 +90,8 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete trash-cli"
 
+# Classes
+
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
@@ -123,8 +125,8 @@ class Progress(object):
         return 100 / self.total_ticks
     @staticmethod
     def default_prog():
-        """ Factor method, makes a bar with defaults. """
-        return Progress('=', '*', 20)
+        """ Factory method, makes a bar with defaults. """
+        return Progress('*', '-', 20)
 
 # Functions
 
