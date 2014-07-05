@@ -59,6 +59,7 @@ PROGRAMMING = """ \
     colormake colordiff colorgcc jq \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
+    bash-doc bash-builtins bashdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     erlang erlang-eunit \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
