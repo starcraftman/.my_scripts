@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This file contains all bash modifications apart from .bashrc by Ubuntu.
+# This file contains all bash modifications apart from .bashrc.
 
 # Neat bash tricks, http://blog.sanctum.geek.nz/category/bash
 # Some other tricks, http://www.tldp.org/LDP/abs/html/sample-bashrc.html
