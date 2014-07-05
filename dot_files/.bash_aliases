@@ -30,6 +30,7 @@ fi
 export CCACHE_DIR=~/.ccache
 
 # Ignore files with these suffixes for bash completion
+# NB: For dirs like .bzr, bzr line will ignore anything ending in bzr.
 export FIGNORE=bzr:git:hg:svn:.class:.o:.pyc
 
 # Change grep color to bold blue
