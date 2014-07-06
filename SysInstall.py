@@ -145,11 +145,6 @@ class PDir(object):
 
 # Functions
 
-def out(msgs):
-    """ Immediate flush for hook. """
-    sys.stdout.write("".join(msgs))
-    sys.stdout.flush()
-
 def gen_report(progress):
     """ Report hook generator. """
     def report_down(block_count, bytes_per_block, total_size):
