@@ -225,7 +225,7 @@ debug()
 
 # Universal extract function, later versions of tar -xvf may work
 # more universally but not with older versions.
-extract()
+unarchive()
 {
     for file ; do
         if [ ! -f $file ] ; then
