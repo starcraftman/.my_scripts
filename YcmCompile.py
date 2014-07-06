@@ -24,20 +24,6 @@ B_DIR = 'build'
 
 # Functions
 
-def get_procs():
-    """ Use BASH one liner to determine number of threads available. """
-    tfile = open('temp', 'w')
-    subprocess.call('cat /proc/cpuinfo | grep "processor" | wc -l',
-                    stdout=tfile, shell=True)
-    tfile.close()
-
-    tfile = open('temp', 'r')
-    procs = int(tfile.read())
-    tfile.close()
-
-    os.remove('temp')
-    return procs
-
 def cleanup():
     """ Simple cleanup function. """
     for fil in [B_DIR, CLANG_DIR, CLANG_FILE]:
@@ -67,12 +53,12 @@ def build_ycm():
     os.mkdir(B_DIR)
     os.chdir(B_DIR)
 
-    n_procs = get_procs()
     cmd = ['cmake', '-GUnix Makefiles',
                 '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
                 '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp']
     subprocess.call(cmd)
 
+    n_procs = SysInstall.get_procs()
     cmd = 'make -j{} ycm_support_libs'.format(n_procs).split()
     subprocess.call(cmd)
 

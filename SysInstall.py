@@ -151,6 +151,20 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
+def get_procs():
+    """ Use BASH one liner to determine number of threads available. """
+    tfile = open('temp', 'w')
+    subprocess.call('cat /proc/cpuinfo | grep "processor" | wc -l',
+                    stdout=tfile, shell=True)
+    tfile.close()
+
+    tfile = open('temp', 'r')
+    procs = int(tfile.read())
+    tfile.close()
+
+    os.remove('temp')
+    return procs
+
 def get_code(command, target):
     """ Wrapper function to clone repos.
     Protects against overwriting if target exists.
@@ -249,7 +263,8 @@ def build_parallel(srcdir, target):
         # Build & clean
         os.chdir(srcdir)
         subprocess.call('./configure')
-        subprocess.call('make')
+        cmd = 'make -j{}'.format(get_procs()).split()
+        subprocess.call(cmd)
         sfile = srcdir + os.sep + 'src' + os.sep + 'parallel'
         shutil.copy(sfile, target)
         os.chdir(origdir)
@@ -307,7 +322,8 @@ def src_programs():
         get_code('git clone https://github.com/doxygen/doxygen.git', srcdir)
         os.chdir(srcdir)
         subprocess.call('./configure')
-        subprocess.call('make')
+        cmd = 'make -j{}'.format(get_procs()).split()
+        subprocess.call(cmd)
         os.chdir('..')
         shutil.copy(srcdir + 'doxygen', prog)
 
