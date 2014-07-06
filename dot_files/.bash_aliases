@@ -59,8 +59,9 @@ export PAGER=less
 # Path Settings
 ############################################################################
 #{{{
-# Local dir to install to, put binaries into ~/.optSoftware/bin.
-LOCAL=~/.optSoftware
+# .software is for any precompiled programs & libraries I install.
+# .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
+SOFT=~/.software
 export OPT=~/.opt
 
 # Personal scripts go here to stay outside of root.
@@ -70,13 +71,13 @@ MYSCRIPTS=~/.my_scripts
 HASKELL_BIN=~/.cabal/bin
 
 # Exported paths.
-ANDROID=$LOCAL/android-sdk-linux/tools:$LOCAL/android-sdk-linux/platform-tools:$LOCAL/android-ndk
-EXTRALIB=$LOCAL/JDKExtraJARs/ExtraLibraryClasses:$LOCAL/JDKExtraJARs/JunitLibs
+ANDROID=$SOFT/android-sdk-linux/tools:$SOFT/android-sdk-linux/platform-tools:$SOFT/android-ndk
+EXTRALIB=$SOFT/JDKExtraJARs/ExtraLibraryClasses:$SOFT/JDKExtraJARs/JunitLibs
 LIBDIR=/usr/local/lib
-export JAVA_HOME=$LOCAL/jdk1.8.0_05
+export JAVA_HOME=$SOFT/jdk
 export LD_LIBRARY_PATH=$LIBDIR:$JAVA_HOME/jre/lib/amd64:$LD_LIBRARY_PATH
 export LD_RUN_PATH=$LIBDIR:$LD_RUN_PATH
-export PATH=$JAVA_HOME/bin:$MYSCRIPTS:$OPT/bin:$LOCAL/bin:$HASKELL_BIN:$ANDROID:$PATH
+export PATH=$JAVA_HOME/bin:$MYSCRIPTS:$OPT/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CLASSPATH=$JAVA_HOME/lib:$EXTRALIB:.
 
 # Paths for specific tools.
@@ -99,6 +100,9 @@ alias lk='ll -Sr'  # File size
 alias lu='ll -tur' # Access time
 alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
 alias lt='ll -tr'  # Modification time
+
+# Recursive cp
+alias cpr='cp -r'
 
 # Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
