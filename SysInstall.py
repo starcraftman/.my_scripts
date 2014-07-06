@@ -284,6 +284,11 @@ def build_ag(optdir):
     subprocess.call(cmd)
     PDir.pop()
 
+    # Seems to strip srcdir, redownload to have a copy left
+    shutil.rmtree(srcdir)
+    get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
+            srcdir)
+
 def build_doxygen(optdir):
     """ Build doxygen from source, move to target dir. """
     srcdir = optdir + 'src' + os.sep + 'doxygen' + os.sep

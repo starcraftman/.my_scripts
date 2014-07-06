@@ -40,9 +40,9 @@ fi
 popd
 
 # Force ag/ack update
-if [ "xdebian" == "x$SYS" ] && [ -f ~/.ag/README.md ]; then
+if [ "xdebian" == "x$SYS" ] && [ -f $OPT/src/ag/README.md ]; then
     echo 'updating programs built from source'
-    \rm -R $OPT
+    \rm -R -f $OPT
     SysInstall.py src > /dev/null 2>&1
 fi
 echo 'done'
