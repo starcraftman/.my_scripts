@@ -34,6 +34,7 @@ PROGRAMS = """ \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
+    kdirstat \
     chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
@@ -262,18 +263,26 @@ def build_ack(optdir):
     subprocess.call(cmd)
     cmd = 'make ack-standalone'.split()
     subprocess.call(cmd)
+    cmd = 'make manifypods'.split()
+    subprocess.call(cmd)
     PDir.pop()
 
     shutil.copy(srcdir + 'ack-standalone', optdir + 'bin' + os.sep + 'ack')
+    for man in glob.glob(srcdir + 'blib' + os.sep + 'man1' + os.sep + '*.1*'):
+        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
 
 def build_ag(optdir):
     """ Build ag from source, move to target dir. """
     srcdir = optdir + 'src' + os.sep + 'ag' + os.sep
     get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
             srcdir)
-    cmd = (srcdir + 'build.sh').split()
+
+    PDir.push(srcdir)
+    cmd = ('./build.sh --prefix=' + optdir).split()
     subprocess.call(cmd)
-    shutil.copy(srcdir + 'ag', optdir + 'bin')
+    cmd = 'make install'.split()
+    subprocess.call(cmd)
+    PDir.pop()
 
 def build_doxygen(optdir):
     """ Build doxygen from source, move to target dir. """
@@ -287,7 +296,10 @@ def build_doxygen(optdir):
     subprocess.call(cmd)
     PDir.pop()
 
+    # Odd behaviour when using --prefix with build, so just copy manually
     shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', optdir + 'bin')
+    for man in glob.glob(srcdir + 'doc' + os.sep + '*.1') :
+        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
 
 def build_parallel(optdir):
     """ Build GNU Parallel from source, move to target dir. """
@@ -328,7 +340,7 @@ def src_programs():
         return
 
     # Ensure opt dirs exist
-    for odir in [optdir + 'bin', optdir + 'src', optdir + 'doc']:
+    for odir in [optdir + 'bin', optdir + 'src', optdir + 'share' + os.sep + 'man' + os.sep + 'man1']:
         if not os.path.exists(odir):
             os.makedirs(odir)
 
