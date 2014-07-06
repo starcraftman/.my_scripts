@@ -78,6 +78,7 @@ PROGRAMMING = """ \
     swi-prolog swi-prolog-doc \
     python python-doc python3-doc python-pip python3-pip jython jython-doc \
     pychecker pylint pep8 python-autopep8 ruby1.9.1-full shunit2 \
+    tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
 
@@ -243,8 +244,41 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-def build_parallel(srcdir, target):
-    """ Build GNU Parallel from source, move to target. """
+def build_ack(srcdir):
+    """ Build ack from source, move to target dir. """
+    get_code('git clone https://github.com/petdance/ack2.git', srcdir)
+    os.chdir(srcdir)
+    cmd = 'perl Makefile.PL'.split()
+    subprocess.call(cmd)
+    cmd = 'make ack-standalone'.split()
+    subprocess.call(cmd)
+    os.chdir('..')
+    shutil.copy(srcdir + 'ack-standalone',
+            srcdir + os.sep + '..' + os.sep + 'ack')
+
+def build_ag(srcdir):
+    """ Build ag from source, move to target dir. """
+    get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
+            srcdir)
+    cmd = (srcdir + 'build.sh').split()
+    subprocess.call(cmd)
+    shutil.copy(srcdir + 'ag', srcdir + os.sep + '..')
+
+def build_doxygen(srcdir):
+    """ Build doxygen from source, move to target dir. """
+    get_code('git clone https://github.com/doxygen/doxygen.git', srcdir)
+    os.chdir(srcdir)
+    # Note prefix is set so bins end up in regular bindir
+    prefix = srcdir + '..' + os.sep + '..'
+    cmd = ('./configure --prefix=' + prefix).split()
+    subprocess.call('./configure --prefix={')
+    cmd = 'make -j{} install'.format(get_procs()).split()
+    subprocess.call(cmd)
+    os.chdir('..')
+    shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', srcdir + os.sep + '..')
+
+def build_parallel(srcdir):
+    """ Build GNU Parallel from source, move to target dir. """
     origdir = os.path.realpath(os.curdir)
     url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
     dfile = origdir + os.sep + 'parallel.tar.bz2'
@@ -262,11 +296,14 @@ def build_parallel(srcdir, target):
 
         # Build & clean
         os.chdir(srcdir)
-        subprocess.call('./configure')
-        cmd = 'make -j{}'.format(get_procs()).split()
+        # Note prefix is set so bins end up in regular bindir
+        prefix = srcdir + '..' + os.sep + '..'
+        cmd = ('./configure --prefix=' + prefix).split()
+        subprocess.call(cmd)
+        cmd = 'make -j{} install'.format(get_procs()).split()
         subprocess.call(cmd)
         sfile = srcdir + os.sep + 'src' + os.sep + 'parallel'
-        shutil.copy(sfile, target)
+        shutil.copy(sfile, srcdir + os.sep + '..')
         os.chdir(origdir)
     finally:
         os.remove(dfile)
@@ -286,46 +323,21 @@ def src_programs():
     if not os.path.exists(bindir):
         os.makedirs(bindir)
 
-    # Install GNU Parallel.
-    prog = bindir + 'parallel'
-    srcdir = prog + '_src' + os.sep
-    if not os.path.exists(prog):
-        build_parallel(srcdir, bindir)
+    funcs = {'ag':      build_ag,
+            'ack':      build_ack,
+            'doxygen':  build_doxygen,
+            'parallel': build_parallel,
+            }
 
-    # Ag silver, repo package is old
-    prog = bindir + 'ag'
-    srcdir = prog + '_src' + os.sep
-    if not os.path.exists(prog):
-        get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
-                srcdir)
-        cmd = (srcdir + 'build.sh').split()
-        subprocess.call(cmd)
-        shutil.copy(srcdir + 'ag', prog)
-
-    # Ack, may sometimes be preferred over ag
-    prog = bindir + 'ack'
-    srcdir = prog + '_src' + os.sep
-    if not os.path.exists(prog):
-        get_code('git clone https://github.com/petdance/ack2.git', srcdir)
-        os.chdir(srcdir)
-        cmd = 'perl Makefile.PL'.split()
-        subprocess.call(cmd)
-        cmd = 'make ack-standalone'.split()
-        subprocess.call(cmd)
-        os.chdir('..')
-        shutil.copy(srcdir + 'ack-standalone', prog)
-
-    # Doxygen, not often updated in ubuntu repos.
-    prog = bindir + 'doxygen'
-    srcdir = prog + '_src'
-    if not os.path.exists(prog):
-        get_code('git clone https://github.com/doxygen/doxygen.git', srcdir)
-        os.chdir(srcdir)
-        subprocess.call('./configure')
-        cmd = 'make -j{}'.format(get_procs()).split()
-        subprocess.call(cmd)
-        os.chdir('..')
-        shutil.copy(srcdir + 'doxygen', prog)
+    # Build programs and copy bins to bindir.
+    for name in sorted(funcs.keys()):
+        prog = bindir + name
+        srcdir = prog + '_src' + os.sep
+        if not os.path.exists(prog):
+            if os.path.exists(srcdir):
+                shutil.rmtree(srcdir)
+            funcs[name](srcdir)
+            print('Finished building ' + prog)
 
 def packs_babun():
     """ Setup a fresh babun install. """
