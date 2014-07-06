@@ -374,7 +374,13 @@ ii()
              cut -d " " -f1 | sort | uniq
     echo -e "${BBlue}Current date :$NC " ; date
     echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Diskspace :$NC " ; prettyDf / $HOME
+    echo -e "${BBlue}Diskspace :$NC "
+    if hash dfc 2>/dev/null; then
+        dfc
+    else
+        local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
+        prettyDf $mounts
+    fi
     echo -e "${BBlue}Memory stats :$NC " ; free -h
     echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
     echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
