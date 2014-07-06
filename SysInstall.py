@@ -130,6 +130,19 @@ class Progress(object):
         """ Factory method, makes a bar with defaults. """
         return Progress('*', '-', 20)
 
+class PDir(object):
+    """ Pushd analog for personal use. """
+    dirs = []
+    @staticmethod
+    def push(newDir):
+        curdir = os.path.realpath(os.curdir)
+        PDir.dirs.append(curdir)
+        os.chdir(newDir)
+        print("Changing to: " + newDir)
+    @staticmethod
+    def pop():
+        os.chdir(PDir.dirs.pop())
+
 # Functions
 
 def out(msgs):
@@ -152,6 +165,17 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
+def get_code(command, target):
+    """ Wrapper function to clone repos.
+    Protects against overwriting if target exists.
+    command: The command that would run in bash.
+    target: Where to clone to.
+    """
+    cmd = command.split()
+    cmd.append(target)
+    if not os.path.exists(target):
+        subprocess.call(cmd)
+
 def get_procs():
     """ Use BASH one liner to determine number of threads available. """
     tfile = open('temp', 'w')
@@ -165,17 +189,6 @@ def get_procs():
 
     os.remove('temp')
     return procs
-
-def get_code(command, target):
-    """ Wrapper function to clone repos.
-    Protects against overwriting if target exists.
-    command: The command that would run in bash.
-    target: Where to clone to.
-    """
-    cmd = command.split()
-    cmd.append(target)
-    if not os.path.exists(target):
-        subprocess.call(cmd)
 
 def make_cmd(src, dst):
     """ Generator for helper. """
@@ -244,84 +257,85 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-def build_ack(srcdir):
+def build_ack(optdir):
     """ Build ack from source, move to target dir. """
+    srcdir = optdir + 'src' + os.sep + 'ack' + os.sep
     get_code('git clone https://github.com/petdance/ack2.git', srcdir)
-    os.chdir(srcdir)
+
+    PDir.push(srcdir)
     cmd = 'perl Makefile.PL'.split()
     subprocess.call(cmd)
     cmd = 'make ack-standalone'.split()
     subprocess.call(cmd)
-    os.chdir('..')
-    shutil.copy(srcdir + 'ack-standalone',
-            srcdir + os.sep + '..' + os.sep + 'ack')
+    PDir.pop()
 
-def build_ag(srcdir):
+    shutil.copy(srcdir + 'ack-standalone', optdir + 'bin' + os.sep + 'ack')
+
+def build_ag(optdir):
     """ Build ag from source, move to target dir. """
+    srcdir = optdir + 'src' + os.sep + 'ag' + os.sep
     get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
             srcdir)
     cmd = (srcdir + 'build.sh').split()
     subprocess.call(cmd)
-    shutil.copy(srcdir + 'ag', srcdir + os.sep + '..')
+    shutil.copy(srcdir + 'ag', optdir + 'bin')
 
-def build_doxygen(srcdir):
+def build_doxygen(optdir):
     """ Build doxygen from source, move to target dir. """
+    srcdir = optdir + 'src' + os.sep + 'doxygen' + os.sep
     get_code('git clone https://github.com/doxygen/doxygen.git', srcdir)
-    os.chdir(srcdir)
-    # Note prefix is set so bins end up in regular bindir
-    prefix = srcdir + '..' + os.sep + '..'
-    cmd = ('./configure --prefix=' + prefix).split()
-    subprocess.call('./configure --prefix={')
-    cmd = 'make -j{} install'.format(get_procs()).split()
-    subprocess.call(cmd)
-    os.chdir('..')
-    shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', srcdir + os.sep + '..')
 
-def build_parallel(srcdir):
+    PDir.push(srcdir)
+    cmd = ('./configure --prefix=' + optdir).split()
+    subprocess.call(cmd)
+    cmd = 'make -j{}'.format(get_procs()).split()
+    subprocess.call(cmd)
+    PDir.pop()
+
+    shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', optdir + 'bin')
+
+def build_parallel(optdir):
     """ Build GNU Parallel from source, move to target dir. """
-    origdir = os.path.realpath(os.curdir)
+    #origdir = os.path.realpath(os.curdir)
+    archive = 'parallel.tar.bz2'
     url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
-    dfile = origdir + os.sep + 'parallel.tar.bz2'
+    srcdir = optdir + 'src' + os.sep + 'parallel' + os.sep
 
     try:
         # Fetch program
         print("Downloading latest parallel source.")
         prog = Progress.default_prog()
         tfile = urllib.URLopener()
-        tfile.retrieve(url, dfile, gen_report(prog))
-        tar = tarfile.open(dfile)
-        tar.extractall()
-        tdir = glob.glob(origdir + os.sep + 'parallel-*')[0]
+        tfile.retrieve(url, archive, gen_report(prog))
+        tarfile.open(archive).extractall()
+        tdir = glob.glob('parallel-*')[0]
         os.rename(tdir, srcdir)
 
         # Build & clean
-        os.chdir(srcdir)
-        # Note prefix is set so bins end up in regular bindir
-        prefix = srcdir + '..' + os.sep + '..'
-        cmd = ('./configure --prefix=' + prefix).split()
+        PDir.push(srcdir)
+        cmd = ('./configure --prefix=' + optdir).split()
         subprocess.call(cmd)
         cmd = 'make -j{} install'.format(get_procs()).split()
         subprocess.call(cmd)
-        sfile = srcdir + os.sep + 'src' + os.sep + 'parallel'
-        shutil.copy(sfile, srcdir + os.sep + '..')
-        os.chdir(origdir)
+        PDir.pop()
     finally:
-        os.remove(dfile)
+        os.remove(archive)
 
 def src_programs():
-    """ Download an install from source. """
-    # Keep all sources in folders of bindir, binaries moved to its top.
+    """ Download sources and install to enironment OPT directory. """
+    # Store all compilations into opt from environment
+    optdir = os.environ['OPT'] + os.sep
     home = os.path.expanduser('~') + os.sep
-    bindir = home + '.optSoftware' + os.sep + 'bin' + os.sep
 
     # Only use on posix systems.
     if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
         print("This command only for unix.")
         return
 
-    # Ensure bindir exists
-    if not os.path.exists(bindir):
-        os.makedirs(bindir)
+    # Ensure opt dirs exist
+    for odir in [optdir + 'bin', optdir + 'src', optdir + 'doc']:
+        if not os.path.exists(odir):
+            os.makedirs(odir)
 
     funcs = {'ag':      build_ag,
             'ack':      build_ack,
@@ -331,12 +345,12 @@ def src_programs():
 
     # Build programs and copy bins to bindir.
     for name in sorted(funcs.keys()):
-        prog = bindir + name
-        srcdir = prog + '_src' + os.sep
+        prog = optdir + 'bin' + os.sep + name
+        srcdir = optdir + 'src' + os.sep + name + '_src'
         if not os.path.exists(prog):
             if os.path.exists(srcdir):
                 shutil.rmtree(srcdir)
-            funcs[name](srcdir)
+            funcs[name](optdir)
             print('Finished building ' + prog)
 
 def packs_babun():

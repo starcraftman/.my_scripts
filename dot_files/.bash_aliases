@@ -61,6 +61,7 @@ export PAGER=less
 #{{{
 # Local dir to install to, put binaries into ~/.optSoftware/bin.
 LOCAL=~/.optSoftware
+export OPT=~/.opt
 
 # Personal scripts go here to stay outside of root.
 MYSCRIPTS=~/.my_scripts
