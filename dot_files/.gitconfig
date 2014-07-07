@@ -6,6 +6,8 @@
     dc = diff --cached
     df = diff
     di = diff
+    ;Diff the last n commits with HEAD
+    din = "!f() { git diff HEAD~$@ HEAD; }; f"
     r = reset
     rh = reset --hard
     s = status --short
