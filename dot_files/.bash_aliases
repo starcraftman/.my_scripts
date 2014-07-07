@@ -71,7 +71,7 @@ MYSCRIPTS=~/.my_scripts
 HASKELL_BIN=~/.cabal/bin
 
 # Exported paths.
-ANDROID=$SOFT/android-sdk-linux/tools:$SOFT/android-sdk-linux/platform-tools:$SOFT/android-ndk
+ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
 EXTRALIB=$SOFT/JDKExtraJARs/ExtraLibraryClasses:$SOFT/JDKExtraJARs/JunitLibs
 LIBDIR=/usr/local/lib
 export JAVA_HOME=$SOFT/jdk
