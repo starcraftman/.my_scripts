@@ -250,8 +250,9 @@ unarchive()
             *.tar.Z)            zcat "$file" | tar xvf -          ;;
             *.bz|*.bz2)         bunzip2 "$file"                   ;;
             *.gz)               gunzip "$file"                    ;;
+            *.lzma)             unlzma "$file"                    ;;
             *.rar)              unrar x "$file"                   ;;
-            *.xz)               unlzma "$file"                    ;;
+            *.xz)               unxz "$file"                      ;;
             *.Z)                uncompress "$file"                ;;
             *.zip)              unzip "$file"                     ;;
             *.7z)               7z x "$file"                      ;;
