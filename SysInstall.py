@@ -118,10 +118,9 @@ class Progress(object):
         """ Draw a bar for progress after incrementing. """
         self.num_ticks += 1
         num_empty = self.total_ticks - self.num_ticks
-        sys.stdout.write("Download Progress: [")
-        sys.stdout.write(self.tick * self.num_ticks)
-        sys.stdout.write(self.empty * num_empty)
-        sys.stdout.write("]\n")
+        line = "Download Progress: [%s%s]\n" % (self.tick * self.num_ticks,
+            self.empty * num_empty)
+        sys.stdout.write(line)
         sys.stdout.flush()
     def tick_threshold(self):
         """ Return number of % per tick on bar. """
