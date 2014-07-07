@@ -240,23 +240,24 @@ unarchive()
         fi
 
         case $file in
-            *.deb)              ar p "$file" data.tar.gz | tar zx ;;
-            *.rpm)              rpm2cpio "$file" | cpio -vid      ;;
-            *.jar)              jar xf "$file"                    ;;
-            *.iso)              7z x "$file"                      ;;
-            *.tar)              tar xvf "$file"                   ;;
-            *.tbz2|*.tar.bz2)   tar xvjf "$file"                  ;;
-            *.tgz|*.tar.gz)     tar xvzf "$file"                  ;;
-            *.tar.xz)           tar xvf "$file"                   ;;
-            *.tar.Z)            zcat "$file" | tar xvf -          ;;
-            *.bz|*.bz2)         bunzip2 "$file"                   ;;
-            *.gz)               gunzip "$file"                    ;;
-            *.lzma)             unlzma "$file"                    ;;
-            *.rar)              unrar x "$file"                   ;;
-            *.xz)               unxz "$file"                      ;;
-            *.Z)                uncompress "$file"                ;;
-            *.zip)              unzip "$file"                     ;;
-            *.7z)               7z x "$file"                      ;;
+            *.deb)               ar p "$file" data.tar.gz | tar zx ;;
+            *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
+            *.jar)               jar xf "$file"                    ;;
+            *.iso)               7z x "$file"                      ;;
+            *.tar)               tar xvf "$file"                   ;;
+            *.tbz2|*.tar.bz2)    tar xvjf "$file"                  ;;
+            *.tgz|*.tar.gz)      tar xvzf "$file"                  ;;
+            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xvf -         ;;
+            *.tar.xz)            xzcat "$file" | tar xvf -          ;;
+            *.tar.Z)             zcat "$file" | tar xvf -          ;;
+            *.bz|*.bz2)          bunzip2 "$file"                   ;;
+            *.gz)                gunzip "$file"                    ;;
+            *.lzma)              unlzma "$file"                    ;;
+            *.rar)               unrar "$file"                   ;;
+            *.xz)                unxz "$file"                      ;;
+            *.Z)                 uncompress "$file"                ;;
+            *.zip)               unzip "$file"                     ;;
+            *.7z)                7z x "$file"                      ;;
             *.dmg)
                 echo "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
