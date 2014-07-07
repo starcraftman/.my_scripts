@@ -11,8 +11,8 @@ from __future__ import print_function
 import argparse
 import glob
 import os
-import subprocess
 import shutil
+import subprocess
 import sys
 import tarfile
 import urllib
