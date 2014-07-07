@@ -58,8 +58,8 @@ def build_ycm():
                 '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp']
     subprocess.call(cmd)
 
-    n_procs = SysInstall.get_procs()
-    cmd = 'make -j{} ycm_support_libs'.format(n_procs).split()
+    num_jobs = SysInstall.num_jobs()
+    cmd = 'make -j{} ycm_support_libs'.format(num_jobs).split()
     subprocess.call(cmd)
 
 def main():

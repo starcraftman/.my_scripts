@@ -174,19 +174,11 @@ def get_code(command, target):
     if not os.path.exists(target):
         subprocess.call(cmd)
 
-def get_procs():
+def num_jobs():
     """ Use BASH one liner to determine number of threads available. """
-    tfile = open('temp', 'w')
-    subprocess.call('cat /proc/cpuinfo | grep "processor" | wc -l',
-                    stdout=tfile, shell=True)
-    tfile.close()
-
-    tfile = open('temp', 'r')
-    procs = int(tfile.read())
-    tfile.close()
-
-    os.remove('temp')
-    return procs
+    jobs = subprocess.check_output('cat /proc/cpuinfo | grep "processor"\
+            | wc -l', shell=True)
+    return int(jobs)
 
 def make_cmd(src, dst):
     """ Generator for helper. """
@@ -299,7 +291,7 @@ def build_doxygen(optdir):
     PDir.push(srcdir)
     cmd = ('./configure --prefix=' + optdir).split()
     subprocess.call(cmd)
-    cmd = 'make -j{}'.format(get_procs()).split()
+    cmd = 'make -j{}'.format(num_jobs()).split()
     subprocess.call(cmd)
     PDir.pop()
 
@@ -329,7 +321,7 @@ def build_parallel(optdir):
         PDir.push(srcdir)
         cmd = ('./configure --prefix=' + optdir).split()
         subprocess.call(cmd)
-        cmd = 'make -j{} install'.format(get_procs()).split()
+        cmd = 'make -j{} install'.format(num_jobs()).split()
         subprocess.call(cmd)
         PDir.pop()
     finally:
