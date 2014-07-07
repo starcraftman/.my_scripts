@@ -248,12 +248,12 @@ unarchive()
             *.tbz2|*.tar.bz2)    tar xvjf "$file"                  ;;
             *.tgz|*.tar.gz)      tar xvzf "$file"                  ;;
             *.tar.lz|*.tar.lzma) lzcat "$file" | tar xvf -         ;;
-            *.tar.xz)            xzcat "$file" | tar xvf -          ;;
+            *.tar.xz)            xzcat "$file" | tar xvf -         ;;
             *.tar.Z)             zcat "$file" | tar xvf -          ;;
             *.bz|*.bz2)          bunzip2 "$file"                   ;;
             *.gz)                gunzip "$file"                    ;;
             *.lzma)              unlzma "$file"                    ;;
-            *.rar)               unrar "$file"                   ;;
+            *.rar)               unrar "$file"                     ;;
             *.xz)                unxz "$file"                      ;;
             *.Z)                 uncompress "$file"                ;;
             *.zip)               unzip "$file"                     ;;
@@ -261,12 +261,12 @@ unarchive()
             *.dmg)
                 echo "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
-                mount -o loop -t hfs "$file" $tmpdir              ;;
+                mount -o loop -t hfs "$file" $tmpdir               ;;
             *.img|*.dd)
                 echo "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
-                mount -o loop -t iso9660 "$file" $tmpdir          ;;
-            *)  echo "${FUNCNAME[0]}: Cannot extract '$file'"     ;;
+                mount -o loop -t iso9660 "$file" $tmpdir           ;;
+            *)  echo "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
         esac
     done
 }
