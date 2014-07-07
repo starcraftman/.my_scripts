@@ -379,7 +379,7 @@ ii()
     if hash dfc 2>/dev/null; then
         dfc
     else
-        local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
+        local mounts=$(df | awk '/\/dev\/s/ { print $7 }')
         prettyDf $mounts
     fi
     echo -e "${BBlue}Memory stats :$NC " ; free -h
