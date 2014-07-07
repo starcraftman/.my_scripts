@@ -14,9 +14,8 @@ import urllib
 import SysInstall
 
 # Data
-CLANG_SITE = 'http://llvm.org/releases/3.4.1/'
 CLANG_FILE = 'clang+llvm-3.4.1-x86_64-unknown-ubuntu12.04.tar.xz'
-CLANG_URL = '{}{}'.format(CLANG_SITE, CLANG_FILE)
+CLANG_URL = 'http://llvm.org/releases/3.4.1/' + CLANG_FILE
 CLANG_DIR = 'clang'
 B_DIR = 'build'
 
