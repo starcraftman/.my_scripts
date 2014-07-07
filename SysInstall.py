@@ -453,13 +453,14 @@ def main():
 
     choice      effect
     ------------------------------------------------------
+    home        Setup home config files.
+    src         Install some development programs from source.
     debian      Install debian packages.
     babun       Install babun packages.
     python      Install python libraries via pip.
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
-    src         Install from source ag, ack & parallel.\
     """
     # Use a dict of funcs instead of a case switch
     actions = {'debian': packs_debian,
