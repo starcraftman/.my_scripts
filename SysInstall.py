@@ -135,13 +135,15 @@ class PDir(object):
     """ Pushd analog for personal use. """
     dirs = []
     @staticmethod
-    def push(newDir):
+    def push(new_dir):
+        """ Push curdir to stack and change to new_dir. """
         curdir = os.path.realpath(os.curdir)
         PDir.dirs.append(curdir)
-        os.chdir(newDir)
-        print("Changing to: " + newDir)
+        os.chdir(new_dir)
+        print("Changing to: " + new_dir)
     @staticmethod
     def pop():
+        """ Pop the dirstack and return to it. """
         os.chdir(PDir.dirs.pop())
 
 # Functions
@@ -303,7 +305,7 @@ def build_doxygen(optdir):
 
     # Odd behaviour when using --prefix with build, so just copy manually
     shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', optdir + 'bin')
-    for man in glob.glob(srcdir + 'doc' + os.sep + '*.1') :
+    for man in glob.glob(srcdir + 'doc' + os.sep + '*.1'):
         shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
 
 def build_parallel(optdir):
@@ -345,7 +347,8 @@ def src_programs():
         return
 
     # Ensure opt dirs exist
-    for odir in [optdir + 'bin', optdir + 'src', optdir + 'share' + os.sep + 'man' + os.sep + 'man1']:
+    for odir in [optdir + 'bin', optdir + 'src',
+            optdir + 'share' + os.sep + 'man' + os.sep + 'man1']:
         if not os.path.exists(odir):
             os.makedirs(odir)
 
