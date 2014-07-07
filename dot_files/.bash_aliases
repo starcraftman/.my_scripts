@@ -232,6 +232,7 @@ debug()
 # more universally but not with older versions.
 unarchive()
 {
+    local tmpdir=$HOME/loopback
     for file ; do
         if [ ! -f $file ] ; then
             echo "'$file' is not a valid file!"
@@ -257,12 +258,14 @@ unarchive()
             *.zip)              unzip "$file"                     ;;
             *.7z)               7z x "$file"                      ;;
             *.dmg)
-                echo "You will need to mount via loopback."
-                echo "mount -o loop -t hfs "$file" /mnt/pt"       ;;
+                echo "'$file' mounted at '$tmpdir'."
+                mkdir $tmpdir
+                mount -o loop -t hfs "$file" $tmpdir              ;;
             *.img|*.dd)
-                echo "You will need to mount via loopback."
-                echo "mount -o loop -t iso9660 "$file" /mnt/pt"   ;;
-            *)  echo "'$file' cannot be extracted via >extract<"  ;;
+                echo "'$file' mounted at '$tmpdir'."
+                mkdir $tmpdir
+                mount -o loop -t iso9660 "$file" $tmpdir          ;;
+            *)  echo "${FUNCNAME[0]}: Cannot extract '$file'"     ;;
         esac
     done
 }
@@ -379,7 +382,7 @@ ii()
     if hash dfc 2>/dev/null; then
         dfc
     else
-        local mounts=$(df | awk '/\/dev\/s/ { print $7 }')
+        local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
         prettyDf $mounts
     fi
     echo -e "${BBlue}Memory stats :$NC " ; free -h
