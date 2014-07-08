@@ -62,6 +62,7 @@ PROGRAMMING = """ \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     bash-doc bash-builtins bashdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
+    docutils-common docutils-doc \
     erlang erlang-eunit \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev \
