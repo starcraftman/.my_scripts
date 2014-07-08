@@ -302,7 +302,6 @@ def build_doxygen(optdir):
 
 def build_parallel(optdir):
     """ Build GNU Parallel from source, move to target dir. """
-    #origdir = os.path.realpath(os.curdir)
     archive = 'parallel.tar.bz2'
     url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
     srcdir = optdir + 'src' + os.sep + 'parallel' + os.sep
