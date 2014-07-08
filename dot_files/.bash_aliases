@@ -73,7 +73,7 @@ HASKELL_BIN=~/.cabal/bin
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
 EXTRALIB=$SOFT/JDKExtraJARs/ExtraLibraryClasses:$SOFT/JDKExtraJARs/JunitLibs
-LIBDIR=/usr/local/lib
+LIBDIR=$SOFT/libs/lib:/usr/local/lib
 export JAVA_HOME=$SOFT/jdk
 export LD_LIBRARY_PATH=$LIBDIR:$JAVA_HOME/jre/lib/amd64:$LD_LIBRARY_PATH
 export LD_RUN_PATH=$LIBDIR:$LD_RUN_PATH
