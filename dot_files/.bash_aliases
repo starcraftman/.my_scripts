@@ -72,9 +72,8 @@ HASKELL_BIN=~/.cabal/bin
 
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
-EXTRALIB=$SOFT/JDKExtraJARs/JunitLibs:$SOFT/JDKExtraJARs/ExtraLibraryClasses
 export JAVA_HOME=$SOFT/jdk
-export CLASSPATH=$EXTRALIB:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
+export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib;$LIBRARY_PATH
