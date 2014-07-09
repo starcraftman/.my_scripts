@@ -73,15 +73,11 @@ HASKELL_BIN=~/.cabal/bin
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
 EXTRALIB=$SOFT/JDKExtraJARs/ExtraLibraryClasses:$SOFT/JDKExtraJARs/JunitLibs
-LIBDIR=$SOFT/libs/lib
 export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$JAVA_HOME/lib:$EXTRALIB:.$CLASSPATH
 export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
-export C_INCLUDE_PATH=$SOFT/libs/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=$SOFT/libs/include:$CPLUS_INCLUDE_PATH
-export LIBRARY_PATH=$LIBDIRb;$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LIBDIR:$JAVA_HOME/jre/lib/amd64:$LD_LIBRARY_PATH
-export LD_RUN_PATH=$LIBDIR:$LD_RUN_PATH
+export CPATH=$SOFT/libs/include:$CPATH
+export LIBRARY_PATH=$SOFT/libs/lib;$LIBRARY_PATH
 
 # Paths for specific tools.
 export ANT_HOME=/usr/share/ant
