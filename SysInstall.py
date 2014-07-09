@@ -190,7 +190,7 @@ def make_cmd(src, dst):
             sfile = src + fil
             dfile = dst + fil
             if not os.path.exists(dfile):
-                print("{} >>>>> {}".format(sfile, dfile))
+                print("{} >>>>> {}".format(dfile, sfile))
                 command(sfile, dfile, *opts)
     return cmd_when_dst_empty
 
@@ -206,14 +206,9 @@ def home_config():
     # Helper function
     helper = make_cmd(src, home)
 
-    # Copy files that get user details in plain text
-    helper(['.bazaar'], shutil.copytree, [True])
-    helper(['.gitconfig', '.hgrc'], shutil.copy)
-
-    # Link to config files, and vim folder
-    files = ['.bashrc', '.bash_aliases', '.gitignore_global',
-             '.hgignore_global', '.inputrc', '.vim', '.vimrc',
-             '.ycm_extra_conf.py']
+    # Glob all files in dot_files and link them to home
+    files = glob.glob(src + '.*')
+    files = [x[x.rindex(os.sep)+1:] for x in files]
     helper(files, os.symlink)
 
     # Init vundle for vim plugin install.
