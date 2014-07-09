@@ -34,4 +34,5 @@ tls = True
 
 [ui]
 username = userName
+ignore = ~/.hgignore_global
 ssh = ssh -C
