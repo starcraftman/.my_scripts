@@ -34,6 +34,9 @@
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
     ;Restore deleted file, pass path to it
     restore = "!f() { git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1; }; f"
+    ;Ignore changes to a file already commited to git, useful for configs
+    ignore = update-index --assume-unchanged
+    noignore = update-index --no-assume-unchanged
 [branch]
     autosetupmerge = true
 [color]
