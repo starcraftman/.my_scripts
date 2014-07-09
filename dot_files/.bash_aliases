@@ -61,7 +61,7 @@ export PAGER=less
 #{{{
 # .software is for any precompiled programs & libraries I install.
 # .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
-SOFT=~/.software
+export SOFT=~/.software
 export OPT=~/.opt
 
 # Personal scripts go here to stay outside of root.
@@ -72,9 +72,9 @@ HASKELL_BIN=~/.cabal/bin
 
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
-EXTRALIB=$SOFT/JDKExtraJARs/ExtraLibraryClasses:$SOFT/JDKExtraJARs/JunitLibs
+EXTRALIB=$SOFT/JDKExtraJARs/JunitLibs:$SOFT/JDKExtraJARs/ExtraLibraryClasses
 export JAVA_HOME=$SOFT/jdk
-export CLASSPATH=$JAVA_HOME/lib:$EXTRALIB:.$CLASSPATH
+export CLASSPATH=$EXTRALIB:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib;$LIBRARY_PATH
