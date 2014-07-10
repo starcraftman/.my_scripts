@@ -17,17 +17,17 @@ FLAGS = [
     '-pedantic',
     '-fexceptions',
     # C++ Flags
-    '-Weffc++',
+    #'-Weffc++',
     # Defines
     '-D_REENTRANT',
     # Important for clang, choose a standard below.
     # C++: c/gnu++98, c++03, c/gnu++11,
     # C: c/gnu90, c/gnu99, c/gnu11
-    '-std=c++11',
+    '-std=c99',
     # Need to tell clang language of headers.
     # For a C project set to 'c' instead of 'c++'.
     '-x',
-    'c++',
+    'c',
     # Includes.
     '-isystem',
     '/usr/include',
