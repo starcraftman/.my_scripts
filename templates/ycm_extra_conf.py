@@ -21,8 +21,8 @@ FLAGS = [
     # Defines
     '-D_REENTRANT',
     # Important for clang, choose a standard below.
-    # C++: (gnu++98), c/gnu++11,
-    # C: c/gnu89, (gnu99), c/gnu99, c/gnu11
+    # C++: c/gnu++98, c++03, c/gnu++11,
+    # C: c/gnu90, c/gnu99, c/gnu11
     '-std=c++11',
     # Need to tell clang language of headers.
     # For a C project set to 'c' instead of 'c++'.
@@ -34,11 +34,7 @@ FLAGS = [
     '-isystem',
     '/usr/local/include',
     '-I',
-    '.',
-    '-I',
-    './libs/cunit/include',
-    '-I',
-    './libs/cppunit/include'
+    './.software/libs/include'
 ]
 
 
