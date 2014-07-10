@@ -76,7 +76,7 @@ export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
-export LIBRARY_PATH=$SOFT/libs/lib;$LIBRARY_PATH
+export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 
 # Paths for specific tools.
 export ANT_HOME=/usr/share/ant
