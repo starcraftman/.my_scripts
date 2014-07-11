@@ -15,9 +15,9 @@ SOURCES=$(notdir $(wildcard $(SDIR)/*.cpp))
 OBJS = $(patsubst %.cpp, $(ODIR)/%.o, $(SOURCES))
 
 # Just for tests.
-T_EXE=$(TDIR)/test.exe
-T_SOURCES=$(wildcard $(TDIR)/*.cpp)
-T_OBJS = $(patsubst %.cpp, %.o, $(T_SOURCES))
+T_EXE=$(ODIR)/test.exe
+T_SOURCES=$(notdir $(wildcard $(TDIR)/*.cpp))
+T_OBJS = $(patsubst %.cpp, $(ODIR)/%.o, $(T_SOURCES))
 
 all: $(EXE)
 
@@ -42,6 +42,9 @@ $(T_EXE): $(T_OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) $(TESTLIBS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(ODIR)/%.o: $(TDIR)/%.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 # Default Rules:
