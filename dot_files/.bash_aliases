@@ -295,6 +295,14 @@ repeat()
     done
 }
 
+# Check if connection up at all by pinging google dns
+conTest()
+{
+    for url in "8.8.8.8" "8.8.4.4"; do
+        ping -c 3 $url
+    done
+}
+
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
 termColor()
 {
