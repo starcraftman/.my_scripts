@@ -215,4 +215,4 @@ FILES_TO_CLEAN:=*.o *.a *.out *.exe *~ temp.* *.gcov *.gcda *.gcno
 #	show-words:
 #		# letters has $(words $(letters)) words: '$(letters)'
 #
-
+# vim: set ft=make:
