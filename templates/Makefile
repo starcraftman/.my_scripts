@@ -1,23 +1,48 @@
-include ../Make.defines
+# Put this at top of project with Make.defines.
+# Expected layout:
+# /libs -> libraries, with subdirs include, lib, share & bin
+# /src -> src files for main
+# /gen -> generated stuff goes here & objects
+# /test -> test files go here
 
-.PHONY: all clean
+include Make.defines
+
+.PHONY: all clean run test info
 
 # Target executables to make.
-T1:=class1
+EXE:=$(ODIR)/main.exe
+SOURCES=$(notdir $(wildcard $(SDIR)/*.cpp))
+OBJS = $(patsubst %.cpp, $(ODIR)/%.o, $(SOURCES))
 
-# Headers and objects for the executables, currently assumes only 1 of each.
-H1:=$(addsuffix $(EXT_HXX), $(T1))
-OBJ1:=$(addsuffix $(EXT_OBJ), $(T1))
+# Just for tests.
+T_EXE=$(TDIR)/test.exe
+T_SOURCES=$(wildcard $(TDIR)/*.cpp)
+T_OBJS = $(patsubst %.cpp, %.o, $(T_SOURCES))
 
-TARGETS:=$(T1)
+all: $(EXE)
 
-all: $(TARGETS)
+run: $(EXE)
+	$(EXE)
 
-$(T1): $(OBJ1) $(H1)
-	$(CXX) -o $@ $^ $(LIBS) $(TESTLIBS)
+test: $(T_EXE)
+	$(T_EXE)
 
 clean:
-	rm -f $(TARGETS) $(FILES_TO_CLEAN)
+	rm -f $(EXE) $(OBJS) $(T_EXE) $(T_OBJS)
+
+# Use this one to dump information to console
+info:
+	$(info $$SOURCES is [${SOURCES}])
+
+# Rules for building
+$(EXE): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LIBS)
+
+$(T_EXE): $(T_OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) $(TESTLIBS)
+
+$(ODIR)/%.o: $(SDIR)/%.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 # Default Rules:
 # 	$(CC) $(CPPFLAGS) $(CFLAGS) -c

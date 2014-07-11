@@ -12,6 +12,8 @@ where-am-i = $(realpath $(dir $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEF
 DIR:=$(call where-am-i)
 LDIR:=$(DIR)/libs
 ODIR:=$(DIR)/gen
+SDIR:=$(DIR)/src
+TDIR:=$(DIR)/test
 
 # Commands
 # Useful: --no-print-directory
@@ -35,18 +37,20 @@ CXX:=ccache g++
 F_PROF:=-pg # Use in both compile/link.
 F_GCOV:=-fprofile-arcs -ftest-coverage # Use in both compile/link.
 F_DIRECT:=-D_REENTRANT
-F_OPT:=-O2 # -O0-3 for speed, Og for debug with some speed, Os for space.
+F_OPT:=-Og # -O0-3 for speed, Og for debug with some speed, Os for space.
 F_DEBUG:=-ggdb -Wall -Wextra -Winline -pedantic
 # Disabled -Werror for now.
 
 # Include directories, append as needed. Format -I./dir -I/dir/to/files
-INC_DIRS:=-I$(LDIR)/cunit/include -I$(LDIR)/cppunit/include -I$(LDIR)/SDL1/include
+INC_DIRS:=-I$(LDIR)/include
 
 # Rule Flag Variables
+# C: c/gnu90, c/gnu99, c/gnu11
+# C++: c/gnu++98, c++03, c/gnu++11,
 CFLAGS:=--std=gnu99
 CXXFLAGS:=--std=c++11 -Weffc++
-CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT)
-LDFLAGS:=-L$(LDIR)/cunit/lib -L$(LDIR)/cppunit/lib -L$(LDIR)/SDL1/lib
+CPPFLAGS=$(INC_DIRS) $(F_DEBUG) $(F_DIRECT) $(F_OPT)
+LDFLAGS:=-L$(LDIR)/lib
 LIBFLAGS:=$(F_DEBUG) -fPIC
 ARFLAGS:=-rv
 
@@ -59,10 +63,9 @@ EXT_OBJ:=.o
 EXT_ARC:=.a
 
 # Common libs
-LIBS:=-lpthread -lm -lSDL
-TESTLIBS:=-lcppunit -lcunit
+LIBS:=-pthread -lm -lSDL
+TESTLIBS:=-lgtest -lgtest_main #-lcppunit -lcunit
 BOOSTLIBS:=-lboost_date_time -lboost_filesystem -lboost_graph -lboost_iostreams -lboost_math_c99 -lboost_math_tr1 -lboost_mpi -lboost_prg_exec_monitor -lboost_program_options -lboost_python -lboost_regex -lboost_serialization -lboost_signals -lboost_system -lboost_thread -lboost_unit_test_framework -lboost_wave
-LDLIBS:=$(LIBS) $(TESTLIBS)
 
 # OS Strings
 LIN64:=linux64
