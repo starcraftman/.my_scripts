@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+GIT_REPOS=( ~/.bash-git-prompt ~/.hhighlighter )
+
 SYS=generic
 if hash apt-get 2>/dev/null; then
     SYS=debian
@@ -25,17 +27,12 @@ if [ -d $DIR ]; then
     hg pull
 fi
 
-DIR=~/.bash-git-prompt
-if [ -d $DIR ]; then
-    cd $DIR
-    git pull
-fi
-
-DIR=~/.hhighlighter
-if [ -d $DIR ]; then
-    cd $DIR
-    git pull
-fi
+for dir in "${GIT_REPOS[@]}"; do
+    if [ -d $dir ]; then
+	cd $dir
+	git pull
+    fi
+done
 
 popd
 
