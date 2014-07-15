@@ -101,33 +101,32 @@ def num_jobs():
 
 def build_sdl(libdir):
     """ Build ack from source, move to target dir. """
-    srcdir = 'sdl'
-    srcdir2 = srcdir + '2'
+    srcdir, srcdir2 = 'sdl', 'sdl2'
+    jobs = num_jobs()
+    cmds_sdl1 = ['./autogen.sh',
+            './configure --prefix=%s' % libdir,
+            'make -j%d install' % jobs
+            ]
+    cmds_sdl2 = ['hg update default',
+            './configure --prefix=%s' % libdir,
+            'make -j%d install' % jobs
+            ]
+    build = {srcdir: cmds_sdl1,
+            srcdir2: cmds_sdl2
+            }
 
     try:
         # Fetch code & copy for 2
         get_code('hg clone -u SDL-1.2 http://hg.libsdl.org/SDL', srcdir)
-        cmd = 'cp -r {} {}'.format(srcdir, srcdir + '2').split()
+        cmd = ('cp -r %s %s' % (srcdir, srcdir)).split()
         subprocess.call(cmd)
 
-        # Build sdl1
-        PDir.push(srcdir)
-        subprocess.call('./autogen.sh')
-        cmd = './configure --prefix={}'.format(libdir).split()
-        subprocess.call(cmd)
-        cmd = 'make -j{} install'.format(num_jobs()).split()
-        subprocess.call(cmd)
-        PDir.pop()
-
-        # Build sdl2
-        PDir.push(srcdir2)
-        cmd = 'hg update default'.split()
-        subprocess.call(cmd)
-        cmd = './configure --prefix={}'.format(libdir).split()
-        subprocess.call(cmd)
-        cmd = 'make -j{} install'.format(num_jobs()).split()
-        subprocess.call(cmd)
-        PDir.pop()
+        # Build sdl1 & 2
+        for src in build.keys():
+            PDir.push(src)
+            for cmd in build[src]:
+                subprocess.call(cmd.split())
+            PDir.pop()
     finally:
         shutil.rmtree(srcdir)
         shutil.rmtree(srcdir2)
