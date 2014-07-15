@@ -92,7 +92,7 @@ BABUN = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
-PY_PACKS = "argcomplete trash-cli"
+PY_PACKS = "argcomplete Pygments trash-cli"
 
 # Classes
 
@@ -227,6 +227,10 @@ def home_config():
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             home + '.hhighlighter')
+
+    # Vim pager, alternative to ccat with pygments
+    get_code('git clone https://github.com/rkitover/vimpager.git',
+            home + '.vimpager')
 
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
@@ -412,8 +416,11 @@ def packs_debian():
 
 def packs_py():
     """ Installs python packages using pip. """
+    if os.getuid() != 0:
+        raise NotSudo
+
     # Use python package manager.
-    cmd = ('pip install' + PY_PACKS).split()
+    cmd = ('sudo pip install' + PY_PACKS).split()
     subprocess.call(cmd)
 
     # Install python completion to system bash_completion.d.
