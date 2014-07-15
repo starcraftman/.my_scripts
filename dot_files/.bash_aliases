@@ -88,10 +88,10 @@ export ANT_HOME=/usr/share/ant
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
 # Make ls more convenient
-alias ls='ls --color=auto -F --group-directories-first --sort=extension'
+alias l='\ls --color=auto -F --group-directories-first'
+alias ls='l --sort=extension'
 alias ll='ls -Alh'
 alias la='ls -A'
-alias l='\ls --color=auto -F --group-directories-first'
 
 # Different sorts
 alias lx='ll -XB'  # Extension
