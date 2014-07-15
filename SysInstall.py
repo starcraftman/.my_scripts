@@ -228,10 +228,6 @@ def home_config():
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             home + '.hhighlighter')
 
-    # Vim pager, alternative to ccat with pygments
-    get_code('git clone https://github.com/rkitover/vimpager.git',
-            home + '.vimpager')
-
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'

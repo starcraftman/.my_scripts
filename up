@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-GIT_REPOS=( ~/.bash-git-prompt ~/.hhighlighter ~/.vimpager ~/.my_scripts )
+GIT_REPOS=( ~/.bash-git-prompt ~/.hhighlighter ~/.my_scripts )
 
 SYS=generic
 if hash apt-get 2>/dev/null; then
