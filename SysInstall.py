@@ -196,7 +196,7 @@ def make_cmd(src, dst):
 
 def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
-    script_path = os.path.realpath(__file__)
+    script_path = os.path.relpath(__file__)
     script_dir = script_path[0:script_path.rindex(os.sep)]
 
     # Leaving trailing sep for ease later.
