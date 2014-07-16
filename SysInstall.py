@@ -234,7 +234,7 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
         get_code('git clone https://github.com/Lokaltog/powerline-fonts', dpow)
-        cmd = ('fc-cache -vf' + ddir).split()
+        cmd = ('fc-cache -vf ' + ddir).split()
         subprocess.call(cmd)
 
     # Create dir for ccache
