@@ -60,7 +60,7 @@ PROGRAMMING = """ \
     colormake colordiff colorgcc jq \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
-    bash-doc bash-builtins bashdb \
+    bash-doc bash-builtins bashdb tcsh zsh zsh-dbg zsh-dev zsh-doc zsh-lovers \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     docutils-common docutils-doc \
     erlang erlang-eunit \
