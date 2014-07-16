@@ -416,7 +416,7 @@ def packs_py():
         raise NotSudo
 
     # Use python package manager.
-    cmd = ('sudo pip install' + PY_PACKS).split()
+    cmd = ('sudo pip install ' + PY_PACKS).split()
     subprocess.call(cmd)
 
     # Install python completion to system bash_completion.d.
