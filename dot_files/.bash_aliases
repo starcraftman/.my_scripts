@@ -91,7 +91,7 @@ export ANT_HOME=/usr/share/ant
 alias l='\ls --color=auto -F --group-directories-first'
 alias ls='l --sort=extension'
 alias ll='ls -Alh'
-alias la='ls -A'
+alias la='l -A'
 
 # Different sorts
 alias lx='ll -XB'  # Extension
