@@ -224,6 +224,10 @@ def home_config():
     get_code('git clone https://github.com/magicmonty/bash-git-prompt.git',
             home + '.bash-git-prompt')
 
+    # Zsh prompt helper
+    get_code('git clone https://github.com/starcraftman/zsh-git-prompt.git',
+            home + '.zsh-git-prompt')
+
     # Highlighter to replace grepping a pipe
     get_code('git clone https://github.com/starcraftman/hhighlighter.git',
             home + '.hhighlighter')
