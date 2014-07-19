@@ -60,9 +60,6 @@ export HISTSIZE=100000
 # Ignore some commands
 #export HISTIGNORE='ls *:l *:bg:fg:history'
 
-# Timestamps in history file
-#export HISTTIMEFORMAT='%F %T '
-
 # Ignore duplicate commands in history
 export HISTCONTROL=ignoredups:erasedups
 
@@ -218,6 +215,9 @@ fi
 
 # Zsh only aliases
 alias help='run-help'
+
+# History with time stamps
+alias history='history -E'
 #}}}
 ############################################################################
 # Functions
@@ -471,12 +471,43 @@ fi
 # PS1 Prompt
 ############################################################################
 #{{{
+
+function hg_prompt()
+{
+    # Standard color escape sequences
+    local RED="$fg_no_bold[red]"
+    local GREEN="$fg_no_bold[green]"
+    local YELLOW="$fg_no_bold[yellow]"
+    local MAGENTA="$fg_bold[magenta]"
+    # To (R)eset colors.
+    local R="$reset_color"
+
+    local HG=`hg prompt "[${MAGENTA}{branch}${R}{ ${RED}↓{incoming|count}${R}}{ ${GREEN}↑{outgoing|count}${R}}|${YELLOW}{status}{update}${R}]" 2>/dev/null`
+
+    # Strip everything except where status to outgoing would be.
+    local T=${HG##*|}
+    T=${T%%]}
+
+    # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
+    if [ "x${HG}" != "x" ] && [[ ! ${T} =~ [!?^↓↑] ]]; then
+        HG="${HG%%]}${GREEN}✔${R}]"
+    fi
+
+    HG_PROMPT=" $HG"
+}
+
 function prompt_precmd()
 {
     if [ $? -eq 0 ]; then
         LAST="%F{green}✔%f"
     else
         LAST="%F{red}✘%f"
+    fi
+
+    if [ -d '.hg' ]; then
+        hg_prompt
+    else
+        HG_PROMPT=""
     fi
 }
 
@@ -499,7 +530,9 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
     PS1_HOST=%B%F{purple}
 fi
 
-PS1='$LAST { %B%F{red}%~%f%b }
+source ~/.zsh-git-prompt/zshrc.sh
+
+PS1='$LAST { %B%F{red}%~%f%b }$HG_PROMPT $(git_super_status)
 %F{cyan}%n%f@%F{green}%m%f%# '
 #}}}
 # vim: set foldmethod=marker:
