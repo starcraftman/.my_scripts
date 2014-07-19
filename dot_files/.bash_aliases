@@ -87,6 +87,10 @@ export ANT_HOME=/usr/share/ant
 ############################################################################
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
+
+# Keep home configs when switching to root
+alias su='su --preserve-environment'
+
 # Make ls more convenient
 alias l='\ls --color=auto -F --group-directories-first'
 alias ls='l --sort=extension'
@@ -571,7 +575,7 @@ prompt_callback()
 # directory [vcsInfo]
 # user@host
 GIT_PROMPT_START="$PS1_R\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}{ $PS1_DIR\w$PS1_R }"
-GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$ "
+GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$ "
 
 # Shows status of last command.
 GIT_PROMPT_SHOW_LAST_COMMAND_INDICATOR=1
