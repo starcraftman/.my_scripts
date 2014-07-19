@@ -1,8 +1,10 @@
 ##!/usr/bin/env zsh
-#
+# This config is based on a combination of existing .bashrc & .bash_aliases in
+# this directory, adapted to work on zsh.
 ############################################################################
 # Shell Compatability Settings
 ############################################################################
+#{{{
 # Case insensitive
 autoload -U compinit
 compinit -C
@@ -23,7 +25,7 @@ setopt prompt_subst
 
 # Set compatible globbing.
 #setopt ksh_glob
-
+#}}}
 ############################################################################
 # Environment Variables
 ############################################################################
@@ -457,6 +459,7 @@ fi
 ############################################################################
 # PS1 Prompt
 ############################################################################
+#{{{
 function prompt_precmd()
 {
     if [ $? -eq 0 ]; then
@@ -487,5 +490,5 @@ fi
 
 PS1='$LAST { %B%F{red}%~%f%b }
 %F{cyan}%n%f@%F{green}%m%f%# '
-
+#}}}
 # vim: set foldmethod=marker:
