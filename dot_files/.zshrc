@@ -223,8 +223,15 @@ alias help='run-help'
 # Functions
 ############################################################################
 #{{{
-# Needed by zsh.
+# Load all functions below
 autoload conTest debug ii jsonFix listNics prettyDf termColor unarchive
+
+# Load zsh shell colors
+autoload colors && colors
+# Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
+#   KEYS: red green yellow blue magenta cyan black white
+# RESET COLOR $reset_color
+# EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
 
 # Toggles bash debug mode, when on:
 #  * Turns on tracing of every command (xtrace).
@@ -233,9 +240,9 @@ autoload conTest debug ii jsonFix listNics prettyDf termColor unarchive
 #  * Disables bash prompt to avoid pollution with xtrace.
 function debug()
 {
-    local BRed='\e[1;31m'
-    local BGreen='\e[1;32m'
-    local NC="\e[m"
+    local BRed="$fg_bold[red]"
+    local BGreen="$fg_bold[green]"
+    local NC="$reset_color"
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT}" ]; then
         echo 'turn off debug'
@@ -244,7 +251,7 @@ function debug()
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
         unset PROMPT_OLD_COMMAND
-        echo -e "Bash Debug Mode: ${BRed}DISABLED${NC}"
+        print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
         echo 'turn on debug'
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
@@ -253,8 +260,8 @@ function debug()
         #set -o nounset
         set -o verbose
         set -o xtrace
-        echo -e "Bash Debug Mode: ${BGreen}ENABLED${NC}"
-        echo -e "Careful with ${BRed}nounset${NC} breaks some completion."
+        print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
+        print "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
 }
 
@@ -345,9 +352,10 @@ function jsonFix()
 # Get info on all network interfaces
 function listNics()
 {
-    local BGreen='\e[1;32m'
-    local NC="\e[m"
-    local INTS=($(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }'))
+    local BGreen="$fg_bold[green]"
+    local NC="$reset_color"
+    local IFCONFIG=$(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }')
+    local INTS=${(@f)${IFCONFIG}}
     # Ample use of awk/sed for field extraction.
     for INT in $INTS ; do
         local   MAC=$(ifconfig $INT | awk '/Waddr/ { print $5 } ')
@@ -356,13 +364,13 @@ function listNics()
         local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
         local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
-        echo -e "Interface: ${BGreen}$INT${NC}"
-        echo -e "\tMac:   ${MAC}"
-        echo -e "\tIPv4:  ${IP:-"Not connected"}"
+        print "Interface: ${BGreen}$INT${NC}"
+        print "\tMac:   ${MAC}"
+        print "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
-            echo -e "\tBCast: ${BCAST}"
-            echo -e "\tMask:  ${MASK}"
-            echo -e "\tIPv6:  ${IP6:-"N/A."}"
+            print "\tBCast: ${BCAST}"
+            print "\tMask:  ${MASK}"
+            print "\tIPv6:  ${IP6:-"N/A."}"
         fi
     done
 }
@@ -373,13 +381,14 @@ function prettyDf()
     for fs ; do
 
         if [ ! -d $fs ]; then
-            echo -e $fs" :No such file or directory"
+            print $fs" :No such file or directory"
             continue
         fi
 
+    #local INTS=${(@f)${IFCONFIG}}
         local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
         local free=( $(command df -Pkh $fs | awk 'END{ print $4 }') )
-        local nbstars=$(( 20 * ${info[1]} / ${info[0]} ))
+        local nbstars=$(( 20 * $info[2] / $info[1] ))
         local out="["
         for ((j=0;j<20;j++)); do
             if [ ${j} -lt ${nbstars} ]; then
@@ -388,37 +397,39 @@ function prettyDf()
                out=$out"-"
             fi
         done
-        out=${info[2]}" "$out"] ("$free" free on "$fs")"
-        echo -e $out
+        out=${info[3]}" "$out"] ("$free" free on "$fs")"
+        print $out
     done
 }
 
 # Get information on current system
 function ii()
 {
-    local BBlue='\e[1;34m'
-    local NC="\e[m"
-    local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
-    echo
-    echo -e "You are logged on ${BBlue}$HOSTNAME"
-    echo -e "${BBlue}Additionnal information :$NC " ; uname -a
-    echo -e "${BBlue}Users logged on :$NC " ; w -hs |
+    local BBlue="$fg_bold[blue]"
+    local NC="$reset_color"
+    #local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
+    #print "$BBlue$TOP$NC"
+    print
+    print "${BBlue}$USERNAME$NC is logged on ${BBlue}$HOST"
+    print "${BBlue}Additionnal information :$NC " ; uname -a
+    print "${BBlue}Users logged on :$NC " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    echo -e "${BBlue}Current date :$NC " ; date
-    echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Diskspace :$NC "
-    if hash dfc 2>/dev/null; then
+    print "${BBlue}Current date :$NC " ; date
+    print "${BBlue}Machine stats :$NC " ; uptime
+    print "${BBlue}Diskspace :$NC "
+    #if hash dfc 2>/dev/null; then
+    if false; then
         dfc
     else
-        local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
+        local mounts=${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}
         prettyDf $mounts
     fi
-    echo -e "${BBlue}Memory stats :$NC " ; free -h
-    echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
-    echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    echo -e "${BBlue}Network Interfaces :$NC" ; listNics
-    echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
-    echo
+    print "${BBlue}Memory stats :$NC " ; free -h
+    print "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
+    print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
+    print "${BBlue}Network Interfaces :$NC" ; listNics
+    print "${BBlue}Open connections :$NC "; netstat -pan --inet;
+    print
 }
 
 # Highlight many terms with different colors

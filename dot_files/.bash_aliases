@@ -201,6 +201,10 @@ fi
 if hash tree 2>/dev/null; then
     alias tree='tree -Csuh'
 fi
+
+# BASH ONLY
+# Print alias for echo with escape codes
+alias print='echo -e'
 #}}}
 ############################################################################
 # Functions
@@ -223,7 +227,7 @@ debug()
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
         unset PROMPT_OLD_COMMAND
-        echo -e "Bash Debug Mode: ${BRed}DISABLED${NC}"
+        print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
@@ -231,8 +235,8 @@ debug()
         #set -o nounset
         set -o verbose
         set -o xtrace
-        echo -e "Bash Debug Mode: ${BGreen}ENABLED${NC}"
-        echo -e "Careful with ${BRed}nounset${NC} breaks some completion."
+        print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
+        print "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
 }
 
@@ -345,13 +349,13 @@ listNics()
         local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
         local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
-        echo -e "Interface: ${BGreen}$INT${NC}"
-        echo -e "\tMac:   ${MAC}"
-        echo -e "\tIPv4:  ${IP:-"Not connected"}"
+        print "Interface: ${BGreen}$INT${NC}"
+        print "\tMac:   ${MAC}"
+        print "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
-            echo -e "\tBCast: ${BCAST}"
-            echo -e "\tMask:  ${MASK}"
-            echo -e "\tIPv6:  ${IP6:-"N/A."}"
+            print "\tBCast: ${BCAST}"
+            print "\tMask:  ${MASK}"
+            print "\tIPv6:  ${IP6:-"N/A."}"
         fi
     done
 }
@@ -362,7 +366,7 @@ prettyDf()
     for fs ; do
 
         if [ ! -d $fs ]; then
-            echo -e $fs" :No such file or directory"
+            print $fs" :No such file or directory"
             continue
         fi
 
@@ -378,7 +382,7 @@ prettyDf()
             fi
         done
         out=${info[2]}" "$out"] ("$free" free on "$fs")"
-        echo -e $out
+        print $out
     done
 }
 
@@ -389,24 +393,24 @@ ii()
     local NC="\e[m"
     local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
     echo
-    echo -e "You are logged on ${BBlue}$HOSTNAME"
-    echo -e "${BBlue}Additionnal information :$NC " ; uname -a
-    echo -e "${BBlue}Users logged on :$NC " ; w -hs |
+    print "${BBlue}$USER$NC is logged on ${BBlue}$HOSTNAME"
+    print "${BBlue}Additionnal information :$NC " ; uname -a
+    print "${BBlue}Users logged on :$NC " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    echo -e "${BBlue}Current date :$NC " ; date
-    echo -e "${BBlue}Machine stats :$NC " ; uptime
-    echo -e "${BBlue}Diskspace :$NC "
+    print "${BBlue}Current date :$NC " ; date
+    print "${BBlue}Machine stats :$NC " ; uptime
+    print "${BBlue}Diskspace :$NC "
     if hash dfc 2>/dev/null; then
         dfc
     else
         local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
         prettyDf $mounts
     fi
-    echo -e "${BBlue}Memory stats :$NC " ; free -h
-    echo -e "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
-    echo -e "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    echo -e "${BBlue}Network Interfaces :$NC" ; listNics
-    echo -e "${BBlue}Open connections :$NC "; netstat -pan --inet;
+    print "${BBlue}Memory stats :$NC " ; free -h
+    print "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
+    print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
+    print "${BBlue}Network Interfaces :$NC" ; listNics
+    print "${BBlue}Open connections :$NC "; netstat -pan --inet;
     echo
 }
 
