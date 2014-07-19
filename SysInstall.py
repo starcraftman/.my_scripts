@@ -225,11 +225,11 @@ def home_config():
             home + '.bash-git-prompt')
 
     # Zsh prompt helper
-    get_code('git clone https://github.com/starcraftman/zsh-git-prompt.git',
+    get_code('git clone git@github.com:starcraftman/zsh-git-prompt.git',
             home + '.zsh-git-prompt')
 
     # Highlighter to replace grepping a pipe
-    get_code('git clone https://github.com/starcraftman/hhighlighter.git',
+    get_code('git clone git@github.com:starcraftman/hhighlighter.git',
             home + '.hhighlighter')
 
     # Setup powerline fonts if not done.

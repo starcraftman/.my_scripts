@@ -477,6 +477,7 @@ function hg_prompt()
     # Standard color escape sequences
     local RED="$fg_no_bold[red]"
     local GREEN="$fg_no_bold[green]"
+    local BGREEN="$fg_bold[green]"
     local YELLOW="$fg_no_bold[yellow]"
     local MAGENTA="$fg_bold[magenta]"
     # To (R)eset colors.
@@ -490,7 +491,7 @@ function hg_prompt()
 
     # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
     if [ "x${HG}" != "x" ] && [[ ! ${T} =~ [!?^↓↑] ]]; then
-        HG="${HG%%]}${GREEN}✔${R}]"
+        HG="${HG%%]}${BGREEN}✔${R}]"
     fi
 
     HG_PROMPT=" $HG"
@@ -527,12 +528,12 @@ fi
 
 # If using ssh, usually set
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST=%B%F{purple}
+    PS1_HOST=%B%F{magenta}
 fi
 
 source ~/.zsh-git-prompt/zshrc.sh
 
-PS1='$LAST { %B%F{red}%~%f%b }$HG_PROMPT $(git_super_status)
-%F{cyan}%n%f@%F{green}%m%f%# '
+PS1='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status)
+${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 #}}}
 # vim: set foldmethod=marker:
