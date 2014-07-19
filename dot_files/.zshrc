@@ -3,6 +3,14 @@
 ############################################################################
 # Shell Compatability Settings
 ############################################################################
+# Case insensitive
+autoload -U compinit
+compinit -C
+
+## case-insensitive (all),partial-word and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
+    'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 # Don't exit with ctrl + D
 setopt ignore_eof
 
@@ -205,6 +213,9 @@ fi
 if hash tree 2>/dev/null; then
     alias tree='tree -Csuh'
 fi
+
+# Zsh only aliases
+alias help='run-help'
 #}}}
 ############################################################################
 # Functions

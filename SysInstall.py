@@ -321,6 +321,30 @@ def build_parallel(optdir):
     finally:
         os.remove(archive)
 
+# If switch to build later:
+# https://gist.github.com/nicoulaj/715855
+def build_zsh_docs(optdir):
+    """ Ubuntu zsh missing docs, get them from archive. """
+    url = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download'
+
+    try:
+        # Fetch program
+        print("Downloading latest zsh source.")
+        cmd = ('wget %s' % url).split()
+        subprocess.call(cmd)
+        archive = glob.glob('download*')[0]
+        tarfile.open(archive).extractall()
+        srcdir = glob.glob('zsh-*')[0]
+        manfiles = glob.glob(srcdir + os.sep + 'Doc' + os.sep + '*.1')
+        for man in manfiles:
+            shutil.copy(man, optdir + os.sep + 'share' + os.sep
+                    + 'man' + os.sep + 'man1')
+        # Copy a file to bin just as guard
+        shutil.copy(manfiles[0], optdir + os.sep + 'bin' + os.sep + 'zsh')
+    finally:
+        shutil.rmtree(srcdir)
+        os.remove(archive)
+
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
     # Store all compilations into opt from environment
@@ -342,6 +366,7 @@ def src_programs():
             'ack':      build_ack,
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
+            'zsh':      build_zsh_docs,
             }
 
     # Build programs and copy bins to bindir.
