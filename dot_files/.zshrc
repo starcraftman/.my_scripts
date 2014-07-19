@@ -3,6 +3,9 @@
 ############################################################################
 # Shell Compatability Settings
 ############################################################################
+# Don't exit with ctrl + D
+setopt ignore_eof
+
 # Enable prompt var substitution & root/user bang.
 setopt prompt_bang
 setopt prompt_subst
@@ -13,6 +16,49 @@ setopt prompt_subst
 # Set compatible globbing.
 #setopt ksh_glob
 
+############################################################################
+# Environment Variables
+############################################################################
+#{{{
+# Default editor for things like sudoedit.
+if hash vim 2>/dev/null; then
+    export EDITOR=vim
+fi
+
+# If you want to have a fallback path lookup, use CDPAth.
+#export CDPATH=~/programming
+
+#CCache Directory
+#Info: https://ccache.samba.org/manual.html
+export CCACHE_DIR=~/.ccache
+
+# Ignore files with these suffixes for bash completion
+# NB: For dirs like .bzr, bzr line will ignore anything ending in bzr.
+export FIGNORE=bzr:git:hg:svn:.class:.o:.pyc
+
+# Change grep color to bold blue
+export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+
+# Merge tool for hg
+export HGMERGE=/usr/bin/kdiff3
+
+# Bash history options
+# Set large history file & line limit
+export HISTFILESIZE=100000
+export HISTSIZE=100000
+
+# Ignore some commands
+#export HISTIGNORE='ls *:l *:bg:fg:history'
+
+# Timestamps in history file
+#export HISTTIMEFORMAT='%F %T '
+
+# Ignore duplicate commands in history
+export HISTCONTROL=ignoredups:erasedups
+
+# Default pager
+export PAGER=less
+#}}}
 ############################################################################
 # Path Settings
 ############################################################################
@@ -45,6 +91,10 @@ export ANT_HOME=/usr/share/ant
 ############################################################################
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
+
+# Keep home configs when switching to root
+alias su='su --preserve-environment'
+
 # Make ls more convenient
 alias l='\ls --color=auto -F --group-directories-first'
 alias ls='l --sort=extension'
@@ -363,19 +413,66 @@ function ii()
 source $HOME/.hhighlighter/h.sh
 #}}}
 ############################################################################
+# Misc Options
+############################################################################
+#{{{
+# Enable the windows key on Ubuntu as F13
+if hash xmodmap 2>/dev/null; then
+    xmodmap -e 'keycode 133 = F13'
+fi
+
+# Disable the Ctrl+s/q button that freezes terminal output.
+if hash stty 2>/dev/null; then
+    stty -ixon
+fi
+
+# Set bash tabstop to 4 spaces, default is 8 too wide
+if hash tabs 2>/dev/null; then
+    tabs 4
+    clear
+fi
+
+# KDE DEV Options:
+
+# I have a kde-bashrc file with shortcuts for building.
+# http://techbase.kde.org/Getting_Started/Build/Environment
+#. ~/.kde-bashrc
+#echo "NOTE IMPORTANT: make is now aliased to makeobj. Remove line from .bash_alias."
+
+# Set default config environment. If need specialize, copy into dir of src tree.
+#. ~/.build-config-default
+
+#}}}
+############################################################################
 # PS1 Prompt
 ############################################################################
 function prompt_precmd()
 {
     if [ $? -eq 0 ]; then
-        LAST="%B%F{green}✔%f%b"
+        LAST="%F{green}✔%f"
     else
-        LAST="%B%F{red}✘%f%b"
+        LAST="%F{red}✘%f"
     fi
 }
 
 autoload add-zsh-hook
 add-zsh-hook precmd prompt_precmd
+
+# Just aliases for common colors used later.
+PS1_DIR=%B%F{red}
+PS1_USER=%F{cyan}
+PS1_HOST=%F{green}
+PS1_R=%f%b
+
+# If root, highlight it
+if [ $UID -eq 0 ]; then
+    PS1_USER=%F{yellow}
+fi
+
+# If using ssh, usually set
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
+    PS1_HOST=%B%F{purple}
+fi
 
 PS1='$LAST { %B%F{red}%~%f%b }
 %F{cyan}%n%f@%F{green}%m%f%# '
