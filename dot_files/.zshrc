@@ -2,9 +2,16 @@
 # This config is based on a combination of existing .bashrc & .bash_aliases in
 # this directory, adapted to work on zsh.
 ############################################################################
-# Shell Compatability Settings
+# Setopt & System Autoload
 ############################################################################
 #{{{
+# Load zsh shell colors
+autoload colors && colors
+# Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
+#   KEYS: red green yellow blue magenta cyan black white
+# RESET COLOR $reset_color
+# EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
+
 # Case insensitive
 autoload -U compinit
 compinit -C
@@ -13,18 +20,49 @@ compinit -C
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
     'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
+# History should append if multiple versions run
+setopt APPEND_HISTORY
+
+# History saves beginning and elapsed time for commands
+setopt EXTENDED_HISTORY
+
+# History writing better on nfs
+setopt HIST_FCNTL_LOCK
+
+# History lookup ignores duplicate commands
+setopt HIST_FIND_NO_DUPS
+
+# Correct spelling mistakes only on commands
+setopt CORRECT
+
+# pushd -> pushd $HOME
+setopt PUSHD_TO_HOME
+
 # Don't exit with ctrl + D
-setopt ignore_eof
+setopt IGNORE_EOF
+
+# Two single quotes escape to one in single quotes
+setopt RC_QUOTES
+
+# Jobs print in long format for more info
+setopt LONG_LIST_JOBS
 
 # Enable prompt var substitution & root/user bang.
-setopt prompt_bang
-setopt prompt_subst
+setopt PROMPT_BANG
+setopt PROMPT_SUBST
 
 # Zero index arrays, like normal people
 #setopt ksh_arrays
 
 # Set compatible globbing.
 #setopt ksh_glob
+#}}}
+############################################################################
+# Key Bindings
+############################################################################
+#{{{
+# History lookup bindings to usual r key
+bindkey '^r' history-incremental-search-backward
 #}}}
 ############################################################################
 # Environment Variables
@@ -54,8 +92,8 @@ export HGMERGE=/usr/bin/kdiff3
 
 # Bash history options
 # Set large history file & line limit
-export HISTFILESIZE=100000
 export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
 
 # Ignore some commands
 #export HISTIGNORE='ls *:l *:bg:fg:history'
@@ -226,13 +264,6 @@ alias history='history -E'
 # Load all functions below
 autoload conTest debug ii jsonFix listNics prettyDf termColor unarchive
 
-# Load zsh shell colors
-autoload colors && colors
-# Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
-#   KEYS: red green yellow blue magenta cyan black white
-# RESET COLOR $reset_color
-# EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
-
 # Toggles bash debug mode, when on:
 #  * Turns on tracing of every command (xtrace).
 #  * Prevents unsetting vars (nounset).
@@ -245,7 +276,7 @@ function debug()
     local NC="$reset_color"
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT}" ]; then
-        echo 'turn off debug'
+        print 'turn off debug'
         #set +o nounset
         set +o verbose
         set +o xtrace
@@ -253,7 +284,7 @@ function debug()
         unset PROMPT_OLD_COMMAND
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
-        echo 'turn on debug'
+        print 'turn on debug'
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
         export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
@@ -272,7 +303,7 @@ function unarchive()
     local tmpdir=$HOME/loopback
     for file ; do
         if [ ! -f $file ] ; then
-            echo "'$file' is not a valid file!"
+            print "'$file' is not a valid file!"
             continue
         fi
 
@@ -296,14 +327,14 @@ function unarchive()
             *.zip)               unzip "$file"                     ;;
             *.7z)                7z x "$file"                      ;;
             *.dmg)
-                echo "'$file' mounted at '$tmpdir'."
+                print "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
                 mount -o loop -t hfs "$file" $tmpdir               ;;
             *.img|*.dd)
-                echo "'$file' mounted at '$tmpdir'."
+                print "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
                 mount -o loop -t iso9660 "$file" $tmpdir           ;;
-            *)  echo "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
+            *)  print "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
         esac
     done
 }
@@ -425,7 +456,7 @@ function ii()
         prettyDf $mounts
     fi
     print "${BBlue}Memory stats :$NC " ; free -h
-    print "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
+    print "${BBlue}Top 5 CPU% :$NC " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
     print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
     print "${BBlue}Network Interfaces :$NC" ; listNics
     print "${BBlue}Open connections :$NC "; netstat -pan --inet;

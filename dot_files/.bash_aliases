@@ -247,7 +247,7 @@ unarchive()
     local tmpdir=$HOME/loopback
     for file ; do
         if [ ! -f $file ] ; then
-            echo "'$file' is not a valid file!"
+            print "'$file' is not a valid file!"
             continue
         fi
 
@@ -271,14 +271,14 @@ unarchive()
             *.zip)               unzip "$file"                     ;;
             *.7z)                7z x "$file"                      ;;
             *.dmg)
-                echo "'$file' mounted at '$tmpdir'."
+                print "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
                 mount -o loop -t hfs "$file" $tmpdir               ;;
             *.img|*.dd)
-                echo "'$file' mounted at '$tmpdir'."
+                print "'$file' mounted at '$tmpdir'."
                 mkdir $tmpdir
                 mount -o loop -t iso9660 "$file" $tmpdir           ;;
-            *)  echo "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
+            *)  print "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
         esac
     done
 }
@@ -392,7 +392,7 @@ ii()
     local BBlue='\e[1;34m'
     local NC="\e[m"
     local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
-    echo
+    print
     print "${BBlue}$USER$NC is logged on ${BBlue}$HOSTNAME"
     print "${BBlue}Additionnal information :$NC " ; uname -a
     print "${BBlue}Users logged on :$NC " ; w -hs |
@@ -407,11 +407,11 @@ ii()
         prettyDf $mounts
     fi
     print "${BBlue}Memory stats :$NC " ; free -h
-    print "${BBlue}Top 5 CPU% :$NC " ; echo "$TOP" | head -n 2 ; echo "$TOP" | tail -n 6
+    print "${BBlue}Top 5 CPU% :$NC " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
     print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
     print "${BBlue}Network Interfaces :$NC" ; listNics
     print "${BBlue}Open connections :$NC "; netstat -pan --inet;
-    echo
+    print
 }
 
 # Highlight many terms with different colors
@@ -563,9 +563,9 @@ prompt_callback()
 
     # Print don't print extra space unless need to.
     if [ "x$HG" == "x" ]; then
-        echo -n ""
+        print -n ""
     else
-        echo -n " $HG"
+        print -n " $HG"
     fi
 }
 
