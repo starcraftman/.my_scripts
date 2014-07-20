@@ -1,8 +1,11 @@
 ##!/usr/bin/env zsh
 # This config is based on a combination of existing .bashrc & .bash_aliases in
 # this directory, adapted to work on zsh.
+# Large number of configs:
+# http://stackoverflow.com/questions/171563/whats-in-your-zshrc
+# For more info, also consult man pages starting with zsh...
 ############################################################################
-# Setopt & System Autoload
+# Autoload, Completion & Setopt
 ############################################################################
 #{{{
 # Load zsh shell colors
@@ -12,6 +15,9 @@ autoload colors && colors
 # RESET COLOR $reset_color
 # EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
 
+# Allows us to override shell hooks like for before prompt
+autoload add-zsh-hook
+
 # Case insensitive
 autoload -U compinit
 compinit -C
@@ -19,6 +25,37 @@ compinit -C
 ## case-insensitive (all),partial-word and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
     'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Faster completion with cache
+zstyle ':completion::complete:*' use-cache 1
+
+# Don't complete directory we are already in (../here)
+zstyle ':completion:*' ignore-parents parent pwd
+
+# generate descriptions with magic.
+zstyle ':completion:*' auto-description 'specify: %d'
+
+# # Don't prompt for a huge list, page it!
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+# # Don't prompt for a huge list, menu it!
+zstyle ':completion:*:default' menu 'select=0'
+
+# # Have the newer files last so I see them first
+zstyle ':completion:*' file-sort modification reverse
+
+# # color code completion!!!!  Wohoo!
+zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
+
+# Don't complete stuff already on the line for commands in regex
+zstyle ':completion::*:(cp|mv|rm|tp|vi|vim):*' ignore-line true
+
+# Separate man page sections.  Neat.
+#zstyle ':completion:*:manuals' separate-sections true
+
+# Ignore certain files or directories, better than fignore
+zstyle ':completion:*:*files' ignored-patterns '*?.(o|class|pyc)' '*?~'
+zstyle ':completion:*:*:cd:*' ignored-patterns '(*/|)(bzr|git|hg|svn)'
 
 # History should append if multiple versions run
 setopt APPEND_HISTORY
@@ -79,10 +116,6 @@ fi
 #CCache Directory
 #Info: https://ccache.samba.org/manual.html
 export CCACHE_DIR=~/.ccache
-
-# Ignore files with these suffixes for bash completion
-# NB: For dirs like .bzr, bzr line will ignore anything ending in bzr.
-export FIGNORE=bzr:git:hg:svn:.class:.o:.pyc
 
 # Change grep color to bold blue
 export GREP_COLORS='ms=01;34:mc=01;34:sl=:cx=:fn=35:ln=32:bn=32:se=36'
@@ -543,7 +576,6 @@ function prompt_precmd()
     fi
 }
 
-autoload add-zsh-hook
 add-zsh-hook precmd prompt_precmd
 
 # Just aliases for common colors used later.
