@@ -92,7 +92,7 @@ setopt PROMPT_BANG
 setopt PROMPT_SUBST
 
 # Use vim mode
-setopt vi
+setopt VI
 
 # Zero index arrays, like normal people
 #setopt ksh_arrays
@@ -324,7 +324,21 @@ alias history='history -E'
 ############################################################################
 #{{{
 # Load all functions below
-autoload conTest debug ii jsonFix listNics prettyDf termColor unarchive
+autoload contains conTest debug ii jsonFix listNics prettyDf termColor unarchive
+
+# contains(string, substring)
+#
+# Returns 0 if the specified string contains the specified substring,
+# otherwise returns 1.
+function contains() {
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"; then
+        return 0    # $substring is in $string
+    else
+        return 1    # $substring is not in $string
+    fi
+}
 
 # Toggles bash debug mode, when on:
 #  * Turns on tracing of every command (xtrace).
@@ -337,22 +351,20 @@ function debug()
     local BGreen="$fg_bold[green]"
     local NC="$reset_color"
     # If command is blank, turn off debug mode
-    if [ "x" == "x${PROMPT}" ]; then
-        print 'turn off debug'
-        #set +o nounset
-        set +o verbose
-        set +o xtrace
-        PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
-        unset PROMPT_OLD_COMMAND
+    word=DEBUG
+    if contains "$PS1" "DEBUG"; then
+        PS1="$PS1_STD"
+        #unsetopt nounset
+        unsetopt sourcetrace
+        unsetopt verbose
+        unsetopt xtrace
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
-        print 'turn on debug'
-        PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
-        PROMPT_COMMAND=""
-        export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
-        #set -o nounset
-        set -o verbose
-        set -o xtrace
+        PS1="$PS1_DEBUG"
+        #setopt nounset
+        setopt sourcetrace
+        setopt verbose
+        setopt xtrace
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
         print "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
@@ -625,7 +637,12 @@ fi
 
 source ~/.zsh-git-prompt/zshrc.sh
 
-PS1='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status)
+#PS1_SIMPLE='$LAST { ${PS1_DIR}%~${PS1_R} }
+#${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
+PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
+PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status)
+${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
+PS1="$PS1_STD"
 #}}}
 # vim: set foldmethod=marker:
