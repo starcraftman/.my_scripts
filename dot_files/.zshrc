@@ -100,6 +100,12 @@ setopt PROMPT_SUBST
 #{{{
 # History lookup bindings to usual r key
 bindkey '^r' history-incremental-search-backward
+
+# Backspace deletes past start
+bindkey "^?" backward-delete-char
+
+# Use my normal jk map to escape insert mode
+bindkey jk vi-cmd-mode
 #}}}
 ############################################################################
 # Environment Variables
