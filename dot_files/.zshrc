@@ -357,20 +357,19 @@ function debug()
     local BGreen="$fg_bold[green]"
     local NC="$reset_color"
     # If command is blank, turn off debug mode
-    word=DEBUG
     if contains "$PS1" "DEBUG"; then
         PS1="$PS1_STD"
         #unsetopt nounset
         unsetopt sourcetrace
         unsetopt verbose
-        unsetopt xtrace
+        #unsetopt xtrace
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
         PS1="$PS1_DEBUG"
         #setopt nounset
         setopt sourcetrace
         setopt verbose
-        setopt xtrace
+        #setopt xtrace
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
         print "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
