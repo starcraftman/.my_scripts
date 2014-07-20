@@ -72,6 +72,12 @@ setopt HIST_FCNTL_LOCK
 # History lookup ignores duplicate commands
 setopt HIST_FIND_NO_DUPS
 
+# Use extended globbing
+setopt EXTENDED_GLOB
+
+# Use ksh globing, brings leading @, +() etc...
+setopt KSH_GLOB
+
 # Correct spelling mistakes only on commands
 setopt CORRECT
 
@@ -576,7 +582,6 @@ fi
 # PS1 Prompt
 ############################################################################
 #{{{
-
 function hg_prompt()
 {
     # Standard color escape sequences
