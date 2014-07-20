@@ -8,6 +8,9 @@
 # Autoload, Completion & Setopt
 ############################################################################
 #{{{
+# Zcalc is a neat cmdline calculator
+autoload zcalc
+
 # Load zsh shell colors
 autoload colors && colors
 # Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
@@ -88,6 +91,9 @@ setopt LONG_LIST_JOBS
 setopt PROMPT_BANG
 setopt PROMPT_SUBST
 
+# Use vim mode
+setopt vi
+
 # Zero index arrays, like normal people
 #setopt ksh_arrays
 
@@ -102,10 +108,26 @@ setopt PROMPT_SUBST
 bindkey '^r' history-incremental-search-backward
 
 # Backspace deletes past start
-bindkey "^?" backward-delete-char
+bindkey '^?' backward-delete-char
+
+# Scroll up or down a completion list
+bindkey '^j' down-line-or-history
+bindkey '^k' up-line-or-history
 
 # Use my normal jk map to escape insert mode
 bindkey jk vi-cmd-mode
+
+# vim-like undo and redo
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^R' redo
+
+# it's like, space AND completion. Allows for expansion of hist cmds,
+# example: $1<space>
+bindkey -M viins ' ' magic-space
+
+# oh wow!  This is killer...  try it!
+# Pushes current line onto a stack, comes off after next prompt
+bindkey -M vicmd "q" push-line-or-edit
 #}}}
 ############################################################################
 # Environment Variables
@@ -131,8 +153,9 @@ export HGMERGE=/usr/bin/kdiff3
 
 # Bash history options
 # Set large history file & line limit
+export HISTFILE=~/.zsh_history
 export HISTSIZE=100000
-export SAVEHIST=$HISTSIZE
+export SAVEHIST=100000
 
 # Ignore some commands
 #export HISTIGNORE='ls *:l *:bg:fg:history'
