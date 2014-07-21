@@ -353,7 +353,7 @@ function debug()
     local BRed="$fg_bold[red]"
     local BGreen="$fg_bold[green]"
     local NC="$reset_color"
-    # If command is blank, turn off debug mode
+    # If ps1 contains debug word, turn off debug mode
     if contains "$PS1" "DEBUG"; then
         PS1="$PS1_STD"
         #unsetopt nounset
