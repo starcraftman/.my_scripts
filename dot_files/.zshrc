@@ -204,6 +204,8 @@ export ANT_HOME=/usr/share/ant
 ############################################################################
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
+alias don='debug; setopt xtrace'
+alias doff='debug; unsetopt xtrace'
 
 # Keep home configs when switching to root
 alias su='su --preserve-environment'
@@ -263,16 +265,20 @@ fi
 # Filter by type with --type, supported types `ack --help-types`
 if hash ack 2>/dev/null; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
-    # Alias for ack find file
+    # Alias for ack find file by name
     alias ackf='ack -g'
+    # Alias for ack find file by contents
+    alias ackl='ack -il'
 fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
 if hash ag 2>/dev/null; then
     alias ag='ag --smart-case --follow --color-match="1;34"'
-    # Alias for file name searc
+    # Alias for ag find file by name
     alias agf='ag -g'
+    # Alias for ag find file by contents
+    alias agl='ag -il'
 fi
 
 # Add an "alert" alias for long running commands. Example:
