@@ -340,7 +340,8 @@ alias debug='if debug; then setopt xtrace; else unsetopt xtrace; clear; fi'
 #
 # Returns 0 if the specified string contains the specified substring,
 # otherwise returns 1.
-function contains() {
+function contains()
+{
     string="$1"
     substring="$2"
     if test "${string#*$substring}" != "$string"; then
@@ -351,7 +352,8 @@ function contains() {
 }
 
 # Save hooks if arge is 1, else restore them.
-function save_hooks() {
+function save_hooks()
+{
     if [ "$1" = "1" ]; then
         chpwd_functions=
         precmd_functions=

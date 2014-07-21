@@ -75,7 +75,7 @@ ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-n
 export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 # /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
-export PATH=$MYSCRIPTS:~/.vimpager:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
+export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 
@@ -218,7 +218,8 @@ alias print='echo -e'
 #
 # Returns 0 if the specified string contains the specified substring,
 # otherwise returns 1.
-contains() {
+contains()
+{
     string="$1"
     substring="$2"
     if test "${string#*$substring}" != "$string"; then
