@@ -45,7 +45,7 @@
     status = auto
     branch = auto
 [commit]
-    template = ~/.commit-template-kde
+    ;template = ~/.git-commit-template
 [core]
     editor = vim
     autocrlf = input
