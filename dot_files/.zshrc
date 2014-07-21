@@ -329,9 +329,6 @@ alias history='history -E'
 # Functions
 ############################################################################
 #{{{
-# Load all functions below
-autoload contains conTest debug ii jsonFix listNics prettyDf termColor unarchive
-
 # contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,
@@ -464,8 +461,7 @@ function listNics()
 {
     local BGreen="$fg_bold[green]"
     local NC="$reset_color"
-    local IFCONFIG=$(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }')
-    local INTS=${(@f)${IFCONFIG}}
+    INTS=( "${(@f)$(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }')}" )
     # Ample use of awk/sed for field extraction.
     for INT in $INTS ; do
         local   MAC=$(ifconfig $INT | awk '/Waddr/ { print $5 } ')
@@ -483,6 +479,7 @@ function listNics()
             print "\tIPv6:  ${IP6:-"N/A."}"
         fi
     done
+    unset INTS
 }
 
 # Pretty print of df, like dfc.
@@ -495,9 +492,8 @@ function prettyDf()
             continue
         fi
 
-    #local INTS=${(@f)${IFCONFIG}}
-        local info=( $(command df -P $fs | awk 'END{ print $2,$3,$5 }') )
-        local free=( $(command df -Pkh $fs | awk 'END{ print $4 }') )
+        info=( "${(s/ /)$(command df -P $fs | awk 'END{ print $2,$3,$5 }')}" )
+        local free="${(@f)$(command df -Pkh $fs | awk 'END{ print $4 }')}"
         local nbstars=$(( 20 * $info[2] / $info[1] ))
         local out="["
         for ((j=0;j<20;j++)); do
@@ -507,9 +503,10 @@ function prettyDf()
                out=$out"-"
             fi
         done
-        out=${info[3]}" "$out"] ("$free" free on "$fs")"
+        out=$info[3]" "$out"] ("$free" free on "$fs")"
         print $out
     done
+    unset info
 }
 
 # Get information on current system
@@ -517,8 +514,7 @@ function ii()
 {
     local BBlue="$fg_bold[blue]"
     local NC="$reset_color"
-    #local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
-    #print "$BBlue$TOP$NC"
+    TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     print
     print "${BBlue}$USERNAME$NC is logged on ${BBlue}$HOST"
     print "${BBlue}Additionnal information :$NC " ; uname -a
@@ -527,12 +523,12 @@ function ii()
     print "${BBlue}Current date :$NC " ; date
     print "${BBlue}Machine stats :$NC " ; uptime
     print "${BBlue}Diskspace :$NC "
-    #if hash dfc 2>/dev/null; then
-    if false; then
+    if hash dfc 2>/dev/null; then
         dfc
     else
-        local mounts=${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}
+        mounts=( "${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}" )
         prettyDf $mounts
+        unset mounts
     fi
     print "${BBlue}Memory stats :$NC " ; free -h
     print "${BBlue}Top 5 CPU% :$NC " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
@@ -540,6 +536,7 @@ function ii()
     print "${BBlue}Network Interfaces :$NC" ; listNics
     print "${BBlue}Open connections :$NC "; netstat -pan --inet;
     print
+    unset TOP
 }
 
 # Highlight many terms with different colors
