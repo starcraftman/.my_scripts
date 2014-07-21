@@ -343,6 +343,18 @@ function contains() {
     fi
 }
 
+# Save hooks if arge is 1, else restore them.
+function save_hooks() {
+    if [ "$1" = "1" ]; then
+        chpwd_functions=
+        precmd_functions=
+        preexec_functions=
+    else
+        add-zsh-hook precmd prompt_precmd
+        source ~/.zsh-git-prompt/zshrc.sh
+    fi
+}
+
 # Toggles bash debug mode, when on:
 #  * Turns on tracing of every command (xtrace).
 #  * Prevents unsetting vars (nounset).
@@ -360,6 +372,7 @@ function debug()
         unsetopt sourcetrace
         unsetopt verbose
         #unsetopt xtrace
+        save_hooks 0
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
     else
         PS1="$PS1_DEBUG"
@@ -367,6 +380,7 @@ function debug()
         setopt sourcetrace
         setopt verbose
         #setopt xtrace
+        save_hooks 1
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
         print "Careful with ${BRed}nounset${NC} breaks some completion."
     fi
