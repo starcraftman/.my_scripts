@@ -204,8 +204,6 @@ export ANT_HOME=/usr/share/ant
 ############################################################################
 #{{{
 # Note: First word of alias is expanded as alias, others ignored. Hence ll, expands ls.
-alias don='debug; setopt xtrace'
-alias doff='debug; unsetopt xtrace'
 
 # Keep home configs when switching to root
 alias su='su --preserve-environment'
@@ -330,6 +328,9 @@ alias help='run-help'
 
 # History with time stamps
 alias history='history -E'
+
+# Debug alias, appears xtrace can't be set except outside functions.
+alias debug='if debug; then setopt xtrace; else unsetopt xtrace; clear; fi'
 #}}}
 ############################################################################
 # Functions
@@ -366,6 +367,8 @@ function save_hooks() {
 #  * Prevents unsetting vars (nounset).
 #  * Prints lines before execution (verbose).
 #  * Disables bash prompt to avoid pollution with xtrace.
+#
+#  N.B. zsh bug that xtrace can't be set in a function
 function debug()
 {
     local BRed="$fg_bold[red]"
@@ -380,6 +383,7 @@ function debug()
         #unsetopt xtrace
         save_hooks 0
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
+        return 1
     else
         PS1="$PS1_DEBUG"
         #setopt nounset
@@ -389,6 +393,7 @@ function debug()
         save_hooks 1
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
         print "Careful with ${BRed}nounset${NC} breaks some completion."
+        return 0
     fi
 }
 
