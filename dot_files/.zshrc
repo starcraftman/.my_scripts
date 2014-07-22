@@ -633,7 +633,7 @@ bindkey '^j' down-line-or-history
 bindkey '^k' up-line-or-history
 
 # Use my normal jk map to escape insert mode
-bindkey jk vi-cmd-mode
+bindkey 'jk' vi-cmd-mode
 
 # vim-like undo and redo
 bindkey -M vicmd 'u' undo
@@ -653,7 +653,6 @@ bindkey -M vicmd "q" push-line-or-edit
 #{{{
 
 # Following section just for $vim_mode var hence here.
-bindkey -v      # vi mode
 vim_ins_mode="%{$fg_bold[red]%}[INS]%{$reset_color%}"
 vim_cmd_mode="%{$fg_bold[blue]%}[CMD]%{$reset_color%}"
 vim_mode=$vim_ins_mode
