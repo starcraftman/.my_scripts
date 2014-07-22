@@ -44,24 +44,31 @@ zstyle ':completion:*' auto-description 'specify: %d'
 # # Don't prompt for a huge list, page it!
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 
-# # Don't prompt for a huge list, menu it!
-zstyle ':completion:*:default' menu 'select=0'
+# # Don't prompt for a huge list, menu it if over 2 eles!
+zstyle ':completion:*:default' menu 'select=2'
 
 # # Have the newer files last so I see them first
 zstyle ':completion:*' file-sort modification reverse
 
 # # color code completion!!!!  Wohoo!
-zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
+#zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Don't complete stuff already on the line for commands in regex
 zstyle ':completion::*:(ag|ack|cp|git|hg|mv|rm|tp|vi|vim):*' ignore-line true
 
 # Separate man page sections.  Neat.
-#zstyle ':completion:*:manuals' separate-sections true
-zstyle ':completion:*:manuals'    separate-sections true
-zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:manuals.*'  group-name   true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:man:*'      menu yes select
+
+# Make kill/killall work better
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=29=34"
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*' force-list always
 
 # Ignore certain files or directories, better than fignore
 zstyle ':completion:*:*files' ignored-patterns '*?.(o|class|pyc)' '*?~'
@@ -85,11 +92,20 @@ setopt HIST_FCNTL_LOCK
 # History lookup ignores duplicate commands
 setopt HIST_FIND_NO_DUPS
 
+# If need to share history or write immediately
+# see SHARE_HISTORY, INC_APPEND_HISTORY
+
+# Allow braces to define character classes like: file{abcd1234}
+setopt BRACE_CCL
+
 # Use extended globbing
 setopt EXTENDED_GLOB
 
 # Use ksh globing, brings leading @, +() etc...
 setopt KSH_GLOB
+
+# Enable rematch (=~) to use pcre instead of shell regex.
+#setopt REMATCH_PCRE
 
 # Correct spelling mistakes only on commands
 setopt CORRECT
@@ -109,6 +125,9 @@ setopt LONG_LIST_JOBS
 # Enable prompt var substitution & root/user bang.
 setopt PROMPT_BANG
 setopt PROMPT_SUBST
+
+# RM star commands wait before proceeding.
+setopt RM_STAR_WAIT
 
 # Use vim mode
 setopt VI
@@ -396,6 +415,7 @@ function debug()
         #unsetopt nounset
         unsetopt sourcetrace
         unsetopt verbose
+        unsetopt warncreateglobal
         #unsetopt xtrace
         save_hooks 0
         print "Bash Debug Mode: ${BRed}DISABLED${NC}"
@@ -405,6 +425,7 @@ function debug()
         #setopt nounset
         setopt sourcetrace
         setopt verbose
+        unsetopt warncreateglobal
         #setopt xtrace
         save_hooks 1
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
@@ -639,6 +660,7 @@ function zle-line-finish
 }
 zle -N zle-line-finish
 
+# HG prompt like bash-git-prompt
 function hg_prompt()
 {
     # Standard color escape sequences
@@ -701,8 +723,6 @@ fi
 
 source ~/.zsh-git-prompt/zshrc.sh
 
-#PS1_SIMPLE='$LAST { ${PS1_DIR}%~${PS1_R} }
-#${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} } $HG_PROMPT$(git_super_status)${vcs_info_msg_0_}
@@ -710,5 +730,10 @@ ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1="$PS1_STD"
 
 RPROMPT='${vim_mode}'
+
+# Zsh will print when users log in
+watch=all                # watch all logins
+logcheck=30              # every 30 seconds
+WATCHFMT="%n from %M has %a tty%l at %T %W"
 #}}}
 # vim: set foldmethod=marker:
