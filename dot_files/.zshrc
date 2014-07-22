@@ -125,6 +125,7 @@ setopt VI
 #{{{
 # History lookup bindings to usual r key
 bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
 
 # Backspace deletes past start
 bindkey '^?' backward-delete-char
@@ -660,7 +661,7 @@ function hg_prompt()
         HG="${HG%%]}${BGREEN}✔${R}]"
     fi
 
-    HG_PROMPT=" $HG"
+    HG_PROMPT="$HG"
 }
 
 function prompt_precmd()
@@ -704,7 +705,7 @@ source ~/.zsh-git-prompt/zshrc.sh
 #${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
-PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status) ${vcs_info_msg_0_}
+PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} } $HG_PROMPT$(git_super_status)${vcs_info_msg_0_}
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1="$PS1_STD"
 
