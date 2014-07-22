@@ -9,17 +9,20 @@
 ############################################################################
 #{{{
 # Zcalc is a neat cmdline calculator
-autoload zcalc
+autoload -U zcalc
 
 # Load zsh shell colors
-autoload colors && colors
+autoload -U colors && colors
 # Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
 #   KEYS: red green yellow blue magenta cyan black white
 # RESET COLOR $reset_color
 # EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
 
 # Allows us to override shell hooks like for before prompt
-autoload add-zsh-hook
+autoload -U add-zsh-hook
+
+# Use vcs info for bzr & svn
+autoload -Uz vcs_info
 
 # Case insensitive
 autoload -U compinit
@@ -51,14 +54,24 @@ zstyle ':completion:*' file-sort modification reverse
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
 # Don't complete stuff already on the line for commands in regex
-zstyle ':completion::*:(cp|mv|rm|tp|vi|vim):*' ignore-line true
+zstyle ':completion::*:(ag|ack|cp|git|hg|mv|rm|tp|vi|vim):*' ignore-line true
 
 # Separate man page sections.  Neat.
 #zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:manuals.*'  group-name   true
+zstyle ':completion:*:man:*'      menu yes select
 
 # Ignore certain files or directories, better than fignore
 zstyle ':completion:*:*files' ignored-patterns '*?.(o|class|pyc)' '*?~'
 zstyle ':completion:*:*:cd:*' ignored-patterns '(*/|)(bzr|git|hg|svn)'
+
+# Settings for vcs_info
+zstyle ':vcs_info:*' enable bzr cvs svn
+zstyle ':vcs_info:*' check-for-changes true
+# Staged Unstaged [Branch] vcs_type-repo_name
+zstyle ':vcs_info:*' formats "%{$fg[green]%}%c%{$reset_color%} %{$fg[red]%}%u%{$reset_color%} [%{$fg_bold[magenta]%}%b%{$reset_color%}] %{$fg_bold[cyan]%}%r%{$reset_color%} <%{$fg[yellow]%}%s%{$reset_color%}>"
 
 # History should append if multiple versions run
 setopt APPEND_HISTORY
@@ -605,6 +618,26 @@ fi
 # PS1 Prompt
 ############################################################################
 #{{{
+
+# Following section just for $vim_mode var hence here.
+bindkey -v      # vi mode
+vim_ins_mode="%{$fg_bold[red]%}[INS]%{$reset_color%}"
+vim_cmd_mode="%{$fg_bold[blue]%}[CMD]%{$reset_color%}"
+vim_mode=$vim_ins_mode
+
+function zle-keymap-select
+{
+    vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+    zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish
+{
+    vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
 function hg_prompt()
 {
     # Standard color escape sequences
@@ -643,6 +676,8 @@ function prompt_precmd()
     else
         HG_PROMPT=""
     fi
+
+    vcs_info
 }
 
 add-zsh-hook precmd prompt_precmd
@@ -669,8 +704,10 @@ source ~/.zsh-git-prompt/zshrc.sh
 #${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
-PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status)
+PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} }$HG_PROMPT $(git_super_status) ${vcs_info_msg_0_}
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1="$PS1_STD"
+
+RPROMPT='${vim_mode}'
 #}}}
 # vim: set foldmethod=marker:
