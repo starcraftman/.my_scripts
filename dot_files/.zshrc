@@ -525,6 +525,11 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Don't complete stuff already on the line for commands in regex
 zstyle ':completion::*:(ag|ack|cp|git|hg|mv|rm|tp|vi|vim):*' ignore-line true
 
+# Group completions by type & have blue header above.
+#zstyle ':completion:*:descriptions' format $'\e[00;34m%d'
+#zstyle ':completion:*:messages' format $'\e[00;31m%d'
+#zstyle ':completion:*' group-name ''
+
 # Separate man page sections.  Neat.
 zstyle ':completion:*:manuals.*'  group-name   true
 zstyle ':completion:*:manuals.*'  insert-sections   true
@@ -610,6 +615,9 @@ setopt VI
 # Key Bindings
 ############################################################################
 #{{{
+# When in completion, move backwards, key is shift+tab
+bindkey '^[[Z' reverse-menu-complete
+
 # History lookup bindings to usual r key
 bindkey '^r' history-incremental-search-backward
 bindkey '^s' history-incremental-search-forward
