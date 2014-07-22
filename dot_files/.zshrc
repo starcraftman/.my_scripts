@@ -35,9 +35,6 @@ export SAVEHIST=100000
 # Ignore some commands
 #export HISTIGNORE='ls *:l *:bg:fg:history'
 
-# Ignore duplicate commands in history
-export HISTCONTROL=ignoredups:erasedups
-
 # Default pager
 export PAGER=less
 #}}}
@@ -564,6 +561,12 @@ setopt HIST_FCNTL_LOCK
 
 # History lookup ignores duplicate commands
 setopt HIST_FIND_NO_DUPS
+
+# Ignore duplicates if they are same as previous.
+setopt HIST_IGNORE_DUPS
+
+# Ignore the history command itself
+setopt HIST_NO_STORE
 
 # If need to share history or write immediately
 # see SHARE_HISTORY, INC_APPEND_HISTORY
