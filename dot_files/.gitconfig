@@ -19,9 +19,9 @@
     last = !git ld -1 HEAD
     lg = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s' --date=relative
     lgb = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local
-    lgfull = log --graph --pretty=format:'%C(bold red)%H%Creset %n%C(bold green)Commiter: (%cd) %cn<%ce>%Creset %n%C(bold blue)Author: (%ad) %an<%ae>%Creset %n%s%n' --date=relative
+    lgfull = log --graph --pretty=format:'%C(bold red)%H%Creset %n%C(bold green)Commiter: %cn <%ce> (%cd)%Creset %n%C(bold blue)Author: %an <%ae> (%ad)%Creset %n%s%n' --date=relative
     ld = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local --numstat
-    ldfull = log --graph --pretty=format:'%C(bold red)%H%Creset %n%C(bold green)Commiter: (%cd) %cn<%ce>%Creset %n%C(bold blue)Author: (%ad) %an<%ae>%Creset %n%s%n%b' --date=local --numstat
+    ldfull = log --graph --pretty=format:'%C(bold red)%H%Creset %n%C(bold green)Commiter: %cn <%ce> (%cd)%Creset %n%C(bold blue)Author: %an <%ae> (%ad)%Creset %n%s%n%b' --date=local --numstat
     ldr= log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=relative --numstat
     ;Based on the excellent post: https://coderwall.com/p/fowimq
     incoming = !git fetch --quiet && git ldr ..@{u}
