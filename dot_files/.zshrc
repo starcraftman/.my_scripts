@@ -5,170 +5,6 @@
 # http://stackoverflow.com/questions/171563/whats-in-your-zshrc
 # For more info, also consult man pages starting with zsh...
 ############################################################################
-# Autoload, Completion & Setopt
-############################################################################
-#{{{
-# Zcalc is a neat cmdline calculator
-autoload -U zcalc
-
-# Load zsh shell colors
-autoload -U colors && colors
-# Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
-#   KEYS: red green yellow blue magenta cyan black white
-# RESET COLOR $reset_color
-# EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
-
-# Allows us to override shell hooks like for before prompt
-autoload -U add-zsh-hook
-
-# Use vcs info for bzr & svn
-autoload -Uz vcs_info
-
-# Case insensitive
-autoload -U compinit
-compinit -C
-
-## case-insensitive (all),partial-word and then substring completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
-    'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# Faster completion with cache
-zstyle ':completion::complete:*' use-cache 1
-
-# Don't complete directory we are already in (../here)
-zstyle ':completion:*' ignore-parents parent pwd
-
-# generate descriptions with magic.
-zstyle ':completion:*' auto-description 'specify: %d'
-
-# # Don't prompt for a huge list, page it!
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-
-# # Don't prompt for a huge list, menu it if over 2 eles!
-zstyle ':completion:*:default' menu 'select=2'
-
-# # Have the newer files last so I see them first
-zstyle ':completion:*' file-sort modification reverse
-
-# # color code completion!!!!  Wohoo!
-#zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# Don't complete stuff already on the line for commands in regex
-zstyle ':completion::*:(ag|ack|cp|git|hg|mv|rm|tp|vi|vim):*' ignore-line true
-
-# Separate man page sections.  Neat.
-zstyle ':completion:*:manuals.*'  group-name   true
-zstyle ':completion:*:manuals.*'  insert-sections   true
-zstyle ':completion:*:manuals'    separate-sections true
-zstyle ':completion:*:man:*'      menu yes select
-
-# Make kill/killall work better
-zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:kill:*' force-list always
-zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=29=34"
-zstyle ':completion:*:*:killall:*' menu yes select
-zstyle ':completion:*:killall:*' force-list always
-
-# Ignore certain files or directories, better than fignore
-zstyle ':completion:*:*files' ignored-patterns '*?.(o|class|pyc)' '*?~'
-zstyle ':completion:*:*:cd:*' ignored-patterns '(*/|)(bzr|git|hg|svn)'
-
-# Settings for vcs_info
-zstyle ':vcs_info:*' enable bzr cvs svn
-zstyle ':vcs_info:*' check-for-changes true
-# Staged Unstaged [Branch] vcs_type-repo_name
-zstyle ':vcs_info:*' formats "%{$fg[green]%}%c%{$reset_color%} %{$fg[red]%}%u%{$reset_color%} [%{$fg_bold[magenta]%}%b%{$reset_color%}] %{$fg_bold[cyan]%}%r%{$reset_color%} <%{$fg[yellow]%}%s%{$reset_color%}>"
-
-# History should append if multiple versions run
-setopt APPEND_HISTORY
-
-# History saves beginning and elapsed time for commands
-setopt EXTENDED_HISTORY
-
-# History writing better on nfs
-setopt HIST_FCNTL_LOCK
-
-# History lookup ignores duplicate commands
-setopt HIST_FIND_NO_DUPS
-
-# If need to share history or write immediately
-# see SHARE_HISTORY, INC_APPEND_HISTORY
-
-# Allow braces to define character classes like: file{abcd1234}
-setopt BRACE_CCL
-
-# Use extended globbing
-setopt EXTENDED_GLOB
-
-# Use ksh globing, brings leading @, +() etc...
-setopt KSH_GLOB
-
-# Enable rematch (=~) to use pcre instead of shell regex.
-#setopt REMATCH_PCRE
-
-# Correct spelling mistakes only on commands
-setopt CORRECT
-
-# pushd -> pushd $HOME
-setopt PUSHD_TO_HOME
-
-# Don't exit with ctrl + D
-setopt IGNORE_EOF
-
-# Two single quotes escape to one in single quotes
-setopt RC_QUOTES
-
-# Jobs print in long format for more info
-setopt LONG_LIST_JOBS
-
-# Enable prompt var substitution & root/user bang.
-setopt PROMPT_BANG
-setopt PROMPT_SUBST
-
-# RM star commands wait before proceeding.
-setopt RM_STAR_WAIT
-
-# Use vim mode
-setopt VI
-
-# Zero index arrays, like normal people
-#setopt ksh_arrays
-
-# Set compatible globbing.
-#setopt ksh_glob
-#}}}
-############################################################################
-# Key Bindings
-############################################################################
-#{{{
-# History lookup bindings to usual r key
-bindkey '^r' history-incremental-search-backward
-bindkey '^s' history-incremental-search-forward
-
-# Backspace deletes past start
-bindkey '^?' backward-delete-char
-
-# Scroll up or down a completion list
-bindkey '^j' down-line-or-history
-bindkey '^k' up-line-or-history
-
-# Use my normal jk map to escape insert mode
-bindkey jk vi-cmd-mode
-
-# vim-like undo and redo
-bindkey -M vicmd 'u' undo
-bindkey -M vicmd '^R' redo
-
-# it's like, space AND completion. Allows for expansion of hist cmds,
-# example: $1<space>
-bindkey -M viins ' ' magic-space
-
-# oh wow!  This is killer...  try it!
-# Pushes current line onto a stack, comes off after next prompt
-bindkey -M vicmd "q" push-line-or-edit
-#}}}
-############################################################################
 # Environment Variables
 ############################################################################
 #{{{
@@ -635,6 +471,170 @@ fi
 # Set default config environment. If need specialize, copy into dir of src tree.
 #. ~/.build-config-default
 
+#}}}
+############################################################################
+# Autoload, Completion & Setopt
+############################################################################
+#{{{
+# Zcalc is a neat cmdline calculator
+autoload -U zcalc
+
+# Load zsh shell colors
+autoload -U colors && colors
+# Loaded colors will be in associated arrays called: fg_no_bold, fg_bold, bg
+#   KEYS: red green yellow blue magenta cyan black white
+# RESET COLOR $reset_color
+# EXAMPLE: print "$fg_no_bold[red] hello $reset_color"
+
+# Allows us to override shell hooks like for before prompt
+autoload -U add-zsh-hook
+
+# Use vcs info for bzr & svn
+autoload -Uz vcs_info
+
+# Case insensitive
+autoload -U compinit
+compinit -C
+
+## case-insensitive (all),partial-word and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
+    'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Faster completion with cache
+zstyle ':completion::complete:*' use-cache 1
+
+# Don't complete directory we are already in (../here)
+zstyle ':completion:*' ignore-parents parent pwd
+
+# generate descriptions with magic.
+zstyle ':completion:*' auto-description 'specify: %d'
+
+# # Don't prompt for a huge list, page it!
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+# # Don't prompt for a huge list, menu it if over 2 eles!
+zstyle ':completion:*:default' menu 'select=2'
+
+# # Have the newer files last so I see them first
+zstyle ':completion:*' file-sort modification reverse
+
+# # color code completion!!!!  Wohoo!
+#zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# Don't complete stuff already on the line for commands in regex
+zstyle ':completion::*:(ag|ack|cp|git|hg|mv|rm|tp|vi|vim):*' ignore-line true
+
+# Separate man page sections.  Neat.
+zstyle ':completion:*:manuals.*'  group-name   true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:man:*'      menu yes select
+
+# Make kill/killall work better
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=29=34"
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*' force-list always
+
+# Ignore certain files or directories, better than fignore
+zstyle ':completion:*:*files' ignored-patterns '*?.(o|class|pyc)' '*?~'
+zstyle ':completion:*:*:cd:*' ignored-patterns '(*/|)(bzr|git|hg|svn)'
+
+# Settings for vcs_info
+zstyle ':vcs_info:*' enable bzr cvs svn
+zstyle ':vcs_info:*' check-for-changes true
+# Staged Unstaged [Branch] vcs_type-repo_name
+zstyle ':vcs_info:*' formats "%{$fg[green]%}%c%{$reset_color%} %{$fg[red]%}%u%{$reset_color%} [%{$fg_bold[magenta]%}%b%{$reset_color%}] %{$fg_bold[cyan]%}%r%{$reset_color%} <%{$fg[yellow]%}%s%{$reset_color%}>"
+
+# History should append if multiple versions run
+setopt APPEND_HISTORY
+
+# History saves beginning and elapsed time for commands
+setopt EXTENDED_HISTORY
+
+# History writing better on nfs
+setopt HIST_FCNTL_LOCK
+
+# History lookup ignores duplicate commands
+setopt HIST_FIND_NO_DUPS
+
+# If need to share history or write immediately
+# see SHARE_HISTORY, INC_APPEND_HISTORY
+
+# Allow braces to define character classes like: file{abcd1234}
+setopt BRACE_CCL
+
+# Use extended globbing
+setopt EXTENDED_GLOB
+
+# Use ksh globing, brings leading @, +() etc...
+setopt KSH_GLOB
+
+# Enable rematch (=~) to use pcre instead of shell regex.
+#setopt REMATCH_PCRE
+
+# Correct spelling mistakes only on commands
+setopt CORRECT
+
+# pushd -> pushd $HOME
+setopt PUSHD_TO_HOME
+
+# Don't exit with ctrl + D
+setopt IGNORE_EOF
+
+# Two single quotes escape to one in single quotes
+setopt RC_QUOTES
+
+# Jobs print in long format for more info
+setopt LONG_LIST_JOBS
+
+# Enable prompt var substitution & root/user bang.
+setopt PROMPT_BANG
+setopt PROMPT_SUBST
+
+# RM star commands wait before proceeding.
+setopt RM_STAR_WAIT
+
+# Use vim mode
+setopt VI
+
+# Zero index arrays, like normal people
+#setopt ksh_arrays
+
+# Set compatible globbing.
+#setopt ksh_glob
+#}}}
+############################################################################
+# Key Bindings
+############################################################################
+#{{{
+# History lookup bindings to usual r key
+bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
+
+# Backspace deletes past start
+bindkey '^?' backward-delete-char
+
+# Scroll up or down a completion list
+bindkey '^j' down-line-or-history
+bindkey '^k' up-line-or-history
+
+# Use my normal jk map to escape insert mode
+bindkey jk vi-cmd-mode
+
+# vim-like undo and redo
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^R' redo
+
+# it's like, space AND completion. Allows for expansion of hist cmds,
+# example: $1<space>
+bindkey -M viins ' ' magic-space
+
+# oh wow!  This is killer...  try it!
+# Pushes current line onto a stack, comes off after next prompt
+bindkey -M vicmd "q" push-line-or-edit
 #}}}
 ############################################################################
 # PS1 Prompt
