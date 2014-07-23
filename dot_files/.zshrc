@@ -467,7 +467,6 @@ fi
 
 # Set default config environment. If need specialize, copy into dir of src tree.
 #. ~/.build-config-default
-
 #}}}
 ############################################################################
 # Autoload, Completion & Setopt
@@ -651,7 +650,6 @@ bindkey -M vicmd "q" push-line-or-edit
 # PS1 Prompt
 ############################################################################
 #{{{
-
 # Following section just for $vim_mode var hence here.
 vim_ins_mode="%{$fg_bold[red]%}[INS]%{$reset_color%}"
 vim_cmd_mode="%{$fg_bold[blue]%}[CMD]%{$reset_color%}"
