@@ -745,6 +745,6 @@ logcheck=30              # every 30 seconds
 WATCHFMT="%n from %M has %a tty%l at %T %W"
 
 # Highlighting for shell
-source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
 # vim: set foldmethod=marker:
