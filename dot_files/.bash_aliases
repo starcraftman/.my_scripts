@@ -242,6 +242,7 @@ debug()
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT_COMMAND}" ]; then
         #set +o nounset
+        set +o extdebug
         set +o verbose
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
@@ -252,6 +253,7 @@ debug()
         PROMPT_COMMAND=""
         export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
         #set -o nounset
+        set -o extdebug
         set -o verbose
         set -o xtrace
         print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
