@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-GIT_REPOS=( ~/.shell/.bash-git-prompt ~/.shell/.zsh-git-prompt ~/.shell/.hhighlighter ~/.shell/.zsh-syntax-highlighting/ ~/.my_scripts )
+REPOS=( ~/.shell/.* "$MYSCRIPTS" )
 
 SYS=generic
 if hash apt-get 2>/dev/null; then
@@ -18,19 +18,17 @@ if [ -d ~/.vim/bundle/Vundle.vim ]; then
     vim +PluginUpdate +qa
 fi
 
-echo 'updating git repos'
+echo 'updating repos'
 pushd .
 
-DIR=~/.shell/.hg-prompt
-if [ -d $DIR ]; then
-    cd $DIR
-    hg pull
-fi
-
-for dir in "${GIT_REPOS[@]}"; do
-    if [ -d $dir ]; then
-	cd $dir
-	git pull
+for dir in "${REPOS[@]}"; do
+    if [ -d "$dir" ]; then
+	cd "$dir"
+	if [ -d ".git" ]; then
+            git pull
+	elif [ -d ".hg" ]; then
+            hg pull
+	fi
     fi
 done
 
