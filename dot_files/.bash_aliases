@@ -437,7 +437,7 @@ ii()
 
 # Highlight many terms with different colors
 # Usage: find . | h term1 term2 term3
-source $HOME/.hhighlighter/h.sh
+source ~/.shell/.hhighlighter/h.sh
 #}}}
 ############################################################################
 # Shell Settings
@@ -605,7 +605,7 @@ GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$ "
 # Shows status of last command.
 GIT_PROMPT_SHOW_LAST_COMMAND_INDICATOR=1
 
-source ~/.bash-git-prompt/gitprompt.sh
+source ~/.shell/.bash-git-prompt/gitprompt.sh
 
 # Old PS1 modification.
 # PS1 config options

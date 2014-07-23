@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
-GIT_REPOS=( ~/.bash-git-prompt ~/.zsh-git-prompt ~/.hhighlighter ~/.my_scripts )
+GIT_REPOS=( ~/.shell/.bash-git-prompt ~/.shell/.zsh-git-prompt ~/.shell/.hhighlighter ~/.shell/.zsh-syntax-highlighting/ ~/.my_scripts )
 
 SYS=generic
 if hash apt-get 2>/dev/null; then
     SYS=debian
 fi
 
-if [ "xdebian" == "x$SYS" ]; then
-    echo 'updating debian platform'
-    sudo apt-get update && sudo apt-get -y dist-upgrade
-    sudo apt-get autoremove
-    sudo apt-get -f install
-fi
+#if [ "xdebian" == "x$SYS" ]; then
+    #echo 'updating debian platform'
+    #sudo apt-get update && sudo apt-get -y dist-upgrade
+    #sudo apt-get autoremove
+    #sudo apt-get -f install
+#fi
 
-if [ -d ~/.vim/bundle/Vundle.vim ]; then
-    echo 'Updating vim plugins.'
-    vim +PluginUpdate +qa
-fi
+#if [ -d ~/.vim/bundle/Vundle.vim ]; then
+    #echo 'Updating vim plugins.'
+    #vim +PluginUpdate +qa
+#fi
 
 echo 'updating git repos'
 pushd .
 
-DIR=~/.hg-prompt
+DIR=~/.shell/.hg-prompt
 if [ -d $DIR ]; then
     cd $DIR
     hg pull

@@ -218,19 +218,20 @@ def home_config():
     get_code('git clone https://github.com/gmarik/Vundle.vim.git',
             ddir + 'Vundle.vim')
 
-    # Setup git/hg prompt.
+    # Get shell utilities
+    shell_dir = home + '.shell' + os.sep
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
-            home + '.hg-prompt')
-    get_code('git clone https://github.com/magicmonty/bash-git-prompt.git',
-            home + '.bash-git-prompt')
+            shell_dir + '.hg-prompt')
 
-    # Zsh prompt helper
-    get_code('git clone git@github.com:starcraftman/zsh-git-prompt.git',
-            home + '.zsh-git-prompt')
+    git_urls = ['https://github.com/magicmonty/bash-git-prompt.git',
+            'https://github.com/starcraftman/zsh-git-prompt.git',
+            'https://github.com/zsh-users/zsh-syntax-highlighting.git',
+            'https://github.com/starcraftman/hhighlighter.git',
+            ]
 
-    # Highlighter to replace grepping a pipe
-    get_code('git clone git@github.com:starcraftman/hhighlighter.git',
-            home + '.hhighlighter')
+    for url in git_urls:
+        target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
+        get_code('git clone ' + url, shell_dir + target)
 
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'

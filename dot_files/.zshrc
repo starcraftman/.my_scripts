@@ -226,7 +226,7 @@ function save_hooks()
         preexec_functions=
     else
         add-zsh-hook precmd prompt_precmd
-        source ~/.zsh-git-prompt/zshrc.sh
+        source ~/.shell/.zsh-git-prompt/zshrc.sh
     fi
 }
 
@@ -436,7 +436,7 @@ function ii()
 
 # Highlight many terms with different colors
 # Usage: find . | h term1 term2 term3
-source $HOME/.hhighlighter/h.sh
+source ~/.shell/.hhighlighter/h.sh
 #}}}
 ############################################################################
 # Misc Options
@@ -729,7 +729,7 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
     PS1_HOST=%B%F{magenta}
 fi
 
-source ~/.zsh-git-prompt/zshrc.sh
+source ~/.shell/.zsh-git-prompt/zshrc.sh
 
 PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
@@ -743,5 +743,8 @@ RPROMPT='${vim_mode}'
 watch=all                # watch all logins
 logcheck=30              # every 30 seconds
 WATCHFMT="%n from %M has %a tty%l at %T %W"
+
+# Highlighting for shell
+source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
 # vim: set foldmethod=marker:
