@@ -202,6 +202,14 @@ alias debug='if debug; then setopt xtrace; else unsetopt xtrace; clear; fi'
 # Functions
 ############################################################################
 #{{{
+# Take a directory. If it doesn't exist, make it.
+function take()
+{
+    local dir = "$1"
+    mkdir "$dir"
+    cd "$dir"
+}
+
 # contains(string, substring)
 #
 # Returns 0 if the specified string contains the specified substring,
