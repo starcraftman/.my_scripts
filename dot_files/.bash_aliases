@@ -217,7 +217,7 @@ alias print='echo -e'
 # Take a directory. If it doesn't exist, make it.
 take()
 {
-    local dir = "$1"
+    local dir="$1"
     mkdir "$dir"
     cd "$dir"
 }

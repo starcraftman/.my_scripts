@@ -205,7 +205,7 @@ alias debug='if debug; then setopt xtrace; else unsetopt xtrace; clear; fi'
 # Take a directory. If it doesn't exist, make it.
 function take()
 {
-    local dir = "$1"
+    local dir="$1"
     mkdir "$dir"
     cd "$dir"
 }
