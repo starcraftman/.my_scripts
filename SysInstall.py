@@ -353,7 +353,7 @@ def build_zsh_docs(optdir):
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
     # Store all compilations into opt from environment
-    optdir = os.environ['OPT'] + os.sep
+    optdir = os.environ['OPTDIR'] + os.sep
     home = os.path.expanduser('~') + os.sep
 
     # Only use on posix systems.

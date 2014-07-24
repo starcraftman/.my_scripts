@@ -1,14 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
 PYTHON_URL=https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
 ZSH_URL=https://github.com/zsh-users/zsh.git
+DIR=$(pwd)/test
 
 build_py()
 {
   local py_arc=python.tar.xz
-  curl PYTHON_URL > "$py_arc"
-  unarchive "$py_arc"
-  pushd python*
-  ./condigure --prefix=$OPT
+  curl $PYTHON_URL > "$py_arc"
+  xzcat "$py_arc" | tar xvf -
+  pushd Python*
+  ./configure --prefix=$DIR
   make
   make install
   popd
@@ -19,11 +20,15 @@ build_zsh()
 {
   git clone https://github.com/zsh-users/zsh.git
   pushd zsh
-  ./condigure --prefix=$OPT
+  ./Util/preconfig
+  autoconf
+  ./configure --prefix=$DIR
   make
   make install
   popd
 }
 
-print "Simple bootstrapper to get python & zsh on systems that might\
+echo "Simple bootstrapper to get python & zsh on systems that might\
   not have packages for it."
+build_py
+

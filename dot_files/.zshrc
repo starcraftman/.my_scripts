@@ -45,7 +45,7 @@ export PAGER=less
 # .software is for any precompiled programs & libraries I install.
 # .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
 export SOFT=~/.software
-export OPT=~/.opt
+export OPTDIR=~/.opt
 
 # Personal scripts go here to stay outside of root.
 MYSCRIPTS=~/.my_scripts
@@ -58,7 +58,7 @@ ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-n
 export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 # /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
-export PATH=$MYSCRIPTS:$OPT/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
+export PATH=$MYSCRIPTS:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 

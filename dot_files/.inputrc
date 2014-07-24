@@ -11,7 +11,7 @@ set completion-ignore-case on
 set completion-map-case on
 
 # When there are lots of common words, print elipsis
-set completion-prefix-display-length 3
+#set completion-prefix-display-length 3
 
 # Cycle through possible completions
 control-j: menu-complete
