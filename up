@@ -22,8 +22,11 @@ echo 'updating repos'
 pushd .
 
 for dir in "${REPOS[@]}"; do
+    local BGreen='\e[1;32m'
+    local NC="\e[m"
     if [ -d "$dir" ]; then
 	cd "$dir"
+	echo -n "${BGreen}$dir${NC} >>> "
 	if [ -d ".git" ]; then
             git pull
 	elif [ -d ".hg" ]; then
