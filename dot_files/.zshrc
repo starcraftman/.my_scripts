@@ -585,6 +585,9 @@ setopt HIST_IGNORE_DUPS
 # Ignore the history command itself
 setopt HIST_NO_STORE
 
+# Reduce blanks when possible
+setopt HIST_REDUCE_BLANKS
+
 # If need to share history or write immediately
 # see SHARE_HISTORY, INC_APPEND_HISTORY
 
