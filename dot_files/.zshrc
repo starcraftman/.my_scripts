@@ -522,8 +522,9 @@ zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # # Don't prompt for a huge list, menu it if over 2 eles!
 zstyle ':completion:*:default' menu 'select=2'
 
-# # Have the newer files last so I see them first
-zstyle ':completion:*' file-sort modification reverse
+# # Have the newer files first or alphabtical
+zstyle ':completion:*' file-sort modification
+#zstyle ':completion:*' file-sort alpha
 
 # # color code completion!!!!  Wohoo!
 #zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
