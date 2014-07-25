@@ -326,6 +326,19 @@ def build_parallel(optdir):
     finally:
         os.remove(archive)
 
+def build_vimpager(optdir):
+    """ Vimpager is a neat tool that pages with vim, also vimcat. """
+    srcdir = optdir + 'src' + os.sep + 'vimpager' + os.sep
+    get_code('git clone https://github.com/rkitover/vimpager.git', srcdir)
+
+    # Simply move the required files to optdir
+    shutil.copy(srcdir + 'vimcat', optdir + 'bin')
+    shutil.copy(srcdir + 'vimpager', optdir + 'bin')
+    for man in glob.glob(srcdir +  os.sep + '*.1'):
+        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
+
+    shutil.rmtree(srcdir)
+
 # If switch to build later:
 # https://gist.github.com/nicoulaj/715855
 def build_zsh_docs(optdir):
@@ -371,6 +384,7 @@ def src_programs():
             'ack':      build_ack,
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
+            'vimpager': build_vimpager,
             'zsh':      build_zsh_docs,
             }
 
