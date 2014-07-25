@@ -37,6 +37,9 @@ export SAVEHIST=100000
 
 # Default pager
 export PAGER=less
+
+# No git state caching, prefer to always be accurate
+export ZSH_THEME_GIT_PROMPT_NOCACHE=1
 #}}}
 ############################################################################
 # Path Settings
