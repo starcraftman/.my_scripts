@@ -206,6 +206,12 @@ if hash tree 2>/dev/null; then
     alias tree='tree -Csuh'
 fi
 
+# Aliases for vimpager
+if hash vimpager 2>/dev/null; then
+    alias vcat='vimcat'
+    alias vpager='vimpager'
+fi
+
 # BASH ONLY
 # Print alias for echo with escape codes
 alias print='echo -e'

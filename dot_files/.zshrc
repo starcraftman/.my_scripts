@@ -192,6 +192,12 @@ if hash tree 2>/dev/null; then
     alias tree='tree -Csuh'
 fi
 
+# Aliases for vimpager
+if hash vimpager 2>/dev/null; then
+    alias vcat='vimcat'
+    alias vpager='vimpager'
+fi
+
 # Zsh only aliases
 alias help='run-help'
 
