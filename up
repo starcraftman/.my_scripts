@@ -5,6 +5,7 @@ if hash apt-get 2>/dev/null; then
     SYS=debian
 fi
 
+# Update repositories passed as arguments
 update_repos()
 {
 echo 'updating repos'
@@ -12,7 +13,7 @@ pushd .
 
 local BGreen='\e[1;32m'
 local NC="\e[m"
-for dir in "${REPOS[@]}"; do
+for dir ; do
     if [ -d "$dir" ]; then
 	cd "$dir"
 	echo -e " >>> ${BGreen}$dir${NC} <<< "
@@ -39,7 +40,7 @@ if [ -d ~/.vim/bundle/Vundle.vim ]; then
     vim +PluginUpdate +qa
 fi
 
-update_repos
+update_repos "${REPOS[@]}"
 
 # Force ag/ack update
 if [ "xdebian" == "x$SYS" ] && [ -f $OPTDIR/src/ack/README.md ]; then
@@ -47,4 +48,5 @@ if [ "xdebian" == "x$SYS" ] && [ -f $OPTDIR/src/ack/README.md ]; then
     \rm -R -f $OPTDIR
     SysInstall.py src > /dev/null 2>&1
 fi
+
 echo 'done'
