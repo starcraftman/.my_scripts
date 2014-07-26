@@ -234,19 +234,6 @@ function contains()
     fi
 }
 
-# Save hooks if arge is 1, else restore them.
-function save_hooks()
-{
-    if [ "$1" = "1" ]; then
-        chpwd_functions=
-        precmd_functions=
-        preexec_functions=
-    else
-        add-zsh-hook precmd prompt_precmd
-        source ~/.shell/.zsh-git-prompt/zshrc.sh
-    fi
-}
-
 # Toggles bash debug mode, when on:
 #  * Turns on tracing of every command (xtrace).
 #  * Prevents unsetting vars (nounset).
@@ -629,10 +616,10 @@ setopt RM_STAR_WAIT
 setopt VI
 
 # Zero index arrays, like normal people
-#setopt ksh_arrays
+#setopt KSH_ARRAYS
 
 # Set compatible globbing.
-#setopt ksh_glob
+#setopt KSH_GLOB
 #}}}
 ############################################################################
 # Key Bindings
@@ -676,14 +663,14 @@ vim_ins_mode="%{$fg_bold[red]%}[INS]%{$reset_color%}"
 vim_cmd_mode="%{$fg_bold[blue]%}[CMD]%{$reset_color%}"
 vim_mode=$vim_ins_mode
 
-function zle-keymap-select
+function zle-keymap-select()
 {
     vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
     zle reset-prompt
 }
 zle -N zle-keymap-select
 
-function zle-line-finish
+function zle-line-finish()
 {
     vim_mode=$vim_ins_mode
 }
@@ -712,7 +699,7 @@ function hg_prompt()
         HG="${HG%%]}${BGREEN}✔${R}]"
     fi
 
-    HG_PROMPT="$HG"
+    echo "$HG"
 }
 
 function prompt_precmd()
@@ -723,16 +710,22 @@ function prompt_precmd()
         LAST="%F{red}✘%f"
     fi
 
-    if [ -d '.hg' ]; then
-        hg_prompt
-    else
-        HG_PROMPT=""
-    fi
-
     vcs_info
 }
 
-add-zsh-hook precmd prompt_precmd
+# Save hooks if arge is 1, else restore them.
+# Needed for debug function above, or if I just want to disabe.
+function save_hooks
+{
+    if [ "$1" = "1" ]; then
+        chpwd_functions=
+        precmd_functions=
+        preexec_functions=
+    else
+        add-zsh-hook precmd prompt_precmd
+        source ~/.shell/.zsh-git-prompt/zshrc.sh
+    fi
+}
 
 # Just aliases for common colors used later.
 PS1_DIR=%B%F{red}
@@ -750,20 +743,20 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
     PS1_HOST=%B%F{magenta}
 fi
 
-source ~/.shell/.zsh-git-prompt/zshrc.sh
-
 PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
-PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} } $HG_PROMPT$(git_super_status)${vcs_info_msg_0_}
+PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
 ${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
 PS1="$PS1_STD"
-
 RPROMPT='${vim_mode}'
 
 # Zsh will print when users log in
 watch=all                # watch all logins
 logcheck=30              # every 30 seconds
 WATCHFMT="%n from %M has %a tty%l at %T %W"
+
+# Activate the prompt hooks for git/hg
+save_hooks 0
 
 # Highlighting for shell
 #source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
