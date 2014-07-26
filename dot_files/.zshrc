@@ -108,7 +108,7 @@ alias fgrep='grep -F'
 alias rgrep='grep -r'
 
 # Reruns the last command with sudo.
-alias please='sudo `fc -l -n -1`'
+alias please='sudo $(fc -l -n -1)'
 
 # type used to determine what command is, list all entries
 alias types='type -a'
@@ -688,7 +688,7 @@ function hg_prompt()
     # To (R)eset colors.
     local R="$reset_color"
 
-    local HG=`hg prompt "[${MAGENTA}{branch}${R}{ ${RED}↓{incoming|count}${R}}{ ${GREEN}↑{outgoing|count}${R}}|${YELLOW}{status}{update}${R}]" 2>/dev/null`
+    local HG=$(hg prompt "[${MAGENTA}{branch}${R}{ ${RED}↓{incoming|count}${R}}{ ${GREEN}↑{outgoing|count}${R}}|${YELLOW}{status}{update}${R}]" 2>/dev/null)
 
     # Strip everything except where status to outgoing would be.
     local T=${HG##*|}

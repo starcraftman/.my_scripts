@@ -122,7 +122,7 @@ alias fgrep='grep -F'
 alias rgrep='grep -r'
 
 # Reruns the last command with sudo.
-alias please='sudo `fc -l -n -1`'
+alias please='sudo $(fc -l -n -1)'
 
 # type used to determine what command is, list all entries
 alias types='type -a'
@@ -426,7 +426,7 @@ ii()
 {
     local BBlue='\e[1;34m'
     local NC="\e[m"
-    local TOP=`top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11`
+    local TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     print
     print "${BBlue}$USER$NC is logged on ${BBlue}$HOSTNAME"
     print "${BBlue}Additionnal information :$NC " ; uname -a
@@ -585,7 +585,7 @@ fi
 # Git Prompt: https://github.com/magicmonty/bash-git-prompt
 prompt_callback()
 {
-    local HG=`hg prompt "[${PS1_MAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}{ ${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}]" 2>/dev/null`
+    local HG=$(hg prompt "[${PS1_MAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}{${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}]" 2>/dev/null)
 
     # Strip everything except where status to outgoing would be.
     local T=${HG##*|}
