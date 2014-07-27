@@ -260,49 +260,6 @@ debug()
     fi
 }
 
-# Universal extract function, later versions of tar -xvf may work
-# more universally but not with older versions.
-unarchive()
-{
-    local tmpdir=$HOME/loopback
-    for file ; do
-        if [ ! -f $file ] ; then
-            print "'$file' is not a valid file!"
-            continue
-        fi
-
-        case $file in
-            *.deb)               ar p "$file" data.tar.gz | tar zx ;;
-            *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
-            *.jar)               jar xf "$file"                    ;;
-            *.iso)               7z x "$file"                      ;;
-            *.tar)               tar xvf "$file"                   ;;
-            *.tbz2|*.tar.bz2)    tar xvjf "$file"                  ;;
-            *.tgz|*.tar.gz)      tar xvzf "$file"                  ;;
-            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xvf -         ;;
-            *.tar.xz)            xzcat "$file" | tar xvf -         ;;
-            *.tar.Z)             zcat "$file" | tar xvf -          ;;
-            *.bz|*.bz2)          bunzip2 "$file"                   ;;
-            *.gz)                gunzip "$file"                    ;;
-            *.lzma)              unlzma "$file"                    ;;
-            *.rar)               unrar "$file"                     ;;
-            *.xz)                unxz "$file"                      ;;
-            *.Z)                 uncompress "$file"                ;;
-            *.zip)               unzip "$file"                     ;;
-            *.7z)                7z x "$file"                      ;;
-            *.dmg)
-                print "'$file' mounted at '$tmpdir'."
-                mkdir $tmpdir
-                mount -o loop -t hfs "$file" $tmpdir               ;;
-            *.img|*.dd)
-                print "'$file' mounted at '$tmpdir'."
-                mkdir $tmpdir
-                mount -o loop -t iso9660 "$file" $tmpdir           ;;
-            *)  print "${FUNCNAME[0]}: Cannot extract '$file'"      ;;
-        esac
-    done
-}
-
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
 ..()
