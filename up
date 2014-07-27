@@ -11,12 +11,10 @@ update_repos()
 echo 'updating repos'
 pushd .
 
-local BGreen='\e[1;32m'
-local NC="\e[m"
 for dir ; do
     if [ -d "$dir" ]; then
 	cd "$dir"
-	echo -e " >>> ${BGreen}$dir${NC} <<< "
+	echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
 	if [ -d ".git" ]; then
             git pull
 	elif [ -d ".hg" ]; then
