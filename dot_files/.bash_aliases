@@ -81,6 +81,24 @@ export IGNOREEOF=2
 
 # Default pager
 export PAGER=less
+
+# Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
+# Old code (might still see): \[\033[x;yy;zzm\]
+# General format: \[\e[x;yy;zzm\]
+# Style code x: 1 -> bold, 4 -> underline, 7 -> invert color.
+# Color code, yy -> 30s for foreground, zz-> background in 40s.
+count=1
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+    eval "export T_$color='\e[0;3${count}m'"
+    eval "export T_B$color='\e[1;3${count}m'"
+    eval "export PS1_$color='\[\e[0;3${count}m\]'"
+    eval "export PS1_B$color='\[\e[1;3${count}m\]'"
+    (( count = $count + 1 ))
+done
+unset count
+
+export T_RESET='\e[0m'
+export PS1_R="\[\e[0m\]"
 #}}}
 ############################################################################
 # Aliases
@@ -235,9 +253,6 @@ take()
 #  * Disables bash prompt to avoid pollution with xtrace.
 debug()
 {
-    local BRed='\e[1;31m'
-    local BGreen='\e[1;32m'
-    local NC="\e[m"
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT_COMMAND}" ]; then
         #set +o nounset
@@ -246,7 +261,7 @@ debug()
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
         unset PROMPT_OLD_COMMAND
-        print "Bash Debug Mode: ${BRed}DISABLED${NC}"
+        print "Bash Debug Mode: ${T_BRED}DISABLED${T_RESET}"
     else
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
@@ -255,8 +270,8 @@ debug()
         set -o extdebug
         set -o verbose
         set -o xtrace
-        print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
-        print "Careful with ${BRed}nounset${NC} breaks some completion."
+        print "Bash Debug Mode: ${T_BGREEN}ENABLED${T_RESET}"
+        print "Careful with ${T_BRED}nounset${T_RESET} breaks some completion."
     fi
 }
 
@@ -315,8 +330,6 @@ jsonFix()
 # Get info on all network interfaces
 listNics()
 {
-    local BGreen='\e[1;32m'
-    local NC="\e[m"
     local INTS=($(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }'))
     # Ample use of awk/sed for field extraction.
     for INT in ${INTS[@]} ; do
@@ -326,7 +339,7 @@ listNics()
         local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
         local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
-        print "Interface: ${BGreen}$INT${NC}"
+        print "Interface: ${T_BGREEN}$INT${T_RESET}"
         print "\tMac:   ${MAC}"
         print "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
@@ -366,28 +379,26 @@ prettyDf()
 # Get information on current system
 ii()
 {
-    local BBlue='\e[1;34m'
-    local NC="\e[m"
     local TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     print
-    print "${BBlue}$USER$NC is logged on ${BBlue}$HOSTNAME"
-    print "${BBlue}Additionnal information :$NC " ; uname -a
-    print "${BBlue}Users logged on :$NC " ; w -hs |
+    print "${T_BBLUE}$USER${T_RESET} is logged on ${T_BBLUE}$HOSTNAME${T_RESET}"
+    print "${T_BBLUE}Additionnal information :${T_RESET} " ; uname -a
+    print "${T_BBLUE}Users logged on :${T_RESET} " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    print "${BBlue}Current date :$NC " ; date
-    print "${BBlue}Machine stats :$NC " ; uptime
-    print "${BBlue}Diskspace :$NC "
+    print "${T_BBLUE}Current date :${T_RESET} " ; date
+    print "${T_BBLUE}Machine stats :${T_RESET} " ; uptime
+    print "${T_BBLUE}Diskspace :${T_RESET} "
     if valid_name dfc; then
         dfc
     else
         local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
         prettyDf $mounts
     fi
-    print "${BBlue}Memory stats :$NC " ; free -h
-    print "${BBlue}Top 5 CPU% :$NC " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
-    print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    print "${BBlue}Network Interfaces :$NC" ; listNics
-    print "${BBlue}Open connections :$NC "; netstat -pan --inet;
+    print "${T_BBLUE}Memory stats :${T_RESET} " ; free -h
+    print "${T_BBLUE}Top 5 CPU% :${T_RESET} " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
+    print "${T_BBLUE}Top 5 MEM% :${T_RESET} " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
+    print "${T_BBLUE}Network Interfaces :${T_RESET}" ; listNics
+    print "${T_BBLUE}Open connections :${T_RESET} "; netstat -pan --inet;
     print
 }
 
@@ -479,46 +490,21 @@ fi
 #{{{
 # ALL PS1 past this point. This stuff used to modify the bash prompt to show
 # the status of git and hg repos as well as move directory line up one.
-# Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
-
-# PS1 Color Codes
-# Old code (might still see): \[\033[x;yy;zzm\]
-# General format: \[\e[x;yy;zzm\]
-# Style code x: 1 -> bold, 4 -> underline, 7 -> invert color.
-# Color code, yy -> 30s for foreground, zz-> background in 40s.
-#PS1_BLACK="\[\e[0;30m\]"
-#PS1_BLACKBOLD="\[\e[1;30m\]"
-PS1_RED="\[\e[0;31m\]"
-PS1_REDBOLD="\[\e[1;31m\]"
-PS1_GREEN="\[\e[0;32m\]"
-PS1_GREENBOLD="\[\e[1;32m\]"
-PS1_YELLOW="\[\e[0;33m\]"
-PS1_YELLOWBOLD="\[\e[1;33m\]"
-#PS1_BLUE="\[\e[0;34m\]"
-PS1_BLUEBOLD="\[\e[1;34m\]"
-#PS1_PURPLE="\[\e[0;35m\]"
-PS1_PURPLEBOLD="\[\e[1;35m\]"
-PS1_CYAN="\[\e[0;36m\]"
-#PS1_CYANBOLD="\[\e[1;36m\]"
-#PS1_WHITE="\[\e[0;37m\]"
-#PS1_WHITEBOLD="\[\e[1;37m\]"
-PS1_MAGENTA="\[\e[1;95m\]"
-# To (R)eset colors.
-PS1_R="\[\e[0m\]"
+# See Environment Variables for color code explanation
 
 # Just aliases for common colors used later.
-PS1_DIR=$PS1_REDBOLD
+PS1_DIR=$PS1_BRED
 PS1_USER=$PS1_CYAN
 PS1_HOST=$PS1_GREEN
 
 # If root, highlight it
 if [ $UID -eq 0 ]; then
-    PS1_USER=$PS1_YELLOWBOLD
+    PS1_USER=$PS1_BYELLOW
 fi
 
 # If using ssh, usually set
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST=$PS1_PURPLEBOLD
+    PS1_HOST=$PS1_BMAGENTA
 fi
 
 # I am modifying the PS1 prompt to give info for both git and hg vcs.
@@ -535,7 +521,7 @@ prompt_callback()
 
     # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
     if [ "x${HG}" != "x" ] && [[ ! ${T} =~ [!?^↓↑] ]]; then
-        HG="${HG%%]}${PS1_GREENBOLD}✔${PS1_R}]"
+        HG="${HG%%]}${PS1_BGREEN}✔${PS1_R}]"
     fi
 
     # Print don't print extra space unless need to.
