@@ -228,9 +228,6 @@ function take()
 #  N.B. zsh bug that xtrace can't be set in a function
 function debug()
 {
-    local BRed="$fg_bold[red]"
-    local BGreen="$fg_bold[green]"
-    local NC="$reset_color"
     # If ps1 contains debug word, turn off debug mode
     if contains "$PS1" "DEBUG"; then
         PS1="$PS1_STD"
@@ -240,7 +237,7 @@ function debug()
         unsetopt warncreateglobal
         #unsetopt xtrace
         save_hooks 0
-        print "Bash Debug Mode: ${BRed}DISABLED${NC}"
+        print "Bash Debug Mode: ${fg_bold[red]}DISABLED${reset_color}"
         return 1
     else
         PS1="$PS1_DEBUG"
@@ -250,8 +247,8 @@ function debug()
         unsetopt warncreateglobal
         #setopt xtrace
         save_hooks 1
-        print "Bash Debug Mode: ${BGreen}ENABLED${NC}"
-        print "Careful with ${BRed}nounset${NC} breaks some completion."
+        print "Bash Debug Mode: ${fg_bold[green]}ENABLED${reset_color}"
+        print "Careful with ${fg_bold[red]}nounset${reset_color} breaks some completion."
         return 0
     fi
 }
@@ -300,8 +297,6 @@ function jsonFix()
 # Get info on all network interfaces
 function listNics()
 {
-    local BGreen="$fg_bold[green]"
-    local NC="$reset_color"
     INTS=( "${(@f)$(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }')}" )
     # Ample use of awk/sed for field extraction.
     for INT in $INTS ; do
@@ -311,7 +306,7 @@ function listNics()
         local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
         local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
-        print "Interface: ${BGreen}$INT${NC}"
+        print "Interface: ${fg_bold[green]}$INT${reset_color}"
         print "\tMac:   ${MAC}"
         print "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
@@ -353,17 +348,15 @@ function prettyDf()
 # Get information on current system
 function ii()
 {
-    local BBlue="$fg_bold[blue]"
-    local NC="$reset_color"
     TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     print
-    print "${BBlue}$USERNAME$NC is logged on ${BBlue}$HOST"
-    print "${BBlue}Additionnal information :$NC " ; uname -a
-    print "${BBlue}Users logged on :$NC " ; w -hs |
+    print "${fg_bold[blue]}$USERNAME${reset_color} is logged on ${fg_bold[blue]}$HOST${reset_color}"
+    print "${fg_bold[blue]}Additionnal information :${reset_color} " ; uname -a
+    print "${fg_bold[blue]}Users logged on :${reset_color} " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    print "${BBlue}Current date :$NC " ; date
-    print "${BBlue}Machine stats :$NC " ; uptime
-    print "${BBlue}Diskspace :$NC "
+    print "${fg_bold[blue]}Current date :${reset_color} " ; date
+    print "${fg_bold[blue]}Machine stats :${reset_color} " ; uptime
+    print "${fg_bold[blue]}Diskspace :${reset_color} "
     if valid_name dfc; then
         dfc
     else
@@ -371,11 +364,11 @@ function ii()
         prettyDf $mounts
         unset mounts
     fi
-    print "${BBlue}Memory stats :$NC " ; free -h
-    print "${BBlue}Top 5 CPU% :$NC " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
-    print "${BBlue}Top 5 MEM% :$NC " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    print "${BBlue}Network Interfaces :$NC" ; listNics
-    print "${BBlue}Open connections :$NC "; netstat -pan --inet;
+    print "${fg_bold[blue]}Memory stats :${reset_color} " ; free -h
+    print "${fg_bold[blue]}Top 5 CPU% :${reset_color} " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
+    print "${fg_bold[blue]}Top 5 MEM% :${reset_color} " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
+    print "${fg_bold[blue]}Network Interfaces :${reset_color}" ; listNics
+    print "${fg_bold[blue]}Open connections :${reset_color} "; netstat -pan --inet;
     print
     unset TOP
 }
