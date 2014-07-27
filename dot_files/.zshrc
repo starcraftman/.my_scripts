@@ -5,11 +5,38 @@
 # http://stackoverflow.com/questions/171563/whats-in-your-zshrc
 # For more info, also consult man pages starting with zsh...
 ############################################################################
+# Path Settings
+############################################################################
+#{{{
+# .software is for any precompiled programs & libraries I install.
+# .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
+export SOFT=~/.software
+export OPTDIR=~/.opt
+
+# Personal scripts go here to stay outside of root.
+MYSCRIPTS=~/.my_scripts
+
+# Dir to locally install cabal for haskell.
+HASKELL_BIN=~/.cabal/bin
+
+# Exported paths.
+ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
+export JAVA_HOME=$SOFT/jdk
+export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
+# /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
+export PATH=$MYSCRIPTS:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
+export CPATH=$SOFT/libs/include:$CPATH
+export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
+
+# Paths for specific tools.
+export ANT_HOME=/usr/share/ant
+#}}}
+############################################################################
 # Environment Variables
 ############################################################################
 #{{{
 # Default editor for things like sudoedit.
-if hash vim 2>/dev/null; then
+if valid_name vim; then
     export EDITOR=vim
 fi
 
@@ -40,33 +67,6 @@ export PAGER=less
 
 # No git state caching, prefer to always be accurate
 export ZSH_THEME_GIT_PROMPT_NOCACHE=1
-#}}}
-############################################################################
-# Path Settings
-############################################################################
-#{{{
-# .software is for any precompiled programs & libraries I install.
-# .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
-export SOFT=~/.software
-export OPTDIR=~/.opt
-
-# Personal scripts go here to stay outside of root.
-MYSCRIPTS=~/.my_scripts
-
-# Dir to locally install cabal for haskell.
-HASKELL_BIN=~/.cabal/bin
-
-# Exported paths.
-ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
-export JAVA_HOME=$SOFT/jdk
-export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
-# /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
-export PATH=$MYSCRIPTS:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
-export CPATH=$SOFT/libs/include:$CPATH
-export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
-
-# Paths for specific tools.
-export ANT_HOME=/usr/share/ant
 #}}}
 ############################################################################
 # Aliases
@@ -119,18 +119,18 @@ alias vims='vim -o'
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
-if hash dfc 2>/dev/null; then
+if valid_name dfc; then
     alias dfc='dfc -T'
 fi
 
 # Colored cat output
-if hash pygmentize 2>/dev/null; then
+if valid_name pygmentize; then
     alias ccat='pygmentize -g'
 fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-if hash ack 2>/dev/null; then
+if valid_name ack; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
     # Alias for ack find file by name
     alias ackf='ack -g'
@@ -140,7 +140,7 @@ fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
-if hash ag 2>/dev/null; then
+if valid_name ag; then
     alias ag='ag --smart-case --follow --color-match="1;34"'
     # Alias for ag find file by name
     alias agf='ag -g'
@@ -150,35 +150,35 @@ fi
 
 # Add an "alert" alias for long running commands. Example:
 #   sleep 10; alert
-if hash notify-send 2>/dev/null; then
+if valid_name notify-send; then
     alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
 # Apt aliases
-if hash apt-get 2>/dev/null; then
+if valid_name apt-get; then
     alias apti='sudo apt-get -y install'
     alias aptr='sudo apt-get -y remove'
     alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
 fi
 
 # Alias for color tools.
-if hash colordiff 2>/dev/null; then
+if valid_name colordiff; then
     alias cod='colordiff'
 fi
-if hash colorgcc 2>/dev/null; then
+if valid_name colorgcc; then
     alias cog='colorgcc'
 fi
-if hash colormake 2>/dev/null; then
+if valid_name colormake; then
     alias com='colormake'
 fi
 
 # Silence parallel
-if hash parallel 2>/dev/null; then
+if valid_name parallel; then
     alias parallel='parallel --no-notice'
 fi
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
-if hash trash-put 2>/dev/null; then
+if valid_name trash-put; then
     alias trash-restore='restore-trash'
     alias tre='restore-trash'
     alias tp='trash-put'
@@ -188,12 +188,12 @@ if hash trash-put 2>/dev/null; then
 fi
 
 # Tree program, use instead of recursive ls. Very pretty.
-if hash tree 2>/dev/null; then
+if valid_name tree; then
     alias tree='tree -Csuh'
 fi
 
 # Aliases for vimpager
-if hash vimpager 2>/dev/null; then
+if valid_name vimpager; then
     alias vcat='vimcat'
     alias vpager='vimpager'
 fi
@@ -217,21 +217,6 @@ function take()
     local dir="$1"
     mkdir "$dir"
     cd "$dir"
-}
-
-# contains(string, substring)
-#
-# Returns 0 if the specified string contains the specified substring,
-# otherwise returns 1.
-function contains()
-{
-    string="$1"
-    substring="$2"
-    if test "${string#*$substring}" != "$string"; then
-        return 0    # $substring is in $string
-    else
-        return 1    # $substring is not in $string
-    fi
 }
 
 # Toggles bash debug mode, when on:
@@ -422,7 +407,7 @@ function ii()
     print "${BBlue}Current date :$NC " ; date
     print "${BBlue}Machine stats :$NC " ; uptime
     print "${BBlue}Diskspace :$NC "
-    if hash dfc 2>/dev/null; then
+    if valid_name dfc; then
         dfc
     else
         mounts=( "${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}" )
@@ -447,17 +432,17 @@ source ~/.shell/.hhighlighter/h.sh
 ############################################################################
 #{{{
 # Enable the windows key on Ubuntu as F13
-if hash xmodmap 2>/dev/null; then
+if valid_name xmodmap; then
     xmodmap -e 'keycode 133 = F13'
 fi
 
 # Disable the Ctrl+s/q button that freezes terminal output.
-if hash stty 2>/dev/null; then
+if valid_name stty; then
     stty -ixon
 fi
 
 # Set bash tabstop to 4 spaces, default is 8 too wide
-if hash tabs 2>/dev/null; then
+if valid_name tabs; then
     tabs 4
     clear
 fi

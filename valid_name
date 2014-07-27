@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Function returns true only if name exists in path, else false
+usage()
+{
+    echo "${0##*/} name
+    Exits true only if name exists on the path."
+}
+
+if [ "$#" -ne 1 ]; then
+    usage
+    exit
+fi
+
+case "$(type -t "$1")" in
+    alias|builtin|file|function|keyword)
+        exit 0
+        ;;
+    *)
+        exit 1
+        ;;
+esac
