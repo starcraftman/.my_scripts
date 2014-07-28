@@ -358,7 +358,7 @@ def build_zsh_docs(optdir):
             shutil.copy(man, optdir + os.sep + 'share' + os.sep
                     + 'man' + os.sep + 'man1')
         # Copy a file to bin just as guard
-        shutil.copy(manfiles[0], optdir + os.sep + 'bin' + os.sep + 'zsh')
+        shutil.copy(manfiles[0], optdir + os.sep + 'bin' + os.sep + 'zsh_docs')
     finally:
         shutil.rmtree(srcdir)
         os.remove(archive)
@@ -385,7 +385,7 @@ def src_programs():
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
             'vimpager': build_vimpager,
-            'zsh':      build_zsh_docs,
+            'zsh_docs': build_zsh_docs,
             }
 
     # Build programs and copy bins to bindir.
