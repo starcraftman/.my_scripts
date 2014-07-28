@@ -536,13 +536,13 @@ prompt_callback()
 # Formats to:
 # directory
 # user@host [vcsInfo]
-#GIT_PROMPT_START="\[\e]0;\u@\h:\w\a\]${debian_chroot:+($debian_chroot)}$PS1_DIR\w$PS1_R\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R$"
-#GIT_PROMPT_END=' '
+#GIT_PROMPT_START=$PS1_R$PS1_DIR\w$PS1_R\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$
+#GIT_PROMPT_END=
 
 # Formats to:
 # directory [vcsInfo]
 # user@host
-GIT_PROMPT_START="$PS1_R\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}{ $PS1_DIR\w$PS1_R }"
+GIT_PROMPT_START="$PS1_R{ $PS1_DIR\w$PS1_R }"
 GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$ "
 
 # Shows status of last command.
