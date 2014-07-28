@@ -613,16 +613,9 @@ zle -N zle-line-finish
 # HG prompt like bash-git-prompt
 function hg_prompt()
 {
-    # Standard color escape sequences
-    local RED="$fg_no_bold[red]"
-    local GREEN="$fg_no_bold[green]"
-    local BGREEN="$fg_bold[green]"
-    local YELLOW="$fg_no_bold[yellow]"
-    local MAGENTA="$fg_bold[magenta]"
-    # To (R)eset colors.
-    local R="$reset_color"
-
-    local HG=$(hg prompt "[${MAGENTA}{branch}${R}{ ${RED}↓{incoming|count}${R}}{ ${GREEN}↑{outgoing|count}${R}}|${YELLOW}{status}{update}${R}]" 2>/dev/null)
+    local p_line="${fg_bold[magenta]}{branch}${reset_color}{ ${fg[red]}↓{incoming|count}${reset_color}}"
+    p_line="${p_line}{ ${fg[green]}↑{outgoing|count}${reset_color}}|${fg[yellow]}{status}{update}${reset_color}"
+    local HG=$(hg prompt "[${p_line}]" 2>/dev/null)
 
     # Strip everything except where status to outgoing would be.
     local T=${HG##*|}
@@ -630,7 +623,7 @@ function hg_prompt()
 
     # Insert check mark only if T doesn't contain other codes like status or update, see regexp.
     if [ "x${HG}" != "x" ] && [[ ! ${T} =~ [!?^↓↑] ]]; then
-        HG="${HG%%]}${BGREEN}✔${R}]"
+        HG="${HG%%]}${fg_bold[green]}✔${reset_color}]"
     fi
 
     echo "$HG"

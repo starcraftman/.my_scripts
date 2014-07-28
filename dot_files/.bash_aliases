@@ -512,7 +512,9 @@ fi
 # Git Prompt: https://github.com/magicmonty/bash-git-prompt
 prompt_callback()
 {
-    local HG=$(hg prompt "[${PS1_MAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}{${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}]" 2>/dev/null)
+    local p_line="${PS1_BMAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}
+    p_line="${p_line}{${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}
+    local HG=$(hg prompt "[${p_line}]" 2>/dev/null)
 
     # Strip everything except where status to outgoing would be.
     local T=${HG##*|}
