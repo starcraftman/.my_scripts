@@ -491,21 +491,6 @@ fi
 # the status of git and hg repos as well as move directory line up one.
 # See Environment Variables for color code explanation
 
-# Just aliases for common colors used later.
-PS1_DIR=$PS1_BRED
-PS1_USER=$PS1_CYAN
-PS1_HOST=$PS1_GREEN
-
-# If root, highlight it
-if [ $UID -eq 0 ]; then
-    PS1_USER=$PS1_BYELLOW
-fi
-
-# If using ssh, usually set
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST=$PS1_BMAGENTA
-fi
-
 # I am modifying the PS1 prompt to give info for both git and hg vcs.
 # This callback fetches the hg stuff to insert only if in hg repo, looks like bash-git-prompt message.
 # HG Prompt: http://sjl.bitbucket.org/hg-prompt/
@@ -533,19 +518,34 @@ prompt_callback()
     fi
 }
 
+# Just vars to simplify layout of PS1
+PS1_DIR="$PS1_BRED\w$PS1_R"
+PS1_USER="$PS1_CYAN\u$PS1_R"
+PS1_HOST="$PS1_GREEN\h$PS1_R"
+
+# If root, highlight it
+if [ $UID -eq 0 ]; then
+    PS1_USER="${PS1_BYELLOW}\u${PS1_R}"
+fi
+
+# If using ssh, usually set
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
+    PS1_HOST="$PS1_BMAGENTA\h$PS1_R"
+fi
+
 # Formats to:
-# directory
+# { directory }
 # user@host [vcsInfo]
-#GIT_PROMPT_START=$PS1_R$PS1_DIR\w$PS1_R\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$
+#GIT_PROMPT_START="$PS1_R{ $PS1_DIR }\n$PS1_USER@$PS1_HOST\\$
 #GIT_PROMPT_END=
 
 # Formats to:
-# directory [vcsInfo]
+# { directory } [vcsInfo]
 # user@host
-GIT_PROMPT_START="$PS1_R{ $PS1_DIR\w$PS1_R }"
-GIT_PROMPT_END="\n$PS1_USER\u$PS1_R@$PS1_HOST\h$PS1_R\\$ "
+GIT_PROMPT_START="$PS1_R{ $PS1_DIR }"
+GIT_PROMPT_END="\n$PS1_USER@$PS1_HOST\\$ "
 
-# Shows status of last command.
+# Shows status of last command before GIT_PROMPT_START
 GIT_PROMPT_SHOW_LAST_COMMAND_INDICATOR=1
 
 source ~/.shell/.bash-git-prompt/gitprompt.sh

@@ -661,25 +661,24 @@ function save_hooks
 }
 
 # Just aliases for common colors used later.
-PS1_DIR=%B%F{red}
-PS1_USER=%F{cyan}
-PS1_HOST=%F{green}
-PS1_R=%f%b
+PS1_DIR=%B%F{red}%~%f%b
+PS1_USER=%F{cyan}%n%f
+PS1_HOST=%F{green}%m%f
 
 # If root, highlight it
 if [ $UID -eq 0 ]; then
-    PS1_USER=%F{yellow}
+    PS1_USER=%B%F{yellow}%n%f%b
 fi
 
 # If using ssh, usually set
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST=%B%F{magenta}
+    PS1_HOST=%B%F{magenta}%m%f%b
 fi
 
-PS1_DEBUG='%B%F{red} >>DEBUG<< ${PS1_R}$LAST { ${PS1_DIR}%~${PS1_R} }
-${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
-PS1_STD='$LAST { ${PS1_DIR}%~${PS1_R} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
-${PS1_USER}%n${PS1_R}@${PS1_HOST}%m${PS1_R}%# '
+PS1_STD='$LAST { ${PS1_DIR} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
+${PS1_USER}@${PS1_HOST}%# '
+PS1_DEBUG='%B%F{red} >>DEBUG<< %f%b$LAST { ${PS1_DIR} }
+${PS1_USER}@${PS1_HOST}%# '
 PS1="$PS1_STD"
 RPROMPT='${vim_mode}'
 
