@@ -657,6 +657,8 @@ function save_hooks
     else
         add-zsh-hook precmd prompt_precmd
         source ~/.shell/.zsh-git-prompt/zshrc.sh
+        # Shell highlighting
+        source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     fi
 }
 
@@ -689,8 +691,5 @@ WATCHFMT="%n from %M has %a tty%l at %T %W"
 
 # Activate the prompt hooks for git/hg
 save_hooks 0
-
-# Highlighting for shell
-source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
 # vim: set foldmethod=marker:
