@@ -30,6 +30,9 @@ export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 
 # Paths for specific tools.
 export ANT_HOME=/usr/share/ant
+
+# Path to lookup functions
+fpath=(~/.shell/.zsh-completions/src $fpath)
 #}}}
 ############################################################################
 # Environment Variables

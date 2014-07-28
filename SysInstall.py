@@ -223,8 +223,10 @@ def home_config():
     get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
             shell_dir + '.hg-prompt')
 
-    git_urls = ['https://github.com/magicmonty/bash-git-prompt.git',
+    git_urls = [
+            'https://github.com/magicmonty/bash-git-prompt.git',
             'https://github.com/starcraftman/zsh-git-prompt.git',
+            'https://github.com/zsh-users/zsh-completions.git',
             'https://github.com/zsh-users/zsh-syntax-highlighting.git',
             'https://github.com/starcraftman/hhighlighter.git',
             ]
