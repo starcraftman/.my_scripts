@@ -42,7 +42,7 @@ extract_files()
                 mkdir $tmpdir
                 mount -o loop -t iso9660 "$file" $tmpdir           ;;
             *)
-                print "${0##*/}: Cannot extract '$file'"     ;;
+                print "${0##*/}: Cannot extract '$file'"           ;;
         esac
     done
 }
