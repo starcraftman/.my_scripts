@@ -689,6 +689,6 @@ WATCHFMT="%n from %M has %a tty%l at %T %W"
 save_hooks 0
 
 # Highlighting for shell
-#source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.shell/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
 # vim: set foldmethod=marker:
