@@ -183,6 +183,11 @@ if valid_name parallel; then
     alias parallel='parallel --no-notice'
 fi
 
+# Shutdown the current machine immediately
+if valid_name shutdown; then
+    alias off='sudo shutdown -h now'
+fi
+
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
 if valid_name trash-put; then
     alias trash-restore='restore-trash'
