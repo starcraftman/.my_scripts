@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
  usage() {
     echo "Usage: ${0##*/} <type> <type> ..."
     echo "The <type> can be of the following:"
@@ -28,7 +27,6 @@ if [ "$#" -lt 1 ]; then
     exit
 fi
 
-for var in "$@"
-do
+for var in "$@"; do
     make_file "$var"
 done
