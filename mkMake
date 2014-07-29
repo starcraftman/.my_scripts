@@ -23,12 +23,7 @@
     fi
 }
 
-if [ ! -n  $1 ]; then
-    usage
-    exit
-fi
-
-if [ -z $1 ]; then
+if [ "$#" -lt 1 ]; then
     usage
     exit
 fi
