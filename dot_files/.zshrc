@@ -434,7 +434,7 @@ autoload -Uz vcs_info
 
 # Case insensitive
 autoload -U compinit
-compinit -C
+compinit
 
 ## case-insensitive (all),partial-word and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
