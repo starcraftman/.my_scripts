@@ -163,16 +163,18 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
-def get_code(command, target):
-    """ Wrapper function to clone repos.
-    Protects against overwriting if target exists.
-    command: The command that would run in bash.
-    target: Where to clone to.
+
+def get_code(url, target):
+    """ Wrapper function to clone repos, only executes if target doesn't exist
+    url: The origin to clone
+    target: Where to clone to
     """
-    cmd = command.split()
-    cmd.append(target)
+    cmd = 'git clone %s %s' % (url, target)
+    if url.find('git') == -1:
+        cmd = cmd.replace('git', 'hg', 1)
+
     if not os.path.exists(target):
-        subprocess.call(cmd)
+        subprocess.call(cmd.split())
 
 def num_jobs():
     """ Use BASH one liner to determine number of threads available. """
@@ -215,13 +217,11 @@ def home_config():
     ddir = home + '.vim' + os.sep + 'bundle' + os.sep
     if not os.path.exists(ddir):
         os.mkdir(ddir)
-    get_code('git clone https://github.com/gmarik/Vundle.vim.git',
-            ddir + 'Vundle.vim')
+    get_code('https://github.com/gmarik/Vundle.vim.git', ddir + 'Vundle.vim')
 
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep
-    get_code('hg clone http://bitbucket.org/sjl/hg-prompt/',
-            shell_dir + '.hg-prompt')
+    get_code('http://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
 
     git_urls = [
             'https://github.com/magicmonty/bash-git-prompt.git',
@@ -233,14 +233,14 @@ def home_config():
 
     for url in git_urls:
         target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
-        get_code('git clone ' + url, shell_dir + target)
+        get_code(url, shell_dir + target)
 
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
-        get_code('git clone https://github.com/Lokaltog/powerline-fonts', dpow)
+        get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
         cmd = ('fc-cache -vf ' + ddir).split()
         subprocess.call(cmd)
 
@@ -252,7 +252,7 @@ def home_config():
 def build_ack(optdir):
     """ Build ack from source, move to target dir. """
     srcdir = optdir + 'src' + os.sep + 'ack' + os.sep
-    get_code('git clone https://github.com/petdance/ack2.git', srcdir)
+    get_code('https://github.com/petdance/ack2.git', srcdir)
 
     PDir.push(srcdir)
     cmd = 'perl Makefile.PL'.split()
@@ -270,8 +270,7 @@ def build_ack(optdir):
 def build_ag(optdir):
     """ Build ag from source, move to target dir. """
     srcdir = optdir + 'src' + os.sep + 'ag' + os.sep
-    get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
-            srcdir)
+    get_code('https://github.com/ggreer/the_silver_searcher.git', srcdir)
 
     PDir.push(srcdir)
     cmd = ('./build.sh --prefix=' + optdir).split()
@@ -282,13 +281,12 @@ def build_ag(optdir):
 
     # Seems to strip srcdir, redownload to have a copy left
     shutil.rmtree(srcdir)
-    get_code('git clone https://github.com/ggreer/the_silver_searcher.git',
-            srcdir)
+    get_code('https://github.com/ggreer/the_silver_searcher.git', srcdir)
 
 def build_doxygen(optdir):
     """ Build doxygen from source, move to target dir. """
     srcdir = optdir + 'src' + os.sep + 'doxygen' + os.sep
-    get_code('git clone https://github.com/doxygen/doxygen.git', srcdir)
+    get_code('https://github.com/doxygen/doxygen.git', srcdir)
 
     PDir.push(srcdir)
     cmd = ('./configure --prefix=' + optdir).split()
@@ -331,7 +329,7 @@ def build_parallel(optdir):
 def build_vimpager(optdir):
     """ Vimpager is a neat tool that pages with vim, also vimcat. """
     srcdir = optdir + 'src' + os.sep + 'vimpager' + os.sep
-    get_code('git clone https://github.com/rkitover/vimpager.git', srcdir)
+    get_code('https://github.com/rkitover/vimpager.git', srcdir)
 
     # Simply move the required files to optdir
     shutil.copy(srcdir + 'vimcat', optdir + 'bin')
