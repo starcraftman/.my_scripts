@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 usage()
 {
-    echo "${0##*/} archive1 archive2 archive3
+    echo "${0##*/} archive1 archive2 archive3 ...
     Extracts any archive format that is supported."
 }
 
