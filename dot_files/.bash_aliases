@@ -82,6 +82,9 @@ export IGNOREEOF=2
 # Default pager
 export PAGER=less
 
+# Make ps print useful info
+export PS_FORMAT=user,pid,ppid,tty,pcpu,pmem,stat,start_time,cmd
+
 # Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
 # Old code (might still see): \[\033[x;yy;zzm\]
 # General format: \[\e[x;yy;zzm\]

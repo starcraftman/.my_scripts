@@ -71,6 +71,9 @@ export SAVEHIST=100000
 # Default pager
 export PAGER=less
 
+# Make ps print useful info
+export PS_FORMAT=user,pid,ppid,tty,pcpu,pmem,stat,start_time,cmd
+
 # No git state caching, prefer to always be accurate
 export ZSH_THEME_GIT_PROMPT_NOCACHE=1
 #}}}
