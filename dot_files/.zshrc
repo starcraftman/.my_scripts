@@ -138,6 +138,7 @@ fi
 # Colored cat output
 if valid_name pygmentize; then
     alias ccat='pygmentize -g'
+    compdef ccat _pygmentize
 fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
@@ -148,6 +149,7 @@ if valid_name ack; then
     alias ackf='ack -g'
     # Alias for ack find file by contents
     alias ackl='ack -il'
+    compdef ackl _ack
 fi
 
 # Alias for silver search
@@ -158,6 +160,7 @@ if valid_name ag; then
     alias agf='ag -g'
     # Alias for ag find file by contents
     alias agl='ag -il'
+    compdef agl _ag
 fi
 
 # Add an "alert" alias for long running commands. Example:
