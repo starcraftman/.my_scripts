@@ -14,6 +14,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tarfile
 import urllib
 import zipfile
 
@@ -178,6 +179,29 @@ def build_cunit(libdir):
 
     shutil.rmtree(srcdir)
 
+def build_boost(libdir):
+    """ Build latest boost release for c++. """
+    url = 'http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download'
+    archive = 'download'
+
+    try:
+        # Fetch program
+        print("Downloading latest zsh source.")
+        cmd = ('wget %s' % url).split()
+        subprocess.call(cmd)
+        tarfile.open(archive).extractall()
+        srcdir = glob.glob('boost_*')[0]
+
+        PDir.push(srcdir)
+        cmd = ('bootstrap.sh --prefix=%s' % libdir).split()
+        subprocess.call(cmd)
+        cmd = './b2 install'.split()
+        subprocess.call(cmd)
+        PDir.pop()
+    finally:
+        shutil.rmtree(srcdir)
+        os.remove(archive)
+
 def main():
     """ Main function. """
     mesg = """This script sets up the libs for this project."""
@@ -195,8 +219,9 @@ def main():
     os.makedirs(libdir)
 
     build_gtest(libdir)
-    build_sdl(libdir)
-    build_cunit(libdir)
+    #build_sdl(libdir)
+    #build_cunit(libdir)
+    #build_boost(libdir)
 
 if __name__ == '__main__':
     main()
