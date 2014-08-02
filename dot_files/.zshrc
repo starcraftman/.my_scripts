@@ -413,7 +413,7 @@ fi
 
 # Set bash tabstop to 4 spaces, default is 8 too wide
 if valid_name tabs; then
-    tabs 4 >/dev/null
+    tabs 4
 fi
 
 # KDE DEV Options:
