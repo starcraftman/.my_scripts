@@ -183,6 +183,7 @@ def build_boost(libdir):
     """ Build latest boost release for c++. """
     url = 'http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download'
     archive = 'download'
+    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
 
     try:
         # Fetch program
@@ -192,14 +193,20 @@ def build_boost(libdir):
         tarfile.open(archive).extractall()
         srcdir = glob.glob('boost_*')[0]
 
+        # Need this for jam to build mpi & graph_parallel.
+        f_conf = open(config, 'w')
+        f_conf.write('using mpi ;')
+        f_conf.close()
+
         PDir.push(srcdir)
-        cmd = ('bootstrap.sh --prefix=%s' % libdir).split()
+        cmd = ('./bootstrap.sh --prefix=%s' % libdir).split()
         subprocess.call(cmd)
         cmd = './b2 install'.split()
         subprocess.call(cmd)
-        PDir.pop()
     finally:
+        PDir.pop()
         shutil.rmtree(srcdir)
+        os.remove(config)
         os.remove(archive)
 
 def main():
