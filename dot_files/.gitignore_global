@@ -45,6 +45,9 @@ syntax: glob
 *.tar
 *.gz
 *.bz2
+*.xz
+*.lzma
+*.lz
 *.7z
 *.rar
 *.zip
