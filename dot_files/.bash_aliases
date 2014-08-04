@@ -305,6 +305,12 @@ debug()
 #   repeat 10 echo foo
 repeat()
 {
+    if [ "$#" -lt 3 ]; then
+        echo "Repeat a command n times, example:
+        repeat 10 echo foo"
+        return 0
+    fi
+
     local count="$1" i
     shift
     for i in $(seq 1 "$count"); do
