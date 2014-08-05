@@ -45,12 +45,14 @@ PROGRAMS = """ \
     vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
     virtualbox-qt wine \
-    ttf-xfree86-nonfree"""
+    ttf-xfree86-nonfree \
+    """
 
 KEYRINGS = """ \
     debian-keyring debian-archive-keyring gnome-keyring \
     debian-ports-archive-keyring python-gnomekeyring python-keyring \
-    ubuntu-keyring"""
+    ubuntu-keyring \
+    """
 
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils \
@@ -86,7 +88,8 @@ PROGRAMMING = """ \
     tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
-    mercurial subversion cvs"""
+    mercurial subversion cvs \
+    """
 
 BABUN = """ \
     clisp lua perl python python3 ruby make cmake colordiff colorgcc \
