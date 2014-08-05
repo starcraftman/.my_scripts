@@ -66,20 +66,24 @@ PROGRAMMING = """ \
     erlang erlang-eunit \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev \
-    libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
+    llibncurses5-dev ibncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
+    libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     haskell-devscripts haskell-doc cabal-install \
     junit junit-doc maven openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
     openjdk-7-source openjdk-7-demo icedtea-7-plugin \
-    lua5.2 lua5.2-doc luadoc \
+    lua5.2 lua5.2-doc luadoc liblua5.2-dev \
     nodejs nodejs-dev nodejs-legacy npm \
-    perl perl-doc perl-modules libpadwalker-perl libfile-next-perl \
+    perl perl-doc libperl-dev perl-modules libpadwalker-perl libfile-next-perl \
     php5 php5-mysql phpunit php5-dev \
     swi-prolog swi-prolog-doc \
-    python python-doc python3-doc python-pip python3-pip jython jython-doc \
-    pychecker pylint pep8 python-autopep8 ruby1.9.1-full shunit2 \
+    python python-dev python-doc python-pip \
+    python3 python3-dev python3-doc python3-pip jython jython-doc \
+    pychecker pylint pep8 python-autopep8 ruby-full shunit2 \
+    tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs"""
@@ -255,12 +259,11 @@ def build_ack(optdir):
     get_code('https://github.com/petdance/ack2.git', srcdir)
 
     PDir.push(srcdir)
-    cmd = 'perl Makefile.PL'.split()
-    subprocess.call(cmd)
-    cmd = 'make ack-standalone'.split()
-    subprocess.call(cmd)
-    cmd = 'make manifypods'.split()
-    subprocess.call(cmd)
+    cmds = ['perl Makefile.PL',
+            'make ack-standalone',
+            'make manifypods']
+    for cmd in cmds:
+        subprocess.call(cmd.split())
     PDir.pop()
 
     shutil.copy(srcdir + 'ack-standalone', optdir + 'bin' + os.sep + 'ack')
@@ -273,10 +276,10 @@ def build_ag(optdir):
     get_code('https://github.com/ggreer/the_silver_searcher.git', srcdir)
 
     PDir.push(srcdir)
-    cmd = ('./build.sh --prefix=' + optdir).split()
-    subprocess.call(cmd)
-    cmd = 'make install'.split()
-    subprocess.call(cmd)
+    cmds = ['./build.sh --prefix=' + optdir,
+            'make install']
+    for cmd in cmds:
+        subprocess.call(cmd.split())
     PDir.pop()
 
     # Seems to strip srcdir, redownload to have a copy left
@@ -289,16 +292,18 @@ def build_doxygen(optdir):
     get_code('https://github.com/doxygen/doxygen.git', srcdir)
 
     PDir.push(srcdir)
-    cmd = ('./configure --prefix=' + optdir).split()
-    subprocess.call(cmd)
-    cmd = 'make -j{}'.format(num_jobs()).split()
-    subprocess.call(cmd)
+    cmds = ['./configure --prefix=' + optdir,
+            'make -j{}'.format(num_jobs())]
+    for cmd in cmds:
+        subprocess.call(cmd.split())
     PDir.pop()
 
     # Odd behaviour when using --prefix with build, so just copy manually
     shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', optdir + 'bin')
     for man in glob.glob(srcdir + 'doc' + os.sep + '*.1'):
         shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
+
+    shutil.rmtree(srcdir)
 
 def build_parallel(optdir):
     """ Build GNU Parallel from source, move to target dir. """
@@ -318,13 +323,36 @@ def build_parallel(optdir):
 
         # Build & clean
         PDir.push(srcdir)
-        cmd = ('./configure --prefix=' + optdir).split()
-        subprocess.call(cmd)
-        cmd = 'make -j{} install'.format(num_jobs()).split()
-        subprocess.call(cmd)
+        cmds = ['./configure --prefix=' + optdir,
+                'make -j{} install'.format(num_jobs())]
+        for cmd in cmds:
+            subprocess.call(cmd.split())
         PDir.pop()
     finally:
         os.remove(archive)
+
+def build_vim(optdir):
+    """ Build vim if very old. """
+    srcdir = optdir + 'src' + os.sep + 'vim'
+    get_code('https://code.google.com/p/vim/', srcdir)
+
+    try:
+        PDir.push(srcdir)
+        cmds = ['./configure --with-features=huge --enable-gui=gtk2 \
+            --enable-cscope --enable-multibyte  \
+            --enable-luainterp --enable-perlinterp \
+            --enable-pythoninterp \
+            --with-python-config-dir=/usr/lib/python2.7/config \
+            --enable-rubyinterp --enable-tclinterp \
+            --prefix=' + optdir,
+            'make VIMRUNTIMEDIR=%sshare/vim/vim74' % optdir,
+            'make install']
+        for cmd in cmds:
+            print(cmd)
+            subprocess.call(cmd.split())
+    finally:
+        PDir.pop()
+        shutil.rmtree(srcdir)
 
 def build_vimpager(optdir):
     """ Vimpager is a neat tool that pages with vim, also vimcat. """
@@ -352,6 +380,7 @@ def build_zsh_docs(optdir):
         subprocess.call(cmd)
         archive = glob.glob('download*')[0]
         tarfile.open(archive).extractall()
+
         srcdir = glob.glob('zsh-*')[0]
         manfiles = glob.glob(srcdir + os.sep + 'Doc' + os.sep + '*.1')
         for man in manfiles:
@@ -384,6 +413,7 @@ def src_programs():
             'ack':      build_ack,
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
+            #'vim':      build_vim,
             'vimpager': build_vimpager,
             'zsh_docs': build_zsh_docs,
             }

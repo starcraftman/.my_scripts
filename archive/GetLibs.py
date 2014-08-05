@@ -106,15 +106,12 @@ def build_sdl(libdir):
     jobs = num_jobs()
     cmds_sdl1 = ['./autogen.sh',
             './configure --prefix=%s' % libdir,
-            'make -j%d install' % jobs
-            ]
+            'make -j%d install' % jobs]
     cmds_sdl2 = ['hg update default',
             './configure --prefix=%s' % libdir,
-            'make -j%d install' % jobs
-            ]
+            'make -j%d install' % jobs]
     build = {srcdir: cmds_sdl1,
-            srcdir2: cmds_sdl2
-            }
+            srcdir2: cmds_sdl2}
 
     try:
         # Fetch code & copy for 2
@@ -148,11 +145,11 @@ def build_gtest(libdir):
 
         # Build & clean
         PDir.push(srcdir)
-        cmd = 'chmod u+x configure ./scripts/*'.split()
-        subprocess.call(cmd)
-        cmd = './configure --prefix={}'.format(libdir).split()
-        subprocess.call(cmd)
-        subprocess.call('make')
+        cmds = ['chmod u+x configure ./scripts/*',
+                './configure --prefix={}'.format(libdir),
+                'make']
+        for cmd in cmds:
+            subprocess.call(cmd.split())
 
         # Copy out file structure
         os.mkdir(libdir + os.sep + 'lib')
@@ -173,8 +170,7 @@ def build_cunit(libdir):
     PDir.push(srcdir)
     # Shell true is due to some bug via normal way
     subprocess.call('./bootstrap {}'.format(libdir), shell=True)
-    cmd = 'make -j{} install'.format(num_jobs()).split()
-    subprocess.call(cmd)
+    subprocess.call('make -j{} install'.format(num_jobs()).split())
     PDir.pop()
 
     shutil.rmtree(srcdir)
@@ -199,10 +195,10 @@ def build_boost(libdir):
         f_conf.close()
 
         PDir.push(srcdir)
-        cmd = ('./bootstrap.sh --prefix=%s' % libdir).split()
-        subprocess.call(cmd)
-        cmd = './b2 install'.split()
-        subprocess.call(cmd)
+        cmds = ['./bootstrap.sh --prefix=%s' % libdir,
+                './b2 install']
+        for cmd in cmds:
+            subprocess.call(cmd.split())
     finally:
         PDir.pop()
         shutil.rmtree(srcdir)
