@@ -10,21 +10,22 @@ extract_files()
     local tmpdir=$HOME/loopback
     for file ; do
         if [ ! -f $file ] ; then
-            print "'$file' is not a valid file!"
+            echo "'$file' is not a valid file!"
             continue
         fi
 
+        echo "Extracting ${file} ....."
         case $file in
             *.deb)               ar p "$file" data.tar.gz | tar zx ;;
             *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
             *.jar)               jar xf "$file"                    ;;
             *.iso)               7z x "$file"                      ;;
-            *.tar)               tar xvf "$file"                   ;;
-            *.tbz2|*.tar.bz2)    tar xvjf "$file"                  ;;
-            *.tgz|*.tar.gz)      tar xvzf "$file"                  ;;
-            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xvf -         ;;
-            *.tar.xz)            xzcat "$file" | tar xvf -         ;;
-            *.tar.Z)             zcat "$file" | tar xvf -          ;;
+            *.tar)               tar xf "$file"                   ;;
+            *.tbz2|*.tar.bz2)    tar xjf "$file"                  ;;
+            *.tgz|*.tar.gz)      tar xzf "$file"                  ;;
+            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -         ;;
+            *.tar.xz)            xzcat "$file" | tar xf -         ;;
+            *.tar.Z)             zcat "$file" | tar xf -          ;;
             *.bz|*.bz2)          bunzip2 "$file"                   ;;
             *.gz)                gunzip "$file"                    ;;
             *.lzma)              unlzma "$file"                    ;;
@@ -34,17 +35,29 @@ extract_files()
             *.zip)               unzip "$file"                     ;;
             *.7z)                7z x "$file"                      ;;
             *.dmg)
-                print "'$file' mounted at '$tmpdir'."
-                mkdir $tmpdir
+                echo "'$file' mounted at '$tmpdir'."
+                mkdir -p $tmpdir
                 mount -o loop -t hfs "$file" $tmpdir               ;;
             *.img|*.dd)
-                print "'$file' mounted at '$tmpdir'."
-                mkdir $tmpdir
+                echo "'$file' mounted at '$tmpdir'."
+                mkdir -p $tmpdir
                 mount -o loop -t iso9660 "$file" $tmpdir           ;;
             *)
-                print "${0##*/}: Cannot extract '$file'"           ;;
+                echo "${0##*/}: Cannot extract '$file'"           ;;
         esac
+        local folder=$(extract_extension "$file")
+        echo "${file} extracted to ${folder}"
     done
+}
+
+extract_extension()
+{
+    local name="${1##*/}"
+    if contains "$name" "tar"; then
+        echo "$name" | sed -r 's/\.[[:alnum:]]+\.[[:alnum:]]+$//'
+    else
+        echo "$name" | sed -r 's/\.[[:alnum:]]+$//'
+    fi
 }
 
 if [ ! "$#" -gt 0 ]; then
@@ -52,4 +65,4 @@ if [ ! "$#" -gt 0 ]; then
     exit
 fi
 
-extract_files $@
+extract_files "$@"
