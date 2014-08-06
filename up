@@ -26,6 +26,15 @@ done
 popd
 }
 
+build_src() {
+    local vim=
+    if [ -f "$OPTDIR/bin/vim" ]; then
+	vim="vim"
+    fi
+    \rm -rf "$OPTDIR"
+    SysInstall.py src "$vim" >/dev/null 2>&1 &
+}
+
 if [ "xdebian" == "x$SYS" ]; then
     echo 'updating debian platform'
     sudo apt-get update && sudo apt-get -y dist-upgrade
@@ -40,14 +49,9 @@ fi
 
 update_repos "${REPOS[@]}"
 
-if [ "xdebian" == "x$SYS" ] && [ -f "$OPTDIR/bin/ag" ]; then
-    echo 'updating programs built from source, can take a long time...'
-    \rm -R -f $OPTDIR
-    if [ -f "$OPTDIR/bin/vim" ]; then
-	SysInstall.py src vim > /dev/null 2>&1
-    else
-	SysInstall.py src > /dev/null 2>&1
-    fi
+if [ "xdebian" == "x$SYS" ] && [ -d "$OPTDIR" ]; then
+    echo 'Updating programs built from source, running in bg...'
+    build_src
 fi
 
 echo 'done'
