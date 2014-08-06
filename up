@@ -26,25 +26,28 @@ done
 popd
 }
 
-if [ "xdebian" == "x$SYS" ]; then
-    echo 'updating debian platform'
-    sudo apt-get update && sudo apt-get -y dist-upgrade
-    sudo apt-get autoremove
-    sudo apt-get -f install
-fi
+#if [ "xdebian" == "x$SYS" ]; then
+    #echo 'updating debian platform'
+    #sudo apt-get update && sudo apt-get -y dist-upgrade
+    #sudo apt-get autoremove
+    #sudo apt-get -f install
+#fi
 
-if [ -d ~/.vim/bundle/Vundle.vim ]; then
-    echo 'Updating vim plugins.'
-    vim +PluginUpdate +qa
-fi
+#if [ -d ~/.vim/bundle/Vundle.vim ]; then
+    #echo 'Updating vim plugins.'
+    #vim +PluginUpdate +qa
+#fi
 
 update_repos "${REPOS[@]}"
 
-# Force ag/ack update
-if [ "xdebian" == "x$SYS" ] && [ -f $OPTDIR/src/ack/README.md ]; then
-    echo 'updating programs built from source'
-    \rm -R -f $OPTDIR
-    SysInstall.py src > /dev/null 2>&1
+if [ "xdebian" == "x$SYS" ] && [ -f "$OPTDIR/bin/ag" ]; then
+    echo 'updating programs built from source, can take a long time...'
+    #\rm -R -f $OPTDIR
+    if [ -f "$OPTDIR/bin/vim" ]; then
+	SysInstall.py src vim > /dev/null 2>&1
+    else
+	SysInstall.py src > /dev/null 2>&1
+    fi
 fi
 
 echo 'done'

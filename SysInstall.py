@@ -334,9 +334,13 @@ def build_parallel(optdir):
     finally:
         os.remove(archive)
 
-def build_vim(optdir):
+def build_vim():
     """ Build vim if very old. """
-    srcdir = optdir + 'src' + os.sep + 'vim'
+    # Store all compilations into opt from environment
+    optdir = os.environ['OPTDIR'] + os.sep
+    srcdir = optdir + 'src' + os.sep + 'vim_src' + os.sep
+    home = os.path.expanduser('~') + os.sep
+
     get_code('https://code.google.com/p/vim/', srcdir)
 
     try:
@@ -351,7 +355,6 @@ def build_vim(optdir):
             'make VIMRUNTIMEDIR=%sshare/vim/vim74' % optdir,
             'make install']
         for cmd in cmds:
-            print(cmd)
             subprocess.call(cmd.split())
     finally:
         PDir.pop()
@@ -416,7 +419,6 @@ def src_programs():
             'ack':      build_ack,
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
-            #'vim':      build_vim,
             'vimpager': build_vimpager,
             'zsh_docs': build_zsh_docs,
             }
@@ -530,6 +532,7 @@ def main():
     ------------------------------------------------------
     home        Setup home config files.
     src         Install some development programs from source.
+    vim         Install latest vim into source location.
     debian      Install debian packages.
     babun       Install babun packages.
     python      Install python libraries via pip.
@@ -546,6 +549,7 @@ def main():
                 'jshint': install_jshint,
                 'pipelight': install_pipelight,
                 'src': src_programs,
+                'vim': build_vim,
                 }
 
     parser = argparse.ArgumentParser(description=mesg,
