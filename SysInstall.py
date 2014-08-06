@@ -339,7 +339,6 @@ def build_vim():
     # Store all compilations into opt from environment
     optdir = os.environ['OPTDIR'] + os.sep
     srcdir = optdir + 'src' + os.sep + 'vim_src' + os.sep
-    home = os.path.expanduser('~') + os.sep
 
     get_code('https://code.google.com/p/vim/', srcdir)
 
