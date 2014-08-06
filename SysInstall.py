@@ -67,10 +67,10 @@ PROGRAMMING = """ \
     docutils-common docutils-doc \
     erlang erlang-eunit \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
-    libboost-all-dev libglm-dev libglew-dev libglfw-dev \
-    llibncurses5-dev ibncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
+    libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
+    libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev libmpfr-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
