@@ -176,9 +176,15 @@ def get_code(url, target):
     url: The origin to clone
     target: Where to clone to
     """
-    cmd = 'git clone %s %s' % (url, target)
-    if url.find('git') == -1:
-        cmd = cmd.replace('git', 'hg', 1)
+    cmd = ' %s %s' % (url, target)
+    # Git urls always end in .git
+    if url.find('git') != -1:
+        cmd = 'git clone --depth 1' + cmd
+    # snv always at front of proto
+    elif url.find('svn') != -1:
+        cmd = 'svn checkout' + cmd
+    else:
+        cmd = 'hg clone' + cmd
 
     if not os.path.exists(target):
         subprocess.call(cmd.split())

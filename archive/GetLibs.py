@@ -83,16 +83,23 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
-def get_code(command, target):
-    """ Wrapper function to clone repos.
-    Protects against overwriting if target exists.
-    command: The command that would run in bash.
-    target: Where to clone to.
+def get_code(url, target):
+    """ Wrapper function to clone repos, only executes if target doesn't exist
+    url: The origin to clone
+    target: Where to clone to
     """
-    cmd = command.split()
-    cmd.append(target)
+    cmd = ' %s %s' % (url, target)
+    # Git urls always end in .git
+    if url.find('git') != -1:
+        cmd = 'git clone --depth 1' + cmd
+    # snv always at front of proto
+    elif url.find('svn') != -1:
+        cmd = 'svn checkout' + cmd
+    else:
+        cmd = 'hg clone' + cmd
+
     if not os.path.exists(target):
-        subprocess.call(cmd)
+        subprocess.call(cmd.split())
 
 def num_jobs():
     """ Use BASH one liner to determine number of threads available. """
