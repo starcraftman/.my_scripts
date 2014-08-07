@@ -20,12 +20,12 @@ extract_files()
             *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
             *.jar)               jar xf "$file"                    ;;
             *.iso)               7z x "$file"                      ;;
-            *.tar)               tar xf "$file"                   ;;
-            *.tbz2|*.tar.bz2)    tar xjf "$file"                  ;;
-            *.tgz|*.tar.gz)      tar xzf "$file"                  ;;
-            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -         ;;
-            *.tar.xz)            xzcat "$file" | tar xf -         ;;
-            *.tar.Z)             zcat "$file" | tar xf -          ;;
+            *.tar)               tar xf "$file"                    ;;
+            *.tbz2|*.tar.bz2)    tar xjf "$file"                   ;;
+            *.tgz|*.tar.gz)      tar xzf "$file"                   ;;
+            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -          ;;
+            *.tar.xz)            xzcat "$file" | tar xf -          ;;
+            *.tar.Z)             zcat "$file" | tar xf -           ;;
             *.bz|*.bz2)          bunzip2 "$file"                   ;;
             *.gz)                gunzip "$file"                    ;;
             *.lzma)              unlzma "$file"                    ;;
@@ -35,15 +35,15 @@ extract_files()
             *.zip)               unzip "$file"                     ;;
             *.7z)                7z x "$file"                      ;;
             *.dmg)
-                echo "'$file' mounted at '$tmpdir'."
-                mkdir -p $tmpdir
-                mount -o loop -t hfs "$file" $tmpdir               ;;
+                mkdir -vp $tmpdir
+                mount -o loop -t hfs "$file" $tmpdir
+                echo "'$file' mounted at '$tmpdir'."               ;;
             *.img|*.dd)
-                echo "'$file' mounted at '$tmpdir'."
-                mkdir -p $tmpdir
-                mount -o loop -t iso9660 "$file" $tmpdir           ;;
+                mkdir -vp $tmpdir
+                mount -o loop -t iso9660 "$file" $tmpdir
+                echo "'$file' mounted at '$tmpdir'."               ;;
             *)
-                echo "${0##*/}: Cannot extract '$file'"           ;;
+                echo "${0##*/}: Cannot extract '$file'"            ;;
         esac
         local folder=$(extract_extension "$file")
         echo "${file} extracted to ${folder}"
