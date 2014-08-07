@@ -116,8 +116,8 @@ alias egrep='grep -E'
 alias fgrep='grep -F'
 alias rgrep='grep -r'
 
-# Alias for ps
-alias pstree="ps -eH"
+# Alias for ps, sorts like pstree
+alias pst="ps -eH"
 
 # Reruns the last command with sudo.
 alias please='sudo $(fc -l -n -1)'
