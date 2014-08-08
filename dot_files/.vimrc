@@ -482,6 +482,18 @@ let g:ctrlp_extensions = ['switcher']
 " Index hidden files
 "let g:ctrlp_show_hidden = 1
 
+" TagBar
+""""""""
+
+" Close on selecting an option
+let g:tagbar_autoclose = 1
+
+" Focus on open
+let g:tagbar_autofocus = 1
+
+" Compact the menu
+"let g:tagbar_compact = 1
+
 " Nerdtree
 """""""""""""
 
