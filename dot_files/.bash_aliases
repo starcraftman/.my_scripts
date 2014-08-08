@@ -215,6 +215,11 @@ if valid_name parallel; then
     alias parallel='parallel --no-notice'
 fi
 
+# Useful pstree highlight current parents
+if valid_name pstree; then
+    alias pstree='pstree -hn'
+fi
+
 # Shutdown the current machine immediately
 if valid_name shutdown; then
     alias off='sudo shutdown -h now'
