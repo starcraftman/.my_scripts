@@ -11,6 +11,7 @@ from __future__ import print_function
 import argparse
 import glob
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -170,6 +171,43 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
+def get_archive(url, target):
+    """ Fetch an archive from a site. Works on regular ftp & sourceforge.
+    url: location to get archive
+    target: where to extract to
+    """
+    cmd = 'wget ' + url
+    subprocess.call(cmd.split())
+
+    arc_ext = ''
+    for ext in ['.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
+        right = url.rfind(ext)
+        if right != -1:
+            right += len(ext)
+            left = url.rfind(os.sep, 0, right) + 1
+            arc_ext = ext
+            break
+
+    # Corner case for source forge, file is download
+    arc_name = url[left:right]
+    if url.rfind('/download') != -1:
+        os.rename('download', arc_name)
+
+    if arc_ext.find('tar') != -1:
+        tarfile.open(arc_name).extractall()
+    else:
+        cmd = 'unarchive ' + arc_name
+        subprocess.call(cmd.split())
+
+    # extracted dir doesn't always match arc_name, glob to be sure
+    arc_front = re.split('[-_]', arc_name)[0] + '*'
+    arc_dir = ''
+    for name in glob.glob(arc_front):
+        if name.rfind(arc_ext) == -1:
+            arc_dir = name
+
+    os.rename(arc_dir, target)
+    os.remove(arc_name)
 
 def get_code(url, target):
     """ Wrapper function to clone repos, only executes if target doesn't exist
@@ -180,7 +218,7 @@ def get_code(url, target):
     # Git urls always end in .git
     if url.find('git') != -1:
         cmd = 'git clone --depth 1' + cmd
-    # snv always at front of proto
+    # svn always at front of proto
     elif url.find('svn') != -1:
         cmd = 'svn checkout' + cmd
     else:
@@ -383,17 +421,11 @@ def build_vimpager(optdir):
 def build_zsh_docs(optdir):
     """ Ubuntu zsh missing docs, get them from archive. """
     url = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download'
+    srcdir = optdir + 'src' + os.sep + 'zsh_docs' + os.sep
 
     try:
-        # Fetch program
-        print("Downloading latest zsh source.")
-        cmd = ('wget %s' % url).split()
-        subprocess.call(cmd)
-        archive = glob.glob('download*')[0]
-        tarfile.open(archive).extractall()
-
-        srcdir = glob.glob('zsh-*')[0]
-        manfiles = glob.glob(srcdir + os.sep + 'Doc' + os.sep + '*.1')
+        get_archive(url, srcdir)
+        manfiles = glob.glob(srcdir + 'Doc' + os.sep + '*.1')
         for man in manfiles:
             shutil.copy(man, optdir + os.sep + 'share' + os.sep
                     + 'man' + os.sep + 'man1')
@@ -401,7 +433,6 @@ def build_zsh_docs(optdir):
         shutil.copy(manfiles[0], optdir + os.sep + 'bin' + os.sep + 'zsh_docs')
     finally:
         shutil.rmtree(srcdir)
-        os.remove(archive)
 
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
