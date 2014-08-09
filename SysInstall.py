@@ -108,6 +108,10 @@ class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
+class ArchiveException(Exception):
+    """ Archive can't be processed. """
+    pass
+
 class Progress(object):
     """ Draw a simple progress bar. """
     def __init__(self, tick, empty, total_ticks):
@@ -179,7 +183,7 @@ def get_archive(url, target):
     cmd = 'wget ' + url
     subprocess.call(cmd.split())
 
-    arc_ext = ''
+    arc_ext = None
     for ext in ['.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
@@ -187,6 +191,9 @@ def get_archive(url, target):
             left = url.rfind(os.sep, 0, right) + 1
             arc_ext = ext
             break
+
+    if arc_ext == None:
+        raise ArchiveException
 
     # Corner case for source forge, file is download
     arc_name = url[left:right]
@@ -201,7 +208,7 @@ def get_archive(url, target):
 
     # extracted dir doesn't always match arc_name, glob to be sure
     arc_front = re.split('[-_]', arc_name)[0] + '*'
-    arc_dir = ''
+    arc_dir = None
     for name in glob.glob(arc_front):
         if name.rfind(arc_ext) == -1:
             arc_dir = name
@@ -299,6 +306,32 @@ def home_config():
     ddir = home + '.ccache'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
+
+def build_src(optdir, name, url, build_cmds, post_globs):
+    """ Build from source a project downloeaded from url.
+        The build_cmds will be executed in the srcdir.
+        post_globs format -> [(glob, target), (glob, target), ...]
+        All files matching glob, moved to target.
+    """
+    srcdir = optdir + 'src' + os.sep + name + os.sep
+
+    try:
+        get_archive(url, srcdir)
+    except ArchiveException:
+        get_code(url, srcdir)
+
+    # Code should be at srcdir by here.
+    PDir.push(srcdir)
+    for cmd in build_cmds:
+        subprocess.call(cmd.split())
+    PDir.pop()
+
+    # Manual copies sometimes required to finish install
+    for pattern, target in post_globs:
+        for sfile in glob.glob(srcdir + pattern):
+            shutil.copy(sfile, target)
+
+    shutil.rmtree(srcdir)
 
 def build_ack(optdir):
     """ Build ack from source, move to target dir. """
