@@ -101,6 +101,8 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments trash-cli"
 
+NUM_JOBS = num_jobs()
+
 # Classes
 
 class NotSudo(Exception):
@@ -337,7 +339,7 @@ def build_src(build):
     PDir.push(srcdir)
     for cmd in build.get('cmds', []):
         cmd = cmd.replace('TARGET', build['tdir'])
-        cmd = cmd.replace('JOBS', '%d' % num_jobs())
+        cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
         subprocess.call(cmd.split())
     PDir.pop()
 
