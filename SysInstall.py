@@ -419,7 +419,7 @@ def src_programs():
             'globs': [
                 ('bin/doxygen', 'bin'),
                 ('doc/*.1', 'share/man/man1'),
-            ]
+            ],
         },
         {
             'name': 'parallel',
@@ -438,7 +438,7 @@ def src_programs():
                 ('vimcat', 'bin'),
                 ('vimpager', 'bin'),
                 ('*.1', 'share/man/man1'),
-            ]
+            ],
         },
         {
             'name': 'zsh_docs',
@@ -447,7 +447,7 @@ def src_programs():
             'globs': [
                 ('Doc/*.1', 'share/man/man1'),
                 ('Doc/zsh.1', 'bin/zsh_docs'),
-            ]
+            ],
         },
     ]
 
