@@ -318,8 +318,8 @@ def build_src(build):
             ]
         }
     """
-    srcdir = '%ssrc/%s/' % (build['tdir'], build['name'])
-    prog = '%sbin/%s' % (build['tdir'], build['name'])
+    srcdir = '%s/src/%s' % (build['tdir'], build['name'])
+    prog = '%s/bin/%s' % (build['tdir'], build['name'])
 
     # Guard if command exists
     if os.path.exists(prog):
@@ -340,10 +340,11 @@ def build_src(build):
 
     # Manual copies sometimes required to finish install
     for pattern, target in build.get('globs', []):
-        for sfile in glob.glob(srcdir + pattern):
-            shutil.copy(sfile, build['tdir'] + target)
+        for sfile in glob.glob(srcdir + os.sep + pattern):
+            shutil.copy(sfile, build['tdir'] + os.sep + target)
 
     shutil.rmtree(srcdir)
+    print('Finished building ' + build['name'])
 
 def build_vim():
     """ Build vim if very old. """
@@ -369,7 +370,7 @@ def build_vim():
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
     # Store all compilations into opt from environment
-    optdir = os.environ['OPTDIR'] + os.sep
+    optdir = os.environ['OPTDIR']
     home = os.path.expanduser('~') + os.sep
 
     # Only use on posix systems.
@@ -378,8 +379,8 @@ def src_programs():
         return
 
     # Ensure opt dirs exist
-    for odir in [optdir + 'bin', optdir + 'src',
-            optdir + 'share/man/man1']:
+    for odir in [optdir + os.sep + 'bin', optdir + os.sep + 'src',
+            optdir + os.sep + 'share' + os.sep + 'man' + os.sep + 'man1']:
         if not os.path.exists(odir):
             os.makedirs(odir)
 
@@ -454,7 +455,6 @@ def src_programs():
     # build the programs based on above json
     for build in builds:
         build_src(build)
-        print('Finished building ' + build['name'])
 
 def packs_babun():
     """ Setup a fresh babun install. """
