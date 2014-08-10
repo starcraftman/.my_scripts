@@ -268,8 +268,6 @@ def home_config():
 
     # Init vundle for vim plugin install.
     ddir = home + '.vim' + os.sep + 'bundle' + os.sep
-    if not os.path.exists(ddir):
-        os.mkdir(ddir)
     get_code('https://github.com/gmarik/Vundle.vim.git', ddir + 'Vundle.vim')
 
     # Get shell utilities
@@ -294,8 +292,8 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
         get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
-        cmd = ('fc-cache -vf ' + ddir).split()
-        subprocess.call(cmd)
+        cmd = 'fc-cache -vf ' + ddir
+        subprocess.call(cmd.split())
 
     # Create dir for ccache
     ddir = home + '.ccache'
@@ -462,8 +460,8 @@ def src_programs():
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
-    cmd = ('pact install ' + BABUN).split()
-    subprocess.call(cmd)
+    cmd = 'pact install ' + BABUN
+    subprocess.call(cmd.split())
 
     # Now prepare then invoke regular setup link common files
     home = os.path.expanduser('~') + os.sep
@@ -484,11 +482,11 @@ def packs_babun():
 
 def packs_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
-    cmd = 'cabal update'.split()
-    subprocess.call(cmd)
+    cmd = 'cabal update'
+    subprocess.call(cmd.split())
 
-    cmd = ('cabal install ' + CABAL).split()
-    subprocess.call(cmd)
+    cmd = 'cabal install ' + CABAL
+    subprocess.call(cmd.split())
 
 def packs_debian():
     """ Install packages on the current system. """
@@ -521,17 +519,17 @@ def packs_py():
         raise NotSudo
 
     # Use python package manager.
-    cmd = ('sudo pip install ' + PY_PACKS).split()
-    subprocess.call(cmd)
+    cmd = 'sudo pip install ' + PY_PACKS
+    subprocess.call(cmd.split())
 
     # Install python completion to system bash_completion.d.
-    cmd = 'activate-global-python-argcomplete --user'.split()
-    subprocess.call(cmd)
+    cmd = 'activate-global-python-argcomplete --user'
+    subprocess.call(cmd.split())
 
 def install_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
-    cmd = 'npm install jshint -g'.split()
-    subprocess.call(cmd)
+    cmd = 'npm install jshint -g'
+    subprocess.call(cmd.split())
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.
