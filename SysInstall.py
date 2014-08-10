@@ -101,8 +101,11 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments trash-cli"
 
-NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | grep "processor"\
-            | wc -l', shell=True))
+if os.name == 'posix':
+    NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
+        grep processor | wc -l', shell=True))
+else:
+    NUM_JOBS = 2
 
 # Classes
 
@@ -274,12 +277,12 @@ def home_config():
     get_code('http://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
 
     git_urls = [
-            'https://github.com/magicmonty/bash-git-prompt.git',
-            'https://github.com/starcraftman/zsh-git-prompt.git',
-            'https://github.com/zsh-users/zsh-completions.git',
-            'https://github.com/zsh-users/zsh-syntax-highlighting.git',
-            'https://github.com/starcraftman/hhighlighter.git',
-            ]
+        'https://github.com/magicmonty/bash-git-prompt.git',
+        'https://github.com/starcraftman/zsh-git-prompt.git',
+        'https://github.com/zsh-users/zsh-completions.git',
+        'https://github.com/zsh-users/zsh-syntax-highlighting.git',
+        'https://github.com/starcraftman/hhighlighter.git',
+    ]
 
     for url in git_urls:
         target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
@@ -311,11 +314,11 @@ def build_src(build):
             'perl Makefile.PL',
             'make ack-standalone',
             'make manifypods'
-            ],
+        ],
         'globs': [
             ('ack-standalone', 'bin/ack'),
             ('blib/man1/*.1*', 'share/man/man1')
-            ]
+        ]
         }
     """
     srcdir = '%s/src/%s' % (build['tdir'], build['name'])
@@ -349,21 +352,21 @@ def build_src(build):
 def build_vim():
     """ Build vim if very old. """
     build = {
-            'name': 'vim',
-            'url' : 'https://code.google.com/p/vim/',
-            'tdir': os.environ['OPTDIR'] + os.sep,
-            'cmds': [
-                './configure --with-features=huge --enable-gui=gtk2 \
-                --enable-cscope --enable-multibyte  \
-                --enable-luainterp --enable-perlinterp \
-                --enable-pythoninterp \
-                --with-python-config-dir=/usr/lib/python2.7/config \
-                --enable-rubyinterp --enable-tclinterp \
-                --prefix=TARGET',
-                'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
-                'make install',
-                ],
-            }
+        'name': 'vim',
+        'url' : 'https://code.google.com/p/vim/',
+        'tdir': os.environ['OPTDIR'] + os.sep,
+        'cmds': [
+            './configure --with-features=huge --enable-gui=gtk2 \
+            --enable-cscope --enable-multibyte  \
+            --enable-luainterp --enable-perlinterp \
+            --enable-pythoninterp \
+            --with-python-config-dir=/usr/lib/python2.7/config \
+            --enable-rubyinterp --enable-tclinterp \
+            --prefix=TARGET',
+            'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
+            'make install',
+        ],
+    }
 
     build_src(build)
 
@@ -394,11 +397,11 @@ def src_programs():
                 'perl Makefile.PL',
                 'make ack-standalone',
                 'make manifypods',
-                ],
+            ],
             'globs': [
                 ('ack-standalone', 'bin/ack'),
                 ('blib/man1/*.1*', 'share/man/man1'),
-                ],
+            ],
         },
         {
             'name': 'ag',
@@ -407,7 +410,7 @@ def src_programs():
             'cmds': [
                 './build.sh --prefix=TARGET',
                 'make install',
-                ],
+            ],
         },
         {
             'name': 'doxygen',
@@ -416,11 +419,11 @@ def src_programs():
             'cmds': [
                 './configure --prefix=TARGET',
                 'make -jJOBS',
-                ],
+            ],
             'globs': [
                 ('bin/doxygen', 'bin'),
                 ('doc/*.1', 'share/man/man1'),
-                ]
+            ]
         },
         {
             'name': 'parallel',
@@ -429,7 +432,7 @@ def src_programs():
             'cmds': [
                 './configure --prefix=TARGET',
                 'make -jJOBS install',
-                ],
+            ],
         },
         {
             'name': 'vimpager',
@@ -439,7 +442,7 @@ def src_programs():
                 ('vimcat', 'bin'),
                 ('vimpager', 'bin'),
                 ('*.1', 'share/man/man1'),
-                ]
+            ]
         },
         {
             'name': 'zsh_docs',
@@ -448,7 +451,7 @@ def src_programs():
             'globs': [
                 ('Doc/*.1', 'share/man/man1'),
                 ('Doc/zsh.1', 'bin/zsh_docs'),
-                ]
+            ]
         },
     ]
 
@@ -537,12 +540,14 @@ def install_pipelight():
     if os.getuid() != 0:
         raise NotSudo
 
-    cmds = ['sudo apt-get remove flashplugin-installer',
-            'sudo apt-add-repository ppa:pipelight/stable',
-            'sudo apt-get update',
-            'sudo apt-get install pipelight-multi',
-            'pipelight-plugin --enable silverlight',
-            'pipelight-plugin --enable flash',]
+    cmds = [
+        'sudo apt-get remove flashplugin-installer',
+        'sudo apt-add-repository ppa:pipelight/stable',
+        'sudo apt-get update',
+        'sudo apt-get install pipelight-multi',
+        'pipelight-plugin --enable silverlight',
+        'pipelight-plugin --enable flash',
+    ]
     cmds = [x.split() for x in cmds]
     [subprocess.call(x) for x in cmds]
     print("Installation over, remember to use a useragent switcher.")
@@ -564,16 +569,17 @@ def main():
     pipelight   Install pipelight flash & silverlight.
     """
     # Use a dict of funcs instead of a case switch
-    actions = {'debian': packs_debian,
-                'babun': packs_babun,
-                'home': home_config,
-                'python': packs_py,
-                'cabal': packs_cabal,
-                'jshint': install_jshint,
-                'pipelight': install_pipelight,
-                'src': src_programs,
-                'vim': build_vim,
-                }
+    actions = {
+        'debian':       packs_debian,
+        'babun':        packs_babun,
+        'home':         home_config,
+        'python':       packs_py,
+        'cabal':        packs_cabal,
+        'jshint':       install_jshint,
+        'pipelight':    install_pipelight,
+        'src':          src_programs,
+        'vim':          build_vim,
+    }
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
