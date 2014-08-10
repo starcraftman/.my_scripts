@@ -322,6 +322,11 @@ def build_src(build):
         }
     """
     srcdir = '%ssrc/%s/' % (build['tdir'], build['name'])
+    prog = '%sbin/%s' % (build['tdir'], build['name'])
+
+    # Guard if command exists
+    if os.path.exists(prog):
+        return
 
     try:
         get_archive(build['url'], srcdir)
@@ -330,85 +335,18 @@ def build_src(build):
 
     # Code should be at srcdir by here.
     PDir.push(srcdir)
-    for cmd in build['cmds']:
+    for cmd in build.get('cmds', []):
         cmd = cmd.replace('TARGET', build['tdir'])
         cmd = cmd.replace('JOBS', '%d' % num_jobs())
         subprocess.call(cmd.split())
     PDir.pop()
 
     # Manual copies sometimes required to finish install
-    for pattern, target in build['globs']:
+    for pattern, target in build.get('globs', []):
         for sfile in glob.glob(srcdir + pattern):
             shutil.copy(sfile, build['tdir'] + target)
 
     shutil.rmtree(srcdir)
-
-def build_ack(optdir):
-    """ Build ack from source, move to target dir. """
-    build = {
-            'name': 'ack',
-            'url' : 'https://github.com/petdance/ack2.git',
-            'tdir': optdir,
-            'cmds': [
-                'perl Makefile.PL',
-                'make ack-standalone',
-                'make manifypods',
-                ],
-            'globs': [
-                ('ack-standalone', 'bin/ack'),
-                ('blib/man1/*.1*', 'share/man/man1'),
-                ]
-            }
-
-    build_src(build)
-
-def build_ag(optdir):
-    """ Build ag from source, move to target dir. """
-    build = {
-            'name': 'ag',
-            'url' : 'https://github.com/ggreer/the_silver_searcher.git',
-            'tdir': optdir,
-            'cmds': [
-                './build.sh --prefix=TARGET',
-                'make install',
-                ],
-            'globs': []
-            }
-
-    build_src(build)
-
-def build_doxygen(optdir):
-    """ Build doxygen from source, move to target dir. """
-    build = {
-            'name': 'doxygen',
-            'url' : 'https://github.com/doxygen/doxygen.git',
-            'tdir': optdir,
-            'cmds': [
-                './configure --prefix=TARGET',
-                'make -jJOBS',
-                ],
-            'globs': [
-                ('bin/doxygen', 'bin'),
-                ('doc/*.1', 'share/man/man1'),
-                ]
-            }
-
-    build_src(build)
-
-def build_parallel(optdir):
-    """ Build GNU Parallel from source, move to target dir. """
-    build = {
-            'name': 'doxygen',
-            'url' : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-            'tdir': optdir,
-            'cmds': [
-                './configure --prefix=TARGET',
-                'make -jJOBS install',
-                ],
-            'globs': []
-            }
-
-    build_src(build)
 
 def build_vim():
     """ Build vim if very old. """
@@ -427,38 +365,6 @@ def build_vim():
                 'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
                 'make install',
                 ],
-            'globs': []
-            }
-
-    build_src(build)
-
-def build_vimpager(optdir):
-    """ Vimpager is a neat tool that pages with vim, also vimcat. """
-    build = {
-            'name': 'vimpager',
-            'url' : 'https://github.com/rkitover/vimpager.git',
-            'tdir': optdir,
-            'cmds': [],
-            'globs': [
-                ('vimcat', 'bin'),
-                ('vimpager', 'bin'),
-                ('*.1', 'share/man/man1'),
-                ]
-            }
-
-    build_src(build)
-
-def build_zsh_docs(optdir):
-    """ Ubuntu zsh missing docs, get them from archive. """
-    build = {
-            'name': 'zsh_docs',
-            'url' : 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download',
-            'tdir': optdir,
-            'cmds': [],
-            'globs': [
-                ('Doc/*.1', 'share/man/man1'),
-                ('Doc/zsh.1', 'bin/zsh_docs'),
-                ]
             }
 
     build_src(build)
@@ -476,28 +382,82 @@ def src_programs():
 
     # Ensure opt dirs exist
     for odir in [optdir + 'bin', optdir + 'src',
-            optdir + 'share' + os.sep + 'man' + os.sep + 'man1']:
+            optdir + 'share/man/man1']:
         if not os.path.exists(odir):
             os.makedirs(odir)
 
-    funcs = {
-            'ag':       build_ag,
-            'ack':      build_ack,
-            'doxygen':  build_doxygen,
-            'parallel': build_parallel,
-            'vimpager': build_vimpager,
-            'zsh_docs': build_zsh_docs,
-            }
+    builds = \
+    [
+        {
+            'name': 'ack',
+            'url' : 'https://github.com/petdance/ack2.git',
+            'tdir': optdir,
+            'cmds': [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods',
+                ],
+            'globs': [
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1'),
+                ],
+        },
+        {
+            'name': 'ag',
+            'url' : 'https://github.com/ggreer/the_silver_searcher.git',
+            'tdir': optdir,
+            'cmds': [
+                './build.sh --prefix=TARGET',
+                'make install',
+                ],
+        },
+        {
+            'name': 'doxygen',
+            'url' : 'https://github.com/doxygen/doxygen.git',
+            'tdir': optdir,
+            'cmds': [
+                './configure --prefix=TARGET',
+                'make -jJOBS',
+                ],
+            'globs': [
+                ('bin/doxygen', 'bin'),
+                ('doc/*.1', 'share/man/man1'),
+                ]
+        },
+        {
+            'name': 'parallel',
+            'url' : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+            'tdir': optdir,
+            'cmds': [
+                './configure --prefix=TARGET',
+                'make -jJOBS install',
+                ],
+        },
+        {
+            'name': 'vimpager',
+            'url' : 'https://github.com/rkitover/vimpager.git',
+            'tdir': optdir,
+            'globs': [
+                ('vimcat', 'bin'),
+                ('vimpager', 'bin'),
+                ('*.1', 'share/man/man1'),
+                ]
+        },
+        {
+            'name': 'zsh_docs',
+            'url' : 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download',
+            'tdir': optdir,
+            'globs': [
+                ('Doc/*.1', 'share/man/man1'),
+                ('Doc/zsh.1', 'bin/zsh_docs'),
+                ]
+        },
+    ]
 
-    # Build programs and copy bins to bindir.
-    for name in sorted(funcs.keys()):
-        prog = optdir + 'bin' + os.sep + name
-        srcdir = optdir + 'src' + os.sep + name + '_src'
-        if not os.path.exists(prog):
-            if os.path.exists(srcdir):
-                shutil.rmtree(srcdir)
-            funcs[name](optdir)
-            print('Finished building ' + prog)
+    # build the programs based on above json
+    for build in builds:
+        build_src(build)
+        print('Finished building ' + build['name'])
 
 def packs_babun():
     """ Setup a fresh babun install. """
