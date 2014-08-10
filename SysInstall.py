@@ -16,7 +16,6 @@ import shutil
 import subprocess
 import sys
 import tarfile
-import urllib
 try:
     import apt
 except ImportError:
@@ -180,9 +179,6 @@ def get_archive(url, target):
     url: location to get archive
     target: where to extract to
     """
-    cmd = 'wget ' + url
-    subprocess.call(cmd.split())
-
     arc_ext = None
     for ext in ['.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
@@ -195,11 +191,10 @@ def get_archive(url, target):
     if arc_ext == None:
         raise ArchiveException
 
-    # Corner case for source forge, file is download
     arc_name = url[left:right]
-    if url.rfind('/download') != -1:
-        os.rename('download', arc_name)
 
+    cmd = 'wget -O %s %s' % (arc_name, url)
+    subprocess.call(cmd.split())
     if arc_ext.find('tar') != -1:
         tarfile.open(arc_name).extractall()
     else:
@@ -307,165 +302,166 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-def build_src(optdir, name, url, build_cmds, post_globs):
-    """ Build from source a project downloeaded from url.
-        The build_cmds will be executed in the srcdir.
-        post_globs format -> [(glob, target), (glob, target), ...]
-        All files matching glob, moved to target.
+def build_src(build):
+    """ Build a project downloeaded from url. Build is a json described below.
+        Cmds are executed in srcdir, then if globs non-empty copy files as
+        described in glob/target pairs..
+        {
+        'name': 'ack',
+        'url' : 'https://github.com/petdance/ack2.git',
+        'tdir': /path/to/install/to,
+        'cmds': [
+            'perl Makefile.PL',
+            'make ack-standalone',
+            'make manifypods'
+            ],
+        'globs': [
+            ('ack-standalone', 'bin/ack'),
+            ('blib/man1/*.1*', 'share/man/man1')
+            ]
+        }
     """
-    srcdir = optdir + 'src' + os.sep + name + os.sep
+    srcdir = '%ssrc/%s/' % (build['tdir'], build['name'])
 
     try:
-        get_archive(url, srcdir)
+        get_archive(build['url'], srcdir)
     except ArchiveException:
-        get_code(url, srcdir)
+        get_code(build['url'], srcdir)
 
     # Code should be at srcdir by here.
     PDir.push(srcdir)
-    for cmd in build_cmds:
+    for cmd in build['cmds']:
+        cmd = cmd.replace('TARGET', build['tdir'])
+        cmd = cmd.replace('JOBS', '%d' % num_jobs())
         subprocess.call(cmd.split())
     PDir.pop()
 
     # Manual copies sometimes required to finish install
-    for pattern, target in post_globs:
+    for pattern, target in build['globs']:
         for sfile in glob.glob(srcdir + pattern):
-            shutil.copy(sfile, target)
+            shutil.copy(sfile, build['tdir'] + target)
 
     shutil.rmtree(srcdir)
 
 def build_ack(optdir):
     """ Build ack from source, move to target dir. """
-    srcdir = optdir + 'src' + os.sep + 'ack' + os.sep
-    get_code('https://github.com/petdance/ack2.git', srcdir)
+    build = {
+            'name': 'ack',
+            'url' : 'https://github.com/petdance/ack2.git',
+            'tdir': optdir,
+            'cmds': [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods',
+                ],
+            'globs': [
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1'),
+                ]
+            }
 
-    PDir.push(srcdir)
-    cmds = ['perl Makefile.PL',
-            'make ack-standalone',
-            'make manifypods']
-    for cmd in cmds:
-        subprocess.call(cmd.split())
-    PDir.pop()
-
-    shutil.copy(srcdir + 'ack-standalone', optdir + 'bin' + os.sep + 'ack')
-    for man in glob.glob(srcdir + 'blib' + os.sep + 'man1' + os.sep + '*.1*'):
-        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
+    build_src(build)
 
 def build_ag(optdir):
     """ Build ag from source, move to target dir. """
-    srcdir = optdir + 'src' + os.sep + 'ag' + os.sep
-    get_code('https://github.com/ggreer/the_silver_searcher.git', srcdir)
+    build = {
+            'name': 'ag',
+            'url' : 'https://github.com/ggreer/the_silver_searcher.git',
+            'tdir': optdir,
+            'cmds': [
+                './build.sh --prefix=TARGET',
+                'make install',
+                ],
+            'globs': []
+            }
 
-    PDir.push(srcdir)
-    cmds = ['./build.sh --prefix=' + optdir,
-            'make install']
-    for cmd in cmds:
-        subprocess.call(cmd.split())
-    PDir.pop()
-
-    # Seems to strip srcdir, redownload to have a copy left
-    shutil.rmtree(srcdir)
-    get_code('https://github.com/ggreer/the_silver_searcher.git', srcdir)
+    build_src(build)
 
 def build_doxygen(optdir):
     """ Build doxygen from source, move to target dir. """
-    srcdir = optdir + 'src' + os.sep + 'doxygen' + os.sep
-    get_code('https://github.com/doxygen/doxygen.git', srcdir)
+    build = {
+            'name': 'doxygen',
+            'url' : 'https://github.com/doxygen/doxygen.git',
+            'tdir': optdir,
+            'cmds': [
+                './configure --prefix=TARGET',
+                'make -jJOBS',
+                ],
+            'globs': [
+                ('bin/doxygen', 'bin'),
+                ('doc/*.1', 'share/man/man1'),
+                ]
+            }
 
-    PDir.push(srcdir)
-    cmds = ['./configure --prefix=' + optdir,
-            'make -j{}'.format(num_jobs())]
-    for cmd in cmds:
-        subprocess.call(cmd.split())
-    PDir.pop()
-
-    # Odd behaviour when using --prefix with build, so just copy manually
-    shutil.copy(srcdir + 'bin' + os.sep + 'doxygen', optdir + 'bin')
-    for man in glob.glob(srcdir + 'doc' + os.sep + '*.1'):
-        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
-
-    shutil.rmtree(srcdir)
+    build_src(build)
 
 def build_parallel(optdir):
     """ Build GNU Parallel from source, move to target dir. """
-    archive = 'parallel.tar.bz2'
-    url = 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2'
-    srcdir = optdir + 'src' + os.sep + 'parallel' + os.sep
+    build = {
+            'name': 'doxygen',
+            'url' : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+            'tdir': optdir,
+            'cmds': [
+                './configure --prefix=TARGET',
+                'make -jJOBS install',
+                ],
+            'globs': []
+            }
 
-    try:
-        # Fetch program
-        print("Downloading latest parallel source.")
-        prog = Progress.default_prog()
-        tfile = urllib.URLopener()
-        tfile.retrieve(url, archive, gen_report(prog))
-        tarfile.open(archive).extractall()
-        tdir = glob.glob('parallel-*')[0]
-        os.rename(tdir, srcdir)
-
-        # Build & clean
-        PDir.push(srcdir)
-        cmds = ['./configure --prefix=' + optdir,
-                'make -j{} install'.format(num_jobs())]
-        for cmd in cmds:
-            subprocess.call(cmd.split())
-        PDir.pop()
-    finally:
-        os.remove(archive)
+    build_src(build)
 
 def build_vim():
     """ Build vim if very old. """
-    # Store all compilations into opt from environment
-    optdir = os.environ['OPTDIR'] + os.sep
-    srcdir = optdir + 'src' + os.sep + 'vim_src' + os.sep
+    build = {
+            'name': 'vim',
+            'url' : 'https://code.google.com/p/vim/',
+            'tdir': os.environ['OPTDIR'] + os.sep,
+            'cmds': [
+                './configure --with-features=huge --enable-gui=gtk2 \
+                --enable-cscope --enable-multibyte  \
+                --enable-luainterp --enable-perlinterp \
+                --enable-pythoninterp \
+                --with-python-config-dir=/usr/lib/python2.7/config \
+                --enable-rubyinterp --enable-tclinterp \
+                --prefix=TARGET',
+                'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
+                'make install',
+                ],
+            'globs': []
+            }
 
-    get_code('https://code.google.com/p/vim/', srcdir)
-
-    try:
-        PDir.push(srcdir)
-        cmds = ['./configure --with-features=huge --enable-gui=gtk2 \
-            --enable-cscope --enable-multibyte  \
-            --enable-luainterp --enable-perlinterp \
-            --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config \
-            --enable-rubyinterp --enable-tclinterp \
-            --prefix=' + optdir,
-            'make VIMRUNTIMEDIR=%sshare/vim/vim74' % optdir,
-            'make install']
-        for cmd in cmds:
-            subprocess.call(cmd.split())
-    finally:
-        PDir.pop()
-        shutil.rmtree(srcdir)
+    build_src(build)
 
 def build_vimpager(optdir):
     """ Vimpager is a neat tool that pages with vim, also vimcat. """
-    srcdir = optdir + 'src' + os.sep + 'vimpager' + os.sep
-    get_code('https://github.com/rkitover/vimpager.git', srcdir)
+    build = {
+            'name': 'vimpager',
+            'url' : 'https://github.com/rkitover/vimpager.git',
+            'tdir': optdir,
+            'cmds': [],
+            'globs': [
+                ('vimcat', 'bin'),
+                ('vimpager', 'bin'),
+                ('*.1', 'share/man/man1'),
+                ]
+            }
 
-    # Simply move the required files to optdir
-    shutil.copy(srcdir + 'vimcat', optdir + 'bin')
-    shutil.copy(srcdir + 'vimpager', optdir + 'bin')
-    for man in glob.glob(srcdir +  os.sep + '*.1'):
-        shutil.copy(man, optdir + 'share' + os.sep + 'man' + os.sep + 'man1')
+    build_src(build)
 
-    shutil.rmtree(srcdir)
-
-# If switch to build later:
-# https://gist.github.com/nicoulaj/715855
 def build_zsh_docs(optdir):
     """ Ubuntu zsh missing docs, get them from archive. """
-    url = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download'
-    srcdir = optdir + 'src' + os.sep + 'zsh_docs' + os.sep
+    build = {
+            'name': 'zsh_docs',
+            'url' : 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download',
+            'tdir': optdir,
+            'cmds': [],
+            'globs': [
+                ('Doc/*.1', 'share/man/man1'),
+                ('Doc/zsh.1', 'bin/zsh_docs'),
+                ]
+            }
 
-    try:
-        get_archive(url, srcdir)
-        manfiles = glob.glob(srcdir + 'Doc' + os.sep + '*.1')
-        for man in manfiles:
-            shutil.copy(man, optdir + os.sep + 'share' + os.sep
-                    + 'man' + os.sep + 'man1')
-        # Copy a file to bin just as guard
-        shutil.copy(manfiles[0], optdir + os.sep + 'bin' + os.sep + 'zsh_docs')
-    finally:
-        shutil.rmtree(srcdir)
+    build_src(build)
 
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
@@ -484,7 +480,8 @@ def src_programs():
         if not os.path.exists(odir):
             os.makedirs(odir)
 
-    funcs = {'ag':      build_ag,
+    funcs = {
+            'ag':       build_ag,
             'ack':      build_ack,
             'doxygen':  build_doxygen,
             'parallel': build_parallel,
