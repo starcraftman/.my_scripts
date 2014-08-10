@@ -101,7 +101,8 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments trash-cli"
 
-NUM_JOBS = num_jobs()
+NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | grep "processor"\
+            | wc -l', shell=True))
 
 # Classes
 
@@ -230,12 +231,6 @@ def get_code(url, target):
 
     if not os.path.exists(target):
         subprocess.call(cmd.split())
-
-def num_jobs():
-    """ Use BASH one liner to determine number of threads available. """
-    jobs = subprocess.check_output('cat /proc/cpuinfo | grep "processor"\
-            | wc -l', shell=True)
-    return int(jobs)
 
 def make_cmd(src, dst):
     """ Generator for helper. """
