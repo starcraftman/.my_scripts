@@ -352,15 +352,13 @@ def build_vim():
     build = {
         'name': 'vim',
         'url' : 'https://code.google.com/p/vim/',
-        'tdir': os.environ['OPTDIR'] + os.sep,
+        'tdir': os.environ['OPTDIR'],
         'cmds': [
             './configure --with-features=huge --enable-gui=gtk2 \
-            --enable-cscope --enable-multibyte  \
-            --enable-luainterp --enable-perlinterp \
-            --enable-pythoninterp \
+            --enable-cscope --enable-multibyte --enable-luainterp \
+            --enable-perlinterp --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config \
-            --enable-rubyinterp --enable-tclinterp \
-            --prefix=TARGET',
+            --enable-rubyinterp --enable-tclinterp --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
             'make install',
         ],
