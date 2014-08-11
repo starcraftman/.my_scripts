@@ -16,6 +16,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import zipfile
 try:
     import apt
 except ImportError:
@@ -206,7 +207,11 @@ def get_archive(url, target):
     cmd = 'wget -O %s %s' % (arc_name, url)
     subprocess.call(cmd.split())
     if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
-        tarfile.open(arc_name).extractall()
+        with tarfile.open(arc_name) as tarf:
+            tarf.extractall()
+    elif arc_ext in ['.zip']:
+        with zipfile.ZipFile(arc_name) as zipf:
+            zipf.extractall()
     else:
         cmd = 'unarchive ' + arc_name
         subprocess.call(cmd.split())
