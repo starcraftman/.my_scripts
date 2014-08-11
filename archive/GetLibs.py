@@ -111,113 +111,149 @@ def get_code(url, target):
     if not os.path.exists(target):
         subprocess.call(cmd.split())
 
-def build_sdl(libdir):
-    """ Build ack from source, move to target dir. """
-    srcdir, srcdir2 = 'sdl', 'sdl2'
-    jobs = NUM_JOBS
-    cmds_sdl1 = [
-        'hg update SDL-1.2',
-        './autogen.sh',
-        './configure --prefix=%s' % libdir,
-        'make -j%d install' % jobs,
-    ]
-    cmds_sdl2 = [
-        './configure --prefix=%s' % libdir,
-        'make -j%d install' % jobs,
-    ]
-    build = {
-        srcdir: cmds_sdl1,
-        srcdir2: cmds_sdl2,
-    }
+def build_src(build):
+    """ Build a project downloeaded from url. Build is a json described below.
+        Cmds are executed in srcdir, then if globs non-empty copy files as
+        described in glob/target pairs..
+        {
+            'name': 'ack',
+            'check': 'path/to/check',
+            'url' : 'https://github.com/petdance/ack2.git',
+            'tdir': /path/to/install/to,
+            'cmds': [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods'
+            ],
+            'globs': [
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1')
+            ]
+        }
+    """
+    srcdir = '%s/src/%s' % (build['tdir'], build['name'])
+
+    # Guard if command exists
+    if os.path.exists(build['tdir'] + os.sep + build['check']):
+        return
 
     try:
-        # Fetch code & copy for 2
-        get_code('http://hg.libsdl.org/SDL', srcdir)
-        cmd = 'cp -r %s %s' % (srcdir, srcdir2)
-        subprocess.call(cmd.split())
+        get_archive(build['url'], srcdir)
+    except ArchiveException:
+        get_code(build['url'], srcdir)
 
-        # Build sdl1 & 2
-        for src in build.keys():
-            PDir.push(src)
-            for cmd in build[src]:
-                subprocess.call(cmd.split())
-            PDir.pop()
+    try:
+        # Code should be at srcdir by here.
+        PDir.push(srcdir)
+        for cmd in build.get('cmds', []):
+            cmd = cmd.replace('TARGET', build['tdir'])
+            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
+            subprocess.call(cmd.split())
+        PDir.pop()
+
+        # Manual copies sometimes required to finish install
+        for pattern, target in build.get('globs', []):
+            dest = build['tdir'] + os.sep + target
+            if dest.endswith('/'):
+                os.makedirs(dest)
+
+            for sfile in glob.glob(srcdir + os.sep + pattern):
+                if os.path.isfile(sfile):
+                    shutil.copy(sfile, dest)
     finally:
         shutil.rmtree(srcdir)
-        shutil.rmtree(srcdir2)
+
+    print('Finished building ' + build['name'])
+
+def build_sdl1(libdir):
+    """ Build SDL version 1.xx from source and put in tdir. """
+    build = {
+        'name' : 'SDL',
+        'check': 'lib/libSDL.a',
+        'url'  : 'http://hg.libsdl.org/SDL',
+        'tdir' : libdir,
+        'cmds' : [
+            'hg update SDL-1.2',
+            './autogen.sh',
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    }
+
+    build_src(build)
+
+def build_sdl2(libdir):
+    """ Build SDL version 2.xx from source and put in tdir. """
+    build = {
+        'name' : 'SDL2',
+        'check': 'lib/libSDL2.a',
+        'url'  : 'http://hg.libsdl.org/SDL',
+        'tdir' : libdir,
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    }
+
+    build_src(build)
 
 def build_gtest(libdir):
     """ Build gtest from source and put in libs. """
-    srcdir = 'gtest'
-
-    try:
-        # Fetch program
-        print("Downloading gtest source.")
-        get_archive(URL_GTEST, srcdir)
-
-        # Build & clean
-        PDir.push(srcdir)
-        cmds = [
+    build = {
+        'name' : 'gtest',
+        'check': 'lib/libgtest.a',
+        'url'  : URL_GTEST,
+        'tdir' : libdir,
+        'cmds' : [
             'chmod u+x configure ./scripts/*',
-            './configure --prefix={}'.format(libdir),
+            './configure --prefix=TARGET',
             'make',
-        ]
-        for cmd in cmds:
-            subprocess.call(cmd.split())
+        ],
+        'globs': [
+            ('include/gtest/*', 'include/gtest/'),
+            ('include/gtest/internal/*', 'include/gtest/internal/'),
+            ('lib/.libs/*.a', 'lib/'),
+        ],
+    }
 
-        # Copy out file structure
-        os.mkdir(libdir + os.sep + 'lib')
-        shutil.copytree('include', libdir + os.sep + 'include')
-        for fil in glob.glob('lib' + os.sep + '.libs' + os.sep + '*.a'):
-            shutil.copy(fil, libdir + os.sep + 'lib')
-    finally:
-        PDir.pop()
-        shutil.rmtree(srcdir)
+    build_src(build)
 
 def build_cunit(libdir):
     """ Build classic cunit, good test lib for c code. """
-    srcdir = 'cunit'
-    get_code('svn://svn.code.sf.net/p/cunit/code/trunk', srcdir)
+    build = {
+        'name' : 'cunit',
+        'check': 'lib/libcunit.a',
+        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
+        'tdir' : libdir,
+        'cmds' : [
+            'sh ./bootstrap TARGET',
+            'make -jJOBS install',
+        ],
+    }
 
-    # Build & clean
-    PDir.push(srcdir)
-    # Shell true is due to some bug via normal way
-    cmds = [
-        'sh ./bootstrap %s' % libdir,
-        'make -j%d install' % NUM_JOBS,
-    ]
-    for cmd in cmds:
-        subprocess.call(cmd)
-    PDir.pop()
-
-    shutil.rmtree(srcdir)
+    build_src(build)
 
 def build_boost(libdir):
     """ Build latest boost release for c++. """
+    build = {
+        'name' : 'boost',
+        'check': 'lib/libboost_thread.a',
+        'url'  : URL_BOOST,
+        'tdir' : libdir,
+        'cmds' : [
+            './bootstrap.sh --prefix=TARGET',
+            './b2 install',
+        ],
+    }
+
+    # Need this for jam to build mpi & graph_parallel.
     config = os.path.expanduser('~') + os.sep + 'user-config.jam'
-    srcdir = 'boost'
-
-    try:
-        # Fetch program
-        print("Downloading latest zsh source.")
-        get_archive(URL_BOOST, srcdir)
-
-        # Need this for jam to build mpi & graph_parallel.
-        f_conf = open(config, 'w')
+    with open(config, 'w') as f_conf:
         f_conf.write('using mpi ;')
-        f_conf.close()
 
-        PDir.push(srcdir)
-        cmds = [
-            './bootstrap.sh --prefix=%s' % libdir,
-            './b2 install'
-        ]
-        for cmd in cmds:
-            subprocess.call(cmd.split())
-    finally:
-        PDir.pop()
-        shutil.rmtree(srcdir)
-        os.remove(config)
+    build_src(build)
+
+    os.remove(config)
 
 def main():
     """ Main function. """
@@ -230,15 +266,11 @@ def main():
     args = parser.parse_args()  # Default parses argv[1:]
     libdir = os.path.realpath(os.curdir + os.sep + args.target)
 
-    if os.path.exists(libdir):
-        raise OSError('Directory already exists. {}'.format(libdir))
-
-    os.makedirs(libdir)
-
-    build_gtest(libdir)
-    #build_sdl(libdir)
     #build_cunit(libdir)
+    build_gtest(libdir)
     #build_boost(libdir)
+    #build_sdl1(libdir)
+    #build_sdl2(libdir)
 
 if __name__ == '__main__':
     main()

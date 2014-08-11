@@ -316,25 +316,25 @@ def build_src(build):
         Cmds are executed in srcdir, then if globs non-empty copy files as
         described in glob/target pairs..
         {
-        'name': 'ack',
-        'url' : 'https://github.com/petdance/ack2.git',
-        'tdir': /path/to/install/to,
-        'cmds': [
-            'perl Makefile.PL',
-            'make ack-standalone',
-            'make manifypods'
-        ],
-        'globs': [
-            ('ack-standalone', 'bin/ack'),
-            ('blib/man1/*.1*', 'share/man/man1')
-        ]
+            'name': 'ack',
+            'check': 'path/to/check',
+            'url' : 'https://github.com/petdance/ack2.git',
+            'tdir': /path/to/install/to,
+            'cmds': [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods'
+            ],
+            'globs': [
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1')
+            ]
         }
     """
     srcdir = '%s/src/%s' % (build['tdir'], build['name'])
-    prog = '%s/bin/%s' % (build['tdir'], build['name'])
 
     # Guard if command exists
-    if os.path.exists(prog):
+    if os.path.exists(build['tdir'] + os.sep + build['check']):
         return
 
     try:
@@ -342,29 +342,37 @@ def build_src(build):
     except ArchiveException:
         get_code(build['url'], srcdir)
 
-    # Code should be at srcdir by here.
-    PDir.push(srcdir)
-    for cmd in build.get('cmds', []):
-        cmd = cmd.replace('TARGET', build['tdir'])
-        cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
-        subprocess.call(cmd.split())
-    PDir.pop()
+    try:
+        # Code should be at srcdir by here.
+        PDir.push(srcdir)
+        for cmd in build.get('cmds', []):
+            cmd = cmd.replace('TARGET', build['tdir'])
+            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
+            subprocess.call(cmd.split())
+        PDir.pop()
 
-    # Manual copies sometimes required to finish install
-    for pattern, target in build.get('globs', []):
-        for sfile in glob.glob(srcdir + os.sep + pattern):
-            shutil.copy(sfile, build['tdir'] + os.sep + target)
+        # Manual copies sometimes required to finish install
+        for pattern, target in build.get('globs', []):
+            dest = build['tdir'] + os.sep + target
+            if dest.endswith('/'):
+                os.makedirs(dest)
 
-    shutil.rmtree(srcdir)
+            for sfile in glob.glob(srcdir + os.sep + pattern):
+                if os.path.isfile(sfile):
+                    shutil.copy(sfile, dest)
+    finally:
+        shutil.rmtree(srcdir)
+
     print('Finished building ' + build['name'])
 
 def build_python():
     """ Build python from source. """
     build = {
-        'name': 'python',
-        'url' : URL_PYTHON,
-        'tdir': os.environ['OPTDIR'],
-        'cmds': [
+        'name' : 'python',
+        'check': 'bin/python',
+        'url'  : URL_PYTHON,
+        'tdir' : os.environ['OPTDIR'],
+        'cmds' : [
             './configure --prefix=TARGET',
             'make',
             'make install',
@@ -376,10 +384,11 @@ def build_python():
 def build_vim():
     """ Build vim if very old. """
     build = {
-        'name': 'vim',
-        'url' : 'https://code.google.com/p/vim/',
-        'tdir': os.environ['OPTDIR'],
-        'cmds': [
+        'name' : 'vim',
+        'check': 'bin/vim',
+        'url'  : 'https://code.google.com/p/vim/',
+        'tdir' : os.environ['OPTDIR'],
+        'cmds' : [
             './configure --with-features=huge --enable-gui=gtk2 \
             --enable-cscope --enable-multibyte --enable-luainterp \
             --enable-perlinterp --enable-pythoninterp \
@@ -395,10 +404,11 @@ def build_vim():
 def build_zsh():
     """ Build zsh from source. """
     build = {
-        'name': 'zsh',
-        'url' : 'https://github.com/zsh-users/zsh.git',
-        'tdir': os.environ['OPTDIR'],
-        'cmds': [
+        'name' : 'zsh',
+        'check': 'bin/zsh',
+        'url'  : 'https://github.com/zsh-users/zsh.git',
+        'tdir' : os.environ['OPTDIR'],
+        'cmds' : [
             './Util/preconfig',
             'autoconf',
             './configure --prefix=TARGET',
@@ -420,76 +430,76 @@ def src_programs():
         print("This command only for unix.")
         return
 
-    # Ensure opt dirs exist
-    for odir in [optdir + os.sep + 'bin', optdir + os.sep + 'src',
-            optdir + os.sep + 'share' + os.sep + 'man' + os.sep + 'man1']:
-        if not os.path.exists(odir):
-            os.makedirs(odir)
-
     builds = \
     [
         {
-            'name': 'ack',
-            'url' : 'https://github.com/petdance/ack2.git',
-            'tdir': optdir,
-            'cmds': [
+            'name' : 'ack',
+            'check': 'bin/zsh',
+            'url'  : 'https://github.com/petdance/ack2.git',
+            'tdir' : optdir,
+            'cmds' : [
                 'perl Makefile.PL',
                 'make ack-standalone',
                 'make manifypods',
             ],
             'globs': [
+                ('ack-standalone', 'bin/'),
                 ('ack-standalone', 'bin/ack'),
-                ('blib/man1/*.1*', 'share/man/man1'),
+                ('blib/man1/*.1*', 'share/man/man1/'),
             ],
         },
         {
-            'name': 'ag',
-            'url' : 'https://github.com/ggreer/the_silver_searcher.git',
-            'tdir': optdir,
-            'cmds': [
+            'name' : 'ag',
+            'check': 'bin/ag',
+            'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
+            'tdir' : optdir,
+            'cmds' : [
                 './build.sh --prefix=TARGET',
                 'make install',
             ],
         },
         {
-            'name': 'doxygen',
-            'url' : 'https://github.com/doxygen/doxygen.git',
-            'tdir': optdir,
-            'cmds': [
+            'name' : 'doxygen',
+            'check': 'bin/doxygen',
+            'url'  : 'https://github.com/doxygen/doxygen.git',
+            'tdir' : optdir,
+            'cmds' : [
                 './configure --prefix=TARGET',
                 'make -jJOBS',
             ],
             'globs': [
-                ('bin/doxygen', 'bin'),
-                ('doc/*.1', 'share/man/man1'),
+                ('bin/doxygen', 'bin/'),
+                ('doc/*.1', 'share/man/man1/'),
             ],
         },
         {
-            'name': 'parallel',
-            'url' : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-            'tdir': optdir,
-            'cmds': [
+            'name' : 'parallel',
+            'check': 'bin/parallel',
+            'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+            'tdir' : optdir,
+            'cmds' : [
                 './configure --prefix=TARGET',
                 'make -jJOBS install',
             ],
         },
         {
-            'name': 'vimpager',
-            'url' : 'https://github.com/rkitover/vimpager.git',
-            'tdir': optdir,
+            'name' : 'vimpager',
+            'check': 'bin/vimpager',
+            'url'  : 'https://github.com/rkitover/vimpager.git',
+            'tdir' : optdir,
             'globs': [
-                ('vimcat', 'bin'),
-                ('vimpager', 'bin'),
-                ('*.1', 'share/man/man1'),
+                ('vimcat', 'bin/'),
+                ('vimpager', 'bin/'),
+                ('*.1', 'share/man/man1/'),
             ],
         },
         {
-            'name': 'zsh_docs',
-            'url' : URL_ZSH,
-            'tdir': optdir,
+            'name' : 'zsh_docs',
+            'check': 'share/man/man1/zshall.1',
+            'url'  : URL_ZSH,
+            'tdir' : optdir,
             'globs': [
-                ('Doc/*.1', 'share/man/man1'),
-                ('Doc/zsh.1', 'bin/zsh_docs'),
+                ('Doc/*.1', 'share/man/man1/'),
             ],
         },
     ]
