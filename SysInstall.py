@@ -101,6 +101,10 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments trash-cli"
 
+URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
+URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
+zsh-5.0.5.tar.bz2/download'
+
 if os.name == 'posix':
     NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
         grep processor | wc -l', shell=True))
@@ -353,7 +357,7 @@ def build_python():
     """ Build python from source. """
     build = {
         'name': 'python',
-        'url' : 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz',
+        'url' : URL_PYTHON,
         'tdir': os.environ['OPTDIR'],
         'cmds': [
             './configure --prefix=TARGET',
@@ -476,7 +480,7 @@ def src_programs():
         },
         {
             'name': 'zsh_docs',
-            'url' : 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/zsh-5.0.5.tar.bz2/download',
+            'url' : URL_ZSH,
             'tdir': optdir,
             'globs': [
                 ('Doc/*.1', 'share/man/man1'),
@@ -579,7 +583,8 @@ def install_pipelight():
         'pipelight-plugin --enable flash',
     ]
     cmds = [x.split() for x in cmds]
-    [subprocess.call(x) for x in cmds]
+    for cmd in cmds:
+        subprocess.call(cmd)
     print("Installation over, remember to use a useragent switcher.")
 
 def main():
