@@ -589,22 +589,22 @@ def main():
     choice      effect
     ------------------------------------------------------
     home        Setup home config files.
-    src         Install some development programs from source.
-    vim         Install latest vim into source location.
     debian      Install debian packages.
     babun       Install babun packages.
     pip         Install python libraries via pip.
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
+    src         Build standard dev progs like ag, ack, parallel.
     python      Build latest python from source.
+    vim         Build latest vim from source..
     zsh         Build latest zsh from source.
     """
     # Use a dict of funcs instead of a case switch
     actions = {
+        'home':         home_config,
         'debian':       packs_debian,
         'babun':        packs_babun,
-        'home':         home_config,
         'pip':          packs_py,
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
