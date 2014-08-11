@@ -14,8 +14,12 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 import tarfile
+import zipfile
+
+URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.55.0/\
+boost_1_55_0.tar.bz2/download'
+URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
 
 if os.name == 'posix':
     NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
@@ -28,37 +32,6 @@ else:
 class ArchiveException(Exception):
     """ Archive can't be processed. """
     pass
-
-class Progress(object):
-    """ Draw a simple progress bar. """
-    def __init__(self, tick, empty, total_ticks):
-        self.tick = tick
-        self.empty = empty
-        self.total_ticks = total_ticks
-        self.num_ticks = 0
-        self.old_percent = 0
-    def check_percent(self, new_percent):
-        """ Helper, check if passed a point. """
-        if new_percent >= self.old_percent + self.tick_threshold():
-            self.old_percent = new_percent
-            return True
-        else:
-            return False
-    def draw(self):
-        """ Draw a bar for progress after incrementing. """
-        self.num_ticks += 1
-        num_empty = self.total_ticks - self.num_ticks
-        line = "Download Progress: [%s%s]\n" % (self.tick * self.num_ticks,
-            self.empty * num_empty)
-        sys.stdout.write(line)
-        sys.stdout.flush()
-    def tick_threshold(self):
-        """ Return number of % per tick on bar. """
-        return 100 / self.total_ticks
-    @staticmethod
-    def default_prog():
-        """ Factory method, makes a bar with defaults. """
-        return Progress('*', '-', 20)
 
 class PDir(object):
     """ Pushd analog for personal use. """
@@ -77,28 +50,13 @@ class PDir(object):
 
 # Functions
 
-def gen_report(progress):
-    """ Report hook generator. """
-    def report_down(block_count, bytes_per_block, total_size):
-        """ Simple report hook. """
-        if block_count == 0:
-            print("Download Started")
-        elif total_size < 0:
-            print("Read %d blocks" % block_count)
-        else:
-            total_down = block_count * bytes_per_block
-            percent = (total_down * 100.0) / total_size
-            if total_down >= total_size or progress.check_percent(percent):
-                progress.draw()
-    return report_down
-
 def get_archive(url, target):
     """ Fetch an archive from a site. Works on regular ftp & sourceforge.
     url: location to get archive
     target: where to extract to
     """
     arc_ext = None
-    for ext in ['.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
+    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
             right += len(ext)
@@ -113,8 +71,12 @@ def get_archive(url, target):
 
     cmd = 'wget -O %s %s' % (arc_name, url)
     subprocess.call(cmd.split())
-    if arc_ext.find('tar') != -1:
-        tarfile.open(arc_name).extractall()
+    if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
+        with tarfile.open(arc_name) as tarf:
+            tarf.extractall()
+    elif arc_ext in ['.zip']:
+        with zipfile.ZipFile(arc_name) as zipf:
+            zipf.extractall()
     else:
         cmd = 'unarchive ' + arc_name
         subprocess.call(cmd.split())
@@ -126,6 +88,8 @@ def get_archive(url, target):
         if name.rfind(arc_ext) == -1:
             arc_dir = name
 
+    os.makedirs(target)
+    os.rmdir(target)
     os.rename(arc_dir, target)
     os.remove(arc_name)
 
@@ -189,8 +153,7 @@ def build_gtest(libdir):
     try:
         # Fetch program
         print("Downloading gtest source.")
-        get_archive('https://googletest.googlecode.com/files/gtest-1.7.0.zip',
-                srcdir)
+        get_archive(URL_GTEST, srcdir)
 
         # Build & clean
         PDir.push(srcdir)
@@ -219,8 +182,12 @@ def build_cunit(libdir):
     # Build & clean
     PDir.push(srcdir)
     # Shell true is due to some bug via normal way
-    subprocess.call('./bootstrap {}'.format(libdir), shell=True)
-    subprocess.call('make -j{} install'.format(NUM_JOBS).split())
+    cmds = [
+        'sh ./bootstrap %s' % libdir,
+        'make -j%d install' % NUM_JOBS,
+    ]
+    for cmd in cmds:
+        subprocess.call(cmd)
     PDir.pop()
 
     shutil.rmtree(srcdir)
@@ -233,7 +200,7 @@ def build_boost(libdir):
     try:
         # Fetch program
         print("Downloading latest zsh source.")
-        get_archive('http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download', srcdir)
+        get_archive(URL_BOOST, srcdir)
 
         # Need this for jam to build mpi & graph_parallel.
         f_conf = open(config, 'w')
