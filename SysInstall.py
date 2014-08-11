@@ -376,7 +376,7 @@ def build_vim():
             --enable-perlinterp --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config \
             --enable-rubyinterp --enable-tclinterp --prefix=TARGET',
-            'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
+            'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make install',
         ],
     }
