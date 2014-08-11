@@ -186,7 +186,7 @@ def get_archive(url, target):
     target: where to extract to
     """
     arc_ext = None
-    for ext in ['.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
+    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
             right += len(ext)
@@ -201,7 +201,7 @@ def get_archive(url, target):
 
     cmd = 'wget -O %s %s' % (arc_name, url)
     subprocess.call(cmd.split())
-    if arc_ext.find('tar') != -1:
+    if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
         tarfile.open(arc_name).extractall()
     else:
         cmd = 'unarchive ' + arc_name
@@ -214,6 +214,8 @@ def get_archive(url, target):
         if name.rfind(arc_ext) == -1:
             arc_dir = name
 
+    os.makedirs(target)
+    os.rmdir(target)
     os.rename(arc_dir, target)
     os.remove(arc_name)
 
@@ -347,6 +349,21 @@ def build_src(build):
     shutil.rmtree(srcdir)
     print('Finished building ' + build['name'])
 
+def build_python():
+    """ Build python from source. """
+    build = {
+        'name': 'python',
+        'url' : 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz',
+        'tdir': os.environ['OPTDIR'],
+        'cmds': [
+            './configure --prefix=TARGET',
+            'make',
+            'make install',
+        ],
+    }
+
+    build_src(build)
+
 def build_vim():
     """ Build vim if very old. """
     build = {
@@ -360,6 +377,23 @@ def build_vim():
             --with-python-config-dir=/usr/lib/python2.7/config \
             --enable-rubyinterp --enable-tclinterp --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGETshare/vim/vim74',
+            'make install',
+        ],
+    }
+
+    build_src(build)
+
+def build_zsh():
+    """ Build zsh from source. """
+    build = {
+        'name': 'zsh',
+        'url' : 'https://github.com/zsh-users/zsh.git',
+        'tdir': os.environ['OPTDIR'],
+        'cmds': [
+            './Util/preconfig',
+            'autoconf',
+            './configure --prefix=TARGET',
+            'make',
             'make install',
         ],
     }
@@ -559,22 +593,26 @@ def main():
     vim         Install latest vim into source location.
     debian      Install debian packages.
     babun       Install babun packages.
-    python      Install python libraries via pip.
+    pip         Install python libraries via pip.
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
+    python      Build latest python from source.
+    zsh         Build latest zsh from source.
     """
     # Use a dict of funcs instead of a case switch
     actions = {
         'debian':       packs_debian,
         'babun':        packs_babun,
         'home':         home_config,
-        'python':       packs_py,
+        'pip':          packs_py,
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
         'src':          src_programs,
+        'python':       build_python,
         'vim':          build_vim,
+        'zsh':          build_zsh,
     }
 
     parser = argparse.ArgumentParser(description=mesg,
