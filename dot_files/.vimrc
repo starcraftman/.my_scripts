@@ -401,7 +401,7 @@ let g:syntastic_mode_map={
         \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']}
 
 " Check syntax on file open
-let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_open = 1
 
 " Show errors in the line numbers to left
 let g:syntastic_enable_signs = 1
@@ -412,9 +412,6 @@ let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 " List of files to ignore checking, may be useful later
 let g:syntastic_ignore_files = [ '\m^/usr/include/' ]
 
-" Global fall back if no file.
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-
 " Always use location list
 let g:syntastic_always_populate_loc_list = 1
 
@@ -423,11 +420,13 @@ let g:syntastic_enable_perl_checker = 1
 
 " Manually set important checkers:
 let g:syntastic_python_checkers = ['python', 'pychecker', 'pylint']
-"let g:syntastic_python_checkers = ['python',]
 let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 
 " YouCompleteMe
 """""""""""""""
+" Global fall back if no config present.
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
 " Allow completion of identifiers in comments too
 let g:ycm_complete_in_comments = 1
 
