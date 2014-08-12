@@ -88,8 +88,9 @@ def get_archive(url, target):
         if name.rfind(arc_ext) == -1:
             arc_dir = name
 
-    os.makedirs(target)
-    os.rmdir(target)
+    if not os.path.exists(os.path.dirname(target)):
+        os.makedirs(target)
+        os.rmdir(target)
     os.rename(arc_dir, target)
     os.remove(arc_name)
 
@@ -154,7 +155,7 @@ def build_src(build):
         # Manual copies sometimes required to finish install
         for pattern, target in build.get('globs', []):
             dest = build['tdir'] + os.sep + target
-            if dest.endswith('/'):
+            if dest.endswith('/') and not os.path.exists(dest):
                 os.makedirs(dest)
 
             for sfile in glob.glob(srcdir + os.sep + pattern):
