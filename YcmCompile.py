@@ -6,15 +6,14 @@
 """ This is a simple script to recompile ycm everytime it gets updated. """
 
 # Imports
-from __future__ import print_function
 import os
 import shutil
 import subprocess
 import SysInstall
 
 # Data
-CLANG_FILE = 'clang+llvm-3.4.1-x86_64-unknown-ubuntu12.04.tar.xz'
-CLANG_URL = 'http://llvm.org/releases/3.4.1/' + CLANG_FILE
+CLANG_URL = 'http://llvm.org/releases/3.4.1/\
+clang+llvm-3.4.1-x86_64-unknown-ubuntu12.04.tar.xz'
 CLANG_DIR = 'clang'
 B_DIR = 'build'
 
@@ -24,7 +23,7 @@ B_DIR = 'build'
 
 def cleanup():
     """ Simple cleanup function. """
-    for fil in [B_DIR, CLANG_DIR, CLANG_FILE]:
+    for fil in [B_DIR, CLANG_DIR]:
         if fil in os.listdir('.'):
             if os.path.isdir(fil):
                 shutil.rmtree(fil)
@@ -42,7 +41,7 @@ def build_ycm():
             '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
             '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp'
         ],
-        'make -j{} ycm_support_libs'.format(SysInstall.NUM_JOBS).split()
+        'make -j{} ycm_support_libs'.format(SysInstall.NUM_JOBS).split(),
     ]
 
     for cmd in cmds:
