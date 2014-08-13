@@ -118,7 +118,7 @@ class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
-class ArchiveException(Exception):
+class ArchiveNotSupported(Exception):
     """ Archive can't be processed. """
     pass
 
@@ -201,16 +201,17 @@ def get_archive(url, target):
             break
 
     if arc_ext == None:
-        raise ArchiveException
+        raise ArchiveNotSupported
 
+    # download and extract archive
     arc_name = url[left:right]
-
     cmd = 'wget -O %s %s' % (arc_name, url)
     subprocess.call(cmd.split())
+
     if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
         with tarfile.open(arc_name) as tarf:
             tarf.extractall()
-    elif arc_ext in ['.zip']:
+    elif arc_ext == '.zip':
         with zipfile.ZipFile(arc_name) as zipf:
             zipf.extractall()
     else:
@@ -219,15 +220,15 @@ def get_archive(url, target):
 
     # extracted dir doesn't always match arc_name, glob to be sure
     arc_front = re.split('[-_]', arc_name)[0] + '*'
-    arc_dir = None
+    extracted = None
     for name in glob.glob(arc_front):
         if name.rfind(arc_ext) == -1:
-            arc_dir = name
+            extracted = name
 
     if not os.path.exists(os.path.dirname(target)):
         os.makedirs(target)
         os.rmdir(target)
-    os.rename(arc_dir, target)
+    os.rename(extracted, target)
     os.remove(arc_name)
 
 def get_code(url, target):
@@ -341,7 +342,7 @@ def build_src(build):
 
     try:
         get_archive(build['url'], srcdir)
-    except ArchiveException:
+    except ArchiveNotSupported:
         get_code(build['url'], srcdir)
 
     try:
