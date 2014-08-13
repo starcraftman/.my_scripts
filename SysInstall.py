@@ -191,7 +191,8 @@ def get_archive(url, target):
     target: where to extract to
     """
     arc_ext = None
-    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
+    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', 'tar.xz',
+            '.xz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
             right += len(ext)

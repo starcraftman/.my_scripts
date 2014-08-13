@@ -10,7 +10,6 @@ from __future__ import print_function
 import os
 import shutil
 import subprocess
-import urllib
 import SysInstall
 
 # Data
@@ -32,41 +31,29 @@ def cleanup():
             else:
                 os.remove(fil)
 
-def get_clang():
-    """ Download clang for ycm. """
-    ext_index = CLANG_FILE.rindex('.tar')
-    extracted_dir = CLANG_FILE[0:ext_index]
-
-    print('Please wait, downloading clang.')
-    prog = SysInstall.Progress.default_prog()
-    cfile = urllib.URLopener()
-    cfile.retrieve(CLANG_URL, CLANG_FILE,
-            SysInstall.gen_report(prog))
-
-    cmd = ('tar xf ' + CLANG_FILE).split()
-    subprocess.call(cmd)
-    os.rename(extracted_dir, CLANG_DIR)
-
 def build_ycm():
     """ Build the shared library for ycm. """
     os.mkdir(B_DIR)
     os.chdir(B_DIR)
 
-    cmd = ['cmake', '-GUnix Makefiles',
-                '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
-                '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp']
-    subprocess.call(cmd)
+    cmds = [
+        [
+            'cmake', '-GUnix Makefiles',
+            '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
+            '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp'
+        ],
+        'make -j{} ycm_support_libs'.format(SysInstall.NUM_JOBS).split()
+    ]
 
-    num_jobs = SysInstall.NUM_JOBS
-    cmd = 'make -j{} ycm_support_libs'.format(num_jobs).split()
-    subprocess.call(cmd)
+    for cmd in cmds:
+        subprocess.call(cmd)
 
 def main():
     """ Main function. """
     origdir = os.path.realpath(os.curdir)
 
     try:
-        get_clang()
+        SysInstall.get_archive(CLANG_URL, CLANG_DIR)
         build_ycm()
     finally:
         os.chdir(origdir)
