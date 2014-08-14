@@ -437,7 +437,7 @@ def src_programs():
     [
         {
             'name' : 'ack',
-            'check': 'bin/zsh',
+            'check': 'bin/ack',
             'url'  : 'https://github.com/petdance/ack2.git',
             'tdir' : optdir,
             'cmds' : [
