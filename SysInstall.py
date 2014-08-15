@@ -67,6 +67,7 @@ PROGRAMMING = """ \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     docutils-common docutils-doc \
     erlang erlang-eunit \
+    gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
@@ -100,7 +101,7 @@ BABUN = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
-PY_PACKS = "argcomplete Pygments trash-cli"
+PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
