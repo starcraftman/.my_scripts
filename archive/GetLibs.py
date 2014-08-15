@@ -166,6 +166,82 @@ def build_src(build):
 
     print('Finished building ' + build['name'])
 
+def build_cppunit(libdir):
+    """ Build cppunit test library. """
+    build = {
+        'name' : 'cppunit',
+        'check': '/lib/libcppunit.a',
+        'url'  : 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
+        'tdir' : libdir,
+        'cmds' : [
+            './autogen.sh',
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+
+        ],
+
+    }
+
+    build_src(build)
+
+def build_cunit(libdir):
+    """ Build classic cunit, good test lib for c code. """
+    build = {
+        'name' : 'cunit',
+        'check': 'lib/libcunit.a',
+        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
+        'tdir' : libdir,
+        'cmds' : [
+            'sh ./bootstrap TARGET',
+            'make -jJOBS install',
+        ],
+    }
+
+    build_src(build)
+
+def build_gtest(libdir):
+    """ Build gtest from source and put in libs. """
+    build = {
+        'name' : 'gtest',
+        'check': 'lib/libgtest.a',
+        'url'  : URL_GTEST,
+        'tdir' : libdir,
+        'cmds' : [
+            'chmod u+x configure ./scripts/*',
+            './configure --prefix=TARGET',
+            'make',
+        ],
+        'globs': [
+            ('include/gtest/*', 'include/gtest/'),
+            ('include/gtest/internal/*', 'include/gtest/internal/'),
+            ('lib/.libs/*.a', 'lib/'),
+        ],
+    }
+
+    build_src(build)
+
+def build_boost(libdir):
+    """ Build latest boost release for c++. """
+    build = {
+        'name' : 'boost',
+        'check': 'lib/libboost_thread.a',
+        'url'  : URL_BOOST,
+        'tdir' : libdir,
+        'cmds' : [
+            './bootstrap.sh --prefix=TARGET',
+            './b2 install',
+        ],
+    }
+
+    # Need this for jam to build mpi & graph_parallel.
+    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
+    with open(config, 'w') as f_conf:
+        f_conf.write('using mpi ;')
+
+    build_src(build)
+
+    os.remove(config)
+
 def build_sdl1(libdir):
     """ Build SDL version 1.xx from source and put in tdir. """
     build = {
@@ -198,64 +274,6 @@ def build_sdl2(libdir):
 
     build_src(build)
 
-def build_gtest(libdir):
-    """ Build gtest from source and put in libs. """
-    build = {
-        'name' : 'gtest',
-        'check': 'lib/libgtest.a',
-        'url'  : URL_GTEST,
-        'tdir' : libdir,
-        'cmds' : [
-            'chmod u+x configure ./scripts/*',
-            './configure --prefix=TARGET',
-            'make',
-        ],
-        'globs': [
-            ('include/gtest/*', 'include/gtest/'),
-            ('include/gtest/internal/*', 'include/gtest/internal/'),
-            ('lib/.libs/*.a', 'lib/'),
-        ],
-    }
-
-    build_src(build)
-
-def build_cunit(libdir):
-    """ Build classic cunit, good test lib for c code. """
-    build = {
-        'name' : 'cunit',
-        'check': 'lib/libcunit.a',
-        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
-        'tdir' : libdir,
-        'cmds' : [
-            'sh ./bootstrap TARGET',
-            'make -jJOBS install',
-        ],
-    }
-
-    build_src(build)
-
-def build_boost(libdir):
-    """ Build latest boost release for c++. """
-    build = {
-        'name' : 'boost',
-        'check': 'lib/libboost_thread.a',
-        'url'  : URL_BOOST,
-        'tdir' : libdir,
-        'cmds' : [
-            './bootstrap.sh --prefix=TARGET',
-            './b2 install',
-        ],
-    }
-
-    # Need this for jam to build mpi & graph_parallel.
-    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
-    with open(config, 'w') as f_conf:
-        f_conf.write('using mpi ;')
-
-    build_src(build)
-
-    os.remove(config)
-
 def main():
     """ Main function. """
     mesg = """This script sets up the libs for this project."""
@@ -268,6 +286,7 @@ def main():
     libdir = os.path.realpath(os.curdir + os.sep + args.target)
 
     #build_cunit(libdir)
+    #build_cppunit(libdir)
     build_gtest(libdir)
     #build_boost(libdir)
     #build_sdl1(libdir)
