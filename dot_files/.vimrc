@@ -41,6 +41,8 @@
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
 "       If can't install, try build from source:
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+"       OR
+"       Command: SysInstall vim
 "
 "       b) Windows
 "       Download and extract:
@@ -57,7 +59,7 @@
 "       :echo has('python')
 "
 "   Two Options to continue, use automated script or manually setup
-"   3a) install_system.py 2
+"   3a) Command: SysInstall home
 "       Will symbolically link .vimrc and .bash_aliases to .my_scripts
 "       Copys basic .vim folder to users home folder
 "       Will download Vundle to right location
