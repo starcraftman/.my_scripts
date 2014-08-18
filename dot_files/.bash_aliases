@@ -133,6 +133,9 @@ alias cpr='cp -r'
 # Always create non-existing parent dirs
 alias mkdir='mkdir -vp'
 
+# Man for use when searching local built libs.
+alias manl='man -M libs/share/man'
+
 # Alias for use of pushd/popd
 alias pu="pushd"
 alias po="popd"
