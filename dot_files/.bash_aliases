@@ -250,10 +250,6 @@ if valid_name vimpager; then
     alias vcat='vimcat'
     alias vpager='vimpager'
 fi
-
-# BASH ONLY
-# Print alias for echo with escape codes
-alias print='echo -e'
 #}}}
 ############################################################################
 # Functions
