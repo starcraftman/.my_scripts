@@ -23,13 +23,13 @@ MKDIR:=@mkdir -p
 MV:=@mv -f
 CP:=@cp -f
 RM:=@rm -rf
-AR:=ar
+AR:=ar -rf
 AWK:=awk
 SED:=sed
 RANLIB:=ranlib
 TEST:=test
-CC:=ccache gcc
-CXX:=ccache g++
+CC:=gcc
+CXX:=g++
 
 # Generic Flags
 # To profile: 1) Compile/link with PROF flag. 2) Run file as normally to make gmon.out. 3) Run command: gprof program gmon.out > program.txt. Read output text.

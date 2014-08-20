@@ -47,6 +47,11 @@ $(ODIR)/%.o: $(SDIR)/%.cpp
 $(ODIR)/%.o: $(TDIR)/%.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+#ARC:=$(ODIR)/lib.a
+#$(ARC): $(OBJS)
+	#$(AR) $@ $^
+	#$(RANLIB) $@
+
 # Default Rules:
 # 	$(CC) $(CPPFLAGS) $(CFLAGS) -c
 # 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c
