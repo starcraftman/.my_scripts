@@ -23,23 +23,26 @@ except ImportError:
     def autocomplete(dummy):
         """ Dummy func. """
         pass
+
 # These are languages that get execute.
 SCRIPT_LANGS = ('python', 'perl', 'ruby')
 
 # Static data, I define here the dicts for extensions
-SRC_DICT = {'c': '.c',
-            'cpp': '.cpp',
-            'lisp': '.lisp',
-            'perl': '.pl',
-            'prolog': '.pdb',
-            'python': '.py',
-            'ruby': '.rb',
-            'ycm': '.py',
-            }
+SRC_DICT = {
+    'c'     : '.c',
+    'cpp'   : '.cpp',
+    'lisp'  : '.lisp',
+    'perl'  : '.pl',
+    'prolog': '.pdb',
+    'python': '.py',
+    'ruby'  : '.rb',
+    'ycm'   : '.py',
+}
 
-H_DICT = {'c': '.h',
-          'cpp': '.hpp',
-          }
+H_DICT = {
+    'c'     : '.h',
+    'cpp'   : '.hpp',
+}
 
 # Functions
 
