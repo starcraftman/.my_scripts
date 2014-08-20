@@ -278,7 +278,7 @@ debug()
         set +o xtrace
         PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
         unset PROMPT_OLD_COMMAND
-        print "Bash Debug Mode: ${T_BRED}DISABLED${T_RESET}"
+        echo -e "Bash Debug Mode: ${T_BRED}DISABLED${T_RESET}"
     else
         PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
         PROMPT_COMMAND=""
@@ -287,8 +287,8 @@ debug()
         set -o extdebug
         set -o verbose
         set -o xtrace
-        print "Bash Debug Mode: ${T_BGREEN}ENABLED${T_RESET}"
-        print "Careful with ${T_BRED}nounset${T_RESET} breaks some completion."
+        echo -e "Bash Debug Mode: ${T_BGREEN}ENABLED${T_RESET}"
+        echo -e "Careful with ${T_BRED}nounset${T_RESET} breaks some completion."
     fi
 }
 
@@ -362,13 +362,13 @@ listNics()
         local  MASK=$(ifconfig $INT | awk '/inet / { print $4 } ' | sed -e s/Mask://)
         local   IP6=$(ifconfig $INT | awk '/inet6/ { print $3 } ')
 
-        print "Interface: ${T_BGREEN}$INT${T_RESET}"
-        print "\tMac:   ${MAC}"
-        print "\tIPv4:  ${IP:-"Not connected"}"
+        echo -e "Interface: ${T_BGREEN}$INT${T_RESET}"
+        echo -e "\tMac:   ${MAC}"
+        echo -e "\tIPv4:  ${IP:-"Not connected"}"
         if [[ -n ${IP} ]]; then
-            print "\tBCast: ${BCAST}"
-            print "\tMask:  ${MASK}"
-            print "\tIPv6:  ${IP6:-"N/A."}"
+            echo -e "\tBCast: ${BCAST}"
+            echo -e "\tMask:  ${MASK}"
+            echo -e "\tIPv6:  ${IP6:-"N/A."}"
         fi
     done
 }
@@ -379,7 +379,7 @@ prettyDf()
     for fs ; do
 
         if [ ! -d $fs ]; then
-            print $fs" :No such file or directory"
+            echo -e $fs" :No such file or directory"
             continue
         fi
 
@@ -395,7 +395,7 @@ prettyDf()
             fi
         done
         out=${info[2]}" "$out"] ("$free" free on "$fs")"
-        print $out
+        echo -e $out
     done
 }
 
@@ -403,26 +403,26 @@ prettyDf()
 ii()
 {
     local TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
-    print
-    print "${T_BBLUE}$USER${T_RESET} is logged on ${T_BBLUE}$HOSTNAME${T_RESET}"
-    print "${T_BBLUE}Additionnal information :${T_RESET} " ; uname -a
-    print "${T_BBLUE}Users logged on :${T_RESET} " ; w -hs |
+    echo
+    echo -e "${T_BBLUE}$USER${T_RESET} is logged on ${T_BBLUE}$HOSTNAME${T_RESET}"
+    echo -e "${T_BBLUE}Additionnal information :${T_RESET} " ; uname -a
+    echo -e "${T_BBLUE}Users logged on :${T_RESET} " ; w -hs |
              cut -d " " -f1 | sort | uniq
-    print "${T_BBLUE}Current date :${T_RESET} " ; date
-    print "${T_BBLUE}Machine stats :${T_RESET} " ; uptime
-    print "${T_BBLUE}Diskspace :${T_RESET} "
+    echo -e "${T_BBLUE}Current date :${T_RESET} " ; date
+    echo -e "${T_BBLUE}Machine stats :${T_RESET} " ; uptime
+    echo -e "${T_BBLUE}Diskspace :${T_RESET} "
     if valid_name dfc; then
         dfc
     else
         local mounts=$(mount -v | awk '/\/dev\/s/ { print $3 }')
         prettyDf $mounts
     fi
-    print "${T_BBLUE}Memory stats :${T_RESET} " ; free -h
-    print "${T_BBLUE}Top 5 CPU% :${T_RESET} " ; print "$TOP" | head -n 2 ; print "$TOP" | tail -n 6
-    print "${T_BBLUE}Top 5 MEM% :${T_RESET} " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
-    print "${T_BBLUE}Network Interfaces :${T_RESET}" ; listNics
-    print "${T_BBLUE}Open connections :${T_RESET} "; netstat -pan --inet;
-    print
+    echo -e "${T_BBLUE}Memory stats :${T_RESET} " ; free -h
+    echo -e "${T_BBLUE}Top 5 CPU% :${T_RESET} " ; echo -e "$TOP" | head -n 2 ; echo -e "$TOP" | tail -n 6
+    echo -e "${T_BBLUE}Top 5 MEM% :${T_RESET} " ; top -n 1 -o %MEM | sed '/^$/d' | head -n 12 | tail -n 5
+    echo -e "${T_BBLUE}Network Interfaces :${T_RESET}" ; listNics
+    echo -e "${T_BBLUE}Open connections :${T_RESET} "; netstat -pan --inet;
+    echo
 }
 
 # Highlight many terms with different colors
@@ -535,9 +535,9 @@ prompt_callback()
 
     # Print don't print extra space unless need to.
     if [ "x$HG" == "x" ]; then
-        print -n ""
+        echo -e -n ""
     else
-        print -n " $HG"
+        echo -e -n " $HG"
     fi
 }
 
