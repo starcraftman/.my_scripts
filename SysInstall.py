@@ -107,7 +107,7 @@ URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
 zsh-5.0.5.tar.bz2/download'
 
-if os.name == 'posix':
+if os.path.exists('/proc/cpuinfo'):
     NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
         grep processor | wc -l', shell=True))
 else:
