@@ -39,9 +39,11 @@ def build_ycm():
         [
             'cmake', '-GUnix Makefiles',
             '-DPATH_TO_LLVM_ROOT=../{}'.format(CLANG_DIR), '.',
-            '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp'
+            '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp',
         ],
-        'make -j{} ycm_support_libs'.format(SysInstall.NUM_JOBS).split(),
+        [
+            'make', '-j', unicode(SysInstall.NUM_JOBS), 'ycm_support_libs',
+        ],
     ]
 
     for cmd in cmds:
