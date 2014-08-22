@@ -368,6 +368,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tyru/open-browser.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/DeleteTrailingWhitespace'
+Plugin 'vim-scripts/taghighlight'
 
 " Web programming
 "Plugin 'ap/vim-css-color'
