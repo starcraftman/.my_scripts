@@ -378,14 +378,6 @@ Plugin 'vim-scripts/taghighlight'
 "Plugin 'pangloss/vim-javascript'
 "Plugin 'Shutnik/jshint2.vim'
 
-" Color schemes
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'Lokaltog/vim-distinguished'
-Plugin 'morhetz/gruvbox'
-Plugin 'tomasr/molokai'
-Plugin 'tpope/vim-vividchalk'
-Plugin 'vim-scripts/desert256.vim'
 " Large number of schemes to try:
 "Plugin 'flazz/vim-colorschemes'
 
