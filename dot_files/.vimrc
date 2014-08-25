@@ -233,6 +233,10 @@
 "       Use <leader><leader>w to jump then select
 "       https://github.com/Lokaltog/vim-easymotion
 "
+"   Golden View:
+"       Based on golden ratio for windows.
+"       https://github.com/zhaocai/GoldenView.vim
+"
 "   Golden Ratio:
 "       Plugin that resizes windows on focus gain. Neat.
 "       https://github.com/roman/golden-ratio
