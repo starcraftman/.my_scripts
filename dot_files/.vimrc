@@ -222,6 +222,11 @@
 "       Allows project specific settings with .lvimrc files
 "       https://github.com/embear/vim-localvimrc
 "
+"   Cmd Alias:
+"       Better command remapping instead of cabbr.
+"       http://www.vim.org/scripts/script.php?script_id=746
+"       https://github.com/vim-scripts/cmdalias.vim
+"
 "   SnipMate:
 "       Allows you to expand boilerplate code
 "       https://github.com/msanders/snipmate.vim
