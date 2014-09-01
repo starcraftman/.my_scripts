@@ -255,10 +255,9 @@ def make_cmd(src, dst):
     def cmd_when_dst_empty(files, command, opts=None):
         """ Execute a command if destination empty. """
         if opts == None:
-            opts = []
+            opts = ()
         for fil in files:
-            sfile = src + fil
-            dfile = dst + fil
+            sfile, dfile = [x + fil for x in (src, dst)]
             if not os.path.exists(dfile):
                 print("{} >>>>> {}".format(dfile, sfile))
                 command(sfile, dfile, *opts)
