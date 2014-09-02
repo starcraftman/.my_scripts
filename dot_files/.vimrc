@@ -613,7 +613,7 @@ nnoremap <silent> <leader>l :ToggleLL<CR>
 "nnoremap <leader>q <C-W>=
 
 " Shortcut to remember how to reindent file
-"nnoremap <leader>t gg=G
+nnoremap <F12> gg=G
 
 " To open NERDTree when used
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
