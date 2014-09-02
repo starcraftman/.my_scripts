@@ -7,24 +7,23 @@ if hash apt-get 2>/dev/null; then
 fi
 
 # Update repositories passed as arguments
-update_repos()
-{
-echo 'updating repos'
-pushd .
+update_repos() {
+    echo 'updating repos'
+    pushd .
 
-for dir ; do
-    if [ -d "$dir" ]; then
-	cd "$dir"
-	echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
-	if [ -d ".git" ]; then
-            git pull
-	elif [ -d ".hg" ]; then
-            hg pull
+    for dir ; do
+        if [ -d "$dir" ]; then
+            cd "$dir"
+            echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
+            if [ -d ".git" ]; then
+                git pull
+            elif [ -d ".hg" ]; then
+                hg pull
+            fi
 	fi
-    fi
-done
+    done
 
-popd
+    popd
 }
 
 build_src() {
