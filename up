@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-OPT_ORIG=~/.opt1
-OPT_ALT=~/.opt2
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
 SCRIPT_D=$(dirname $0)
 SYS=generic
@@ -36,13 +34,17 @@ build_src() {
 	vim="vim"
     fi
 
-    mv "$OPT_ORIG" "$OPT_ALT"
+    # Link to OPT_ALT until update done
+    local opt_orig=~/.opt1
+    local opt_alt=~/.opt2
+    mv "$opt_orig" "$opt_alt"
     \rm -rf "$OPTDIR"
-    ln -s "$OPT_ALT" "$OPTDIR"
-    OPTDIR="$OPT_ORIG" bash -c "SysInstall.py src $vim >/dev/null 2>&1"
+    ln -s "$opt_alt" "$OPTDIR"
+
+    OPTDIR="$opt_orig" bash -c "SysInstall.py src $vim >/dev/null 2>&1"
     \rm -rf "$OPTDIR"
-    ln -s "$OPT_ORIG" "$OPTDIR"
-    \rm -rf $OPT_ALT
+    ln -s "$opt_orig" "$OPTDIR"
+    \rm -rf $opt_alt
 }
 
 if [ "xdebian" == "x$SYS" ]; then
