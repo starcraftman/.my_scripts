@@ -398,7 +398,7 @@ def build_vim():
             --enable-cscope --enable-multibyte --enable-luainterp \
             --enable-perlinterp --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config \
-            --enable-rubyinterp --enable-tclinterp --prefix=TARGET',
+            --enable-rubyinterp --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make install',
         ],

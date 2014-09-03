@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+OPT_ORIG=~/.opt1
+OPT_ALT=~/.opt2
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
 SCRIPT_D=$(dirname $0)
 SYS=generic
@@ -26,13 +28,19 @@ update_repos() {
     popd
 }
 
+# Build runs in background to separate dir then
+# links over OPTDIR
 build_src() {
     local vim=
     if [ -f "$OPTDIR/bin/vim" ]; then
 	vim="vim"
     fi
-    \rm -rf "$OPTDIR"
-    SysInstall.py src "$vim" >/dev/null 2>&1 &
+
+    mv "$OPT_ORIG" "$OPT_ALT"
+    ln -fs "$OPT_ALT" "$OPTDIR"
+    OPT_DIR="$OPT_ORIG" bash -c "SysInstall.py src $vim >/dev/null 2>&1 && \
+        ln -fs "$OPT_ORIG" "$OPTDIR" && \rm -rf $OPT_ALT" &
+
 }
 
 if [ "xdebian" == "x$SYS" ]; then
