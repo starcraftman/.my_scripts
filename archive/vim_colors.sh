@@ -13,7 +13,7 @@ update_colors()
         local dir="${color##*/}"
         git clone "$gUrl"
         cp -f ./$dir/colors/*.vim $DST
-        \rm -rf "$dir"
+        rm -rf "$dir"
     done
 }
 

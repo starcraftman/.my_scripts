@@ -38,13 +38,13 @@ build_src() {
     local opt_orig=~/.opt1
     local opt_alt=~/.opt2
     mv "$opt_orig" "$opt_alt"
-    \rm -rf "$OPTDIR"
+    rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
     OPTDIR="$opt_orig" bash -c "SysInstall.py src $vim >/dev/null 2>&1"
-    \rm -rf "$OPTDIR"
+    rm -rf "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
-    \rm -rf $opt_alt
+    rm -rf $opt_alt
 }
 
 if [ "xdebian" == "x$SYS" ]; then

@@ -12,7 +12,7 @@ build_py() {
     make
     make install
     popd
-    \rm -rf Python* "$pyarc"
+    rm -rf Python* "$pyarc"
 }
 
 
@@ -25,7 +25,7 @@ build_zsh() {
     make
     make install
     popd
-    \rm -rf zsh
+    rm -rf zsh
 }
 
 echo "Simple bootstrapper to get python & zsh on systems that might\
