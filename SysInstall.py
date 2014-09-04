@@ -103,6 +103,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
+OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt'))
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
 zsh-5.0.5.tar.bz2/download'
@@ -376,7 +377,7 @@ def build_python():
         'name' : 'python',
         'check': 'bin/python',
         'url'  : URL_PYTHON,
-        'tdir' : os.environ['OPTDIR'],
+        'tdir' : OPT_DIR,
         'cmds' : [
             './configure --prefix=TARGET',
             'make',
@@ -392,7 +393,7 @@ def build_vim():
         'name' : 'vim',
         'check': 'bin/vim',
         'url'  : 'https://code.google.com/p/vim/',
-        'tdir' : os.environ['OPTDIR'],
+        'tdir' : OPT_DIR,
         'cmds' : [
             './configure --with-features=huge --enable-gui=gtk2 \
             --enable-cscope --enable-multibyte --enable-luainterp \
@@ -412,7 +413,7 @@ def build_zsh():
         'name' : 'zsh',
         'check': 'bin/zsh',
         'url'  : 'https://github.com/zsh-users/zsh.git',
-        'tdir' : os.environ['OPTDIR'],
+        'tdir' : OPT_DIR,
         'cmds' : [
             './Util/preconfig',
             'autoconf',
@@ -427,7 +428,7 @@ def build_zsh():
 def src_programs():
     """ Download sources and install to enironment OPT directory. """
     # Store all compilations into opt from environment
-    optdir = os.environ['OPTDIR']
+    optdir = OPT_DIR
     home = os.path.expanduser('~') + os.sep
 
     # Only use on posix systems.
