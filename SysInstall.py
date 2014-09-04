@@ -643,12 +643,16 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--odir', nargs='?', default=None, help='install here')
     parser.add_argument('choice', nargs='+', action='append', help='the stages',
             choices=actions.keys())
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
     choices = args.choice[0]
+    if args.odir != None:
+        global OPT_DIR
+        OPT_DIR = args.odir
 
     try:
         [actions[x]() for x in choices]
