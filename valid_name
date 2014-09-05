@@ -6,7 +6,7 @@ usage()
     Exits true only if name exists on the path."
 }
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 1 -o "$1" == '--help' -o "$1" == '-h' ]; then
     usage
     exit
 fi
