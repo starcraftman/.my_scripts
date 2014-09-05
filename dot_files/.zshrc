@@ -664,7 +664,7 @@ function prompt_precmd()
     if [ $? -eq 0 ]; then
         LAST="%F{green}✔%f"
     else
-        LAST="%F{red}✘%f"
+        LAST="%F{red}✘%F{yellow}-$?%f"
     fi
 
     vcs_info
