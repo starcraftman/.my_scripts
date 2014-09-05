@@ -60,7 +60,7 @@ extract_extension()
     fi
 }
 
-if [ ! "$#" -gt 0 ]; then
+if [ ! "$#" -gt 0 -o "$1" == '--help' -o "$1" == '-h' ]; then
     usage
     exit
 fi
