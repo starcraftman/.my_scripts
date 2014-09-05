@@ -151,7 +151,7 @@ alias rgrep='grep -r'
 alias pst="ps -eH"
 
 # Reruns the last command with sudo.
-alias please='sudo $(fc -l -n -1)'
+alias please='cmd="$(fc -l -n -1)"; cmd=$(echo "$cmd" | sed -e "s/^[ \t]*//"); echo -e "Will execute with sudo: ${T_BGREEN}${cmd##*( )}${T_RESET}"; sudo $cmd'
 
 # type used to determine what command is, list all entries
 alias types='type -a'
