@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Function returns true only if name exists in path, else false
-usage()
-{
+usage() {
     echo "${0##*/} name
     Exits true only if name exists on the path."
 }
