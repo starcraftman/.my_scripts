@@ -47,6 +47,8 @@ build_src() {
     rm -rf $opt_alt
 }
 
+update_repos "${REPOS[@]}"
+
 if [ "xdebian" == "x$SYS" ]; then
     echo 'updating debian platform'
     sudo apt-get update && sudo apt-get -y dist-upgrade
@@ -60,8 +62,6 @@ if [ -d ~/.vim/bundle/Vundle.vim ]; then
     "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
     YcmCompile.py >/dev/null 2>&1 &
 fi
-
-update_repos "${REPOS[@]}"
 
 if [ "xdebian" == "x$SYS" ] && [ -d "$OPTDIR" ]; then
     echo 'Updating programs built from source, running in bg...'
