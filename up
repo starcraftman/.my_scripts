@@ -2,7 +2,7 @@
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
 SCRIPT_D=$(dirname $0)
 SYS=generic
-if hash apt-get 2>/dev/null; then
+if valid_name apt-get; then
     SYS=debian
 fi
 
