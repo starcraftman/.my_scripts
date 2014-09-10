@@ -134,10 +134,6 @@
 "       Use Ctlr+P to access
 "       https://github.com/kien/ctrlp.vim
 "
-"   CtrlP Switcher:
-"       Finds files in the tree similar to current buffer
-"       https://github.com/ivan-cukic/vim-ctrlp-switcher
-"
 "   TagBar:
 "       A outline of the files contents
 "       Uses exuberant ctags, not GNU ctags
@@ -226,6 +222,10 @@
 "       Better command remapping instead of cabbr.
 "       http://www.vim.org/scripts/script.php?script_id=746
 "       https://github.com/vim-scripts/cmdalias.vim
+"
+"   CtrlP Switcher:
+"       Finds files in the tree similar to current buffer
+"       https://github.com/ivan-cukic/vim-ctrlp-switcher
 "
 "   SnipMate:
 "       Allows you to expand boilerplate code
@@ -358,7 +358,6 @@ Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
 Plugin 'justinmk/vim-sneak'
 Plugin 'kien/ctrlp.vim'
-Plugin 'ivan-cukic/vim-ctrlp-switcher' " Extension for ctrlp
 Plugin 'kshenoy/vim-togglelist'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'majutsushi/tagbar'
@@ -479,10 +478,6 @@ let g:sneak#map_netrw = 1
 
 " CtrlP
 """""""
-
-" Enable extensions for CtrlP:
-let g:ctrlp_extensions = ['switcher']
-
 " Index hidden files
 "let g:ctrlp_show_hidden = 1
 
@@ -631,7 +626,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
 nnoremap <leader>pm :CtrlPMRUFiles<CR>
-nnoremap <leader>ps :CtrlPSwitch<CR>
+nnoremap <leader>ps :CtrlPBuffer<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>j :YcmCompleter GoTo<CR>

@@ -120,7 +120,6 @@ BUILDS = {
             'name' : 'ack',
             'check': 'bin/ack',
             'url'  : 'https://github.com/petdance/ack2.git',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 'perl Makefile.PL',
                 'make ack-standalone',
@@ -136,7 +135,6 @@ BUILDS = {
             'name' : 'ag',
             'check': 'bin/ag',
             'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './build.sh --prefix=TARGET',
                 'make install',
@@ -146,7 +144,6 @@ BUILDS = {
             'name' : 'doxygen',
             'check': 'bin/doxygen',
             'url'  : 'https://github.com/doxygen/doxygen.git',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './configure --prefix=TARGET',
                 'make -jJOBS',
@@ -160,7 +157,6 @@ BUILDS = {
             'name' : 'parallel',
             'check': 'bin/parallel',
             'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './configure --prefix=TARGET',
                 'make -jJOBS install',
@@ -170,7 +166,6 @@ BUILDS = {
             'name' : 'vimpager',
             'check': 'bin/vimpager',
             'url'  : 'https://github.com/rkitover/vimpager.git',
-            'tdir' : OPT_DIR,
             'globs': [
                 ('vimcat', 'bin/'),
                 ('vimpager', 'bin/'),
@@ -181,7 +176,6 @@ BUILDS = {
             'name' : 'zsh_docs',
             'check': 'share/man/man1/zshall.1',
             'url'  : URL_ZSH,
-            'tdir' : OPT_DIR,
             'globs': [
                 ('Doc/*.1', 'share/man/man1/'),
             ],
@@ -192,7 +186,6 @@ BUILDS = {
             'name' : 'python',
             'check': 'bin/python',
             'url'  : URL_PYTHON,
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './configure --prefix=TARGET',
                 'make',
@@ -205,7 +198,6 @@ BUILDS = {
             'name' : 'vim',
             'check': 'bin/vim',
             'url'  : 'https://code.google.com/p/vim/',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './configure --with-features=huge --enable-gui=gtk2 \
                 --enable-cscope --enable-multibyte --enable-luainterp \
@@ -222,7 +214,6 @@ BUILDS = {
             'name' : 'zsh',
             'check': 'bin/zsh',
             'url'  : 'https://github.com/zsh-users/zsh.git',
-            'tdir' : OPT_DIR,
             'cmds' : [
                 './Util/preconfig',
                 'autoconf',
@@ -440,11 +431,12 @@ def home_config():
 def build_src(build):
     """ Build a project downloeaded from url. Build is a json described below.
         Cmds are executed in srcdir, then if globs non-empty copy files as
-        described in glob/target pairs..
+        described in glob/target pairs.
+        Required names prefixed with R.
         {
-            'name': 'ack',
-            'check': 'path/to/check',
-            'url' : 'https://github.com/petdance/ack2.git',
+          R 'name': 'ack',
+          R 'check': 'path/to/check',
+          R 'url' : 'https://github.com/petdance/ack2.git',
             'tdir': /path/to/install/to,
             'cmds': [
                 'perl Makefile.PL',
@@ -457,10 +449,11 @@ def build_src(build):
             ]
         }
     """
-    srcdir = '%s/src/%s' % (build['tdir'], build['name'])
+    tdir = build.get('tdir', OPT_DIR)
+    srcdir = '%s/src/%s' % (tdir, build['name'])
 
     # Guard if command exists
-    if os.path.exists(build['tdir'] + os.sep + build['check']):
+    if os.path.exists(tdir + os.sep + build['check']):
         return
 
     try:
@@ -472,14 +465,14 @@ def build_src(build):
         # Code should be at srcdir by here.
         PDir.push(srcdir)
         for cmd in build.get('cmds', []):
-            cmd = cmd.replace('TARGET', build['tdir'])
+            cmd = cmd.replace('TARGET', tdir)
             cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
             subprocess.call(cmd.split())
         PDir.pop()
 
         # Manual copies sometimes required to finish install
         for pattern, target in build.get('globs', []):
-            dest = build['tdir'] + os.sep + target
+            dest = tdir + os.sep + target
             if dest.endswith('/') and not os.path.exists(dest):
                 os.makedirs(dest)
 
