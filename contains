@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-usage() {
+usage()
+{
     echo "${0##*/} haystack needle
     Exits true only if needle is in haystack."
 }

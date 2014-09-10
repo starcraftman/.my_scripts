@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
- usage() {
+usage()
+{
     echo "Usage: ${0##*/} <type> <type> ..."
     echo "The <type> can be of the following:"
     echo "top: Top level make file, for subdirectories."
@@ -8,7 +9,8 @@
 }
 
 # Takes argument 1 as a filename.
- make_file() {
+make_file()
+{
     if [ "$1" = "def" ]; then
         cp ~/.my_scripts/templates/Make.defines .
     elif [ "$1" = "top" ]; then

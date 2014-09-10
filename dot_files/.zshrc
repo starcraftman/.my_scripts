@@ -288,13 +288,13 @@ function debug()
 function ..()
 {
     if [ $1 -ge 0 2> /dev/null ]; then
-        x=$1;
+        x=$1
     else
-        x=1;
-    fi;
+        x=1
+    fi
 
     for (( i = 0; i < $x; i++ )); do
-        cd ..;
+        cd ..
     done
 }
 

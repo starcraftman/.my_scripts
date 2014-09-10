@@ -7,7 +7,8 @@ if valid_name apt-get; then
 fi
 
 # Update repositories passed as arguments
-update_repos() {
+update_repos()
+{
     echo 'updating repos'
     pushd .
 
@@ -28,7 +29,8 @@ update_repos() {
 
 # Build runs in background to separate dir then
 # links over OPTDIR
-build_src() {
+build_src()
+{
     local vim=
     if [ -f "$OPTDIR/bin/vim" ]; then
 	vim="vim"
