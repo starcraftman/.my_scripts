@@ -104,10 +104,15 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
 OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt'))
-ODIR = None
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
+
+if os.path.exists('/proc/cpuinfo'):
+    NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
+        grep processor | wc -l', shell=True))
+else:
+    NUM_JOBS = 2
 
 BUILDS = {
     'dev': [
@@ -228,12 +233,6 @@ BUILDS = {
         },
     ],
 }
-
-if os.path.exists('/proc/cpuinfo'):
-    NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
-        grep processor | wc -l', shell=True))
-else:
-    NUM_JOBS = 2
 
 # Classes
 
@@ -503,8 +502,6 @@ def build_project(name, posix=None):
 
     # build the programs based on above json
     for build in BUILDS[name]:
-        if ODIR != None:
-            build['tdir'] = ODIR
         build_src(build)
 
 def packs_babun():
@@ -636,16 +633,12 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--odir', nargs='?', default=None, help='install here')
     parser.add_argument('choice', nargs='+', action='append', help='the stages',
             choices=actions.keys())
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
     choices = args.choice[0]
-    if args.odir != None:
-        global ODIR
-        ODIR = os.path.abspath(args.odir)
 
     try:
         [actions[x]() for x in choices]

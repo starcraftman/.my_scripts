@@ -41,7 +41,7 @@ build_src() {
     rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
-    SysInstall.py --odir "$opt_orig" src "$vim" >/dev/null 2>&1
+    OPTDIR="$opt_orig" SysInstall.py dev "$vim" >/dev/null 2>&1
     rm -rf "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
     rm -rf $opt_alt
