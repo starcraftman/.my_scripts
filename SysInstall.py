@@ -501,9 +501,6 @@ def build_project(name, posix=None):
         if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
             raise OSError
 
-    if name not in BUILDS.keys():
-        raise KeyError
-
     # build the programs based on above json
     for build in BUILDS[name]:
         if ODIR != None:
