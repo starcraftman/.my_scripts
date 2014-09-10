@@ -104,9 +104,130 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
 OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt'))
+ODIR = None
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
 zsh-5.0.5.tar.bz2/download'
+
+BUILDS = {
+    'dev': [
+        {
+            'name' : 'ack',
+            'check': 'bin/ack',
+            'url'  : 'https://github.com/petdance/ack2.git',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods',
+            ],
+            'globs': [
+                ('ack-standalone', 'bin/'),
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1/'),
+            ],
+        },
+        {
+            'name' : 'ag',
+            'check': 'bin/ag',
+            'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './build.sh --prefix=TARGET',
+                'make install',
+            ],
+        },
+        {
+            'name' : 'doxygen',
+            'check': 'bin/doxygen',
+            'url'  : 'https://github.com/doxygen/doxygen.git',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './configure --prefix=TARGET',
+                'make -jJOBS',
+            ],
+            'globs': [
+                ('bin/doxygen', 'bin/'),
+                ('doc/*.1', 'share/man/man1/'),
+            ],
+        },
+        {
+            'name' : 'parallel',
+            'check': 'bin/parallel',
+            'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './configure --prefix=TARGET',
+                'make -jJOBS install',
+            ],
+        },
+        {
+            'name' : 'vimpager',
+            'check': 'bin/vimpager',
+            'url'  : 'https://github.com/rkitover/vimpager.git',
+            'tdir' : OPT_DIR,
+            'globs': [
+                ('vimcat', 'bin/'),
+                ('vimpager', 'bin/'),
+                ('*.1', 'share/man/man1/'),
+            ],
+        },
+        {
+            'name' : 'zsh_docs',
+            'check': 'share/man/man1/zshall.1',
+            'url'  : URL_ZSH,
+            'tdir' : OPT_DIR,
+            'globs': [
+                ('Doc/*.1', 'share/man/man1/'),
+            ],
+        },
+    ],
+    'python': [
+        {
+            'name' : 'python',
+            'check': 'bin/python',
+            'url'  : URL_PYTHON,
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './configure --prefix=TARGET',
+                'make',
+                'make install',
+            ],
+        },
+    ],
+    'vim': [
+        {
+            'name' : 'vim',
+            'check': 'bin/vim',
+            'url'  : 'https://code.google.com/p/vim/',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './configure --with-features=huge --enable-gui=gtk2 \
+                --enable-cscope --enable-multibyte --enable-luainterp \
+                --enable-perlinterp --enable-pythoninterp \
+                --with-python-config-dir=/usr/lib/python2.7/config \
+                --enable-rubyinterp --prefix=TARGET',
+                'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
+                'make install',
+            ],
+        },
+    ],
+    'zsh': [
+        {
+            'name' : 'zsh',
+            'check': 'bin/zsh',
+            'url'  : 'https://github.com/zsh-users/zsh.git',
+            'tdir' : OPT_DIR,
+            'cmds' : [
+                './Util/preconfig',
+                'autoconf',
+                './configure --prefix=TARGET',
+                'make',
+                'make install',
+            ],
+        },
+    ],
+}
 
 if os.path.exists('/proc/cpuinfo'):
     NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
@@ -227,7 +348,7 @@ def get_archive(url, target):
         if name.rfind(arc_ext) == -1:
             extracted = name
 
-    if not os.path.exists(os.path.dirname(target)):
+    if not os.path.exists(target):
         os.makedirs(target)
         os.rmdir(target)
     os.rename(extracted, target)
@@ -371,147 +492,22 @@ def build_src(build):
 
     print('Finished building ' + build['name'])
 
-def build_python():
-    """ Build python from source. """
-    build = {
-        'name' : 'python',
-        'check': 'bin/python',
-        'url'  : URL_PYTHON,
-        'tdir' : OPT_DIR,
-        'cmds' : [
-            './configure --prefix=TARGET',
-            'make',
-            'make install',
-        ],
-    }
-
-    build_src(build)
-
-def build_vim():
-    """ Build vim if very old. """
-    build = {
-        'name' : 'vim',
-        'check': 'bin/vim',
-        'url'  : 'https://code.google.com/p/vim/',
-        'tdir' : OPT_DIR,
-        'cmds' : [
-            './configure --with-features=huge --enable-gui=gtk2 \
-            --enable-cscope --enable-multibyte --enable-luainterp \
-            --enable-perlinterp --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config \
-            --enable-rubyinterp --prefix=TARGET',
-            'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
-            'make install',
-        ],
-    }
-
-    build_src(build)
-
-def build_zsh():
-    """ Build zsh from source. """
-    build = {
-        'name' : 'zsh',
-        'check': 'bin/zsh',
-        'url'  : 'https://github.com/zsh-users/zsh.git',
-        'tdir' : OPT_DIR,
-        'cmds' : [
-            './Util/preconfig',
-            'autoconf',
-            './configure --prefix=TARGET',
-            'make',
-            'make install',
-        ],
-    }
-
-    build_src(build)
-
-def src_programs():
-    """ Download sources and install to enironment OPT directory. """
-    # Store all compilations into opt from environment
-    optdir = OPT_DIR
+def build_project(name, posix=None):
+    """ Intermediary wrapper for common code. """
     home = os.path.expanduser('~') + os.sep
 
     # Only use on posix systems.
-    if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
-        print("This command only for unix.")
-        return
+    if posix != None:
+        if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
+            raise OSError
 
-    builds = \
-    [
-        {
-            'name' : 'ack',
-            'check': 'bin/ack',
-            'url'  : 'https://github.com/petdance/ack2.git',
-            'tdir' : optdir,
-            'cmds' : [
-                'perl Makefile.PL',
-                'make ack-standalone',
-                'make manifypods',
-            ],
-            'globs': [
-                ('ack-standalone', 'bin/'),
-                ('ack-standalone', 'bin/ack'),
-                ('blib/man1/*.1*', 'share/man/man1/'),
-            ],
-        },
-        {
-            'name' : 'ag',
-            'check': 'bin/ag',
-            'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
-            'tdir' : optdir,
-            'cmds' : [
-                './build.sh --prefix=TARGET',
-                'make install',
-            ],
-        },
-        {
-            'name' : 'doxygen',
-            'check': 'bin/doxygen',
-            'url'  : 'https://github.com/doxygen/doxygen.git',
-            'tdir' : optdir,
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make -jJOBS',
-            ],
-            'globs': [
-                ('bin/doxygen', 'bin/'),
-                ('doc/*.1', 'share/man/man1/'),
-            ],
-        },
-        {
-            'name' : 'parallel',
-            'check': 'bin/parallel',
-            'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-            'tdir' : optdir,
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make -jJOBS install',
-            ],
-        },
-        {
-            'name' : 'vimpager',
-            'check': 'bin/vimpager',
-            'url'  : 'https://github.com/rkitover/vimpager.git',
-            'tdir' : optdir,
-            'globs': [
-                ('vimcat', 'bin/'),
-                ('vimpager', 'bin/'),
-                ('*.1', 'share/man/man1/'),
-            ],
-        },
-        {
-            'name' : 'zsh_docs',
-            'check': 'share/man/man1/zshall.1',
-            'url'  : URL_ZSH,
-            'tdir' : optdir,
-            'globs': [
-                ('Doc/*.1', 'share/man/man1/'),
-            ],
-        },
-    ]
+    if name not in BUILDS.keys():
+        raise KeyError
 
     # build the programs based on above json
-    for build in builds:
+    for build in BUILDS[name]:
+        if ODIR != None:
+            build['tdir'] = ODIR
         build_src(build)
 
 def packs_babun():
@@ -621,7 +617,7 @@ def main():
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
-    src         Build standard dev progs like ag, ack, parallel.
+    dev         Build standard dev progs like ag, ack, parallel.
     python      Build latest python from source.
     vim         Build latest vim from source..
     zsh         Build latest zsh from source.
@@ -635,10 +631,10 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
-        'src':          src_programs,
-        'python':       build_python,
-        'vim':          build_vim,
-        'zsh':          build_zsh,
+        'dev':          lambda: build_project('dev', True),
+        'python':       lambda: build_project('python'),
+        'vim':          lambda: build_project('vim'),
+        'zsh':          lambda: build_project('zsh'),
     }
 
     parser = argparse.ArgumentParser(description=mesg,
@@ -651,8 +647,8 @@ def main():
     args = parser.parse_args()  # Default parses argv[1:]
     choices = args.choice[0]
     if args.odir != None:
-        global OPT_DIR
-        OPT_DIR = args.odir
+        global ODIR
+        ODIR = os.path.abspath(args.odir)
 
     try:
         [actions[x]() for x in choices]
