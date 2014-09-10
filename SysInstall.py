@@ -106,8 +106,8 @@ PY_PACKS = "argcomplete Pygments pytest trash-cli"
 OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt'))
 ODIR = None
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
-URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.5/\
-zsh-5.0.5.tar.bz2/download'
+URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
+zsh-5.0.6.tar.bz2/download'
 
 BUILDS = {
     'dev': [
