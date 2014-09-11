@@ -13,6 +13,10 @@ set completion-map-case on
 # When there are lots of common words, print elipsis
 #set completion-prefix-display-length 3
 
+# When tab completing, show colors from LS_COLORS
+set colored-stats on
+set visible-stats on
+
 # Cycle through possible completions
 control-j: menu-complete
 control-k: menu-complete-backward
