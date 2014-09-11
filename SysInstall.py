@@ -484,19 +484,6 @@ def build_src(build):
 
     print('Finished building ' + build['name'])
 
-def build_project(name, posix=None):
-    """ Intermediary wrapper for common code. """
-    home = os.path.expanduser('~') + os.sep
-
-    # Only use on posix systems.
-    if posix != None:
-        if not os.name == 'posix' or os.path.exists(home + '.babunrc'):
-            raise OSError
-
-    # build the programs based on above json
-    for build in BUILDS[name]:
-        build_src(build)
-
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
@@ -609,6 +596,9 @@ def main():
     vim         Build latest vim from source..
     zsh         Build latest zsh from source.
     """
+    # Simple wrapper saves func
+    bwrap = lambda name: [build_src(x) for x in BUILDS[name]]
+
     # Use a dict of funcs instead of a case switch
     actions = {
         'home':         home_config,
@@ -618,10 +608,10 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
-        'dev':          lambda: build_project('dev', True),
-        'python':       lambda: build_project('python'),
-        'vim':          lambda: build_project('vim'),
-        'zsh':          lambda: build_project('zsh'),
+        'dev':          lambda: bwrap('dev'),
+        'python':       lambda: bwrap('python'),
+        'vim':          lambda: bwrap('vim'),
+        'zsh':          lambda: bwrap('zsh'),
     }
 
     parser = argparse.ArgumentParser(description=mesg,
