@@ -103,7 +103,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
-OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt'))
+OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt1'))
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
