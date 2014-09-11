@@ -65,6 +65,7 @@ PROGRAMMING = """ \
     flex flex-doc bison bison-doc graphviz exuberant-ctags \
     bash-doc bash-builtins bashdb zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
+    coffeescript coffeescript-doc \
     docutils-common docutils-doc \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
