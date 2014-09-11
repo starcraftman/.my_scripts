@@ -920,42 +920,11 @@ if has('autocmd')
         "au BufWinEnter *.* silent! loadview
     augroup END
 
-    " Always wrap autocmds in augroup, autocmds get duped on each source vimrc
-    augroup filetype_funcs
-        autocmd!
-        autocmd FileType ruby call SetRubyOptions()
-        autocmd FileType vim call SetVimOptions()
-        autocmd FileType xml call SetXMLOptions()
-        autocmd FileType json call SetJSONOptions()
-        autocmd FileType css call SetCSSOptions()
-    augroup END
-
-    " In functions below, always set locally otherwise you will impact other buffers
-    function! SetRubyOptions()
-        " Set tabs to 2 spaces, seems ruby tradition
-        setlocal softtabstop=2
-        setlocal shiftwidth=2
-        setlocal tabstop=2
-    endfunction
-
-    function! SetVimOptions()
-        " Set fold to marker for vim files
-        setlocal foldmethod=marker
-    endfunction
-
-    function! SetXMLOptions()
-        " Disable text modification in case of long lines.
-        setlocal textwidth=0
-    endfunction
-
-    function! SetJSONOptions()
-        " Disable text modification in case of long lines.
-        setlocal textwidth=0
-    endfunction
-
-    function! SetCSSOptions()
-        setlocal iskeyword+=-
-    endfunction
+    " Register funcs with filetype load
+    "augroup filetype_funcs
+        "autocmd!
+        "autocmd FileType vim call SetVimOptions()
+    "augroup END
 endif
 
 " }}}
