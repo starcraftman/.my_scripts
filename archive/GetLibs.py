@@ -16,6 +16,12 @@ import shutil
 import subprocess
 import tarfile
 import zipfile
+try:
+    from argcomplete import autocomplete
+except ImportError:
+    def autocomplete(dummy):
+        """ Dummy func. """
+        pass
 
 URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.55.0/\
 boost_1_55_0.tar.bz2/download'
@@ -27,9 +33,75 @@ if os.name == 'posix':
 else:
     NUM_JOBS = 2
 
+BUILDS = {
+    'cppunit': {
+        'name' : 'cppunit',
+        'check': '/lib/libcppunit.a',
+        'url'  : 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
+        'cmds' : [
+            './autogen.sh',
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'cunit': {
+        'name' : 'cunit',
+        'check': 'lib/libcunit.a',
+        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
+        'cmds' : [
+            'sh ./bootstrap TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'gtest': {
+        'name' : 'gtest',
+        'check': 'lib/libgtest.a',
+        'url'  : URL_GTEST,
+        'cmds' : [
+            'chmod u+x configure ./scripts/*',
+            './configure --prefix=TARGET',
+            'make',
+        ],
+        'globs': [
+            ('include/gtest/*', 'include/gtest/'),
+            ('include/gtest/internal/*', 'include/gtest/internal/'),
+            ('lib/.libs/*.a', 'lib/'),
+        ],
+    },
+    'boost': {
+        'name' : 'boost',
+        'check': 'lib/libboost_thread.a',
+        'url'  : URL_BOOST,
+        'cmds' : [
+            './bootstrap.sh --prefix=TARGET',
+            './b2 install',
+        ],
+    },
+    'SDL': {
+        'name' : 'SDL',
+        'check': 'lib/libSDL.a',
+        'url'  : 'http://hg.libsdl.org/SDL',
+        'cmds' : [
+            'hg update SDL-1.2',
+            './autogen.sh',
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'SDL2': {
+        'name' : 'SDL2',
+        'check': 'lib/libSDL2.a',
+        'url'  : 'http://hg.libsdl.org/SDL',
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+}
+
 # Classes
 
-class ArchiveException(Exception):
+class ArchiveNotSupported(Exception):
     """ Archive can't be processed. """
     pass
 
@@ -56,7 +128,8 @@ def get_archive(url, target):
     target: where to extract to
     """
     arc_ext = None
-    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', '.rar', '.zip', '.7z']:
+    for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', 'tar.xz',
+            '.xz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
             right += len(ext)
@@ -65,16 +138,17 @@ def get_archive(url, target):
             break
 
     if arc_ext == None:
-        raise ArchiveException
+        raise ArchiveNotSupported
 
+    # download and extract archive
     arc_name = url[left:right]
-
     cmd = 'wget -O %s %s' % (arc_name, url)
     subprocess.call(cmd.split())
+
     if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
         with tarfile.open(arc_name) as tarf:
             tarf.extractall()
-    elif arc_ext in ['.zip']:
+    elif arc_ext == '.zip':
         with zipfile.ZipFile(arc_name) as zipf:
             zipf.extractall()
     else:
@@ -83,15 +157,15 @@ def get_archive(url, target):
 
     # extracted dir doesn't always match arc_name, glob to be sure
     arc_front = re.split('[-_]', arc_name)[0] + '*'
-    arc_dir = None
+    extracted = None
     for name in glob.glob(arc_front):
         if name.rfind(arc_ext) == -1:
-            arc_dir = name
+            extracted = name
 
-    if not os.path.exists(os.path.dirname(target)):
+    if not os.path.exists(target):
         os.makedirs(target)
         os.rmdir(target)
-    os.rename(arc_dir, target)
+    os.rename(extracted, target)
     os.remove(arc_name)
 
 def get_code(url, target):
@@ -112,14 +186,15 @@ def get_code(url, target):
     if not os.path.exists(target):
         subprocess.call(cmd.split())
 
-def build_src(build):
+def build_src(build, target=None):
     """ Build a project downloeaded from url. Build is a json described below.
         Cmds are executed in srcdir, then if globs non-empty copy files as
-        described in glob/target pairs..
+        described in glob/target pairs.
+        Required names prefixed with R.
         {
-            'name': 'ack',
-            'check': 'path/to/check',
-            'url' : 'https://github.com/petdance/ack2.git',
+          R 'name': 'ack',
+          R 'check': 'path/to/check',
+          R 'url' : 'https://github.com/petdance/ack2.git',
             'tdir': /path/to/install/to,
             'cmds': [
                 'perl Makefile.PL',
@@ -132,29 +207,30 @@ def build_src(build):
             ]
         }
     """
-    srcdir = '%s/src/%s' % (build['tdir'], build['name'])
+    tdir = os.path.realpath(build.get('tdir', target))
+    srcdir = '%s/src/%s' % (tdir, build['name'])
 
     # Guard if command exists
-    if os.path.exists(build['tdir'] + os.sep + build['check']):
+    if os.path.exists(tdir + os.sep + build['check']):
         return
 
     try:
         get_archive(build['url'], srcdir)
-    except ArchiveException:
+    except ArchiveNotSupported:
         get_code(build['url'], srcdir)
 
     try:
         # Code should be at srcdir by here.
         PDir.push(srcdir)
         for cmd in build.get('cmds', []):
-            cmd = cmd.replace('TARGET', build['tdir'])
+            cmd = cmd.replace('TARGET', tdir)
             cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
             subprocess.call(cmd.split())
         PDir.pop()
 
         # Manual copies sometimes required to finish install
         for pattern, target in build.get('globs', []):
-            dest = build['tdir'] + os.sep + target
+            dest = tdir + os.sep + target
             if dest.endswith('/') and not os.path.exists(dest):
                 os.makedirs(dest)
 
@@ -166,131 +242,34 @@ def build_src(build):
 
     print('Finished building ' + build['name'])
 
-def build_cppunit(libdir):
-    """ Build cppunit test library. """
-    build = {
-        'name' : 'cppunit',
-        'check': '/lib/libcppunit.a',
-        'url'  : 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
-        'tdir' : libdir,
-        'cmds' : [
-            './autogen.sh',
-            './configure --prefix=TARGET',
-            'make -jJOBS install',
-
-        ],
-
-    }
-
-    build_src(build)
-
-def build_cunit(libdir):
-    """ Build classic cunit, good test lib for c code. """
-    build = {
-        'name' : 'cunit',
-        'check': 'lib/libcunit.a',
-        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
-        'tdir' : libdir,
-        'cmds' : [
-            'sh ./bootstrap TARGET',
-            'make -jJOBS install',
-        ],
-    }
-
-    build_src(build)
-
-def build_gtest(libdir):
-    """ Build gtest from source and put in libs. """
-    build = {
-        'name' : 'gtest',
-        'check': 'lib/libgtest.a',
-        'url'  : URL_GTEST,
-        'tdir' : libdir,
-        'cmds' : [
-            'chmod u+x configure ./scripts/*',
-            './configure --prefix=TARGET',
-            'make',
-        ],
-        'globs': [
-            ('include/gtest/*', 'include/gtest/'),
-            ('include/gtest/internal/*', 'include/gtest/internal/'),
-            ('lib/.libs/*.a', 'lib/'),
-        ],
-    }
-
-    build_src(build)
-
-def build_boost(libdir):
-    """ Build latest boost release for c++. """
-    build = {
-        'name' : 'boost',
-        'check': 'lib/libboost_thread.a',
-        'url'  : URL_BOOST,
-        'tdir' : libdir,
-        'cmds' : [
-            './bootstrap.sh --prefix=TARGET',
-            './b2 install',
-        ],
-    }
-
-    # Need this for jam to build mpi & graph_parallel.
-    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
-    with open(config, 'w') as f_conf:
-        f_conf.write('using mpi ;')
-
-    build_src(build)
-
-    os.remove(config)
-
-def build_sdl1(libdir):
-    """ Build SDL version 1.xx from source and put in tdir. """
-    build = {
-        'name' : 'SDL',
-        'check': 'lib/libSDL.a',
-        'url'  : 'http://hg.libsdl.org/SDL',
-        'tdir' : libdir,
-        'cmds' : [
-            'hg update SDL-1.2',
-            './autogen.sh',
-            './configure --prefix=TARGET',
-            'make -jJOBS install',
-        ],
-    }
-
-    build_src(build)
-
-def build_sdl2(libdir):
-    """ Build SDL version 2.xx from source and put in tdir. """
-    build = {
-        'name' : 'SDL2',
-        'check': 'lib/libSDL2.a',
-        'url'  : 'http://hg.libsdl.org/SDL',
-        'tdir' : libdir,
-        'cmds' : [
-            './configure --prefix=TARGET',
-            'make -jJOBS install',
-        ],
-    }
-
-    build_src(build)
-
 def main():
     """ Main function. """
-    mesg = """This script sets up the libs for this project."""
+    mesg = """This script installs locally c libs.
+
+    choice      effect
+    ------------------------------------------------------
+    cunit       Install the cunit library.
+    cppunit     Install the cppunit library.
+    gtest       Install the gtest library.
+    boost       Install latest boost dev library.
+    SDL         Install the SDL1.xx game library.
+    SDL2        Install the SDL2.xx game library.
+    """
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('target', nargs='?', default='libs',
-            help='dir to put libs in')
+    parser.add_argument('--ldir', nargs='?', default='./libs',
+            help='install dir')
+    parser.add_argument('libs', nargs='+', help='the libs',
+            choices=BUILDS.keys())
 
+    autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
-    libdir = os.path.realpath(os.curdir + os.sep + args.target)
+    ldir = os.path.realpath(args.ldir)
 
-    #build_cunit(libdir)
-    #build_cppunit(libdir)
-    build_gtest(libdir)
-    #build_boost(libdir)
-    #build_sdl1(libdir)
-    #build_sdl2(libdir)
+    try:
+        [build_src(BUILDS[name], ldir) for name in args.libs]
+    except KeyError:
+        print("Error with one of the args.")
 
 if __name__ == '__main__':
     main()

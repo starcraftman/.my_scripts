@@ -626,15 +626,14 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('choice', nargs='+', action='append', help='the stages',
+    parser.add_argument('stages', nargs='+', help='the stages',
             choices=actions.keys())
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
-    choices = args.choice[0]
 
     try:
-        [actions[x]() for x in choices]
+        [actions[x]() for x in args.stages]
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
     except NotSudo:
