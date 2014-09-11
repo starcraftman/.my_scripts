@@ -258,8 +258,8 @@ def main():
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--ldir', nargs='?', default='./libs',
-            help='install dir')
-    parser.add_argument('libs', nargs='+', help='the libs',
+            help='library directory to install to')
+    parser.add_argument('libs', nargs='+', help='libs selected for install',
             choices=BUILDS.keys())
 
     autocomplete(parser)

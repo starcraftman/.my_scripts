@@ -626,7 +626,7 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('stages', nargs='+', help='the stages',
+    parser.add_argument('stages', nargs='+', help='stages to execute',
             choices=actions.keys())
 
     autocomplete(parser)
