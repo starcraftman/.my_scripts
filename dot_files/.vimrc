@@ -623,6 +623,9 @@ let g:UltiSnipsListSnippets        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
+" Open the filetype specific file
+nnoremap <leader>ft :OpenFT<CR>
+
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
 nnoremap <leader>pm :CtrlPMRUFiles<CR>
@@ -937,6 +940,7 @@ endif
 com! -nargs=0 NScheme call s:NextScheme(0)
 com! -nargs=0 PScheme call s:NextScheme(1)
 com! -nargs=0 PickScheme call s:PickScheme()
+com! -nargs=0 OpenFT call s:OpenFT()
 
 function! s:InitScheme(remDefaults)
     if exists('s:c_init')
@@ -1017,5 +1021,10 @@ function! s:ChangeSpace(old, new)
     let l:new = printf('set ts=%s sts=%s sw=%s et', a:new, a:new, a:new)
     exec l:new
     retab
+endfunction
+
+function! s:OpenFT()
+    let l:file = printf('%s/ftplugin/%s.vim', g:vimDir, &ft)
+    exec 'sp ' . l:file
 endfunction
 " }}}
