@@ -16,7 +16,7 @@
 # .software is for any precompiled programs & libraries I install.
 # .opt is for programs compiled from src, sources stay in OPT/src while bins to OPT/bin
 export SOFT=~/.software
-export OPTDIR=~/.opt
+export OPTDIR=~/.opt1
 
 # Personal scripts go here to stay outside of root.
 MYSCRIPTS=~/.my_scripts
