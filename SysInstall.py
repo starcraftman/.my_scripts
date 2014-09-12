@@ -119,7 +119,7 @@ BUILDS = {
     'atom': [
         {
             'name' : 'atom',
-            'check': 'bin/ack',
+            'check': 'bin/atom',
             'url'  : 'https://github.com/atom/atom',
             'cmds' : [
                 'script/build',
