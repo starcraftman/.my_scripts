@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
 SCRIPT_D=$(dirname $0)
-SYS=generic
-if valid_name apt-get; then
-    SYS=debian
-fi
 
 # Update repositories passed as arguments
 update_repos()
@@ -54,7 +50,12 @@ build_src()
 
 update_repos "${REPOS[@]}"
 
-if [ "xdebian" == "x$SYS" ]; then
+if [ -d "$OPTDIR" ]; then
+    echo 'Updating programs built from source, running in bg...'
+    build_src &
+fi
+
+if valid_name apt-get; then
     echo 'updating debian platform'
     sudo apt-get update && sudo apt-get -y dist-upgrade
     sudo apt-get autoremove
@@ -66,11 +67,6 @@ if [ -d ~/.vim/bundle/Vundle.vim ]; then
     vim +PluginUpdate +qa
     "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
     YcmCompile.py >/dev/null 2>&1 &
-fi
-
-if [ "xdebian" == "x$SYS" ] && [ -d "$OPTDIR" ]; then
-    echo 'Updating programs built from source, running in bg...'
-    build_src &
 fi
 
 echo 'done'
