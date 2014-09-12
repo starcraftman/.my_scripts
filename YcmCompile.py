@@ -51,7 +51,7 @@ def build_ycm():
 
 def main():
     """ Main function. """
-    origdir = os.path.realpath(os.curdir)
+    origdir = os.path.abspath(os.curdir)
 
     try:
         SysInstall.get_archive(CLANG_URL, CLANG_DIR)

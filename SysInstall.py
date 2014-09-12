@@ -116,6 +116,17 @@ else:
     NUM_JOBS = 2
 
 BUILDS = {
+    'atom': [
+        {
+            'name' : 'atom',
+            'check': 'bin/ack',
+            'url'  : 'https://github.com/atom/atom',
+            'cmds' : [
+                'script/build',
+                'script/grunt install --install-dir TARGET',
+            ],
+        },
+    ],
     'dev': [
         {
             'name' : 'ack',
@@ -273,7 +284,7 @@ class PDir(object):
     @staticmethod
     def push(new_dir):
         """ Push curdir to stack and change to new_dir. """
-        curdir = os.path.realpath(os.curdir)
+        curdir = os.path.abspath(os.curdir)
         PDir.dirs.append(curdir)
         os.chdir(new_dir)
         print("Changing to: " + new_dir)
@@ -450,7 +461,7 @@ def build_src(build):
             ]
         }
     """
-    tdir = build.get('tdir', OPT_DIR)
+    tdir = os.path.abspath(build.get('tdir', OPT_DIR))
     srcdir = '%s/src/%s' % (tdir, build['name'])
 
     # Guard if command exists
@@ -592,9 +603,10 @@ def main():
     cabal       Install haskell packages for eclipse.
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
+    atom        Build latest atom editor by GitHub.
     dev         Build standard dev progs like ag, ack, parallel.
     python      Build latest python from source.
-    vim         Build latest vim from source..
+    vim         Build latest vim from source.
     zsh         Build latest zsh from source.
     """
     # Simple wrapper saves func
@@ -609,6 +621,7 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
+        'atom':         lambda: bwrap('atom'),
         'dev':          lambda: bwrap('dev'),
         'python':       lambda: bwrap('python'),
         'vim':          lambda: bwrap('vim'),

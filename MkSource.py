@@ -87,7 +87,7 @@ def main():
         sys.exit(0)
 
     # Select the template via globing relative location of file.
-    script_dir = os.path.dirname(os.path.realpath(__file__))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     templates = glob.glob("{}/templates/{}_*".format(script_dir, args.lang))
     templates.sort()  # Source template first.
 

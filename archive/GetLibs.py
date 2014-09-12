@@ -111,7 +111,7 @@ class PDir(object):
     @staticmethod
     def push(new_dir):
         """ Push curdir to stack and change to new_dir. """
-        curdir = os.path.realpath(os.curdir)
+        curdir = os.path.abspath(os.curdir)
         PDir.dirs.append(curdir)
         os.chdir(new_dir)
         print("Changing to: " + new_dir)
@@ -207,7 +207,7 @@ def build_src(build, target=None):
             ]
         }
     """
-    tdir = os.path.realpath(build.get('tdir', target))
+    tdir = os.path.abspath(build.get('tdir', target))
     srcdir = '%s/src/%s' % (tdir, build['name'])
 
     # Guard if command exists
@@ -264,7 +264,7 @@ def main():
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
-    ldir = os.path.realpath(args.ldir)
+    ldir = os.path.abspath(args.ldir)
 
     try:
         [build_src(BUILDS[name], ldir) for name in args.libs]
