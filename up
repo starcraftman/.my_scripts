@@ -42,7 +42,7 @@ build_src()
     rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
-    OPTDIR="$opt_orig" SysInstall.py dev $opts >/dev/null 2>&1
+    SysInstall.py --odir "$opt_orig" dev $opts >/dev/null 2>&1
     rm -rf "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
     rm -rf $opt_alt

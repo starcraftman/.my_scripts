@@ -610,7 +610,7 @@ def main():
     """
 
     # Simple wrapper saves func
-    odir = os.environ.get('OPTDIR', os.path.expanduser('~/.opt1'))
+    odir = os.path.expanduser('~/.opt1')
     bwrap = lambda name: [build_src(x, odir) for x in BUILDS[name]]
 
     # Use a dict of funcs instead of a case switch
