@@ -36,7 +36,7 @@ else:
 BUILDS = {
     'cppunit': {
         'name' : 'cppunit',
-        'check': '/lib/libcppunit.a',
+        'check': 'lib/libcppunit.a',
         'url'  : 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
         'cmds' : [
             './autogen.sh',

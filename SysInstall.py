@@ -104,7 +104,6 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
-OPT_DIR = os.environ.get('OPTDIR', os.path.expanduser('~/.opt1'))
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
@@ -440,7 +439,7 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-def build_src(build):
+def build_src(build, target=None):
     """ Build a project downloeaded from url. Build is a json described below.
         Cmds are executed in srcdir, then if globs non-empty copy files as
         described in glob/target pairs.
@@ -461,7 +460,7 @@ def build_src(build):
             ]
         }
     """
-    tdir = os.path.abspath(build.get('tdir', OPT_DIR))
+    tdir = os.path.abspath(build.get('tdir', target))
     srcdir = '%s/src/%s' % (tdir, build['name'])
 
     # Guard if command exists
@@ -609,8 +608,10 @@ def main():
     vim         Build latest vim from source.
     zsh         Build latest zsh from source.
     """
+
     # Simple wrapper saves func
-    bwrap = lambda name: [build_src(x) for x in BUILDS[name]]
+    odir = os.environ.get('OPTDIR', os.path.expanduser('~/.opt1'))
+    bwrap = lambda name: [build_src(x, odir) for x in BUILDS[name]]
 
     # Use a dict of funcs instead of a case switch
     actions = {
@@ -630,11 +631,16 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--odir', nargs='?', default=None, help='install dir')
     parser.add_argument('stages', nargs='+', help='stages to execute',
             choices=actions.keys())
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
+
+    # Nicer override than OPTDIR
+    if args.odir != None:
+        odir = args.odir
 
     try:
         [actions[x]() for x in args.stages]
