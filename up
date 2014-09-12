@@ -31,10 +31,13 @@ update_repos()
 # links over OPTDIR
 build_src()
 {
-    local vim=
-    if [ -f "$OPTDIR/bin/vim" ]; then
-	vim="vim"
-    fi
+    # Determine what args to pass
+    local opts=
+    for i in "atom" "vim"; do
+        if [ -f "$OPTDIR/bin/$i" ]; then
+            opts="$opts $i"
+        fi
+    done
 
     # Link to OPT_ALT until update done
     local opt_orig=~/.opt1
@@ -43,7 +46,7 @@ build_src()
     rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
-    OPTDIR="$opt_orig" SysInstall.py dev "$vim" >/dev/null 2>&1
+    OPTDIR="$opt_orig" SysInstall.py dev $opts >/dev/null 2>&1
     rm -rf "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
     rm -rf $opt_alt
