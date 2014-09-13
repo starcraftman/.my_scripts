@@ -228,7 +228,8 @@ BUILDS = {
             'cmds' : [
                 './Util/preconfig',
                 'autoconf',
-                './configure --prefix=TARGET',
+                './configure --prefix=TARGET --enable-cap --enable-pcre \
+                --enable-maildir-support',
                 'make',
                 'make install',
             ],
