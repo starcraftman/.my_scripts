@@ -24,7 +24,7 @@ ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-n
 export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 # /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
-export PATH=/usr/lib/ccache:$MYSCRIPTS:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
+export PATH=/usr/lib/ccache:$MYSCRIPTS:$SOFT/bin:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$ANDROID:$PATH
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 
