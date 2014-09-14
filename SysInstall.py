@@ -104,6 +104,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
+URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
@@ -123,6 +124,19 @@ BUILDS = {
             'cmds' : [
                 'script/build',
                 'script/grunt install --install-dir TARGET',
+            ],
+        },
+    ],
+    'cmake': [
+        {
+            'name' : 'cmake',
+            'check': 'bin/cmake',
+            'url'   : URL_CMAKE,
+            'cmds' : [
+                './bootstrap --prefix=TARGET --enable-ccache --qt-gui \
+                --sphinx-man --sphinx-html',
+                'make -jJOBS',
+                'make install',
             ],
         },
     ],
@@ -624,6 +638,7 @@ def main():
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
         'atom':         lambda: bwrap('atom'),
+        'cmake':        lambda: bwrap('cmake'),
         'dev':          lambda: bwrap('dev'),
         'python':       lambda: bwrap('python'),
         'vim':          lambda: bwrap('vim'),

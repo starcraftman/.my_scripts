@@ -33,6 +33,9 @@ export PATH=/usr/lib/ccache:$MYSCRIPTS:$SOFT/bin:$OPTDIR/bin:$JAVA_HOME/bin:$HAS
 export CPATH=$SOFT/libs/include:$CPATH
 export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 
+#export PERL_MB_OPT="--install_base \"/home/starcraftman/.lperl5\""
+#export PERL_MM_OPT="INSTALL_BASE=/home/starcraftman/.lperl5"
+
 # Paths for specific tools.
 export ANT_HOME=/usr/share/ant
 #}}}
