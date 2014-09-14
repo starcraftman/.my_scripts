@@ -62,7 +62,7 @@ PROGRAMMING = """ \
     codeblocks kdevelop qt-sdk \
     colormake colordiff colorgcc jq \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
-    flex flex-doc bison bison-doc graphviz exuberant-ctags \
+    flex flex-doc bison bison-doc graphviz exuberant-ctags sphinx-common sphinx-doc \
     bash-doc bash-builtins bashdb zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
@@ -133,8 +133,9 @@ BUILDS = {
             'check': 'bin/cmake',
             'url'   : URL_CMAKE,
             'cmds' : [
-                './bootstrap --prefix=TARGET --enable-ccache --qt-gui \
-                --sphinx-man --sphinx-html',
+                './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
+                --mandir=share/man --enable-ccache --qt-gui --sphinx-man \
+                --sphinx-html',
                 'make -jJOBS',
                 'make install',
             ],

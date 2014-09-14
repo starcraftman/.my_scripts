@@ -50,9 +50,11 @@ build_src()
 
 update_repos "${REPOS[@]}"
 
-if [ -d "$OPTDIR" ]; then
-    echo 'Updating programs built from source, running in bg...'
-    build_src &
+if [ -d ~/.vim/bundle/Vundle.vim ]; then
+    echo 'Updating vim plugins.'
+    vim +PluginUpdate +qa
+    "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
+    YcmCompile.py >/dev/null 2>&1 &
 fi
 
 if valid_name apt-get; then
@@ -62,11 +64,9 @@ if valid_name apt-get; then
     sudo apt-get -f install
 fi
 
-if [ -d ~/.vim/bundle/Vundle.vim ]; then
-    echo 'Updating vim plugins.'
-    vim +PluginUpdate +qa
-    "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
-    YcmCompile.py >/dev/null 2>&1 &
+if [ -d "$OPTDIR" ]; then
+    echo 'Updating programs built from source, running in bg...'
+    build_src &
 fi
 
 echo 'done'
