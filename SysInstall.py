@@ -618,6 +618,7 @@ def main():
     jshint      Install jshint via npm for javascript vim.
     pipelight   Install pipelight flash & silverlight.
     atom        Build latest atom editor by GitHub.
+    cmake       Build latest cmake from source.
     dev         Build standard dev progs like ag, ack, parallel.
     python      Build latest python from source.
     vim         Build latest vim from source.
