@@ -266,10 +266,17 @@ def main():
     args = parser.parse_args()  # Default parses argv[1:]
     ldir = os.path.abspath(args.ldir)
 
+    # Need this for jam to build mpi & graph_parallel.
+    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
+    with open(config, 'w') as f_conf:
+        f_conf.write('using mpi ;')
+
     try:
         [build_src(BUILDS[name], ldir) for name in args.libs]
     except KeyError:
         print("Error with one of the args.")
+    finally:
+        os.remove(config)
 
 if __name__ == '__main__':
     main()
