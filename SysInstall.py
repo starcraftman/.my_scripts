@@ -141,6 +141,21 @@ BUILDS = {
             ],
         },
     ],
+    'doxygen': [
+        {
+            'name' : 'doxygen',
+            'check': 'bin/doxygen',
+            'url'  : 'https://github.com/doxygen/doxygen.git',
+            'cmds' : [
+                './configure --prefix=TARGET',
+                'make -jJOBS',
+            ],
+            'globs': [
+                ('bin/doxygen', 'bin/'),
+                ('doc/*.1', 'share/man/man1/'),
+            ],
+        },
+    ],
     'dev': [
         {
             'name' : 'ack',
@@ -164,19 +179,6 @@ BUILDS = {
             'cmds' : [
                 './build.sh --prefix=TARGET',
                 'make install',
-            ],
-        },
-        {
-            'name' : 'doxygen',
-            'check': 'bin/doxygen',
-            'url'  : 'https://github.com/doxygen/doxygen.git',
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make -jJOBS',
-            ],
-            'globs': [
-                ('bin/doxygen', 'bin/'),
-                ('doc/*.1', 'share/man/man1/'),
             ],
         },
         {
@@ -621,6 +623,7 @@ def main():
     atom        Build latest atom editor by GitHub.
     cmake       Build latest cmake from source.
     dev         Build standard dev progs like ag, ack, parallel.
+    doxygen     Build latest doxygen from source.
     python      Build latest python from source.
     vim         Build latest vim from source.
     zsh         Build latest zsh from source.
@@ -642,6 +645,7 @@ def main():
         'atom':         lambda: bwrap('atom'),
         'cmake':        lambda: bwrap('cmake'),
         'dev':          lambda: bwrap('dev'),
+        'doxygen':      lambda: bwrap('doxygen'),
         'python':       lambda: bwrap('python'),
         'vim':          lambda: bwrap('vim'),
         'zsh':          lambda: bwrap('zsh'),

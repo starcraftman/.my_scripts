@@ -29,7 +29,7 @@ build_src()
 {
     # Determine what args to pass
     local opts=
-    for i in "atom" "cmake" "python" "vim" "zsh"; do
+    for i in "atom" "cmake" "doxygen" "python" "vim" "zsh"; do
         if [ -f "$OPTDIR/bin/$i" ]; then
             opts="$opts $i"
         fi
