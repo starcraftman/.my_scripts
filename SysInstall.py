@@ -35,7 +35,7 @@ PROGRAMS = """ \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
-    kdirstat \
+    kdirstat keepassx \
     chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
@@ -434,7 +434,7 @@ def home_config():
     git_urls = [
         'https://github.com/magicmonty/bash-git-prompt.git',
         'https://github.com/starcraftman/zsh-git-prompt.git',
-        '--branch ag_add_completions https://github.com/starcraftman/zsh-completions.git',
+        'https://github.com/starcraftman/zsh-completions.git',
         'https://github.com/zsh-users/zsh-syntax-highlighting.git',
         'https://github.com/starcraftman/hhighlighter.git',
     ]
