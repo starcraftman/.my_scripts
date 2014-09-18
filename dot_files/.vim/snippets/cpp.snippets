@@ -1,0 +1,66 @@
+extends cpp
+
+snippet cls "Basic Class" b
+	class ${1:ClassName} {
+	public:
+		$1(${2:/* constructor args */});
+		$1(const $1 &other);
+		virtual	~$1();
+
+		/* Operators */
+		inline $1 & operator=(const $1 other) {
+			swap(*this, other);
+			return *this;
+		}
+
+		/* Friends */
+		friend void swap($1 &first, $1 &second);
+
+	private:
+		${3:/* data */}
+	};
+
+snippet clss "Class With Operators" b
+	class ${1:ClassName} {
+	public:
+		$1(${2:/* constructor args */});
+		$1(const $1 &other);
+		virtual ~$1();
+
+		/* Operators */
+		inline $1 & operator=(const $1 other) {
+			swap(*this, other);
+			return *this;
+		}
+
+		/* Compare */
+		inline bool operator==(const $1 &other) { /* placeholder */ }
+		inline bool operator!=(const $1 &other) { return !operator==(other); }
+		inline bool operator<(const $1 &other)  { /* placeholder */ }
+		inline bool operator>(const $1 &other)  { return other.operator<(*this); }
+		inline bool operator<=(const $1 &other) { return !operator>(other); }
+		inline bool operator>=(const $1 &other) { return !operator<(other); }
+
+		/* Math ops */
+		$1 operator+(const $1 &other);
+		$1 operator-(const $1 &other);
+		$1 operator+=(const $1 &other);
+		$1 operator-=(const $1 &other);
+
+		/* Friends */
+		friend void swap($1 &first, $1 &second); /* Use std::swap to copy. */
+		friend std::ostream& operator<<(std::ostream &out, $1 &obj);
+		friend std::istream& operator>>(std::istream &in, $1 &obj);
+
+	private:
+		${3:/* data */}
+	};
+
+snippet compf "comparison ops friends" b
+	inline bool operator==(const ${1:Class} &lhs, const $1 &rhs) { /* placeholder */ }
+	inline bool operator!=(const $1 &lhs, const $1 &rhs) { return !operator==(lhs, rhs); }
+	inline bool operator<(const $1 &lhs, const $1 &rhs)  { /* placeholder */ }
+	inline bool operator>(const $1 &lhs, const $1 &rhs)  { return  operator< (rhs, lhs); }
+	inline bool operator<=(const $1 &lhs, const $1 &rhs) { return !operator> (lhs, rhs); }
+	inline bool operator>=(const $1 &lhs, const $1 &rhs) { return !operator< (lhs, rhs); }
+
