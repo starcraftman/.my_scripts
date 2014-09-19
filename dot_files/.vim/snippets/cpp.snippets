@@ -3,34 +3,39 @@ extends cpp
 snippet cls "Basic Class" b
 	class ${1:ClassName} {
 	public:
-		$1(${2:/* constructor args */});
+		$1(${3:/* constructor args */});
 		$1(const $1 &other);
 		virtual	~$1();
 
 		/* Operators */
-		inline $1 & operator=(const $1 other) {
+		inline $1 & operator=($1 other) {
 			swap(*this, other);
 			return *this;
 		}
+		void swap($1 &first, $1 &second) {
+			using std::swap;
+		}
 
 		/* Friends */
-		friend void swap($1 &first, $1 &second);
 
 	private:
-		${3:/* data */}
+		${2:/* data */}
 	};
 
 snippet clss "Class With Operators" b
 	class ${1:ClassName} {
 	public:
-		$1(${2:/* constructor args */});
+		$1(${3:/* constructor args */});
 		$1(const $1 &other);
 		virtual ~$1();
 
 		/* Operators */
-		inline $1 & operator=(const $1 other) {
+		inline $1 & operator=($1 other) {
 			swap(*this, other);
 			return *this;
+		}
+		void swap($1 &first, $1 &second) {
+			using std::swap;
 		}
 
 		/* Compare */
@@ -48,12 +53,11 @@ snippet clss "Class With Operators" b
 		$1 operator-=(const $1 &other);
 
 		/* Friends */
-		friend void swap($1 &first, $1 &second); /* Use std::swap to copy. */
 		friend std::ostream& operator<<(std::ostream &out, $1 &obj);
 		friend std::istream& operator>>(std::istream &in, $1 &obj);
 
 	private:
-		${3:/* data */}
+		${2:/* data */}
 	};
 
 snippet compf "comparison ops friends" b
