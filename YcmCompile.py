@@ -12,8 +12,8 @@ import subprocess
 import SysInstall
 
 # Data
-CLANG_URL = 'http://llvm.org/releases/3.4.1/\
-clang+llvm-3.4.1-x86_64-unknown-ubuntu12.04.tar.xz'
+CLANG_URL = 'http://llvm.org/releases/3.5.0/\
+clang+llvm-3.5.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz'
 CLANG_DIR = 'clang'
 B_DIR = 'build'
 
