@@ -66,13 +66,6 @@ using std::string;
 
 
 /****************** Global Functions **********************/
-/**
- * Main loop of the function.
- */
-int main(void) {
-
-	return 0;
-}
 
 
 /* Notes:
