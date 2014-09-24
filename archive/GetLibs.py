@@ -76,6 +76,9 @@ BUILDS = {
             './bootstrap.sh --prefix=TARGET',
             './b2 install',
         ],
+        'globs': [
+            ('libs/date_time/data/*', 'share/boost/date_time/'),
+        ],
     },
     'SDL': {
         'name' : 'SDL',

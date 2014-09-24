@@ -68,3 +68,10 @@ snippet compf "comparison ops friends" b
 	inline bool operator<=(const $1 &lhs, const $1 &rhs) { return !operator> (lhs, rhs); }
 	inline bool operator>=(const $1 &lhs, const $1 &rhs) { return !operator< (lhs, rhs); }
 
+snippet reminder_const "reminder on pointer difference" b
+	/* c code */
+		int const * ptrToConst;
+		int * const constPtr;
+	/* cpp code */
+		const int* ptrToConst;
+		int* const constPtr;
