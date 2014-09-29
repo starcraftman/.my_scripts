@@ -80,6 +80,16 @@ BUILDS = {
             ('libs/date_time/data/*', 'share/boost/date_time/'),
         ],
     },
+    'jsonrpc': {
+        'name' : 'jsonrpc',
+        'check': 'lib/libjsonrpc.so',
+        'url'  : 'https://github.com/cinemast/libjson-rpc-cpp',
+        'cmds' : [
+            'cmake -DCMAKE_INSTALL_PREFIX=TARGET ..'
+            'make -jJOBS'
+            'make install',
+        ],
+    },
     'SDL': {
         'name' : 'SDL',
         'check': 'lib/libSDL.a',
@@ -255,6 +265,7 @@ def main():
     cppunit     Install the cppunit library.
     gtest       Install the gtest library.
     boost       Install latest boost dev library.
+    jsonrpc     Install jsonrpc-cpp library.
     SDL         Install the SDL1.xx game library.
     SDL2        Install the SDL2.xx game library.
     """

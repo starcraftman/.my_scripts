@@ -1,5 +1,20 @@
 extends cpp
 
+snippet gcls "GTest Class" b
+	class ${1:ClassFixture} : public ::testing::Test {
+	protected:
+		virtual void SetUp() {
+			${3:/* Setup Fixture */}
+		}
+
+		virtual void TearDown() {
+			${4:/* Clean Up Fixture */}
+		}
+
+	private:
+		${2:/* Data */}
+	};
+
 snippet cls "Basic Class" b
 	class ${1:ClassName} {
 	public:
@@ -53,7 +68,7 @@ snippet clss "Class With Operators" b
 		$1 operator-=(const $1 &other);
 
 		/* Friends */
-		friend std::ostream& operator<<(std::ostream &out, $1 &obj);
+		friend std::ostream& operator<<(std::ostream &out, const $1 &obj);
 		friend std::istream& operator>>(std::istream &in, $1 &obj);
 
 	private:
