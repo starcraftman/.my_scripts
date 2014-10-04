@@ -11,11 +11,10 @@
 # Imports
 from __future__ import print_function
 import argparse
-import glob
 import os
-import stat
 import sys
-from shutil import copyfile
+import shutil
+
 # not always easily installed lib
 try:
     from argcomplete import autocomplete
@@ -24,95 +23,114 @@ except ImportError:
         """ Dummy func. """
         pass
 
-# These are languages that get execute.
-SCRIPT_LANGS = ('python', 'perl', 'ruby')
+TEMPLATE_DIR = os.path.dirname(os.path.abspath(__file__)) \
+    + os.sep + 'templates' + os.sep
 
-# Static data, I define here the dicts for extensions
-SRC_DICT = {
-    'c'     : '.c',
-    'cpp'   : '.cpp',
-    'lisp'  : '.lisp',
-    'perl'  : '.pl',
-    'prolog': '.pdb',
-    'python': '.py',
-    'ruby'  : '.rb',
-    'ycm'   : '.py',
-}
-
-H_DICT = {
-    'c'     : '.h',
-    'cpp'   : '.hpp',
+# New JSON
+LANGS = {
+    'c': {
+        'ext': '.c',
+        'hext': '.h',
+    },
+    'cpp': {
+        'ext': '.cpp',
+        'hext': '.hpp',
+    },
+    'lisp': {
+        'ext': '.lisp',
+    },
+    'perl': {
+        'ext': '.pl',
+    },
+    'prolog': {
+        'ext':'.pdb',
+    },
+    'python': {
+        'ext': '.py',
+    },
+    'ruby': {
+        'ext': '.rb',
+    },
+    'ycm' : None,
 }
 
 # Functions
 
+def file_replace(target, old_text, new_text):
+    """ Perform text replacements on the file.
+        For each line, old_text will be replaced with new_text.
+    """
+    with open(target, 'r') as read:
+        lines = read.readlines()
 
-def header_copy(template, header, new_text):
-    ''' While copying, this func will change the ifdef marker. '''
-    with open(template, 'r') as src, open(header, 'w') as dst:
-        for line in src:
-            new_line = line.replace('_TEST_H_', "_%s_" % new_text)
-            dst.write(new_line)
+    new_lines = [line.replace(old_text, new_text) for line in lines]
+
+    with open(target, 'w') as out:
+        out.writelines(new_lines)
+
+def copy_files(source, targets, headers=False):
+    """ For each target copy source to it.
+        Special handling for scripts & headers.
+    """
+    for target in targets:
+        shutil.copy(source, target)
+
+        # Fix the include guard, _TEST_ -> _FILENAME_
+        if headers:
+            filename, _ = os.path.splitext(os.path.basename(target))
+            filename = filename.upper().replace('.', '_')
+            file_replace(target, 'TEST_', filename + '_')
 
 
-def add_ext(lang, sources, headers):
-    ''' Returns two new lists with extensions added.
-    Headers list only there if c language.
-    '''
-    new_sources = [s + SRC_DICT[lang] for s in sources]
-    new_headers = []
-    if lang in H_DICT:
-        new_headers = [h + H_DICT[lang] for h in headers]
+def process_args(lang, target, s_files, h_files):
+    """ Based on lang object, infer sources & headers template then
+        copy into the tdir the templates.
+    """
+    if not os.path.exists(target):
+        os.makedirs(target)
 
-    return (new_sources, new_headers)
+    json = LANGS[lang]
+    hext = json.get('hext', None)
+
+    s_template = TEMPLATE_DIR + '%s_template%s' % (lang, json['ext'])
+    sources = [target + os.sep + name + json['ext'] for name in s_files]
+    copy_files(s_template, sources)
+
+    if hext:
+        h_template = TEMPLATE_DIR + '%s_template%s' % (lang, hext)
+        headers = [target + os.sep + name + hext
+                for name in h_files]
+        copy_files(h_template, headers, True)
 
 def main():
     """ Main function. """
     # Setup argument parser, very nice. -i for header due to help default.
+    cur_dir = os.path.abspath('.')
     desc = """ This is my source file creator. The language is required.
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('lang', action='store', help='the language to make',
-                        choices=SRC_DICT.keys())
-    parser.add_argument('s_files', nargs='*', help='source files to create')
-    parser.add_argument('-i', action='append', dest='h_files',
+    parser.add_argument('-t', '--target', nargs='?', default=cur_dir,
+                        help='target dir')
+    parser.add_argument('-l', '--lang', help='the language to make',
+                        choices=LANGS.keys())
+    parser.add_argument('-i', '--header', action='append', dest='h_files',
                         default=[], help='header file to create')
+    parser.add_argument('s_files', nargs='*', help='source files to create')
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
 
-    if args.lang not in SRC_DICT:
+    if args.lang not in LANGS:
         print("Language selected is not supported: %s" % args.lang)
         sys.exit(0)
 
-    # Select the template via globing relative location of file.
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    templates = glob.glob("{}/templates/{}_*".format(script_dir, args.lang))
-    templates.sort()  # Source template first.
-
-    # Quick hack for ycm, not a standard language so avoid rest.
+    ## Quick hack for ycm, not a standard language so avoid rest.
     if args.lang == 'ycm':
-        copyfile(templates[0], '.ycm_extra_conf.py')
+        shutil.copy(TEMPLATE_DIR + '.ycm_extra_conf.py', args.target)
         sys.exit(0)
 
-    src_files, h_files = add_ext(args.lang, args.s_files, args.h_files)
-
-    # I've added extension and found template, now simply copy files.
-    for s_file in src_files:
-        copyfile(templates[0], s_file)
-
-        # Scripts need execute on user.
-        if args.lang in SCRIPT_LANGS:
-            new_perms = stat.S_IMODE(os.stat(s_file).st_mode)
-            new_perms = new_perms | stat.S_IXUSR
-            os.chmod(s_file, new_perms)
-
-    # Headers must make a define to protect against include,
-    # use new header_text to replace old default.
-    for h_file in h_files:
-        header_text = h_file.upper().replace('.', '_')
-        header_copy(templates[1], h_file, header_text)
+    process_args(args.lang, args.target, args.s_files, args.h_files)
 
 if __name__ == '__main__':
     main()
