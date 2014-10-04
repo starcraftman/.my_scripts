@@ -34,7 +34,9 @@ FLAGS = [
     '-isystem',
     '/usr/local/include',
     '-I',
-    './.software/libs/include'
+    './libs/include',
+    '-I',
+    './src',
 ]
 
 

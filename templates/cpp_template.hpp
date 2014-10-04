@@ -1,5 +1,5 @@
-#ifndef _TEST_H_
-#define _TEST_H_
+#ifndef _TEST_HPP_
+#define _TEST_HPP_
 
 /********************* Header Files ***********************/
 /* C++ Headers */
@@ -65,4 +65,4 @@
 /************** Class & Func Declarations *****************/
 
 
-#endif /* _TEST_H_ */
+#endif /* _TEST_HPP_ */

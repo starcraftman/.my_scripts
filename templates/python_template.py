@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Common tools:
 #	pip/pip3 : install packages
 #	pep8/pylint/pychecker : verify syntax
@@ -6,6 +6,7 @@
 """Module level doc string."""
 
 # Imports
+from __future__ import print_function
 
 # Data
 
