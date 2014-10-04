@@ -51,7 +51,12 @@ LANGS = {
     'ruby': {
         'ext': '.rb',
     },
-    'ycm' : None,
+}
+
+CONFIGS = {
+    'make' : 'Makefile',
+    'maked': 'Make.defines',
+    'ycm'  : '.ycm_extra_conf.py',
 }
 
 # Functions
@@ -86,9 +91,6 @@ def process_args(lang, target, s_files, h_files):
     """ Based on lang object, infer sources & headers template then
         copy into the tdir the templates.
     """
-    if not os.path.exists(target):
-        os.makedirs(target)
-
     json = LANGS[lang]
     hext = json.get('hext', None)
 
@@ -105,32 +107,38 @@ def process_args(lang, target, s_files, h_files):
 def main():
     """ Main function. """
     # Setup argument parser, very nice. -i for header due to help default.
-    cur_dir = os.path.abspath('.')
     desc = """ This is my source file creator. The language is required.
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('-t', '--target', nargs='?', default=cur_dir,
-                        help='target dir')
-    parser.add_argument('-l', '--lang', help='the language to make',
-                        choices=LANGS.keys())
+    parser.add_argument('-c', '--config', action='append', dest='configs',
+                        default=[], help='non source templates',
+                        choices=CONFIGS.keys())
     parser.add_argument('-i', '--header', action='append', dest='h_files',
                         default=[], help='header file to create')
+    parser.add_argument('-l', '--lang', default=None,
+                        help='the language to make', choices=LANGS.keys())
+    parser.add_argument('-t', '--target', nargs='?', default='.',
+                        help='target dir')
     parser.add_argument('s_files', nargs='*', help='source files to create')
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
 
-    if args.lang not in LANGS:
-        print("Language selected is not supported: %s" % args.lang)
-        sys.exit(0)
+    target = os.path.abspath(args.target)
+    if not os.path.exists(target):
+        os.makedirs(target)
 
-    ## Quick hack for ycm, not a standard language so avoid rest.
-    if args.lang == 'ycm':
-        shutil.copy(TEMPLATE_DIR + '.ycm_extra_conf.py', args.target)
-        sys.exit(0)
+    # BZit of a hack, some files are config instead of source, so just copy
+    for config in args.configs:
+        if CONFIGS.has_key(config):
+            shutil.copy(TEMPLATE_DIR + CONFIGS[config], target)
 
-    process_args(args.lang, args.target, args.s_files, args.h_files)
+    if args.lang:
+        if args.lang not in LANGS:
+            print("Language selected is not supported: %s" % args.lang)
+            sys.exit(0)
+        process_args(args.lang, target, args.s_files, args.h_files)
 
 if __name__ == '__main__':
     main()
