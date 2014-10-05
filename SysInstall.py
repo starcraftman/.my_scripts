@@ -42,7 +42,7 @@ PROGRAMS = """ \
     fuse gparted quicksynergy tree dfc sharutils sharutils-doc \
     libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx \
-    samba samba-doc samba-dev samba-dbg wireshark libwireshark-dev wondershaper \
+    samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev wondershaper \
     vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
     virtualbox-qt wine \
