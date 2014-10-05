@@ -12,7 +12,6 @@
 from __future__ import print_function
 import argparse
 import os
-import sys
 import shutil
 
 # not always easily installed lib
@@ -60,6 +59,10 @@ CONFIGS = {
 }
 
 # Functions
+
+class BadArgs(Exception):
+    """ Bad args passed in to the command. """
+    pass
 
 def file_replace(target, old_text, new_text):
     """ Perform text replacements on the file.
@@ -135,9 +138,9 @@ def main():
             shutil.copy(TEMPLATE_DIR + CONFIGS[config], target)
 
     if args.lang:
-        if args.lang not in LANGS:
-            print("Language selected is not supported: %s" % args.lang)
-            sys.exit(0)
+        if len(args.s_files) == 0 and len(args.h_files) == 0:
+            raise BadArgs("No filenames provided.")
+
         process_args(args.lang, target, args.s_files, args.h_files)
 
 if __name__ == '__main__':
