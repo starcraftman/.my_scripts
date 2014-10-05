@@ -458,6 +458,8 @@ def home_config():
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
+    print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
+
 def build_src(build, target=None):
     """ Build a project downloeaded from url. Build is a json described below.
         Cmds are executed in srcdir, then if globs non-empty copy files as
