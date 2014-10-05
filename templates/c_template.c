@@ -12,7 +12,7 @@
 //#include <limits.h>
 //#include <assert.h>
 //$include <math.h>
-//$include <stdint.h> /* Standard u_int16 & such */
+//$include <stdint.h> /* C11, standard u_int16 & such */
 
 /* Project Headers */
 

@@ -9,14 +9,21 @@
 #include <string> /* C++ String class. */
 //#include <exception> /* Top level exception header. */
 //#include <stdexcept> /* Some useful common exceptions */
-//#include <initializer_list> /* Allows class to take list like {1,2} */
 //#include <new> /* Defines bad_malloc exception, new functions. */
 //#include <memory> /* std smart pointers like unique_ptr */
 //#include <typeinfo> /* Casting header. */
 //#include <limits> /* Inspect properties, numeric_limits<int> iLimit; */
 //#include <numeric> /* Math accumulators & other ops*/
-//#include <random> /* Random c++ version */
 //#include <functional> /* Function declarations & std::bind */
+
+/* C++11 Only*/
+//#include <chrono> [> std::chrono contains timing for threads <]
+//#include <initializer_list> /* Allows class to take list like {1,2} */
+//#include <random> /* Random c++ version */
+//#include <thread>
+//#include <atomic>
+//#include <condition_variable>
+//#include <mutex>
 
 /* STL Headers */
 //#include <vector>
@@ -42,7 +49,7 @@
 //#include <climits>
 //#include <cassert>
 //$include <cmath>
-//$include <cstdint> /* Standard u_int16 & such */
+//$include <cstdint> /* C++11 only, standard u_int16 & such */
 
 /* Project Headers */
 
