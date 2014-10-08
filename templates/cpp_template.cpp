@@ -18,9 +18,10 @@
 //#include <functional> /* Function declarations & std::bind */
 
 /* C++11 Only*/
-//#include <chrono> [> std::chrono contains timing for threads <]
+//#include <chrono> /* std::chrono contains timing for threads */
 //#include <initializer_list> /* Allows class to take list like {1,2} */
 //#include <random> /* Random c++ version */
+//#include <regex>
 //#include <thread>
 //#include <atomic>
 //#include <condition_variable>
@@ -36,7 +37,7 @@
 //#include <set> // multiset for multiple keys allowed.
 //#include <map> // multimap for multiple keys allowed.
 //#include <bitset>
-//#include <utility> // Has pair for map.
+//#include <utility> // Has pair for map, std::swap
 //#include <algorithm>
 //#include <iterator> // Contains back_inserter function and like.
 

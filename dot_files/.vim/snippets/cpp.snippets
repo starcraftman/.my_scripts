@@ -49,9 +49,6 @@ snippet clss "Class With Operators" b
 			swap(*this, other);
 			return *this;
 		}
-		void swap($1 &first, $1 &second) {
-			using std::swap;
-		}
 
 		/* Compare */
 		inline bool operator==(const $1 &other) { /* placeholder */ }
@@ -70,6 +67,7 @@ snippet clss "Class With Operators" b
 		/* Friends */
 		friend std::ostream& operator<<(std::ostream &out, const $1 &obj);
 		friend std::istream& operator>>(std::istream &in, $1 &obj);
+		friend void swap($1 &left, $1 &right);
 
 	private:
 		${2:/* data */}
