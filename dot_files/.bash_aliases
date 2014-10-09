@@ -484,7 +484,7 @@ unset MAILCHECK
 ############################################################################
 #{{{
 # Ssh completion of used hosts
-complete -W "$(echo $(grep '^ssh ' .bash_history | sort -u | sed 's/^ssh //'))" ssh
+complete -W "$(echo $(grep '^ssh ' .bash_history | cut -d ' ' -f 2 | sort -u))" ssh
 
 # Enable the windows key on Ubuntu as F13
 if valid_name xmodmap; then
