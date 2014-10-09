@@ -483,6 +483,9 @@ unset MAILCHECK
 # Misc Options
 ############################################################################
 #{{{
+# Ssh completion of used hosts
+complete -W "$(echo $(grep '^ssh ' .bash_history | sort -u | sed 's/^ssh //'))" ssh
+
 # Enable the windows key on Ubuntu as F13
 if valid_name xmodmap; then
     xmodmap -e 'keycode 133 = F13'
