@@ -40,7 +40,7 @@ define_git_prompt_colors() {
   fi
 
   # Formats to:
-  #command_indicator { directory } [vcsInfo]
+  # command_indicator { directory } [vcsInfo]
   # user@host
   GIT_PROMPT_START_USER="_LAST_COMMAND_INDICATOR_${ResetColor}{ $PS1_DIR }"
   GIT_PROMPT_START_ROOT=$GIT_PROMPT_START_USER
