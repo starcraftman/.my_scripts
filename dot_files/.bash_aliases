@@ -544,48 +544,7 @@ prompt_callback()
     fi
 }
 
-# Just vars to simplify layout of PS1
-PS1_DIR="$PS1_BRED\w$PS1_R"
-PS1_USER="$PS1_CYAN\u$PS1_R"
-PS1_HOST="$PS1_GREEN\h$PS1_R"
-
-# If root, highlight it
-if [ $UID -eq 0 ]; then
-    PS1_USER="${PS1_BYELLOW}\u${PS1_R}"
-fi
-
-# If using ssh, usually set
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST="$PS1_BMAGENTA\h$PS1_R"
-fi
-
-# Formats to:
-# { directory }
-# user@host [vcsInfo]
-#GIT_PROMPT_START="$PS1_R{ $PS1_DIR }\n$PS1_USER@$PS1_HOST\\$
-#GIT_PROMPT_END=
-
-# Formats to:
-# { directory } [vcsInfo]
-# user@host
-GIT_PROMPT_START="$PS1_R{ $PS1_DIR }"
-GIT_PROMPT_END="\n$PS1_USER@$PS1_HOST\\$ "
-
-# Shows status of last command before GIT_PROMPT_START
-GIT_PROMPT_SHOW_LAST_COMMAND_INDICATOR=1
-
+# See ~/.git-prompt-colors.sh for scheme
 source ~/.shell/.bash-git-prompt/gitprompt.sh
-
-# Old PS1 modification.
-# PS1 config options
-#export GIT_PS1_SHOWDIRTYSTATE=1
-#export GIT_PS1_SHOWSTASHSTATE=1
-#export GIT_PS1_SHOWUNTRACKEDFILES=1
-#export GIT_PS1_SHOWUPSTREAM="auto verbose"
-
-# PS1 changes for git.
-# http://techbase.kde.org/Development/Git/Configuration
-# More info: http://blog.sanctum.geek.nz/bash-prompts/
-# PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$ $(__git_ps1 "${color_blue}(%s)${color_reset}")'
 #}}}
 # vim: set foldmethod=marker:

@@ -1,4 +1,4 @@
-# These are the color definitions used by gitprompt.sh
+## These are the color definitions used by gitprompt.sh
 
 define_git_prompt_colors() {
   Time12a="\$(date +%H:%M)"
@@ -19,21 +19,35 @@ define_git_prompt_colors() {
   GIT_PROMPT_STASHED="${BoldBlue}⚑ "    # the number of stashed files/dir
   GIT_PROMPT_CLEAN="${BoldGreen}✔"      # a colored flag indicating a "clean" repo
 
-  # For the command indicator, the placeholder _LAST_COMMAND_STATE_ 
-  # will be replaced with the exit code of the last command
-  # e.g.
-  # GIT_PROMPT_COMMAND_OK="${Green}✔-_LAST_COMMAND_STATE_ "    # indicator if the last command returned with an exit code of 0
-   GIT_PROMPT_COMMAND_FAIL="${Red}✘${Yellow}-_LAST_COMMAND_STATE_ "   # indicator if the last command returned with an exit code of other than 0
-
   GIT_PROMPT_COMMAND_OK="${Green}✔ "    # indicator if the last command returned with an exit code of 0
-  #GIT_PROMPT_COMMAND_FAIL="${Red}✘ "   # indicator if the last command returned with an exit code of other than 0
+  GIT_PROMPT_COMMAND_FAIL="${Red}✘${Yellow}-_LAST_COMMAND_STATE_ "   # indicator if the last command returned with an exit code of other than 0
+  ## _LAST_COMMAND_INDICATOR_ will be replaced by the appropriate GIT_PROMPT_COMMAND_OK OR GIT_PROMPT_COMMAND_FAIL
 
-  GIT_PROMPT_START_USER="${Yellow}${PathShort}${ResetColor}"
-  GIT_PROMPT_START_ROOT="${Yellow}${PathShort}${ResetColor}"
-  GIT_PROMPT_END_USER=" \n${White}${Time12a}${ResetColor} $ "
-  GIT_PROMPT_END_ROOT=" \n${White}${Time12a}${ResetColor} # "
+  ## template for displaying the current virtual environment
+  ## use the placeholder _VIRTUALENV_ will be replaced with
+  ## the name of the current virtual environment (currently CONDA and VIRTUAL_ENV)
+  GIT_PROMPT_VIRTUALENV="(${Blue}_VIRTUALENV_${ResetColor}) "
 
-  # Please do not add colors to these symbols
+  # Just vars to simplify layout of PS1
+  PS1_DIR="${BoldRed}\w${ResetColor}"
+  PS1_USER="${Cyan}\u${ResetColor}"
+  PS1_ROOT="${BoldYellow}\u${ResetColor}"
+  PS1_HOST="${Green}\h${ResetColor}"
+
+  # If using ssh, usually set
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
+      PS1_HOST="$PS1_BMAGENTA\h$PS1_R"
+  fi
+
+  # Formats to:
+  #command_indicator { directory } [vcsInfo]
+  # user@host
+  GIT_PROMPT_START_USER="_LAST_COMMAND_INDICATOR_${ResetColor}{ $PS1_DIR }"
+  GIT_PROMPT_START_ROOT=$GIT_PROMPT_START_USER
+  GIT_PROMPT_END_USER="\n$PS1_USER@$PS1_HOST\\$ "
+  GIT_PROMPT_END_ROOT="\n$PS1_ROOT@$PS1_HOST\\$ "
+
+  ## Please do not add colors to these symbols
   GIT_PROMPT_SYMBOLS_AHEAD="↑·"         # The symbol for "n versions ahead of origin"
   GIT_PROMPT_SYMBOLS_BEHIND="↓·"        # The symbol for "n versions behind of origin"
   GIT_PROMPT_SYMBOLS_PREHASH=":"        # Written before hash of commit, if no name could be found
@@ -42,4 +56,3 @@ define_git_prompt_colors() {
 if [[ -z "$GIT_PROMPT_SEPARATOR" || -z "$GIT_PROMPT_COMMAND_OK" ]]; then
   define_git_prompt_colors
 fi
-
