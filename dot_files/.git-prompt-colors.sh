@@ -36,7 +36,7 @@ define_git_prompt_colors() {
 
   # If using ssh, usually set
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-      PS1_HOST="$PS1_BMAGENTA\h$PS1_R"
+      PS1_HOST="${BoldYellow}\h${ResetColor}"
   fi
 
   # Formats to:
