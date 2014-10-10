@@ -1,0 +1,107 @@
+_ack() {
+  local lngopt shtopt split=false
+  local cur prev
+
+  COMPREPLY=()
+  cur=$(_get_cword "=")
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  _expand || return 0
+
+  lngopt='
+    --ackrc
+    --after-context
+    --before-context
+    --column
+    --context
+    --count
+    --dump
+    --env
+    --files-from
+    --files-with-matches
+    --files-without-matches
+    --flush
+    --follow
+    --group
+    --help
+    --help-types
+    --ignore-case
+    --ignore-dir
+    --ignore-file
+    --invert-match
+    --known-types
+    --lines
+    --literal
+    --man
+    --match
+    --max-count
+    --no-filename
+    --no-recurse
+    --nobreak
+    --nocolor
+    --nocolumn
+    --noenv
+    --nogroup
+    --noheading
+    --noignore-dir
+    --nopager
+    --nosmart-case
+    --output
+    --pager
+    --passthru
+    --print0
+    --show-types
+    --smart-case
+    --sort-files
+    --type
+    --version
+    --with-filename
+    --word-regexp
+  '
+  shtopt='
+  -1 -A -B -C -c -f
+  -g -h -H -i -k -l
+  -L -n -m -M -o -r
+  -R -s -v -w -Q -x
+  '
+
+  # these options require an argument
+  if [[ "${prev}" == -@(A|B|C|G|g|m) ]] ; then
+    return 0
+  fi
+
+  _split_longopt && split=true
+
+  case "${prev}" in
+    --ignore-dir) # directory completion
+              _filedir -d
+              return 0;;
+    --path-to-agignore) # file completion
+              _filedir
+              return 0;;
+    --pager) # command completion
+              COMPREPLY=( $(compgen -c -- "${cur}") )
+              return 0;;
+    --ackmate-dir-filter|--after|--before|--color-*|--context|--depth\
+    |--file-search-regex|--ignore|--max-count|--workers)
+              return 0;;
+  esac
+
+  $split && return 0
+
+  case "${cur}" in
+    -*)
+          if [[ "${COMP_CWORD}" -eq 1 ]] ; then
+            COMPREPLY=( $(compgen -W \
+              "${lngopt} ${shtopt}" -- "${cur}") )
+          else
+            COMPREPLY=( $(compgen -W \
+              "${lngopt} ${shtopt}" -- "${cur}") )
+          fi
+          return 0;;
+    *)
+          _filedir
+          return 0;;
+  esac
+} &&
+complete -F _ack ${nospace} ack
