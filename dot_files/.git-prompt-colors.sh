@@ -1,9 +1,6 @@
 ## These are the color definitions used by gitprompt.sh
 
 define_git_prompt_colors() {
-  Time12a="\$(date +%H:%M)"
-  PathShort="\w"
-
   # These are the color definitions used by gitprompt.sh
   GIT_PROMPT_PREFIX="["                 # start of the git info string
   GIT_PROMPT_SUFFIX="]"                 # the end of the git info string
@@ -33,6 +30,7 @@ define_git_prompt_colors() {
   PS1_USER="${Cyan}\u${ResetColor}"
   PS1_ROOT="${BoldYellow}\u${ResetColor}"
   PS1_HOST="${Green}\h${ResetColor}"
+  #Time24="\$(date +%H:%M)"
 
   # If using ssh, usually set
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
