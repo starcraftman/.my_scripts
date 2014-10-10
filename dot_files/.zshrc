@@ -698,7 +698,7 @@ fi
 
 # If using ssh, usually set
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
-    PS1_HOST=%B%F{magenta}%m%f%b
+    PS1_HOST=%B%F{red}%m%f%b
 fi
 
 PS1_STD='$LAST { ${PS1_DIR} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
