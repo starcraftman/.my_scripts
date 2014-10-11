@@ -96,9 +96,10 @@ def process_args(lang, target, s_files, h_files):
     """
     json = LANGS[lang]
     hext = json.get('hext', None)
+    ext = json['ext']
 
-    s_template = TEMPLATE_DIR + '%s_template%s' % (lang, json['ext'])
-    sources = [target + os.sep + name + json['ext'] for name in s_files]
+    s_template = TEMPLATE_DIR + '%s_template%s' % (lang, ext)
+    sources = [target + os.sep + name + ext for name in s_files]
     copy_files(s_template, sources)
 
     if hext:

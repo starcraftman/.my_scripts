@@ -29,7 +29,6 @@ _ack() {
     --ignore-dir
     --ignore-file
     --invert-match
-    --known-types
     --lines
     --literal
     --man
@@ -76,14 +75,14 @@ _ack() {
     --ignore-dir) # directory completion
               _filedir -d
               return 0;;
-    --path-to-agignore) # file completion
+    --ackrc|--files-from) # file completion
               _filedir
               return 0;;
     --pager) # command completion
               COMPREPLY=( $(compgen -c -- "${cur}") )
               return 0;;
-    --ackmate-dir-filter|--after|--before|--color-*|--context|--depth\
-    |--file-search-regex|--ignore|--max-count|--workers)
+    --after-context|--before-context|--context|--color*|--ignore-file|\
+    --lines|--match|--max-count|--output)
               return 0;;
   esac
 
