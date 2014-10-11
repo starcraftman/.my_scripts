@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
 SCRIPT_D=$(dirname $0)
-SYS_OPTS=$(SysInstall.py --help | \grep Build | cut -d ' ' -f 5)
 
 # Update repositories passed as arguments
 update_repos()
@@ -29,8 +28,9 @@ update_repos()
 build_src()
 {
     # Determine what args to pass
+    local avail_opts=$(SysInstall.py --help | \grep Build | cut -d ' ' -f 5)
     local opts=
-    for i in "$SYS_OPTS"; do
+    for i in "$avail_opts"; do
         if [ -f "$OPTDIR/bin/$i" ]; then
             opts="$opts $i"
         fi
