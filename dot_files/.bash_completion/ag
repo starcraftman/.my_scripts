@@ -74,7 +74,7 @@ _ag() {
   '
 
   # these options require an argument
-  if [[ "${prev}" == -@(A|B|C|G|g|m) ]] ; then
+  if [[ "${prev}" == -@(A|B|C|G|g|m|p) ]] ; then
     return 0
   fi
 
