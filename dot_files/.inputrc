@@ -13,6 +13,9 @@ set completion-map-case on
 # When there are lots of common words, print elipsis
 #set completion-prefix-display-length 3
 
+# Set limit for when bash prompts "Display x items..."
+set completion-query-items 250
+
 # When tab completing, show colors from LS_COLORS
 set colored-stats on
 set visible-stats on
