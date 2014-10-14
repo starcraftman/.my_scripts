@@ -656,7 +656,7 @@ def main():
     }
     # Generate this part dynamically
     builds_avail = ('atom', 'cmake', ('dev', ('ag', 'ack', 'parallel',
-        'vimpager', 'zsh_docs')), 'python', 'vim', 'zsh')
+        'vimpager', 'zsh_docs')), 'doxygen', 'python', 'vim', 'zsh')
     for name in builds_avail:
         if isinstance(name, (list, tuple)):
             actions[name[0]] = functools.partial(builds.extend, name[1])
