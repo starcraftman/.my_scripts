@@ -316,11 +316,9 @@ def gen_report(progress):
                 progress.draw()
     return report_down
 
-def get_archive(url, target):
-    """ Fetch an archive from a site. Works on regular ftp & sourceforge.
-    url: location to get archive
-    target: where to extract to
-    """
+def find_archive(url):
+    """ Given a url, returns archive name found inside.
+    If extension not supported throws excetion. """
     arc_ext = None
     for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', 'tar.xz',
             '.xz', '.rar', '.zip', '.7z']:
@@ -334,33 +332,54 @@ def get_archive(url, target):
     if arc_ext == None:
         raise ArchiveNotSupported
 
-    # download and extract archive
-    arc_name = url[left:right]
-    cmd = 'wget -O %s %s' % (arc_name, url)
-    subprocess.call(cmd.split())
+    return url[left:right]
+
+def extract_archive(archive):
+    """ Given an archive, extract it. Prefer python libs if supported. """
+    arc_ext = os.path.splitext(archive)[1][1:]
 
     if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
-        with tarfile.open(arc_name) as tarf:
+        with tarfile.open(archive) as tarf:
             tarf.extractall()
     elif arc_ext == '.zip':
-        with zipfile.ZipFile(arc_name) as zipf:
+        with zipfile.ZipFile(archive) as zipf:
             zipf.extractall()
     else:
-        cmd = 'unarchive ' + arc_name
+        cmd = 'unarchive ' + archive
         subprocess.call(cmd.split())
 
-    # extracted dir doesn't always match arc_name, glob to be sure
-    arc_front = re.split('[-_]', arc_name)[0] + '*'
-    extracted = None
-    for name in glob.glob(arc_front):
-        if name.rfind(arc_ext) == -1:
-            extracted = name
+def get_archive(url, target):
+    """ Fetch an archive from a site. Works on regular ftp & sourceforge.
+    Wish sourceforge wasn't a pain...
 
-    if not os.path.exists(target):
-        os.makedirs(target)
-        os.rmdir(target)
-    os.rename(extracted, target)
-    os.remove(arc_name)
+    url: location to get archive
+    target: where to extract to
+    """
+    arc_name = find_archive(url)
+
+    try:
+        # Using wget because of sourceforge corner case
+        cmd = 'wget -O %s %s' % (arc_name, url)
+        subprocess.call(cmd.split())
+
+        extract_archive(arc_name)
+
+        # extracted dir doesn't always match arc_name, glob to be sure
+        arc_front = re.split('[-_]', arc_name)[0] + '*'
+        extracted = None
+        for name in glob.glob(arc_front):
+            if name != arc_name:
+                extracted = name
+
+        if not os.path.exists(target):
+            os.makedirs(target)
+            os.rmdir(target)
+        os.rename(extracted, target)
+    finally:
+        if os.path.exists(arc_name):
+            os.remove(arc_name)
+        if os.path.exists(extracted):
+            shutil.rmtree(extracted)
 
 def get_code(url, target):
     """ Wrapper function to clone repos, only executes if target doesn't exist
