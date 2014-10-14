@@ -661,10 +661,15 @@ def main():
         [actions[x]() for x in args.stages]
 
         # Multiprocess to overlap download and build
+        procs = []
         for nam in builds:
             proc = multiprocessing.Process(target=build_src,
                     args=(nam, odir,))
             proc.start()
+            procs.append(proc)
+
+        for proc in procs:
+            proc.join()
 
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
