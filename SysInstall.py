@@ -665,7 +665,8 @@ def main():
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--odir', nargs='?', default=None, help='install dir')
+    parser.add_argument('-o', '--odir', nargs='?', default=None,
+            help='install dir')
     parser.add_argument('stages', nargs='+', help='stages to execute',
             choices=actions.keys())
 
