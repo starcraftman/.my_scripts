@@ -355,9 +355,9 @@ def get_archive(url, target):
     url: location to get archive
     target: where to extract to
     """
-    arc_name = find_archive(url)
-
     try:
+        arc_name = find_archive(url)
+
         # Using wget because of sourceforge corner case
         cmd = 'wget -O %s %s' % (arc_name, url)
         subprocess.call(cmd.split())
