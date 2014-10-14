@@ -14,6 +14,7 @@ import os
 import re
 import shutil
 import subprocess
+import multiprocessing
 import sys
 import tarfile
 import zipfile
@@ -117,142 +118,128 @@ else:
     NUM_JOBS = 2
 
 BUILDS = {
-    'atom': [
-        {
-            'name' : 'atom',
-            'check': 'bin/atom',
-            'url'  : 'https://github.com/atom/atom',
-            'cmds' : [
-                'script/build',
-                'script/grunt install --install-dir TARGET',
-            ],
-        },
-    ],
-    'cmake': [
-        {
-            'name' : 'cmake',
-            'check': 'bin/cmake',
-            'url'   : URL_CMAKE,
-            'cmds' : [
-                './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
-                --mandir=share/man --enable-ccache --qt-gui --sphinx-man \
-                --sphinx-html',
-                'make -jJOBS',
-                'make install',
-            ],
-        },
-    ],
-    'doxygen': [
-        {
-            'name' : 'doxygen',
-            'check': 'bin/doxygen',
-            'url'  : 'https://github.com/doxygen/doxygen.git',
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make -jJOBS',
-            ],
-            'globs': [
-                ('bin/doxygen', 'bin/'),
-                ('doc/*.1', 'share/man/man1/'),
-            ],
-        },
-    ],
-    'dev': [
-        {
-            'name' : 'ack',
-            'check': 'bin/ack',
-            'url'  : 'https://github.com/petdance/ack2.git',
-            'cmds' : [
-                'perl Makefile.PL',
-                'make ack-standalone',
-                'make manifypods',
-            ],
-            'globs': [
-                ('ack-standalone', 'bin/'),
-                ('ack-standalone', 'bin/ack'),
-                ('blib/man1/*.1*', 'share/man/man1/'),
-            ],
-        },
-        {
-            'name' : 'ag',
-            'check': 'bin/ag',
-            'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
-            'cmds' : [
-                './build.sh --prefix=TARGET',
-                'make install',
-            ],
-        },
-        {
-            'name' : 'parallel',
-            'check': 'bin/parallel',
-            'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make -jJOBS install',
-            ],
-        },
-        {
-            'name' : 'vimpager',
-            'check': 'bin/vimpager',
-            'url'  : 'https://github.com/rkitover/vimpager.git',
-            'globs': [
-                ('vimcat', 'bin/'),
-                ('vimpager', 'bin/'),
-                ('*.1', 'share/man/man1/'),
-            ],
-        },
-        {
-            'name' : 'zsh_docs',
-            'check': 'share/man/man1/zshall.1',
-            'url'  : URL_ZSH,
-            'globs': [
-                ('Doc/*.1', 'share/man/man1/'),
-            ],
-        },
-    ],
-    'python': [
-        {
-            'name' : 'python',
-            'check': 'bin/python',
-            'url'  : URL_PYTHON,
-            'cmds' : [
-                './configure --prefix=TARGET',
-                'make',
-                'make install',
-            ],
-        },
-    ],
-    'vim': [
-        {
-            'name' : 'vim',
-            'check': 'bin/vim',
-            'url'  : 'https://code.google.com/p/vim/',
-            'cmds' : [
-                './configure --with-features=huge --enable-gui=gtk2 \
-                --enable-cscope --enable-multibyte --enable-luainterp \
-                --enable-perlinterp --enable-pythoninterp \
-                --with-python-config-dir=/usr/lib/python2.7/config \
-                --prefix=TARGET',
-                'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
-                'make install',
-            ],
-        },
-    ],
-    'zsh': [
-        {
-            'name' : 'zsh',
-            'check': 'bin/zsh',
-            'url'  : 'https://github.com/zsh-users/zsh.git',
-            'cmds' : [
-                './Util/preconfig',
-                'autoconf',
-                './configure --prefix=TARGET --enable-cap --enable-pcre \
-                --enable-maildir-support',
-                'make',
-                'make install',
-            ],
-        },
-    ],
+    'ack': {
+        'name' : 'ack',
+        'check': 'bin/ack',
+        'url'  : 'https://github.com/petdance/ack2.git',
+        'cmds' : [
+            'perl Makefile.PL',
+            'make ack-standalone',
+            'make manifypods',
+        ],
+        'globs': [
+            ('ack-standalone', 'bin/'),
+            ('ack-standalone', 'bin/ack'),
+            ('blib/man1/*.1*', 'share/man/man1/'),
+        ],
+    },
+    'ag': {
+        'name' : 'ag',
+        'check': 'bin/ag',
+        'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
+        'cmds' : [
+            './build.sh --prefix=TARGET',
+            'make install',
+        ],
+    },
+    'atom': {
+        'name' : 'atom',
+        'check': 'bin/atom',
+        'url'  : 'https://github.com/atom/atom',
+        'cmds' : [
+            'script/build',
+            'script/grunt install --install-dir TARGET',
+        ],
+    },
+    'cmake': {
+        'name' : 'cmake',
+        'check': 'bin/cmake',
+        'url'   : URL_CMAKE,
+        'cmds' : [
+            './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
+            --mandir=share/man --enable-ccache --qt-gui --sphinx-man \
+            --sphinx-html',
+            'make -jJOBS',
+            'make install',
+        ],
+    },
+    'doxygen': {
+        'name' : 'doxygen',
+        'check': 'bin/doxygen',
+        'url'  : 'https://github.com/doxygen/doxygen.git',
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS',
+        ],
+        'globs': [
+            ('bin/doxygen', 'bin/'),
+            ('doc/*.1', 'share/man/man1/'),
+        ],
+    },
+    'parallel': {
+        'name' : 'parallel',
+        'check': 'bin/parallel',
+        'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'python': {
+        'name' : 'python',
+        'check': 'bin/python',
+        'url'  : URL_PYTHON,
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make',
+            'make install',
+        ],
+    },
+    'vim': {
+        'name' : 'vim',
+        'check': 'bin/vim',
+        'url'  : 'https://code.google.com/p/vim/',
+        'cmds' : [
+            './configure --with-features=huge --enable-gui=gtk2 \
+            --enable-cscope --enable-multibyte --enable-luainterp \
+            --enable-perlinterp --enable-pythoninterp \
+            --with-python-config-dir=/usr/lib/python2.7/config \
+            --prefix=TARGET',
+            'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
+            'make install',
+        ],
+    },
+    'vimpager': {
+        'name' : 'vimpager',
+        'check': 'bin/vimpager',
+        'url'  : 'https://github.com/rkitover/vimpager.git',
+        'globs': [
+            ('vimcat', 'bin/'),
+            ('vimpager', 'bin/'),
+            ('*.1', 'share/man/man1/'),
+        ],
+    },
+    'zsh': {
+        'name' : 'zsh',
+        'check': 'bin/zsh',
+        'url'  : 'https://github.com/zsh-users/zsh.git',
+        'cmds' : [
+            './Util/preconfig',
+            'autoconf',
+            './configure --prefix=TARGET --enable-cap --enable-pcre \
+            --enable-maildir-support',
+            'make',
+            'make install',
+        ],
+    },
+    'zsh_docs': {
+        'name' : 'zsh_docs',
+        'check': 'share/man/man1/zshall.1',
+        'url'  : URL_ZSH,
+        'globs': [
+            ('Doc/*.1', 'share/man/man1/'),
+        ],
+    },
 }
 
 # Classes
@@ -460,8 +447,9 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
-def build_src(build, target=None):
-    """ Build a project downloeaded from url. Build is a json described below.
+def build_src(name, target=None):
+    """ Build a project downloeaded from url. Name is a key in BUILDS json.
+        The format is described below. Queue is to notify parent.
         Cmds are executed in srcdir, then if globs non-empty copy files as
         described in glob/target pairs.
         Required names prefixed with R.
@@ -481,6 +469,7 @@ def build_src(build, target=None):
             ]
         }
     """
+    build = BUILDS[name]
     tdir = os.path.abspath(build.get('tdir', target))
     srcdir = '%s/src/%s' % (tdir, build['name'])
 
@@ -515,7 +504,6 @@ def build_src(build, target=None):
         shutil.rmtree(srcdir)
 
     print('Finished building ' + build['name'])
-
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
@@ -634,7 +622,8 @@ def main():
 
     # Simple wrapper saves func
     odir = os.path.expanduser('~/.opt1')
-    bwrap = lambda name: [build_src(x, odir) for x in BUILDS[name]]
+    bwrap = lambda name: builds.append(name)
+    builds = []
 
     # Use a dict of funcs instead of a case switch
     actions = {
@@ -647,7 +636,8 @@ def main():
         'pipelight':    install_pipelight,
         'atom':         lambda: bwrap('atom'),
         'cmake':        lambda: bwrap('cmake'),
-        'dev':          lambda: bwrap('dev'),
+        'dev':          lambda: builds.extend(('ag', 'ack', 'parallel',
+            'vimpager', 'zsh_docs')),
         'doxygen':      lambda: bwrap('doxygen'),
         'python':       lambda: bwrap('python'),
         'vim':          lambda: bwrap('vim'),
@@ -669,6 +659,13 @@ def main():
 
     try:
         [actions[x]() for x in args.stages]
+
+        # Multiprocess to overlap download and build
+        for nam in builds:
+            proc = multiprocessing.Process(target=build_src,
+                    args=(nam, odir,))
+            proc.start()
+
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
     except NotSudo:
