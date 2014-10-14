@@ -9,12 +9,13 @@
 # Imports
 from __future__ import print_function
 import argparse
+import functools
 import glob
+import multiprocessing
 import os
 import re
 import shutil
 import subprocess
-import multiprocessing
 import sys
 import tarfile
 import zipfile
@@ -622,10 +623,9 @@ def main():
 
     # Simple wrapper saves func
     odir = os.path.expanduser('~/.opt1')
-    bwrap = lambda name: builds.append(name)
     builds = []
 
-    # Use a dict of funcs instead of a case switch
+    # Use a dict of funcs to process args
     actions = {
         'home':         home_config,
         'debian':       packs_debian,
@@ -634,15 +634,15 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
-        'atom':         lambda: bwrap('atom'),
-        'cmake':        lambda: bwrap('cmake'),
-        'dev':          lambda: builds.extend(('ag', 'ack', 'parallel',
-                        'vimpager', 'zsh_docs')),
-        'doxygen':      lambda: bwrap('doxygen'),
-        'python':       lambda: bwrap('python'),
-        'vim':          lambda: bwrap('vim'),
-        'zsh':          lambda: bwrap('zsh'),
     }
+    # Generate this part dynamically
+    builds_avail = ('atom', 'cmake', ('dev', ('ag', 'ack', 'parallel',
+        'vimpager', 'zsh_docs')), 'python', 'vim', 'zsh')
+    for name in builds_avail:
+        if isinstance(name, (list, tuple)):
+            actions[name[0]] = functools.partial(builds.extend, name[1])
+        else:
+            actions[name] = functools.partial(builds.append, name)
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -658,7 +658,8 @@ def main():
         odir = args.odir
 
     try:
-        [actions[x]() for x in args.stages]
+        for stage in args.stages:
+            actions[stage]()
 
         # Multiprocess to overlap download and build
         procs = []
