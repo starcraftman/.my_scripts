@@ -637,7 +637,7 @@ def main():
         'atom':         lambda: bwrap('atom'),
         'cmake':        lambda: bwrap('cmake'),
         'dev':          lambda: builds.extend(('ag', 'ack', 'parallel',
-            'vimpager', 'zsh_docs')),
+                        'vimpager', 'zsh_docs')),
         'doxygen':      lambda: bwrap('doxygen'),
         'python':       lambda: bwrap('python'),
         'vim':          lambda: bwrap('vim'),
