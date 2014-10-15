@@ -77,7 +77,7 @@ PROGRAMMING = """ \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev libmpfr-dev \
-    libcurl4-openssl-dev \
+    libcurl4-openssl-dev libevent-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
@@ -110,6 +110,8 @@ PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
 URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
+URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
+tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
 
@@ -196,6 +198,15 @@ BUILDS = {
             './configure --prefix=TARGET',
             'make',
             'make install',
+        ],
+    },
+    'tmux': {
+        'name' : 'tmux',
+        'check': 'bin/tmux',
+        'url'  : URL_TMUX,
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
         ],
     },
     'vim': {
@@ -648,6 +659,7 @@ def main():
     cmake       Build latest cmake from source.
     dev         Build standard dev progs like ag, ack, parallel.
     doxygen     Build latest doxygen from source.
+    tmux        Build the latest tmux from source.
     python      Build latest python from source.
     vim         Build latest vim from source.
     zsh         Build latest zsh from source.
@@ -671,7 +683,7 @@ def main():
     }
     # Generate this part dynamically
     gen_actions = {key: functools.partial(builds.append, key)
-        for key in ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh')}
+        for key in ('atom', 'cmake', 'doxygen', 'python', 'tmux', 'vim', 'zsh')}
     actions.update(gen_actions)
 
     parser = argparse.ArgumentParser(description=mesg,
