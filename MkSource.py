@@ -115,15 +115,14 @@ def main():
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('-c', '--config', action='append', dest='configs',
-                        default=[], help='non source templates',
+    parser.add_argument('-c', '--config', nargs='+', action='append',
+                        dest='configs', default=[], help='non source templates',
                         choices=CONFIGS.keys())
     parser.add_argument('-i', '--header', action='append', dest='h_files',
                         default=[], help='header file to create')
     parser.add_argument('-l', '--lang', default=None,
                         help='the language to make', choices=LANGS.keys())
-    parser.add_argument('-t', '--target', nargs='?', default='.',
-                        help='target dir')
+    parser.add_argument('-t', '--target', default='.', help='target dir')
     parser.add_argument('s_files', nargs='*', help='source files to create')
 
     autocomplete(parser)
@@ -133,10 +132,9 @@ def main():
     if not os.path.exists(target):
         os.makedirs(target)
 
-    # BZit of a hack, some files are config instead of source, so just copy
+    # Bit of a hack, some files are config instead of source, so just copy
     for config in args.configs:
-        if CONFIGS.has_key(config):
-            shutil.copy(TEMPLATE_DIR + CONFIGS[config], target)
+        shutil.copy(TEMPLATE_DIR + CONFIGS[config], target)
 
     if args.lang:
         if len(args.s_files) == 0 and len(args.h_files) == 0:
