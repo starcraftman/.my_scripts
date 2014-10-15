@@ -659,11 +659,12 @@ def main():
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
         'dev':          functools.partial(builds.extend, ('ag', 'ack',
-                        'parallel', 'vimpager', 'zsh_docs'))
+                        'parallel', 'vimpager', 'zsh_docs')),
     }
     # Generate this part dynamically
-    for name in ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh'):
-        actions[name] = functools.partial(builds.append, name)
+    gen_actions = {key: functools.partial(builds.append, key)
+        for key in ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh')}
+    actions.update(gen_actions)
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
