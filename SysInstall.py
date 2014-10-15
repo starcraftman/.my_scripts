@@ -655,8 +655,7 @@ def main():
         'pipelight':    install_pipelight,
     }
     # Generate this part dynamically
-    builds_avail = ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh')
-    for name in builds_avail:
+    for name in ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh'):
         actions[name] = functools.partial(builds.append, name)
     actions['dev'] = functools.partial(builds.extend, ('ag', 'ack', 'parallel',
         'vimpager', 'zsh_docs'))
