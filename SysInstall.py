@@ -119,6 +119,7 @@ if os.path.exists('/proc/cpuinfo'):
 else:
     NUM_JOBS = 2
 
+TMP_DIR = '/tmp/SysInstall'
 BUILDS = {
     'ack': {
         'name' : 'ack',
@@ -294,11 +295,13 @@ class PDir(object):
         curdir = os.path.abspath(os.curdir)
         PDir.dirs.append(curdir)
         os.chdir(new_dir)
-        print("Changing to: " + new_dir)
+        print("%s >>> %s" % (curdir, new_dir))
     @staticmethod
     def pop():
         """ Pop the dirstack and return to it. """
-        os.chdir(PDir.dirs.pop())
+        old_dir = PDir.dirs.pop()
+        os.chdir(old_dir)
+        print(">>> %s" % old_dir)
 
 # Functions
 
@@ -358,12 +361,20 @@ def get_archive(url, target):
     """
     arc_name = find_archive(url)
 
+    tmp_file = TMP_DIR + os.path.sep + arc_name
+    if not os.path.exists(TMP_DIR):
+        os.makedirs(TMP_DIR)
+
+    if not os.path.exists(target):
+        os.makedirs(target)
+        os.rmdir(target)
+
     try:
         # Using wget because of sourceforge corner case
-        cmd = 'wget -O %s %s' % (arc_name, url)
+        cmd = 'wget -O %s %s' % (tmp_file, url)
         subprocess.call(cmd.split())
 
-        extract_archive(arc_name)
+        extract_archive(tmp_file)
 
         # extracted dir doesn't always match arc_name, glob to be sure
         arc_front = re.split('[-_]', arc_name)[0] + '*'
@@ -372,13 +383,10 @@ def get_archive(url, target):
             if name != arc_name:
                 extracted = name
 
-        if not os.path.exists(target):
-            os.makedirs(target)
-            os.rmdir(target)
         os.rename(extracted, target)
     finally:
-        if os.path.exists(arc_name):
-            os.remove(arc_name)
+        if os.path.exists(tmp_file):
+            os.remove(tmp_file)
         if os.path.exists(extracted):
             shutil.rmtree(extracted)
 
