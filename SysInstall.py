@@ -658,12 +658,12 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
+        'dev':          functools.partial(builds.extend, ('ag', 'ack',
+                        'parallel', 'vimpager', 'zsh_docs'))
     }
     # Generate this part dynamically
     for name in ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh'):
         actions[name] = functools.partial(builds.append, name)
-    actions['dev'] = functools.partial(builds.extend, ('ag', 'ack', 'parallel',
-        'vimpager', 'zsh_docs'))
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
