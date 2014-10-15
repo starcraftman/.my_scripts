@@ -11,6 +11,7 @@ from __future__ import print_function
 import argparse
 import functools
 import glob
+import itertools
 import multiprocessing
 import os
 import re
@@ -355,9 +356,9 @@ def get_archive(url, target):
     url: location to get archive
     target: where to extract to
     """
-    try:
-        arc_name = find_archive(url)
+    arc_name = find_archive(url)
 
+    try:
         # Using wget because of sourceforge corner case
         cmd = 'wget -O %s %s' % (arc_name, url)
         subprocess.call(cmd.split())
@@ -618,6 +619,10 @@ def install_pipelight():
         subprocess.call(cmd)
     print("Installation over, remember to use a useragent switcher.")
 
+def build_wrap(args):
+    """ Wrapper for build_src in process pool. """
+    build_src(*args)
+
 def main():
     """ Main function. """
     mesg = """This script sets up a dev environment.
@@ -678,16 +683,12 @@ def main():
         for stage in args.stages:
             actions[stage]()
 
-        # Multiprocess to overlap download and build
-        procs = []
-        for nam in builds:
-            proc = multiprocessing.Process(target=build_src,
-                    args=(nam, odir,))
-            proc.start()
-            procs.append(proc)
-
-        for proc in procs:
-            proc.join()
+        # Multiprocess to overlap builds
+        pool_args = itertools.izip(sorted(builds), itertools.repeat(odir))
+        pool = multiprocessing.Pool()
+        pool.map_async(build_wrap, pool_args)
+        pool.close()
+        pool.join()
 
     except IOError as exc:
         print('Failed to install: {}'.format(exc))
