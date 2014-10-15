@@ -279,13 +279,16 @@ debug()
         set +o extdebug
         set +o verbose
         set +o xtrace
-        PROMPT_COMMAND="$PROMPT_OLD_COMMAND"
-        unset PROMPT_OLD_COMMAND
+        export PROMPT_COMMAND="$OLD_PROMPT_COMMAND"
+        unset OLD_PROMPT_COMMAND
+        export PS1="$OLD_PS1"
+        unset OLD_PS1
         echo -e "Bash Debug Mode: ${T_BRED}DISABLED${T_RESET}"
     else
-        PROMPT_OLD_COMMAND="$PROMPT_COMMAND"
-        PROMPT_COMMAND=""
-        export PS1="${PS1_REDBOLD} >>DEBUG<< ${NC}${GIT_PROMPT_START}${GIT_PROMPT_END}"
+        OLD_PROMPT_COMMAND="$PROMPT_COMMAND"
+        export PROMPT_COMMAND=""
+        OLD_PS1="$PS1"
+        export PS1="$PS1_BRED >>DEBUG<< $PS1_R$PS1"
         #set -o nounset
         set -o extdebug
         set -o verbose
