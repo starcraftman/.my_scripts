@@ -655,13 +655,11 @@ def main():
         'pipelight':    install_pipelight,
     }
     # Generate this part dynamically
-    builds_avail = ('atom', 'cmake', ('dev', ('ag', 'ack', 'parallel',
-        'vimpager', 'zsh_docs')), 'doxygen', 'python', 'vim', 'zsh')
+    builds_avail = ('atom', 'cmake', 'doxygen', 'python', 'vim', 'zsh')
     for name in builds_avail:
-        if isinstance(name, (list, tuple)):
-            actions[name[0]] = functools.partial(builds.extend, name[1])
-        else:
-            actions[name] = functools.partial(builds.append, name)
+        actions[name] = functools.partial(builds.append, name)
+    actions['dev'] = functools.partial(builds.extend, ('ag', 'ack', 'parallel',
+        'vimpager', 'zsh_docs'))
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
