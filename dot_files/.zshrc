@@ -207,6 +207,11 @@ if valid_name shutdown; then
     alias off='sudo shutdown -h now'
 fi
 
+# Force 256 colors, woe is me without
+if valid_name tmux; then
+    alias tmux='tmux -2'
+fi
+
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
 if valid_name trash-put; then
     alias trash-restore='restore-trash'
