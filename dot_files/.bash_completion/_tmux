@@ -47,7 +47,9 @@ _tmux() {
             return 0
             ;;
         -t)
-            COMPREPLY=( $(tmux list-sessions | cut -d ' ' -f 1 | tr ':' ' ') )
+            if ! contains "$(tmux list-sessions 2>&1)" "failed"; then
+                COMPREPLY=( $(tmux list-sessions | cut -d ' ' -f 1 | tr ':' ' ') )
+            fi
             return 0
             ;;
         kill-server|list-commands|list-sessions|start)
