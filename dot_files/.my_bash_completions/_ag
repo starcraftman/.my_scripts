@@ -80,19 +80,35 @@ _ag() {
 
     _split_longopt && split=true
 
+    local avail_pagers
+    if [ -n "${__PAGERS_CACHE}" ]; then
+        avail_pagers="${__PAGERS_CACHE}"
+    else
+        for pager in "less" "more" "vimpager"; do
+            if valid_name $pager; then
+                avail_pagers+="$pager "
+            fi
+        done
+        export __PAGERS_CACHE="$avail_pagers"
+    fi
+
     case "${prev}" in
-        --ignore-dir) # directory completion
+        # directory completion
+        --ignore-dir)
             _filedir -d
             return 0
             ;;
-        --path-to-agignore) # file completion
+        # file completion
+        --path-to-agignore)
             _filedir
             return 0
             ;;
-        --pager) # command completion
-            COMPREPLY=( $(compgen -c -- "${cur}") )
+        # pager completion
+        --pager)
+            COMPREPLY=( $(compgen -W "${avail_pagers}" -- "${cur}") )
             return 0
             ;;
+        # no completion for these
         --ackmate-dir-filter|--after|--before|--color-*|--context|--depth\
         |--file-search-regex|--ignore|--max-count|--workers)
             return 0
@@ -103,11 +119,7 @@ _ag() {
 
     case "${cur}" in
         -*)
-            if [[ "${COMP_CWORD}" -eq 1 ]] ; then
-                COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
-            else
-                COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
-            fi
+            COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
             return 0
             ;;
         *)

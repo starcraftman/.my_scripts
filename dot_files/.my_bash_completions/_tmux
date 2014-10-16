@@ -42,16 +42,19 @@ _tmux() {
     _split_longopt && split=true
 
     case "${prev}" in
-        source|-f|-S) # file completion
+        # file completion
+        source|-f|-S)
             _filedir
             return 0
             ;;
+        # session completion
         -t)
             if ! contains "$(tmux list-sessions 2>&1)" "failed"; then
                 COMPREPLY=( $(tmux list-sessions | cut -d ' ' -f 1 | tr ':' ' ') )
             fi
             return 0
             ;;
+        # no completion for these
         kill-server|list-commands|list-sessions|start)
             return 0
             ;;
@@ -61,11 +64,7 @@ _tmux() {
 
     case "${cur}" in
         -*)
-            if [[ "${COMP_CWORD}" -eq 1 ]] ; then
-                COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
-            else
-                COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
-            fi
+            COMPREPLY=( $(compgen -W "${lngopt} ${shtopt}" -- "${cur}") )
             return 0
             ;;
         *)

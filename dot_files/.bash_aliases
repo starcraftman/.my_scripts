@@ -491,12 +491,6 @@ unset MAILCHECK
 # Misc Options
 ############################################################################
 #{{{
-# Ssh completion of used hosts
-complete -W "$(echo $(grep '^ssh ' .bash_history | cut -d ' ' -f 2 | sort -u))" ssh
-for script in $MYSCRIPTS/dot_files/.bash_completion/* ; do
-    source $script
-done
-
 # Enable the windows key on Ubuntu as F13
 if valid_name xmodmap && [ -n "$DISPLAY" ]; then
     xmodmap -e 'keycode 133 = F13'

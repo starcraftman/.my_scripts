@@ -1,0 +1,10 @@
+#!/bin/bash
+# Holds any custom complete commands found useful
+
+# Ssh completion of used hosts
+complete -W "$(echo $(grep '^ssh ' .bash_history | cut -d ' ' -f 2 | sort -u))" ssh
+
+# Source local completions
+for script in $MYSCRIPTS/dot_files/.bash_completions/* ; do
+    source $script
+done
