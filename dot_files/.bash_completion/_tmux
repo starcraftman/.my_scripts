@@ -73,3 +73,4 @@ _tmux() {
     esac
 } &&
 complete -F _tmux ${nospace} tmux
+# vim:set ft=sh:

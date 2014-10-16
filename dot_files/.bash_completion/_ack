@@ -109,3 +109,4 @@ _ack() {
     esac
 } &&
 complete -F _ack ${nospace} ack
+# vim:set ft=sh:
