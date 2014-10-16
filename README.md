@@ -69,7 +69,7 @@ archive/change_author.sh
 ------------------------
 * change_author.sh, really useful if you make commit user/email mistakes.
 
-archive/bootstrap_py_and_zsh.sh
+archive/bootstrap.sh
 ------------------------
 * Bash boostrap for python and zsh locally..
 * Useful if you want either on a system without packages or without sudo power.
