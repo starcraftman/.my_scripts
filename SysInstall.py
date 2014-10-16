@@ -420,9 +420,11 @@ def get_code(url, target):
         subprocess.call(cmd.split())
 
 def make_cmd(src, dst):
-    """ Generator for helper. """
+    """ Generate a function helper. """
     def cmd_when_dst_empty(files, command, opts=None):
-        """ Execute a command if destination empty. """
+        """ When dst doesn't have file do:
+                command(src + file, dst + file, *opts)
+        """
         if opts == None:
             opts = ()
         for fil in files:
@@ -443,12 +445,10 @@ def home_config():
     src = script_dir + os.sep + 'dot_files' + os.sep
     home = os.path.expanduser('~') + os.sep
 
-    # Helper function
-    helper = make_cmd(src, home)
-
     # Glob all files in dot_files and link them to home
     files = glob.glob(src + '.*')
     files = [x[x.rindex(os.sep)+1:] for x in files]
+    helper = make_cmd(src, home)
     helper(files, os.symlink)
 
     # Init vundle for vim plugin install.
