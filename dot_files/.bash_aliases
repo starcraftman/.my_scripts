@@ -493,7 +493,7 @@ unset MAILCHECK
 #{{{
 # Ssh completion of used hosts
 complete -W "$(echo $(grep '^ssh ' .bash_history | cut -d ' ' -f 2 | sort -u))" ssh
-for script in "$MYSCRIPTS/dot_files/.bash_completion/*"; do
+for script in $MYSCRIPTS/dot_files/.bash_completion/* ; do
     source $script
 done
 

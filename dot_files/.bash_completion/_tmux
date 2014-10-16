@@ -1,0 +1,73 @@
+valid_name tmux &&
+_tmux() {
+  local lngopt shtopt split=false
+  local cur prev
+
+  COMPREPLY=()
+  cur=$(_get_cword "=")
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  _expand || return 0
+
+  lngopt='
+    attach
+    detach
+    has-session
+    kill-server
+    kill-session
+    list-clients
+    list-commands
+    list-sessions
+    lock-client
+    lock-session
+    new
+    refresh
+    rename
+    show-messages
+    soure
+    start-server
+    suspend-client
+    switch-client
+  '
+  shtopt='
+  -2 -8 -c -C -f -l -L
+  -q -S -u -v -V
+  '
+
+  # these options require an argument
+  if [[ "${prev}" == -@(c|L) ]] ; then
+    return 0
+  fi
+
+  _split_longopt && split=true
+
+  case "${prev}" in
+   source|-f|-S) # file completion
+              _filedir
+              return 0;;
+   -t)
+              COMPREPLY=( $(tmux list-sessions | cut -d ' ' -f 1 | tr ':' ' ') )
+              return 0;;
+   kill-server|list-commands|list-sessions|start)
+              return 0;;
+  esac
+
+  $split && return 0
+
+  case "${cur}" in
+    -*)
+          if [[ "${COMP_CWORD}" -eq 1 ]] ; then
+            COMPREPLY=( $(compgen -W \
+              "${lngopt} ${shtopt}" -- "${cur}") )
+          else
+            COMPREPLY=( $(compgen -W \
+              "${lngopt} ${shtopt}" -- "${cur}") )
+          fi
+          return 0;;
+    *)
+          COMPREPLY=( $(compgen -W \
+            "${lngopt} ${shtopt}" -- "${cur}") )
+          return 0;;
+  esac
+} &&
+complete -F _tmux ${nospace} tmux
