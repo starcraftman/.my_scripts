@@ -1048,3 +1048,4 @@ function! s:OpenFT()
     exec 'sp ' . l:file
 endfunction
 " }}}
+"vim:set foldmethod=marker:
