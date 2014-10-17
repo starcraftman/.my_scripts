@@ -670,8 +670,8 @@ def main():
     cmake       Build latest cmake from source.
     dev         Build standard dev progs like ag, ack, parallel.
     doxygen     Build latest doxygen from source.
-    tmux        Build the latest tmux from source.
     python      Build latest python from source.
+    tmux        Build the latest tmux from source.
     vim         Build latest vim from source.
     zsh         Build latest zsh from source.
     """
