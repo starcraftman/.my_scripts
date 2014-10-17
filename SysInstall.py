@@ -487,9 +487,9 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
-def build_src(name, target=None):
-    """ Build a project downloeaded from url. Name is a key in BUILDS json.
-        The format is described below. Queue is to notify parent.
+def build_src(build, target=None):
+    """ Build a project downloeaded from url. build is a json object.
+        The format is described below.
         Cmds are executed in srcdir, then if globs non-empty copy files as
         described in glob/target pairs.
         Required names prefixed with R.
@@ -509,7 +509,6 @@ def build_src(name, target=None):
             ]
         }
     """
-    build = BUILDS[name]
     tdir = os.path.abspath(build.get('tdir', target))
     srcdir = '%s/src/%s' % (tdir, build['name'])
 
@@ -705,7 +704,9 @@ def main():
             actions[stage]()
 
         # Multiprocess to overlap builds
-        pool_args = itertools.izip(sorted(builds), itertools.repeat(odir))
+
+        pool_args = itertools.izip([BUILDS[name] for name in builds],
+                itertools.repeat(odir))
         pool = multiprocessing.Pool()
         pool.map_async(build_wrap, pool_args)
         pool.close()

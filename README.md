@@ -15,8 +15,8 @@ SysInstall.py
     the latest versions of important programs. Default location is
     ~/.opt1.
 
-archive/GetLibs.py
-------------------
+GetLibs.py
+----------
 * Related to above, builds C libs locally to externalize depency from system. 
 
 MkSource.py
