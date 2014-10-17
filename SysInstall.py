@@ -419,6 +419,78 @@ def get_code(url, target):
     if not os.path.exists(target):
         subprocess.call(cmd.split())
 
+def build_src(build, target=None):
+    """ Build a project downloeaded from url. build is a json object.
+        The format is described below.
+        Cmds are executed in srcdir, then if globs non-empty copy files as
+        described in glob/target pairs.
+        Required names prefixed with R.
+        {
+          R 'name': 'ack',
+          R 'check': 'path/to/check',
+          R 'url' : 'https://github.com/petdance/ack2.git',
+            'tdir': /path/to/install/to,
+            'cmds': [
+                'perl Makefile.PL',
+                'make ack-standalone',
+                'make manifypods'
+            ],
+            'globs': [
+                ('ack-standalone', 'bin/ack'),
+                ('blib/man1/*.1*', 'share/man/man1')
+            ]
+        }
+    """
+    tdir = os.path.abspath(build.get('tdir', target))
+    srcdir = '%s/src/%s' % (tdir, build['name'])
+
+    # Guard if command exists
+    if os.path.exists(tdir + os.sep + build['check']):
+        return
+
+    try:
+        get_archive(build['url'], srcdir)
+    except ArchiveNotSupported:
+        get_code(build['url'], srcdir)
+
+    try:
+        # Code should be at srcdir by here.
+        PDir.push(srcdir)
+        for cmd in build.get('cmds', []):
+            cmd = cmd.replace('TARGET', tdir)
+            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
+            subprocess.call(cmd.split())
+        PDir.pop()
+
+        # Manual copies sometimes required to finish install
+        for pattern, target in build.get('globs', []):
+            dest = tdir + os.sep + target
+            if dest.endswith('/') and not os.path.exists(dest):
+                os.makedirs(dest)
+
+            for sfile in glob.glob(srcdir + os.sep + pattern):
+                if os.path.isfile(sfile):
+                    shutil.copy(sfile, dest)
+    finally:
+        shutil.rmtree(srcdir)
+
+    print('Finished building ' + build['name'])
+
+def build_wrap(args):
+    """ Wrapper for build_src in process pool. """
+    build_src(*args)
+
+def build_pool(builds, target):
+    """ Take a series of build objects and use a pool of workers
+        to build them and install to target.
+        NB: Blocks until all workers finished.
+    """
+    pool_args = itertools.izip(builds, itertools.repeat(target))
+    pool = multiprocessing.Pool()
+    pool.map_async(build_wrap, pool_args)
+    pool.close()
+    pool.join()
+
 def make_cmd(src, dst):
     """ Generate a function helper. """
     def cmd_when_dst_empty(files, command, opts=None):
@@ -486,63 +558,6 @@ def home_config():
         os.mkdir(ddir)
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
-
-def build_src(build, target=None):
-    """ Build a project downloeaded from url. build is a json object.
-        The format is described below.
-        Cmds are executed in srcdir, then if globs non-empty copy files as
-        described in glob/target pairs.
-        Required names prefixed with R.
-        {
-          R 'name': 'ack',
-          R 'check': 'path/to/check',
-          R 'url' : 'https://github.com/petdance/ack2.git',
-            'tdir': /path/to/install/to,
-            'cmds': [
-                'perl Makefile.PL',
-                'make ack-standalone',
-                'make manifypods'
-            ],
-            'globs': [
-                ('ack-standalone', 'bin/ack'),
-                ('blib/man1/*.1*', 'share/man/man1')
-            ]
-        }
-    """
-    tdir = os.path.abspath(build.get('tdir', target))
-    srcdir = '%s/src/%s' % (tdir, build['name'])
-
-    # Guard if command exists
-    if os.path.exists(tdir + os.sep + build['check']):
-        return
-
-    try:
-        get_archive(build['url'], srcdir)
-    except ArchiveNotSupported:
-        get_code(build['url'], srcdir)
-
-    try:
-        # Code should be at srcdir by here.
-        PDir.push(srcdir)
-        for cmd in build.get('cmds', []):
-            cmd = cmd.replace('TARGET', tdir)
-            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
-            subprocess.call(cmd.split())
-        PDir.pop()
-
-        # Manual copies sometimes required to finish install
-        for pattern, target in build.get('globs', []):
-            dest = tdir + os.sep + target
-            if dest.endswith('/') and not os.path.exists(dest):
-                os.makedirs(dest)
-
-            for sfile in glob.glob(srcdir + os.sep + pattern):
-                if os.path.isfile(sfile):
-                    shutil.copy(sfile, dest)
-    finally:
-        shutil.rmtree(srcdir)
-
-    print('Finished building ' + build['name'])
 
 def packs_babun():
     """ Setup a fresh babun install. """
@@ -638,10 +653,6 @@ def install_pipelight():
         subprocess.call(cmd)
     print("Installation over, remember to use a useragent switcher.")
 
-def build_wrap(args):
-    """ Wrapper for build_src in process pool. """
-    build_src(*args)
-
 def main():
     """ Main function. """
     mesg = """This script sets up a dev environment.
@@ -704,14 +715,9 @@ def main():
         for stage in args.stages:
             actions[stage]()
 
-        # Multiprocess to overlap builds
-
-        pool_args = itertools.izip([BUILDS[name] for name in builds],
-                itertools.repeat(odir))
-        pool = multiprocessing.Pool()
-        pool.map_async(build_wrap, pool_args)
-        pool.close()
-        pool.join()
+        # build the components in parallel
+        build_objs = [BUILDS[name] for name in builds]
+        build_pool(build_objs, odir)
 
     except IOError as exc:
         print('Failed to install: {}'.format(exc))

@@ -290,6 +290,17 @@ def build_wrap(args):
     """ Wrapper for build_src in process pool. """
     build_src(*args)
 
+def build_pool(builds, target):
+    """ Take a series of build objects and use a pool of workers
+        to build them and install to target.
+        NB: Blocks until all workers finished.
+    """
+    pool_args = itertools.izip(builds, itertools.repeat(target))
+    pool = multiprocessing.Pool()
+    pool.map_async(build_wrap, pool_args)
+    pool.close()
+    pool.join()
+
 def main():
     """ Main function. """
     mesg = """This script installs locally c libs.
@@ -329,12 +340,8 @@ def main():
             actions[lib]()
 
         # Multiprocess to overlap builds
-        pool_args = itertools.izip([BUILDS[name] for name in builds],
-                itertools.repeat(ldir))
-        pool = multiprocessing.Pool()
-        pool.map_async(build_wrap, pool_args)
-        pool.close()
-        pool.join()
+        build_objs = (BUILDS[name] for name in builds)
+        build_pool(build_objs, ldir)
     finally:
         os.remove(config)
 

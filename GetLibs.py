@@ -10,8 +10,6 @@
 from __future__ import print_function
 import argparse
 import functools
-import itertools
-import multiprocessing
 import os
 import SysInstall
 try:
@@ -147,12 +145,8 @@ def main():
             actions[lib]()
 
         # Multiprocess to overlap builds
-        pool_args = itertools.izip([BUILDS[name] for name in builds],
-                itertools.repeat(ldir))
-        pool = multiprocessing.Pool()
-        pool.map_async(SysInstall.build_wrap, pool_args)
-        pool.close()
-        pool.join()
+        build_objs = (BUILDS[name] for name in builds)
+        SysInstall.build_pool(build_objs, ldir)
     finally:
         os.remove(config)
 
