@@ -3,7 +3,7 @@ PYTHON_URL=https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
 ZSH_URL=https://github.com/zsh-users/zsh.git
 DIR=~/.opt1
 
-build_py()
+build_python2()
 {
     local pyarc=python.tar.xz
     curl $PYTHON_URL > "$pyarc"
@@ -33,9 +33,9 @@ build_zsh()
 usage() {
     echo "$(basename $0) arg1 arg2 ...
 
-    dir=newPath >>> set DIR to install to, be careful.
-    py          >>> build python 2 and install to DIR.
-    zsh         >>> build latest zsh, install to DIR.
+    dir ./newPath >>> set DIR to install to, be careful.
+    py|python     >>> build python 2 and install to DIR.
+    zsh           >>> build latest zsh, install to DIR.
     "
 }
 
@@ -44,21 +44,23 @@ if [ "$#" -lt 1 -o "$1" == '--help' -o "$1" == '-h' ]; then
     exit
 fi
 
-for arg; do
-    case "$arg" in
-        py)
-            #build_py
-            echo $DIR
+while (( $# > 0 )); do
+    case "$1" in
+        dir*)
+            shift
+            DIR="$1"
+            ;;
+        py*)
+            build_python2
             ;;
         zsh)
-            #build_zsh
-            ;;
-        dir*)
-            DIR=${arg##*=}
+            build_zsh
             ;;
         *)
             usage
             exit
             ;;
     esac
+
+    shift
 done
