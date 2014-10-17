@@ -6,7 +6,7 @@ If anyone else likes them, use them.
 I've also added in some configs that I don't want to lose like my vimrc and eclipse settings.
 
 SysInstall.py
---------------
+-------------
 * Backbone of my portable configuration, see this to understand rest of this repo.
 * See SysInstall.py --help for full explanation.
 * `home` option sets up a user with my custom configs.
@@ -25,7 +25,7 @@ MkSource.py
 * See templates folder, some like python maybe should be separated to a notes file...
 
 YcmCompile.py
---------------
+-------------
 * See my vim directory, this helper function compiles ycm for use.
 * YCM requires other things, see vimrc for details.
 
@@ -59,6 +59,10 @@ archive
 -------
 * Old templating source before rewrote it in python.
 * Some scripts to manage mpi programs on the university cluster.
+
+archive/GetLibsI.py
+-------------------
+* Inlined version of GetLibs.py, can be used independent of this repo.
 
 archive/repo
 ------------
