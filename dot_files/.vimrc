@@ -957,10 +957,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Easy means to try different schemes for a file
+" Command declarations, functions below
 com! -nargs=0 NScheme call s:NextScheme(0)
 com! -nargs=0 PScheme call s:NextScheme(1)
 com! -nargs=0 PickScheme call s:PickScheme()
+com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
 com! -nargs=0 OpenFT call s:OpenFT()
 
 function! s:InitScheme(remDefaults)
@@ -1032,8 +1033,6 @@ function! s:PickScheme()
 
     call s:SetScheme()
 endfunction
-
-com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
 
 function! s:ChangeSpace(old, new)
     let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old, a:old, a:old)
