@@ -621,6 +621,13 @@ nnoremap <silent> <leader>l :ToggleLL<CR>
 " Shortcut to remember how to reindent file
 nnoremap <F12> mzgg=G'z
 
+" Open netrw in current buffer
+nnoremap <silent> <leader>e :Explore<CR>
+
+" Open netrw vertically or horizontally
+nnoremap <silent> <leader>ev :Vexplore<CR>
+nnoremap <silent> <leader>eh :Hexplore!<CR>
+
 " To open NERDTree when used
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 
