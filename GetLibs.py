@@ -133,16 +133,16 @@ def main():
     args = parser.parse_args()  # Default parses argv[1:]
     ldir = os.path.abspath(args.ldir)
 
-    # Need this for jam to build mpi & graph_parallel.
-    config = os.path.expanduser('~') + os.sep + 'user-config.jam'
-    with open(config, 'w') as f_conf:
-        f_conf.write('using mpi ;')
-
     builds = []
     actions = {key: functools.partial(builds.append, key)
         for key in BUILDS.keys()}
 
     try:
+        # Need this for jam to build mpi & graph_parallel.
+        config = os.path.expanduser('~') + os.sep + 'user-config.jam'
+        with open(config, 'w') as f_conf:
+            f_conf.write('using mpi ;')
+
         for lib in args.libs:
             actions[lib]()
 
@@ -153,8 +153,6 @@ def main():
         pool.map_async(SysInstall.build_wrap, pool_args)
         pool.close()
         pool.join()
-    except KeyError:
-        print("Error with one of the args.")
     finally:
         os.remove(config)
 
