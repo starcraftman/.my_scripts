@@ -495,9 +495,20 @@ let g:tagbar_compact = 1
 
 " Nerdtree
 """""""""""""
+" Show hidden files by default
+"let NERDTreeShowHidden = 1
+
+" Sort order for files, takes list of wildcards
+"let NERDTreeSortOrder = []
+
+" Classic theme with |'s instead of >'s.
+let NERDTreeDirArrows = 0
 
 " Width of window
-let g:NERDTreeWinSize = 70
+let NERDTreeWinSize = 50
+
+" Don't replace netrw (i.e. :e directory), defualt is 1
+"let NERDTreeHijackNetrw = 0
 
 " DeleteTrailingWhitespace
 """"""""""""""""""""""""""
@@ -612,6 +623,9 @@ nnoremap <F12> mzgg=G'z
 
 " To open NERDTree when used
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+
+" Find the current file in the source tree
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 
 " Signify binding to jump between hunks.
 let g:signify_mapping_next_hunk = '<leader>hj'
