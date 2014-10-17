@@ -45,10 +45,12 @@ if [ "$#" -lt 1 -o "$1" == '--help' -o "$1" == '-h' ]; then
 fi
 
 while (( $# > 0 )); do
-    case "$1" in
+    arg="$1"
+    shift
+    case "$arg" in
         dir*)
-            shift
             DIR="$1"
+            shift
             ;;
         py*)
             build_python2
@@ -61,6 +63,4 @@ while (( $# > 0 )); do
             exit
             ;;
     esac
-
-    shift
 done
