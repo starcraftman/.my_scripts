@@ -18,7 +18,7 @@ except ImportError:
     def autocomplete(dummy):
         """ Dummy func. """
         pass
-
+URL_ARGTABLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
 URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.56.0/\
 boost_1_56_0.tar.bz2/download'
 URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
@@ -100,6 +100,15 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'argtable': {
+        'name' : 'argtable',
+        'check': 'lib/libargtable2.a',
+        'url'  : URL_ARGTABLE,
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
     'cunit': {
         'name' : 'cunit',
         'check': 'lib/libcunit.a',
@@ -145,14 +154,15 @@ def main():
     cppunit     Install the cppunit library.
     gtest       Install the gtest library.
     boost       Install latest boost dev library.
-    jsonrpc     Install jsonrpc-cpp library. BETA: Build not working atm.
+    jsonrpc     Install jsonrpc-cpp library. Beta lib & build not working atm.
     jsoncpp     Install json parsing library.
     SDL         Install the SDL1.xx game library.
     SDL2        Install the SDL2.xx game library.
 
     C Libraries
     ------------------------------------------------------
-    cunit       Install the cunit library.
+    argtable    Install args parsing library..
+    cunit       Install the cunit test library.
     jansson     Install a json parsing library.
     libxml      Install a xml parsing library.
     """
