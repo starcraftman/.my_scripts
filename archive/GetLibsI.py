@@ -48,15 +48,6 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
-    'cunit': {
-        'name' : 'cunit',
-        'check': 'lib/libcunit.a',
-        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
-        'cmds' : [
-            'sh ./bootstrap TARGET',
-            'make -jJOBS install',
-        ],
-    },
     'gtest': {
         'name' : 'gtest',
         'check': 'lib/libgtest.a',
@@ -84,14 +75,23 @@ BUILDS = {
             ('libs/date_time/data/*', 'share/boost/date_time/'),
         ],
     },
+    'jsoncpp': {
+        'name' : 'jsoncpp',
+        'check': 'lib/libjsoncpp.so',
+        'url'  : 'https://github.com/open-source-parsers/jsoncpp',
+        'cmds' : [
+            'cmake -DCMAKE_INSTALL_PREFIX=TARGET -DCMAKE_BUILD_TYPE=debug \
+                    -DJSONCPP_LIB_BUILD_SHARED=ON .',
+            'make install',
+        ],
+    },
     'jsonrpc': {
         'name' : 'jsonrpc',
         'check': 'lib/libjsonrpc.so',
         'url'  : 'https://github.com/cinemast/libjson-rpc-cpp',
         'cmds' : [
-            'cmake -DCMAKE_INSTALL_PREFIX=TARGET ..'
-            'make -jJOBS'
-            'make install',
+            'cmake -DCMAKE_INSTALL_PREFIX=TARGET .',
+            'make -jJOBS install',
         ],
     },
     'SDL': {
@@ -109,6 +109,34 @@ BUILDS = {
         'name' : 'SDL2',
         'check': 'lib/libSDL2.a',
         'url'  : 'http://hg.libsdl.org/SDL',
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'cunit': {
+        'name' : 'cunit',
+        'check': 'lib/libcunit.a',
+        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
+        'cmds' : [
+            'sh ./bootstrap TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'jansson': {
+        'name' : 'jansson',
+        'check': 'lib/libjansson.so',
+        'url'  : 'https://github.com/akheron/jansson',
+        'cmds' : [
+            'autoreconf -i',
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'libxml': {
+        'name' : 'libxml',
+        'check': 'lib/libxml2.so',
+        'url'  : 'ftp://xmlsoft.org/libxml2/libxml2-git-snapshot.tar.gz',
         'cmds' : [
             './configure --prefix=TARGET',
             'make -jJOBS install',
@@ -305,15 +333,23 @@ def main():
     """ Main function. """
     mesg = """This script installs locally c libs.
 
-    choice      effect
+    choice      desciption
+
+    C++ Libraries
     ------------------------------------------------------
-    cunit       Install the cunit library.
     cppunit     Install the cppunit library.
     gtest       Install the gtest library.
     boost       Install latest boost dev library.
-    jsonrpc     Install jsonrpc-cpp library.
+    jsonrpc     Install jsonrpc-cpp library. BETA: Build not working atm.
+    jsoncpp     Install json parsing library.
     SDL         Install the SDL1.xx game library.
     SDL2        Install the SDL2.xx game library.
+
+    C Libraries
+    ------------------------------------------------------
+    cunit       Install the cunit library.
+    jansson     Install a json parsing library.
+    libxml      Install a xml parsing library.
     """
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
