@@ -18,6 +18,7 @@ except ImportError:
     def autocomplete(dummy):
         """ Dummy func. """
         pass
+
 URL_ARGTABLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
 URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.56.0/\
 boost_1_56_0.tar.bz2/download'
