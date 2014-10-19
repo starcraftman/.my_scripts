@@ -45,19 +45,22 @@ extract_files()
             *)
                 echo "${0##*/}: Cannot extract '$file'"            ;;
         esac
-        local folder=$(extract_extension "$file")
+        local folder=$(extract_folder "$file")
         echo "${file} extracted to ${folder}"
     done
 }
 
-extract_extension()
+extract_folder()
 {
-    local name="${1##*/}"
-    if contains "$name" "tar"; then
-        echo "$name" | sed -r 's/\.[[:alnum:]]+\.[[:alnum:]]+$//'
-    else
-        echo "$name" | sed -r 's/\.[[:alnum:]]+$//'
-    fi
+    local front=$(echo "$1" | sed -e 's/\([[:alnum:]]*\)[[:punct:]]*.*/\1/g')
+    for file in ${front}*; do
+        if [ "$file" == "$1" ]; then
+            continue
+        fi
+
+        echo "$file"
+        break
+    done
 }
 
 if [ ! "$#" -gt 0 -o "$1" == '--help' -o "$1" == '-h' ]; then
