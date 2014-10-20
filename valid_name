@@ -12,7 +12,7 @@ if [ "$#" -ne 1 -o "$1" == '--help' -o "$1" == '-h' ]; then
 fi
 
 case "$(type -t "$1")" in
-    alias|builtin|file|function|keyword)
+    alias|builtin|function|keyword)
         exit 0
         ;;
     *)
