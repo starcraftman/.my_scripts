@@ -145,7 +145,7 @@ fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-if [ "$(whence ack 2>&1 >/dev/null)" ]; then
+if [ "$(whence ack)" ]; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
     # Alias for ack find file by name
     alias ackf='ack -g'
