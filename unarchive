@@ -2,7 +2,10 @@
 usage()
 {
     echo "${0##*/} archive1 archive2 archive3 ...
-    Extracts any archive format that is supported."
+    Any archive supported is extracted to current dir.
+
+    Assuming sucessful operation, each extracted folder is echoed.
+    "
 }
 
 extract_files()
@@ -14,7 +17,6 @@ extract_files()
             continue
         fi
 
-        echo "Extracting ${file} ....."
         case $file in
             *.deb)               ar p "$file" data.tar.gz | tar zx ;;
             *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
@@ -43,11 +45,12 @@ extract_files()
                 mount -o loop -t iso9660 "$file" $tmpdir
                 echo "'$file' mounted at '$tmpdir'."               ;;
             *)
-                echo "${0##*/}: Cannot extract '$file'"            ;;
+                echo "${0##*/}: ERROR: Cannot extract '$file'"            ;;
         esac
         local folder=$(extract_folder "$file")
-        echo "${file} extracted to ${folder}"
+        echo -n "${folder} "
     done
+    echo
 }
 
 extract_folder()

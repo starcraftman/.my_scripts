@@ -153,9 +153,6 @@ alias rgrep='grep -r'
 # Alias for ps, sorts like pstree
 alias pst="ps -eH"
 
-# Reruns the last command with sudo.
-alias please='cmd="$(fc -l -n -1)"; cmd=$(echo "$cmd" | sed -e "s/^[ \t]*//"); echo -e "Will execute with sudo: ${T_BGREEN}${cmd##*( )}${T_RESET}"; sudo $cmd'
-
 # type used to determine what command is, list all entries
 alias types='type -a'
 
@@ -263,6 +260,20 @@ fi
 # Functions
 ############################################################################
 #{{{
+# Reruns the last command with sudo.
+please() {
+    local cmd="$(fc -l -n -2 | head -n 1 | sed -e "s/^[ \t]*//")"
+    echo -e "Will execute with sudo: ${T_BGREEN}${cmd}${T_RESET}";
+    echo "Execute? y/n"
+
+    local go
+    read go
+    go="$(echo "$go" | tr [[:upper:]] [[:lower:]])"
+    if [ "$go" == "y" ]; then
+        sudo $cmd
+    fi
+}
+
 # Take a directory. If it doesn't exist, make it.
 take()
 {

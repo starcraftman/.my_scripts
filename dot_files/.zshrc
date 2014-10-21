@@ -39,7 +39,7 @@ fpath=(~/.shell/.zsh-completions/src $fpath)
 ############################################################################
 #{{{
 # Default editor for things like sudoedit.
-if valid_name vim; then
+if [ "$(whence vim)" ]; then
     export EDITOR=vim
 fi
 
@@ -136,19 +136,19 @@ alias vims='vim -o'
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
-if valid_name dfc; then
+if [ "$(whence dfc)" ]; then
     alias dfc='dfc -T'
 fi
 
 # Colored cat output
-if valid_name pygmentize; then
+if [ "$(whence pygmentize)" ]; then
     alias ccat='pygmentize -g'
     compdef ccat _pygmentize
 fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-if valid_name ack; then
+if [ "$(whence ack 2>&1 >/dev/null)" ]; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
     # Alias for ack find file by name
     alias ackf='ack -g'
@@ -159,7 +159,7 @@ fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
-if valid_name ag; then
+if [ "$(whence ag)" ]; then
     alias ag='ag --smart-case --follow --color-match="1;34"'
     # Alias for ag find file by name
     alias agf='ag -g'
@@ -170,50 +170,50 @@ fi
 
 # Add an "alert" alias for long running commands. Example:
 #   sleep 10; alert
-if valid_name notify-send; then
+if [ "$(whence notify-send)" ]; then
     alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
 # Apt aliases
-if valid_name apt-get; then
+if [ "$(whence apt-get)" ]; then
     alias apti='sudo apt-get -y install'
     alias aptr='sudo apt-get -y remove'
     alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
 fi
 
 # Alias for color tools.
-if valid_name colordiff; then
+if [ "$(whence colordiff)" ]; then
     alias cod='colordiff'
 fi
-if valid_name colorgcc; then
+if [ "$(whence colorgcc)" ]; then
     alias cog='colorgcc'
 fi
-if valid_name colormake; then
+if [ "$(whence colormake)" ]; then
     alias com='colormake'
 fi
 
 # Silence parallel
-if valid_name parallel; then
+if [ "$(whence parallel)" ]; then
     alias parallel='parallel --no-notice'
 fi
 
 # Useful pstree highlight current parents
-if valid_name pstree; then
+if [ "$(whence pstree)" ]; then
     alias pstree='pstree -hn'
 fi
 
 # Shutdown the current machine immediately
-if valid_name shutdown; then
+if [ "$(whence shutdown)" ]; then
     alias off='sudo shutdown -h now'
 fi
 
 # Force 256 colors, woe is me without
-if valid_name tmux; then
+if [ "$(whence tmux)" ]; then
     alias tmux='tmux -2'
 fi
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
-if valid_name trash-put; then
+if [ "$(whence trash-put)" ]; then
     alias trash-restore='restore-trash'
     alias tre='restore-trash'
     alias tp='trash-put'
@@ -223,12 +223,12 @@ if valid_name trash-put; then
 fi
 
 # Tree program, use instead of recursive ls. Very pretty.
-if valid_name tree; then
+if [ "$(whence tree)" ]; then
     alias tree='tree -Csuh'
 fi
 
 # Aliases for vimpager
-if valid_name vimpager; then
+if [ "$(whence vimpager)" ]; then
     alias vcat='vimcat'
     alias vpager='vimpager'
 fi
@@ -246,6 +246,20 @@ alias debug='if debug; then setopt xtrace; else unsetopt xtrace; clear; fi'
 # Functions
 ############################################################################
 #{{{
+# Reruns the last command with sudo.
+function please() {
+    local cmd="$(fc -l -n -2 | head -n 1 | sed -e "s/^[ \t]*//")"
+    echo -e "Will execute with sudo: ${T_BGREEN}${cmd}${T_RESET}";
+    echo "Execute? y/n"
+
+    local go
+    read go
+    go="$(echo "$go" | tr [[:upper:]] [[:lower:]])"
+    if [ "$go" == "y" ]; then
+        sudo $cmd
+    fi
+}
+
 # Take a directory. If it doesn't exist, make it.
 function take()
 {
@@ -392,7 +406,7 @@ function ii()
     print "${fg_bold[blue]}Current date :${reset_color} " ; date
     print "${fg_bold[blue]}Machine stats :${reset_color} " ; uptime
     print "${fg_bold[blue]}Diskspace :${reset_color} "
-    if valid_name dfc; then
+    if [ "$(whence dfc)" ]; then
         dfc
     else
         mounts=( "${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}" )
@@ -417,17 +431,17 @@ source ~/.shell/.hhighlighter/h.sh
 ############################################################################
 #{{{
 # Enable the windows key on Ubuntu as F13
-if valid_name xmodmap; then
+if [ "$(whence xmodmap)" ]; then
     xmodmap -e 'keycode 133 = F13'
 fi
 
 # Disable the Ctrl+s/q button that freezes terminal output.
-if valid_name stty; then
+if [ "$(whence stty)" ]; then
     stty -ixon
 fi
 
 # Set bash tabstop to 4 spaces, default is 8 too wide
-if valid_name tabs; then
+if [ "$(whence tabs)" ]; then
     tabs 4
 fi
 
