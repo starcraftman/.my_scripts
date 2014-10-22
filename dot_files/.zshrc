@@ -39,7 +39,7 @@ fpath=(~/.shell/.zsh-completions/src $fpath)
 ############################################################################
 #{{{
 # Default editor for things like sudoedit.
-if [ "$(whence vim)" ]; then
+if valid_name vim; then
     export EDITOR=vim
 fi
 
@@ -133,19 +133,19 @@ alias vims='vim -o'
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
-if [ "$(whence dfc)" ]; then
+if valid_name dfc; then
     alias dfc='dfc -T'
 fi
 
 # Colored cat output
-if [ "$(whence pygmentize)" ]; then
+if valid_name pygmentize; then
     alias ccat='pygmentize -g'
     compdef ccat _pygmentize
 fi
 
 # Default ack options, use smart case, sort output by file and follow symlinks.
 # Filter by type with --type, supported types `ack --help-types`
-if [ "$(whence ack)" ]; then
+if valid_name ack; then
     alias ack='ack --smart-case --sort-files --follow --color-match="bold blue"'
     # Alias for ack find file by name
     alias ackf='ack -g'
@@ -156,7 +156,7 @@ fi
 
 # Alias for silver search
 # For type use --type, i.e. --cpp. supported types -> 'ag --list-file-types
-if [ "$(whence ag)" ]; then
+if valid_name ag; then
     alias ag='ag --smart-case --follow --color-match="1;34"'
     # Alias for ag find file by name
     alias agf='ag -g'
@@ -167,50 +167,50 @@ fi
 
 # Add an "alert" alias for long running commands. Example:
 #   sleep 10; alert
-if [ "$(whence notify-send)" ]; then
+if valid_name notify-send; then
     alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
 # Apt aliases
-if [ "$(whence apt-get)" ]; then
+if valid_name apt-get; then
     alias apti='sudo apt-get -y install'
     alias aptr='sudo apt-get -y remove'
     alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
 fi
 
 # Alias for color tools.
-if [ "$(whence colordiff)" ]; then
+if valid_name colordiff; then
     alias cod='colordiff'
 fi
-if [ "$(whence colorgcc)" ]; then
+if valid_name colorgcc; then
     alias cog='colorgcc'
 fi
-if [ "$(whence colormake)" ]; then
+if valid_name colormake; then
     alias com='colormake'
 fi
 
 # Silence parallel
-if [ "$(whence parallel)" ]; then
+if valid_name parallel; then
     alias parallel='parallel --no-notice'
 fi
 
 # Useful pstree highlight current parents
-if [ "$(whence pstree)" ]; then
+if valid_name pstree; then
     alias pstree='pstree -hn'
 fi
 
 # Shutdown the current machine immediately
-if [ "$(whence shutdown)" ]; then
+if valid_name shutdown; then
     alias off='sudo shutdown -h now'
 fi
 
 # Force 256 colors, woe is me without
-if [ "$(whence tmux)" ]; then
+if valid_name tmux; then
     alias tmux='tmux -2'
 fi
 
 # Use trash instead of RM, have had bad accidents. Need trash-cli library for python.
-if [ "$(whence trash-put)" ]; then
+if valid_name trash-put; then
     alias trash-restore='restore-trash'
     alias tre='restore-trash'
     alias tp='trash-put'
@@ -220,12 +220,12 @@ if [ "$(whence trash-put)" ]; then
 fi
 
 # Tree program, use instead of recursive ls. Very pretty.
-if [ "$(whence tree)" ]; then
+if valid_name tree; then
     alias tree='tree -Csuh'
 fi
 
 # Aliases for vimpager
-if [ "$(whence vimpager)" ]; then
+if valid_name vimpager; then
     alias vcat='vimcat'
     alias vpager='vimpager'
 fi
@@ -403,7 +403,7 @@ function ii()
     print "${fg_bold[blue]}Current date :${reset_color} " ; date
     print "${fg_bold[blue]}Machine stats :${reset_color} " ; uptime
     print "${fg_bold[blue]}Diskspace :${reset_color} "
-    if [ "$(whence dfc)" ]; then
+    if valid_name dfc; then
         dfc
     else
         mounts=( "${(@f)$(mount -v | awk '/\/dev\/s/ { print $3 }')}" )
@@ -428,17 +428,17 @@ source ~/.shell/.hhighlighter/h.sh
 ############################################################################
 #{{{
 # Enable the windows key on Ubuntu as F13
-if [ "$(whence xmodmap)" ]; then
+if valid_name xmodmap; then
     xmodmap -e 'keycode 133 = F13'
 fi
 
 # Disable the Ctrl+s/q button that freezes terminal output.
-if [ "$(whence stty)" ]; then
+if valid_name stty; then
     stty -ixon
 fi
 
 # Set bash tabstop to 4 spaces, default is 8 too wide
-if [ "$(whence tabs)" ]; then
+if valid_name tabs; then
     tabs 4
 fi
 
