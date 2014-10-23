@@ -351,12 +351,10 @@ def find_archive(url):
 
 def extract_archive(archive):
     """ Given an archive, extract it. Prefer python libs if supported. """
-    arc_ext = os.path.splitext(archive)[1][1:]
-
-    if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
+    if tarfile.is_tarfile(archive):
         with tarfile.open(archive) as tarf:
             tarf.extractall()
-    elif arc_ext == '.zip':
+    if zipfile.is_zipfile(archive):
         with zipfile.ZipFile(archive) as zipf:
             zipf.extractall()
     else:
