@@ -7,8 +7,8 @@ snippet opts "Argument Parsing" b
 				${2:#Do Something}
 				;;
 			${3:Option With Value}*)
-				shift
 				${4:OPT}="\$1"
+				shift
 				${5:#Do Something}
 				;;
 			*)
