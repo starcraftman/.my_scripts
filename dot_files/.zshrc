@@ -252,7 +252,7 @@ function please() {
     local go
     read go
     go="$(echo "$go" | tr [[:upper:]] [[:lower:]])"
-    if [ "$go" == "y" ]; then
+    if [[ "$go" == y* ]]; then
         sudo $cmd
     fi
 }
