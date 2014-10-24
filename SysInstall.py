@@ -557,6 +557,46 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
+def restore_home():
+    """ Undo changes by home_config & restore backup if exists. """
+    arc_dir = os.path.expanduser('~/.home_bak/')
+    home = os.path.expanduser('~/')
+    dot_files = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+
+    for folder in ('.shell', '.fonts', '.ccache',):
+        shutil.rmtree(home + folder)
+
+    # Clear existing configs if they are symlinks
+    files = glob.glob(dot_files + '.*')
+    files = [x[x.rindex(os.sep)+1:] for x in files]
+    for fil in [home + fil for fil in files]:
+        if os.path.islink(fil):
+            os.remove(fil)
+
+    arc_files = glob.glob(arc_dir + '.*')
+    arc_files = [x[x.rindex(os.sep)+1:] for x in arc_files]
+
+    helper = make_cmd(arc_dir, home)
+    helper(arc_files, os.rename)
+
+    os.rmdir(arc_dir)
+
+def save_home():
+    """ Save existing home configs to a backup dir. """
+    arc_dir = os.path.expanduser('~/.home_bak/')
+    home = os.path.expanduser('~/')
+    dot_files = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+
+    if not os.path.exists(arc_dir):
+        os.makedirs(arc_dir)
+
+    files = glob.glob(dot_files + '.*')
+    files = [x[x.rindex(os.sep)+1:] for x in files]
+    files = [x for x in files if os.path.exists(home + x)]
+
+    helper = make_cmd(home, arc_dir)
+    helper(files, os.rename)
+
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
@@ -655,23 +695,25 @@ def main():
     """ Main function. """
     mesg = """This script sets up a dev environment.
 
-    choice      effect
+    choice       effect
     ------------------------------------------------------
-    home        Setup home config files.
-    debian      Install debian packages.
-    babun       Install babun packages.
-    pip         Install python libraries via pip.
-    cabal       Install haskell packages for eclipse.
-    jshint      Install jshint via npm for javascript vim.
-    pipelight   Install pipelight flash & silverlight.
-    atom        Build latest atom editor by GitHub.
-    cmake       Build latest cmake from source.
-    dev         Build standard dev progs like ag, ack, parallel.
-    doxygen     Build latest doxygen from source.
-    python      Build latest python from source.
-    tmux        Build the latest tmux from source.
-    vim         Build latest vim from source.
-    zsh         Build latest zsh from source.
+    home         Setup home config files.
+    save_home    Save existing home files.
+    restore_home Restore home files and undo home_config.
+    debian       Install debian packages.
+    babun        Install babun packages.
+    pip          Install python libraries via pip.
+    cabal        Install haskell packages for eclipse.
+    jshint       Install jshint via npm for javascript vim.
+    pipelight    Install pipelight flash & silverlight.
+    atom         Build latest atom editor by GitHub.
+    cmake        Build latest cmake from source.
+    dev          Build standard dev progs like ag, ack, parallel.
+    doxygen      Build latest doxygen from source.
+    python       Build latest python from source.
+    tmux         Build the latest tmux from source.
+    vim          Build latest vim from source.
+    zsh          Build latest zsh from source.
     """
 
     # Simple wrapper saves func
@@ -681,6 +723,8 @@ def main():
     # Use a dict of funcs to process args
     actions = {
         'home':         home_config,
+        'restore_home': restore_home,
+        'save_home':    save_home,
         'debian':       packs_debian,
         'babun':        packs_babun,
         'pip':          packs_py,
