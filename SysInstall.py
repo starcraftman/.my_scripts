@@ -23,15 +23,15 @@ import zipfile
 try:
     import apt
 except ImportError:
-    print('not on debian system, don\'t use option install linux packages')
+    print("Don't use `debian` option.")
 try:
     from argcomplete import autocomplete
 except ImportError:
     def autocomplete(dummy):
         """ Dummy func. """
         pass
-# Packages to install follow, broken down into categories.
 
+# Packages to install follow, broken down into categories.
 PROGRAMS = """ \
     htop iotop itop mytop pkg-config aptitude synaptic dos2unix oxygen-molecule \
     kubuntu-restricted-extras kubuntu-restricted-addons \
@@ -115,12 +115,6 @@ tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
 zsh-5.0.6.tar.bz2/download'
 
-if os.path.exists('/proc/cpuinfo'):
-    NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
-        grep processor | wc -l', shell=True))
-else:
-    NUM_JOBS = 2
-
 TMP_DIR = '/tmp/SysInstall'
 BUILDS = {
     'ack': {
@@ -129,7 +123,7 @@ BUILDS = {
         'url'  : 'https://github.com/petdance/ack2.git',
         'cmds' : [
             'perl Makefile.PL',
-            'make ack-standalone',
+            'make -jJOBS ack-standalone',
             'make manifypods',
         ],
         'globs': [
@@ -144,7 +138,7 @@ BUILDS = {
         'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
         'cmds' : [
             './build.sh --prefix=TARGET',
-            'make install',
+            'make -jJOBS install',
         ],
     },
     'atom': {
@@ -164,8 +158,7 @@ BUILDS = {
             './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
             --mandir=share/man --enable-ccache --qt-gui --sphinx-man \
             --sphinx-html',
-            'make -jJOBS',
-            'make install',
+            'make -jJOBS install',
         ],
     },
     'doxygen': {
@@ -196,8 +189,7 @@ BUILDS = {
         'url'  : URL_PYTHON,
         'cmds' : [
             './configure --prefix=TARGET',
-            'make',
-            'make install',
+            'make -jJOBS install',
         ],
     },
     'tmux': {
@@ -220,7 +212,7 @@ BUILDS = {
             --with-python-config-dir=/usr/lib/python2.7/config \
             --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
-            'make install',
+            'make -jJOBS install',
         ],
     },
     'vimpager': {
@@ -242,8 +234,7 @@ BUILDS = {
             'autoconf',
             './configure --prefix=TARGET --enable-cap --enable-pcre \
             --enable-maildir-support',
-            'make',
-            'make install',
+            'make -jJOBS install',
         ],
     },
     'zsh_docs': {
@@ -456,7 +447,7 @@ def build_src(build, target=None):
         PDir.push(srcdir)
         for cmd in build.get('cmds', []):
             cmd = cmd.replace('TARGET', tdir)
-            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
+            cmd = cmd.replace('JOBS', '%d' % multiprocessing.cpu_count())
             subprocess.call(cmd.split())
         PDir.pop()
 
