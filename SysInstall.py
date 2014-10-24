@@ -561,13 +561,13 @@ def restore_home():
     """ Undo changes by home_config & restore backup if exists. """
     arc_dir = os.path.expanduser('~/.home_bak/')
     home = os.path.expanduser('~/')
-    dot_files = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+    dot_dir = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
 
     for folder in ('.shell', '.fonts', '.ccache',):
         shutil.rmtree(home + folder)
 
     # Clear existing configs if they are symlinks
-    files = glob.glob(dot_files + '.*')
+    files = glob.glob(dot_dir + '.*')
     files = [x[x.rindex(os.sep)+1:] for x in files]
     for fil in [home + fil for fil in files]:
         if os.path.islink(fil):
@@ -585,12 +585,12 @@ def save_home():
     """ Save existing home configs to a backup dir. """
     arc_dir = os.path.expanduser('~/.home_bak/')
     home = os.path.expanduser('~/')
-    dot_files = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+    dot_dir = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
 
     if not os.path.exists(arc_dir):
         os.makedirs(arc_dir)
 
-    files = glob.glob(dot_files + '.*')
+    files = glob.glob(dot_dir + '.*')
     files = [x[x.rindex(os.sep)+1:] for x in files]
     files = [x for x in files if os.path.exists(home + x)]
 
