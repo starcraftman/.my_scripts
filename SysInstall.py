@@ -112,8 +112,8 @@ URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
 tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
-URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.6/\
-zsh-5.0.6.tar.bz2/download'
+URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/\
+zsh-5.0.7.tar.bz2/download'
 
 TMP_DIR = '/tmp/SysInstall'
 BUILDS = {
@@ -697,14 +697,14 @@ def main():
     cabal        Install haskell packages for eclipse.
     jshint       Install jshint via npm for javascript vim.
     pipelight    Install pipelight flash & silverlight.
-    atom         Build latest atom editor by GitHub.
-    cmake        Build latest cmake from source.
-    dev          Build standard dev progs like ag, ack, parallel.
-    doxygen      Build latest doxygen from source.
-    python       Build latest python from source.
-    tmux         Build the latest tmux from source.
-    vim          Build latest vim from source.
-    zsh          Build latest zsh from source.
+    atom         Build the latest atom editor.
+    cmake        Build the latest cmake.
+    dev          Build ack, ag, parallel, vimpager & zsh_docs.
+    doxygen      Build the latest doxygen.
+    python       Build the latest python 2.x.
+    tmux         Build the latest tmux.
+    vim          Build the latest vim.
+    zsh          Build the latest zsh.
     """
 
     # Simple wrapper saves func
@@ -722,7 +722,7 @@ def main():
         'cabal':        packs_cabal,
         'jshint':       install_jshint,
         'pipelight':    install_pipelight,
-        'dev':          functools.partial(builds.extend, ('ag', 'ack',
+        'dev':          functools.partial(builds.extend, ('ack', 'ag',
                         'parallel', 'vimpager', 'zsh_docs')),
     }
     # Generate this part dynamically
