@@ -476,7 +476,7 @@ def build_pool(builds, target):
     """
     pool_args = itertools.izip(builds, itertools.repeat(target))
     pool = multiprocessing.Pool()
-    pool.map_async(build_wrap, pool_args)
+    pool.map(build_wrap, pool_args, 1)
     pool.close()
     pool.join()
 
