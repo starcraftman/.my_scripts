@@ -4,7 +4,7 @@
 #	pip/pip3 : install packages
 #	pylint/pychecker : verify syntax
 #	unittest package for xUnit.
-""" This module helps setup a fresh install the way I like it. """
+""" Build C libraries for development. """
 
 # Imports
 from __future__ import print_function
