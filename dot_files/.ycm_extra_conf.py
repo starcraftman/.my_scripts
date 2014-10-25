@@ -33,8 +33,6 @@ FLAGS = [
     '/usr/include',
     '-isystem',
     '/usr/local/include',
-    '-I',
-    './.software/libs/include'
 ]
 
 
