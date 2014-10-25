@@ -566,6 +566,9 @@ let mapleader = ","
 " Apparently used for buffer/filetype specific bindings
 let maplocalleader = '\\'
 
+" Never use ex mode
+map Q <nop>
+
 " Aliasing some commands to make tabs/buffers easy to manage
 " Some of these exist, I put them here to remember
 " Note with hidden set, buffers and tabs are largely the same
