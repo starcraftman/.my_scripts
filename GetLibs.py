@@ -165,7 +165,7 @@ def main():
     parser.add_argument('-l', '--ldir', nargs='?', default='./libs',
             help='library directory to install to')
     parser.add_argument('libs', nargs='+', help='libs selected for install',
-            choices=sorted(BUILDS.keys(), key=lambda s: s.lower()))
+            choices=sorted(BUILDS.keys(), key=str.lower))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
