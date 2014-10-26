@@ -110,6 +110,7 @@ PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
 URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
+URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
 tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/\
@@ -187,6 +188,15 @@ BUILDS = {
         'name' : 'python',
         'check': 'bin/python',
         'url'  : URL_PYTHON,
+        'cmds' : [
+            './configure --prefix=TARGET',
+            'make -jJOBS install',
+        ],
+    },
+    'python3': {
+        'name' : 'python3',
+        'check': 'bin/python3',
+        'url'  : URL_PYTHON3,
         'cmds' : [
             './configure --prefix=TARGET',
             'make -jJOBS install',
@@ -463,8 +473,6 @@ def build_src(build, target=None):
     finally:
         shutil.rmtree(srcdir)
 
-    print('Finished building ' + build['name'])
-
 def build_wrap(args):
     """ Wrapper for build_src in process pool. """
     build_src(*args)
@@ -702,6 +710,7 @@ def main():
     dev          Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen      Build the latest doxygen.
     python       Build the latest python 2.x.
+    python3      Build the latest python 3.x.
     tmux         Build the latest tmux.
     vim          Build the latest vim.
     zsh          Build the latest zsh.
@@ -727,7 +736,8 @@ def main():
     }
     # Generate this part dynamically
     gen_actions = {key: functools.partial(builds.append, key)
-        for key in ('atom', 'cmake', 'doxygen', 'python', 'tmux', 'vim', 'zsh')}
+            for key in ('atom', 'cmake', 'doxygen', 'python', 'python3',
+            'tmux', 'vim', 'zsh')}
     actions.update(gen_actions)
 
     parser = argparse.ArgumentParser(description=mesg,
