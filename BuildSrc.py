@@ -35,7 +35,7 @@ tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/\
 zsh-5.0.7.tar.bz2/download'
 
-TMP_DIR = '/tmp/SysInstall'
+TMP_DIR = '/tmp/BuildSrc'
 BUILDS = {
     'ack': {
         'name' : 'ack',
