@@ -315,13 +315,13 @@ def main():
     choice       effect
     ------------------------------------------------------
     home         Setup home config files.
-    home_save    Save existing home files.
     home_restore Restore home files and undo home_config.
-    debian       Install debian packages.
+    home_save    Save existing home files.
     babun        Install babun packages.
-    pip          Install python libraries via pip.
     cabal        Install haskell packages for eclipse.
+    debian       Install debian packages.
     jshint       Install jshint via npm for javascript vim.
+    pip          Install python libraries via pip.
     pipelight    Install pipelight flash & silverlight.
     """
     # Use a dict of funcs to process args
@@ -329,11 +329,11 @@ def main():
         'home':         home_config,
         'home_restore': home_restore,
         'home_save':    home_save,
-        'debian':       packs_debian,
         'babun':        packs_babun,
-        'pip':          packs_py,
         'cabal':        packs_cabal,
+        'debian':       packs_debian,
         'jshint':       install_jshint,
+        'pip':          packs_py,
         'pipelight':    install_pipelight,
     }
     parser = argparse.ArgumentParser(description=mesg,
