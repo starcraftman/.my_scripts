@@ -1,17 +1,12 @@
 #!/usr/bin/env python
-# PYTHON_ARGCOMPLETE_OK
-# Common tools:
-#	pip/pip3 : install packages
-#	pylint/pychecker : verify syntax
-#	unittest package for xUnit.
 """ Build C libraries for development. """
 
 # Imports
 from __future__ import print_function
+from BuildSrc import build_pool
 import argparse
 import functools
 import os
-import SysInstall
 try:
     from argcomplete import autocomplete
 except ImportError:
@@ -140,8 +135,6 @@ BUILDS = {
     },
 }
 
-# Classes
-
 # Functions
 
 def main():
@@ -193,7 +186,7 @@ def main():
 
         # Multiprocess to overlap builds
         build_objs = (BUILDS[name] for name in builds)
-        SysInstall.build_pool(build_objs, ldir)
+        build_pool(build_objs, ldir)
     finally:
         os.remove(config)
 

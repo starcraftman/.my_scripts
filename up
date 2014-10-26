@@ -28,7 +28,7 @@ update_repos()
 build_src()
 {
     # Determine what args to pass
-    local avail_opts=( $(SysInstall.py --help | \grep Build | cut -d ' ' -f 5 | tr '\n' ' ') )
+    local avail_opts=( $(BuildSrc.py --help | \grep Build | cut -d ' ' -f 5 | tr '\n' ' ') )
     local opts=
 
     if [ -e ${OPTDIR}/bin/ag ]; then
@@ -48,7 +48,7 @@ build_src()
     rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
-    SysInstall.py --odir "$opt_orig" $opts >/dev/null 2>&1
+    BuildSrc.py --odir "$opt_orig" $opts >/dev/null 2>&1
 
     rm -rf "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
