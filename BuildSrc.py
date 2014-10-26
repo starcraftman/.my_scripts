@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 """ Build any program I want from source code, deploy locally.
-    Depends on wget (due to non-standard SourceForge download URLs
+    Depends on wget -- archive downloads, blame SourceForge  --
     and standard c++ build tools.
 """
 
@@ -393,7 +393,7 @@ def main():
     parser.add_argument('-o', '--odir', nargs='?', default=None,
             help='install dir')
     parser.add_argument('keys', nargs='+', help='progs to build',
-            choices=actions.keys())
+            choices=sorted(actions.keys()))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]

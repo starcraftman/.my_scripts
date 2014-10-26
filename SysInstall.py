@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
-""" This module helps setup a fresh install the way I like it. """
+""" Install packages and setup home configs on fresh system. """
 
 # Imports
 from __future__ import print_function
@@ -174,7 +174,7 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
-def restore_home():
+def home_restore():
     """ Undo changes by home_config & restore backup if exists. """
     arc_dir = os.path.expanduser('~/.home_bak/')
     home = os.path.expanduser('~/')
@@ -198,7 +198,7 @@ def restore_home():
 
     os.rmdir(arc_dir)
 
-def save_home():
+def home_save():
     """ Save existing home configs to a backup dir. """
     arc_dir = os.path.expanduser('~/.home_bak/')
     home = os.path.expanduser('~/')
@@ -315,8 +315,8 @@ def main():
     choice       effect
     ------------------------------------------------------
     home         Setup home config files.
-    save_home    Save existing home files.
-    restore_home Restore home files and undo home_config.
+    home_save    Save existing home files.
+    home_restore Restore home files and undo home_config.
     debian       Install debian packages.
     babun        Install babun packages.
     pip          Install python libraries via pip.
@@ -327,8 +327,8 @@ def main():
     # Use a dict of funcs to process args
     actions = {
         'home':         home_config,
-        'restore_home': restore_home,
-        'save_home':    save_home,
+        'home_restore': home_restore,
+        'home_save':    home_save,
         'debian':       packs_debian,
         'babun':        packs_babun,
         'pip':          packs_py,
@@ -339,7 +339,7 @@ def main():
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('stages', nargs='+', help='stages to execute',
-            choices=actions.keys())
+            choices=sorted(actions.keys()))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
