@@ -380,13 +380,12 @@ def main():
     builds = []
 
     # Use a dict of funcs to process args
+    dev_keys = ('ack', 'ag', 'parallel', 'vimpager', 'zsh_docs')
     actions = {
-        'dev':          functools.partial(builds.extend, ('ack', 'ag',
-                        'parallel', 'vimpager', 'zsh_docs')),
+        'dev':  functools.partial(builds.extend, dev_keys),
     }
     gen_actions = {key: functools.partial(builds.append, key)
-            for key in ('atom', 'cmake', 'doxygen', 'python', 'python3',
-            'tmux', 'vim', 'zsh')}
+            for key in set(BUILDS.keys()).difference(dev_keys)}
     actions.update(gen_actions)
 
     parser = argparse.ArgumentParser(description=mesg,
