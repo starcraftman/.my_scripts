@@ -428,8 +428,8 @@ ii()
     echo
     echo -e "${T_BBLUE}$USER${T_RESET} is logged on ${T_BBLUE}$HOSTNAME${T_RESET}"
     echo -e "${T_BBLUE}Additionnal information :${T_RESET} " ; uname -a
-    echo -e "${T_BBLUE}Users logged on :${T_RESET} " ; w -hs |
-             cut -d " " -f1 | sort | uniq
+    echo -e "${T_BBLUE}Users logged on :${T_RESET} " ;
+        who | cut -d " " -f1 | sort | uniq
     echo -e "${T_BBLUE}Current date :${T_RESET} " ; date
     echo -e "${T_BBLUE}Machine stats :${T_RESET} " ; uptime
     echo -e "${T_BBLUE}Diskspace :${T_RESET} "
