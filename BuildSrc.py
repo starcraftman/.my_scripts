@@ -27,6 +27,8 @@ except ImportError:
 
 # Data
 
+URL_CLANG = 'http://llvm.org/releases/3.5.0/\
+clang+llvm-3.5.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz'
 URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
@@ -153,6 +155,16 @@ BUILDS = {
             ('vimpager', 'bin/'),
             ('*.1', 'share/man/man1/'),
         ],
+    },
+    'ycm': {
+        'name' : 'ycm',
+        'check': 'bin/ycm',
+        'url'  : URL_CLANG,
+        'cmds' : [
+            'cmake -DPATH_TO_LLVM_ROOT=. . \
+                ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp',
+            'make -jJOBS ycm_support_libs',
+        ]
     },
     'zsh': {
         'name' : 'zsh',
@@ -372,6 +384,7 @@ def main():
     python3      Build the latest python 3.x.
     tmux         Build the latest tmux.
     vim          Build the latest vim.
+    ycm          Build the ycm server for vim, depends on .vim/bundle/YouCompleteMe.
     zsh          Build the latest zsh.
     """
 
