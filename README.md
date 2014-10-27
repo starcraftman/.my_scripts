@@ -11,9 +11,12 @@ SysInstall.py
 * See SysInstall.py --help for full explanation.
 * `home` option sets up a user with my custom configs.
 * `debian`, `babun` & `cabal` install relevant packages I use.
+
+BuildSrc.py
+-------------
 * A series of other commands like `dev` or `cmake` fetch & build
-    the latest versions of important programs. Default location is
-    ~/.opt1.
+  the latest versions of important programs. Default location is ~/.opt1.
+* Also builds Ycm server component.
 
 GetLibs.py
 ----------
@@ -23,11 +26,6 @@ MkSource.py
 -----------
 * I like to use templates when I write scripts/c, this file copies them.
 * See templates folder, some like python maybe should be separated to a notes file...
-
-YcmCompile.py
--------------
-* See my vim directory, this helper function compiles ycm for use.
-* YCM requires other things, see vimrc for details.
 
 up
 --
