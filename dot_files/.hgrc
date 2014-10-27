@@ -33,6 +33,6 @@ tls = True
 #password = userEmailPassword
 
 [ui]
-username = userName
+username = Jeremy Pallats/starcraft.man <unknown3000@gmail.com>
 ignore = ~/.hgignore_global
 ssh = ssh -C
