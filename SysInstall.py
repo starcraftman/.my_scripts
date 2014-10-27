@@ -149,7 +149,7 @@ def home_config():
     git_urls = [
         'https://github.com/magicmonty/bash-git-prompt.git',
         'https://github.com/starcraftman/zsh-git-prompt.git',
-        'https://github.com/starcraftman/zsh-completions.git',
+        'https://github.com/zsh-users/zsh-completions.git',
         'https://github.com/zsh-users/zsh-syntax-highlighting.git',
         'https://github.com/starcraftman/hhighlighter.git',
     ]
