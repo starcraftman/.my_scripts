@@ -164,7 +164,7 @@ BUILDS = {
             'cmake -DPATH_TO_LLVM_ROOT=. . \
                 ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp',
             'make -jJOBS ycm_support_libs',
-        ]
+        ],
     },
     'zsh': {
         'name' : 'zsh',
