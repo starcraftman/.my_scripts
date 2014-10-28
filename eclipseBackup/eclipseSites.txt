@@ -10,6 +10,7 @@ Languages:
 UI:
     AnyEdit - http://andrei.gmxhome.de/eclipse/
     Color Plugin - http://eclipse-color-theme.github.com/update/
+    Vim Plugin - http://vrapper.sourceforge.net/update-site/stable
 
 Experimental:
     DarkTheme - https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite
