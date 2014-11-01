@@ -805,29 +805,19 @@ set smartcase
 
 syntax off
 
-" Required to make molokai display correctly
-" Sets color mode to 256, sometimes term not set correctly
-" Most windows terms don't support, so check for them
-if !(win_shell && has('gui_running') ==# 0)
-    set t_Co=256
-endif
-
 " Set dark background before, else colors off
 set background=dark
-try
+if has('gui_running') || &t_Co > 255
     colorscheme molokai
-catch /^Vim\%((\a\+)\)\=:E185/
+    " Molokai CursorLine isn't bright enough.
+    hi CursorLine  ctermbg=236
+else
     colorscheme desert
-endtry
+endif
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
 syntax on
-
-" Molokai CursorLine isn't bright enough.
-if &t_Co > 255
-    hi CursorLine  ctermbg=236
-endif
 
 " Highlight with ColorColumn lines over a certain  limit.
 "highlight ColorColumn ctermbg=8

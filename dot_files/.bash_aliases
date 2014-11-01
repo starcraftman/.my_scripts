@@ -90,6 +90,15 @@ export PAGER=less
 # Make ps print useful info
 export PS_FORMAT=user,pid,ppid,tty,pcpu,pmem,stat,start_time,cmd
 
+# If we aren't sshed, set term to 256 color support
+if [ -n "$DISPLAY" ]; then
+    if [ "$TERM" = "xterm" ]; then
+        export TERM=xterm-256color
+    elif [ "$TERM" = "screen" ]; then
+        export TERM=screen-256color
+    fi
+fi
+
 # Color code explanation, end of -> http://jamiedubs.com/ps1-collection-customize-your-bash-prompt
 # Old code (might still see): \[\033[x;yy;zzm\]
 # General format: \[\e[x;yy;zzm\]
