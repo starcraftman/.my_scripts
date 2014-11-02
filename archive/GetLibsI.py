@@ -33,12 +33,6 @@ URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.56.0/\
 boost_1_56_0.tar.bz2/download'
 URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
 
-if os.path.exists('/proc/cpuinfo'):
-    NUM_JOBS = int(subprocess.check_output('cat /proc/cpuinfo | \
-        grep processor | wc -l', shell=True))
-else:
-    NUM_JOBS = 2
-
 TMP_DIR = '/tmp/SysInstall'
 BUILDS = {
     'cppunit': {
@@ -308,7 +302,7 @@ def build_src(build, target=None):
         PDir.push(srcdir)
         for cmd in build.get('cmds', []):
             cmd = cmd.replace('TARGET', tdir)
-            cmd = cmd.replace('JOBS', '%d' % NUM_JOBS)
+            cmd = cmd.replace('JOBS', '%d' % multiprocessing.cpu_count())
             subprocess.call(cmd.split())
         PDir.pop()
 

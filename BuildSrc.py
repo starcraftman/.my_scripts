@@ -14,8 +14,8 @@ import itertools
 import multiprocessing
 import os
 import re
-import subprocess
 import shutil
+import subprocess
 import tarfile
 import zipfile
 try:
