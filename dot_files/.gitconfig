@@ -40,7 +40,7 @@
     ignore = update-index --assume-unchanged
     noignore = update-index --no-assume-unchanged
     ;Show all files that have been deleted in the repository
-    deleted = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local --numstat --diff-filter=D --summary 
+    deleted = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cd)%Creset %C(bold blue)[%an]%Creset %s%n%b' --date=local --numstat --diff-filter=D --summary
 [branch]
     autosetupmerge = true
 [color]
