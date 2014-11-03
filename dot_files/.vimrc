@@ -84,6 +84,7 @@
 "       TagBar: Requires exhuberant tags instead of gnu ctags
 "       ag.vim: Install 'silversearcher-ag' package.
 "       Dirs: Make ~/.vim/undo and ~/.vim/snippets
+"       eclim: Follow install at: http://eclim.org/install.html
 
 " }}}
 " Plugin Information
@@ -444,6 +445,9 @@ let g:ycm_complete_in_comments = 1
 " Use the following to whitelist dirs for .ycm_extra_conf.py
 let g:ycm_extra_conf_globlist = [
     \ '~/programming/*' ]
+
+" For eclim, YCM will query for completion
+let g:EclimCompletionMethod = 'omnifunc'
 
 " Neocomplete
 """""""""""""

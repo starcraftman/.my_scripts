@@ -40,8 +40,11 @@ Thumbs.db
 # Mine #
 ########
 smbHelper
+workbench.xmi
 dot_files/.vim/bundle/
+dot_files/.vim/eclim/
 dot_files/.vim/undo/
 dot_files/.vim/view/
 dot_files/.vim/.netrwhist
+dot_files/.vim/plugin/eclim.vim
 #!.git*
