@@ -566,6 +566,7 @@ setopt HIST_REDUCE_BLANKS
 
 # If need to share history or write immediately
 # see SHARE_HISTORY, INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 
 # Allow braces to define character classes like: file{abcd1234}
 setopt BRACE_CCL

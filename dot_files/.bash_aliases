@@ -73,7 +73,7 @@ export HISTFILESIZE=100000
 export HISTSIZE=100000
 
 # Ignore some commands
-#export HISTIGNORE='ls *:l *:bg:fg:history'
+export HISTIGNORE='ls *:l *:bg:fg:history *'
 
 # Timestamps in history file
 export HISTTIMEFORMAT='%F %T '
@@ -570,6 +570,9 @@ prompt_callback()
     else
         echo -e -n " $HG"
     fi
+
+    # Flush commands as written, helps when multiple terminals open from a user
+    history -a
 }
 
 # See ~/.git-prompt-colors.sh for scheme
