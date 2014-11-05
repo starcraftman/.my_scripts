@@ -75,6 +75,7 @@ PROGRAMMING = """ \
     junit junit-doc maven openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
     openjdk-7-source openjdk-7-demo icedtea-7-plugin \
     lua5.2 lua5.2-doc luadoc liblua5.2-dev \
+    monodevelop-debugger-gdb monodevelop-nunit \
     nodejs nodejs-dev nodejs-legacy npm \
     perl perl-doc libperl-dev perl-modules libpadwalker-perl libfile-next-perl \
     php5 php5-mysql phpunit php5-dev \

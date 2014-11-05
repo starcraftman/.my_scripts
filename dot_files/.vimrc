@@ -960,6 +960,7 @@ com! -nargs=0 NScheme call s:NextScheme(0)
 com! -nargs=0 PScheme call s:NextScheme(1)
 com! -nargs=0 PickScheme call s:PickScheme()
 com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
+com! -nargs=+ -range VChangeSpace call s:VChangeSpace(<f-args>)
 com! -nargs=0 OpenFT call s:OpenFT()
 
 function! s:InitScheme(remDefaults)
@@ -1039,6 +1040,20 @@ function! s:ChangeSpace(old, new)
     let l:new = printf('set ts=%s sts=%s sw=%s et', a:new, a:new, a:new)
     exec l:new
     retab
+endfunction
+
+function! s:VChangeSpace(old, new) range
+    let l:lnum1 = getpos("'<")[1]
+    let l:lnum2 = getpos("'>")[1]
+    let l:rtab_cmd = printf('%s,%sretab', l:lnum1, l:lnum2)
+
+    let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old, a:old, a:old)
+    exec l:old
+    exec l:rtab_cmd . '!'
+
+    let l:new = printf('set ts=%s sts=%s sw=%s et', a:new, a:new, a:new)
+    exec l:new
+    exec l:rtab_cmd
 endfunction
 
 function! s:OpenFT()
