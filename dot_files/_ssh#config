@@ -6,7 +6,7 @@ Host *
    PasswordAuthentication no
    Protocol 2
    ControlMaster auto
-   ControlPath ~/.ssh/control/%r@%h:%p
+   ControlPath /tmp/ssh_control_%r@%h:%p
    ControlPersist 3600
    #SendEnv LANG LC_*
    #HashKnownHosts yes
