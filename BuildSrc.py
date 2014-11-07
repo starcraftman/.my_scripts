@@ -78,8 +78,8 @@ BUILDS = {
         'url'   : URL_CMAKE,
         'cmds' : [
             './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
-            --mandir=share/man --enable-ccache --qt-gui --sphinx-man \
-            --sphinx-html',
+            --mandir=share/man --system-libs --enable-ccache --qt-gui \
+            --sphinx-man --sphinx-html',
             'make -jJOBS install',
         ],
     },
@@ -94,6 +94,15 @@ BUILDS = {
         'globs': [
             ('bin/doxygen', 'bin/'),
             ('doc/*.1', 'share/man/man1/'),
+        ],
+    },
+    'neovim': {
+        'name' : 'neovim',
+        'check': 'bin/nvim',
+        'url'  : 'https://github.com/neovim/neovim',
+        'cmds' : [
+            'make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" \
+            install',
         ],
     },
     'parallel': {
@@ -267,11 +276,15 @@ def get_archive(url, target):
 
         extract_archive(tmp_file)
 
+        # Infer target dir by chopping off target right most folder
+        target_r_index = target.rfind(os.path.sep, 0, len(target) -2)
+        target_dir = target[0:target_r_index]
+
         # extracted dir doesn't always match arc_name, glob to be sure
         arc_front = re.split('[-_]', arc_name)[0] + '*'
         extracted = None
         for name in glob.glob(arc_front):
-            if name != arc_name:
+            if name not in [arc_name, target_dir]:
                 extracted = name
 
         os.rename(extracted, target)
@@ -380,6 +393,7 @@ def main():
     cmake        Build the latest cmake.
     dev          Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen      Build the latest doxygen.
+    neovim       Build neovim from source (still alpha).
     python       Build the latest python 2.x.
     python3      Build the latest python 3.x.
     tmux         Build the latest tmux.
