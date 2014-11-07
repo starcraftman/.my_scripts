@@ -277,7 +277,7 @@ def get_archive(url, target):
         extract_archive(tmp_file)
 
         # Infer target dir by chopping off target right most folder
-        target_r_index = target.rfind(os.path.sep, 0, len(target) -2)
+        target_r_index = target.rfind(os.path.sep, 0, len(target) - 2)
         target_dir = target[0:target_r_index]
 
         # extracted dir doesn't always match arc_name, glob to be sure
