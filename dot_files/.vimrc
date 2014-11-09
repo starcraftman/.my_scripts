@@ -29,6 +29,8 @@
 "       For molokai latest: https://github.com/tomasr/molokai
 "       Put colors folder into ~/.vim/ or use vundle install from github
 "       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
+"
+" * Explore plugins at: http://vimawesome.com/
 
 " }}}
 " Installation Procedure
@@ -193,9 +195,21 @@
 "       Searches code quickly, faster than grep. Requires silversearcher-ag.
 "       https://github.com/rking/ag.vim
 "
-"   ack.vim
+"   ack.vim:
 "       Same as ag.vim, though based on ack-grep a perl file.
 "       https://github.com/mileszs/ack.vim
+"
+"   FastFold:
+"       Make folding bit faster.
+"       https://github.com/zaiste/tmux.vim
+"
+"   tmux.vim:
+"       Syntax highlighting for .tmux.conf files.
+"       https://github.com/zaiste/tmux.vim
+"
+"  vim-zsh:
+"       Better syntax highlighting for zsh.
+"       https://github.com/clones/vim-zsh
 "
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
@@ -355,6 +369,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 
 " Regular plugins
+Plugin 'clones/vim-zsh'
 Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
 Plugin 'justinmk/vim-sneak'
