@@ -203,6 +203,10 @@
 "       Make folding bit faster.
 "       https://github.com/zaiste/tmux.vim
 "
+"   Tabular:
+"       Align text easily with regex patterns.
+"       https://github.com/godlygeek/tabular
+"
 "   tmux.vim:
 "       Syntax highlighting for .tmux.conf files.
 "       https://github.com/zaiste/tmux.vim
@@ -372,6 +376,7 @@ Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 Plugin 'clones/vim-zsh'
 Plugin 'edsono/vim-matchit'
 Plugin 'elzr/vim-json'
+Plugin 'godlygeek/tabular'
 Plugin 'justinmk/vim-sneak'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
@@ -659,8 +664,8 @@ nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 
 " Signify binding to jump between hunks.
-let g:signify_mapping_next_hunk = '<leader>hj'
-let g:signify_mapping_prev_hunk = '<leader>hk'
+nmap <leader>hj <plug>(signify-next-hunk)
+nmap <leader>hk <plug>(signify-prev-hunk)
 
 " Key bindings for UltiSnips, all of these are ctrl + key
 let g:UltiSnipsExpandTrigger       = '<c-j>'
