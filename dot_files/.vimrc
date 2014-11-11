@@ -744,15 +744,16 @@ set encoding=utf8
 
 " Folding method, for most code use indent, no need to clutter source
 set foldmethod=syntax
-set foldminlines=10
+set foldminlines=6
 set foldnestmax=3
 
 " Enable folding at the syntax level
 let javaScript_fold=1
 let php_folding=1
+let r_syntax_folding=1
 let ruby_fold=1
 let sh_fold_enabled=1
-let r_syntax_folding=1
+let vimsyn_folding='af'
 let xml_syntax_folding=1
 
 " Sets how many lines of history & undo VIM has to remember
