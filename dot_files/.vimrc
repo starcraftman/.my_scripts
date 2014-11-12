@@ -368,9 +368,9 @@ filetype off
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let cygwin_shell = has('win32unix')
-let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
-call vundle#begin(expand(vimDir . '/bundle'))
+let vim_dir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
+let &runtimepath .= ',' . expand(vim_dir . '/bundle/Vundle.vim')
+call vundle#begin(expand(vim_dir . '/bundle'))
 
 if exists(':Plugin')
     " Let Vundle manage itself.
@@ -507,7 +507,7 @@ let g:neocomplete#enable_auto_select = 1
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = expand(vimDir . '/snippets')
+let g:UltiSnipsSnippetsDir = expand(vim_dir . '/snippets')
 
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
@@ -784,7 +784,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = expand(vimDir . '/undo')
+    let &undodir = expand(vim_dir . '/undo')
     set undofile
 endif
 
@@ -1111,7 +1111,7 @@ function! s:VChangeSpace(old, new) range
 endfunction
 
 function! s:OpenFT()
-    let l:file = printf('%s/ftplugin/%s.vim', g:vimDir, &ft)
+    let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
     exec 'sp ' . l:file
 endfunction
 " }}}
