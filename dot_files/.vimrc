@@ -211,17 +211,21 @@
 "       Syntax highlighting for .tmux.conf files.
 "       https://github.com/zaiste/tmux.vim
 "
-"  vim-zsh:
+"   vim-zsh:
 "       Better syntax highlighting for zsh.
 "       https://github.com/clones/vim-zsh
+"
+"   csv.vim:
+"       Whole suite to make editting csv easier.
+"       https://github.com/chrisbra/csv.vim
 "
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
 
 " }}}
-" Unused Plugins, May Revisit
-"""""""""""""""""""""""""""""
+" Less Used Plugins
+"""""""""""""""""""
 " {{{
 
 "   neocomplete:
@@ -265,6 +269,10 @@
 "       Plugin that resizes windows on focus gain. Neat.
 "       https://github.com/roman/golden-ratio
 "
+"   html5.vim:
+"       Provides better highlighting for new html5 elements.
+"       https://github.com/Sothree/html5.vim
+"
 "   vim-css-color:
 "       Provides highlighting of color codes like hex and regular words like red.
 "       https://github.com/ap/vim-css-color
@@ -273,22 +281,21 @@
 "       Provides better highlighting for css3 files.
 "       https://github.com/hail2u/vim-css3-syntax
 "
-"   jshint:
-"       Provides javascript checking, requires node.js and other installation steps.
-"       Check the github page for details.
-"       https://github.com/Shutnik/jshint2.vim
-"
-"   html5.vim:
-"       Provides better highlighting for new html5 elements.
-"       https://github.com/Sothree/html5.vim
-"
 "   vim-javascript:
 "       Has some improvements to syntax and indents.
 "       https://github.com/pangloss/vim-javascript
 "
-"   Completion Alternatives:
-"       omniPerl and pydiction
-"       https://github.com/rkulla/pydiction
+"   jshint:
+"       Provides javascript checking, requires node.js and other installation steps.
+"       https://github.com/Shutnik/jshint2.vim
+"
+"   jQuery:
+"       Plugin provides better highlighting for jQuery.
+"       https://github.com/vim-scripts/jQuery
+"
+"  vim-ruby:
+"       Provides better syntax, indent and config for ruby dev.
+"       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
 "
 "   Pathogen:
 "       A manual alternative to Vundle
@@ -365,52 +372,63 @@ if exists(':Plugin')
     " Let Vundle manage itself.
     Plugin 'gmarik/Vundle.vim'
 
-    " Heaviest plugins
-    "Plugin 'Shougo/neocomplete.vim'
+    " Completion & Syntax Checking (Heavyiest Stuff)
     Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'Shougo/neocomplete.vim'
     Plugin 'scrooloose/syntastic'
-    Plugin 'bling/vim-airline'
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 
-    " Regular plugins
-    Plugin 'clones/vim-zsh'
+    " UI & Enhancements
+    Plugin 'bling/vim-airline'
     Plugin 'edsono/vim-matchit'
-    Plugin 'elzr/vim-json'
     Plugin 'godlygeek/tabular'
     Plugin 'justinmk/vim-sneak'
-    Plugin 'kien/ctrlp.vim'
     Plugin 'Konfekt/FastFold'
-    Plugin 'kshenoy/vim-togglelist'
-    Plugin 'ludovicchabant/vim-lawrencium'
     Plugin 'majutsushi/tagbar'
-    Plugin 'mhinz/vim-signify'
-    Plugin 'mileszs/ack.vim'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'rking/ag.vim'
     Plugin 'scrooloose/nerdcommenter'
-    "Plugin 'scrooloose/nerdtree'
     Plugin 'sjl/gundo.vim'
-    Plugin 'tomswartz07/vim-todo'
+    Plugin 'vim-scripts/taghighlight'
+
+    " Searching & Files
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'mileszs/ack.vim'
+    Plugin 'rking/ag.vim'
+    "Plugin 'scrooloose/nerdtree'
     Plugin 'tpope/vim-abolish'
+
+    " Diffing
+    Plugin 'ludovicchabant/vim-lawrencium'
+    Plugin 'mhinz/vim-signify'
     Plugin 'tpope/vim-fugitive'
+
+    " Utility
+    Plugin 'kshenoy/vim-togglelist'
     Plugin 'tpope/vim-sleuth'
     Plugin 'tpope/vim-surround'
     Plugin 'tyru/open-browser.vim'
     Plugin 'vim-scripts/a.vim'
     Plugin 'vim-scripts/DeleteTrailingWhitespace'
-    Plugin 'vim-scripts/taghighlight'
+
+    " Syntax / File Specific
+    Plugin 'clones/vim-zsh'
+    "Plugin 'chrisbra/csv.vim'
+    Plugin 'elzr/vim-json'
+    Plugin 'plasticboy/vim-markdown'
+    Plugin 'tomswartz07/vim-todo'
     Plugin 'zaiste/tmux.vim'
 
-    " Web programming
+    " Web Programming
+    "Plugin 'othree/html5.vim'
     "Plugin 'ap/vim-css-color'
     "Plugin 'hail2u/vim-css3-syntax'
-    "Plugin 'jQuery'
-    "Plugin 'othree/html5.vim'
+    "Plugin 'kchmck/vim-coffee-script'
     "Plugin 'pangloss/vim-javascript'
+    "Plugin 'vim-scripts/jQuery'
     "Plugin 'Shutnik/jshint2.vim'
+    "Plugin 'vim-ruby/vim-ruby'
 
-    " Large number of schemes to try:
+    " Very Large Number of Colorschemes
     "Plugin 'flazz/vim-colorschemes'
 
     " Turn on after vundle works
