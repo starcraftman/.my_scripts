@@ -361,63 +361,62 @@ let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
 call vundle#begin(expand(vimDir . '/bundle'))
 
-" Let Vundle manage itself.
-Plugin 'gmarik/Vundle.vim'
+if exists(':Plugin')
+    " Let Vundle manage itself.
+    Plugin 'gmarik/Vundle.vim'
 
-" Heaviest plugins
-"Plugin 'Shougo/neocomplete.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets' " Default snippets for ultisnips
+    " Heaviest plugins
+    "Plugin 'Shougo/neocomplete.vim'
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'scrooloose/syntastic'
+    Plugin 'bling/vim-airline'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets' " Default snippets for ultisnips
 
-" Regular plugins
-Plugin 'clones/vim-zsh'
-Plugin 'edsono/vim-matchit'
-Plugin 'elzr/vim-json'
-Plugin 'godlygeek/tabular'
-Plugin 'justinmk/vim-sneak'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Konfekt/FastFold'
-Plugin 'kshenoy/vim-togglelist'
-Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'majutsushi/tagbar'
-Plugin 'mhinz/vim-signify'
-Plugin 'mileszs/ack.vim'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'rking/ag.vim'
-Plugin 'scrooloose/nerdcommenter'
-"Plugin 'scrooloose/nerdtree'
-Plugin 'sjl/gundo.vim'
-Plugin 'tomswartz07/vim-todo'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-surround'
-Plugin 'tyru/open-browser.vim'
-Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/DeleteTrailingWhitespace'
-Plugin 'vim-scripts/taghighlight'
-Plugin 'zaiste/tmux.vim'
+    " Regular plugins
+    Plugin 'clones/vim-zsh'
+    Plugin 'edsono/vim-matchit'
+    Plugin 'elzr/vim-json'
+    Plugin 'godlygeek/tabular'
+    Plugin 'justinmk/vim-sneak'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'Konfekt/FastFold'
+    Plugin 'kshenoy/vim-togglelist'
+    Plugin 'ludovicchabant/vim-lawrencium'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'mhinz/vim-signify'
+    Plugin 'mileszs/ack.vim'
+    Plugin 'plasticboy/vim-markdown'
+    Plugin 'rking/ag.vim'
+    Plugin 'scrooloose/nerdcommenter'
+    "Plugin 'scrooloose/nerdtree'
+    Plugin 'sjl/gundo.vim'
+    Plugin 'tomswartz07/vim-todo'
+    Plugin 'tpope/vim-abolish'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'tpope/vim-sleuth'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tyru/open-browser.vim'
+    Plugin 'vim-scripts/a.vim'
+    Plugin 'vim-scripts/DeleteTrailingWhitespace'
+    Plugin 'vim-scripts/taghighlight'
+    Plugin 'zaiste/tmux.vim'
 
-" Web programming
-"Plugin 'ap/vim-css-color'
-"Plugin 'hail2u/vim-css3-syntax'
-"Plugin 'jQuery'
-"Plugin 'othree/html5.vim'
-"Plugin 'pangloss/vim-javascript'
-"Plugin 'Shutnik/jshint2.vim'
+    " Web programming
+    "Plugin 'ap/vim-css-color'
+    "Plugin 'hail2u/vim-css3-syntax'
+    "Plugin 'jQuery'
+    "Plugin 'othree/html5.vim'
+    "Plugin 'pangloss/vim-javascript'
+    "Plugin 'Shutnik/jshint2.vim'
 
-" Large number of schemes to try:
-"Plugin 'flazz/vim-colorschemes'
+    " Large number of schemes to try:
+    "Plugin 'flazz/vim-colorschemes'
 
-" Turn on after vundle works
-call vundle#end()
-filetype plugin indent on
-
-" Perl Autocomplete, allow : to be in keywords
-" set iskeyword+=:
+    " Turn on after vundle works
+    call vundle#end()
+    filetype plugin indent on
+endif
 
 " Syntastic
 """""""""""

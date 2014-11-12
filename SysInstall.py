@@ -53,7 +53,7 @@ PROGRAMMING = """ \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk \
-    colormake colordiff colorgcc jq \
+    colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     flex flex-doc bison bison-doc graphviz exuberant-ctags sphinx-common sphinx-doc \
     bash-doc bash-builtins bashdb zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
