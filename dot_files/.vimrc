@@ -293,6 +293,10 @@
 "       Plugin provides better highlighting for jQuery.
 "       https://github.com/vim-scripts/jQuery
 "
+"   php.vim:
+"       Improved php syntax files.
+"       https://github.com/elzr/vim-json
+"
 "  vim-ruby:
 "       Provides better syntax, indent and config for ruby dev.
 "       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
@@ -426,6 +430,7 @@ if exists(':Plugin')
     "Plugin 'pangloss/vim-javascript'
     "Plugin 'vim-scripts/jQuery'
     "Plugin 'Shutnik/jshint2.vim'
+    "Plugin 'StanAngeloff/php.vim'
     "Plugin 'vim-ruby/vim-ruby'
 
     " Very Large Number of Colorschemes
