@@ -395,7 +395,6 @@ if exists(':Plugin')
     Plugin 'mileszs/ack.vim'
     Plugin 'rking/ag.vim'
     "Plugin 'scrooloose/nerdtree'
-    Plugin 'tpope/vim-abolish'
 
     " Diffing
     Plugin 'ludovicchabant/vim-lawrencium'
@@ -404,6 +403,7 @@ if exists(':Plugin')
 
     " Utility
     Plugin 'kshenoy/vim-togglelist'
+    Plugin 'tpope/vim-abolish'
     Plugin 'tpope/vim-sleuth'
     Plugin 'tpope/vim-surround'
     Plugin 'tyru/open-browser.vim'
@@ -411,8 +411,8 @@ if exists(':Plugin')
     Plugin 'vim-scripts/DeleteTrailingWhitespace'
 
     " Syntax / File Specific
-    Plugin 'clones/vim-zsh'
     "Plugin 'chrisbra/csv.vim'
+    Plugin 'clones/vim-zsh'
     Plugin 'elzr/vim-json'
     Plugin 'plasticboy/vim-markdown'
     Plugin 'tomswartz07/vim-todo'
