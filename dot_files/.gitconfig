@@ -6,6 +6,7 @@
     dc = diff --cached
     df = diff
     di = diff
+    dv = "!f() { git difftool --tool=vimdiff --no-prompt $@; }; f"
     ;Diff the last n commits with HEAD
     din = "!f() { git diff HEAD~$@ HEAD; }; f"
     r = reset
