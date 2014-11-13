@@ -574,6 +574,11 @@ let g:ack_default_options = " -s -H --nocolor --nogroup --column --sort-files --
 " Options to use when searching with ag
 let g:agprg="ag --column --smart-case --follow"
 
+" OpenBrowser
+"""""""""""""
+" Default engine to duckduck
+let g:openbrowser_default_search =  'duckduckgo'
+
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
