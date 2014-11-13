@@ -352,6 +352,8 @@
 " * To repeat last command (colon): `@:`, to repeat last register `@@`.
 "
 " * To fix tabs, see `retab`. By default, %retab!
+"
+" * To paste yanked text in for Command, Ctrl + R then " (double quote)
 
 " }}}
 
