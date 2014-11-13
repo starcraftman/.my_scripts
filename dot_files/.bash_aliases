@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # This file contains all bash modifications apart from .bashrc.
 
 # Neat bash tricks, http://blog.sanctum.geek.nz/category/bash

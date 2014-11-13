@@ -864,7 +864,9 @@ syntax off
 
 " Set dark background before, else colors off
 set background=dark
-if has('gui_running') || &t_Co > 255
+if &diff && (has('gui_running') || &t_Co > 255)
+    colorscheme jellybeans
+elseif has('gui_running') || &t_Co > 255
     colorscheme molokai
     " Molokai CursorLine isn't bright enough.
     hi CursorLine  ctermbg=236

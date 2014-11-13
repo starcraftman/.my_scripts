@@ -1,4 +1,3 @@
-##!/usr/bin/env zsh
 # This config is based on a combination of existing .bashrc & .bash_aliases in
 # this directory, adapted to work on zsh.
 # Large number of configs:

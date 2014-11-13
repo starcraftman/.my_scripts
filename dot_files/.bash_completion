@@ -1,4 +1,3 @@
-#!/bin/bash
 # Holds any custom complete commands found useful
 
 # Ssh completion of used hosts
