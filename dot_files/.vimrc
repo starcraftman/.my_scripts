@@ -584,21 +584,19 @@ let g:openbrowser_default_search =  'duckduckgo'
 
 " TmuxLine
 """"""""""
-"#(ifconfig en0 | grep 'inet ' | awk '{print \"en0 \" $2}')",
-"#(ifconfig en1 | grep 'inet ' | awk '{print \"en1 \" $2}')",
-"#(ifconfig tun0 | grep 'inet ' | awk '{print \"vpn \" $2}') "
-
 " Preset for my tmux line.
 let g:tmuxline_preset = {
     \'a'    : '#h',
     \'b'    : '#(curl icanhazip.com)',
-    \'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
-    \       '#(ifconfig en1 | grep "inet " | awk {print "en1" $2})',
-    \       '#(ifconfig tun0 | grep "inet " | awk {print "vpn" $2})'],
     \'win'  : '#I #W',
     \'cwin' : '#I #W',
     \'y'    : ['#S', '#I', '#P'],
     \'z'    : ['%d %b %Y','%H:%M:%S']}
+
+" Unused options to display other addrs
+    "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
+    "\       '#(ifconfig en1 | grep "inet " | awk {print "en1" $2})',
+    "\       '#(ifconfig tun0 | grep "inet " | awk {print "vpn" $2})'],
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
