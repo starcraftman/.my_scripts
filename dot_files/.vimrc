@@ -620,11 +620,12 @@ let g:airline_powerline_fonts = 1
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
 if filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
-    let s:syn_status='%{SyntasticStatuslineFlag()} ==='
+    let s:syn_status='|| %{SyntasticStatuslineFlag()}'
 endif
 
 " Not prettiest, but functional
-let &statusline = '%<%1*=== %5*%t%1* === ' . s:syn_status .'%==== %2*%b(0x%B)%1* === %3*%l,%c%V%1* === %5*%P%1* ===%0*'
+let &statusline = '%<%1* %f%m %y || %{&fenc?&fenc:&enc}[%{&ff}] ' . s:syn_status
+let &statusline .='%= %b(0x%B) || buf: %n || %p%% %l,%c %0*'
 set laststatus=2
 
 " }}}
