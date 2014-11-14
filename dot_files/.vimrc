@@ -624,7 +624,7 @@ if filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
 endif
 
 " Not prettiest, but functional
-let &statusline = '%<%1* %f%m %y || %{&fenc?&fenc:&enc}[%{&ff}] ' . s:syn_status
+let &statusline = '%<%1* %t%m %y || %{&fenc?&fenc:&enc}[%{&ff}] ' . s:syn_status
 let &statusline .='%= %b(0x%B) || buf: %n || %p%% %l,%c %0*'
 set laststatus=2
 
