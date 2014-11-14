@@ -577,4 +577,4 @@ prompt_callback()
 # See ~/.git-prompt-colors.sh for scheme
 source ~/.shell/.bash-git-prompt/gitprompt.sh
 #}}}
-# vim: set foldmethod=marker:
+# vim:set ft=sh foldmethod=marker:

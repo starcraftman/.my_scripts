@@ -7,3 +7,4 @@ complete -W "$(echo $(grep '^ssh ' .bash_history | cut -d ' ' -f 2 | sort -u))" 
 for script in ~/.bash_completions/* ; do
     source $script
 done
+# vim:set ft=sh foldmethod=marker:
