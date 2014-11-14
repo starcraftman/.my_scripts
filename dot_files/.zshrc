@@ -105,9 +105,9 @@ alias la='l -A'
 # Different sorts
 alias lx='ll -XB'  # Extension
 alias lk='ll -Sr'  # File size
-alias lu='ll -tur' # Access time
+alias lt='ll -tur' # Access time
 alias lc='ll -tcr' # CTime, last change to attributes (fperms, ownership)
-alias lt='ll -tr'  # Modification time
+alias lm='ll -tr'  # Modification time
 
 # Recursive cp
 alias cpr='cp -r'
