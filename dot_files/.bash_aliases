@@ -5,7 +5,7 @@
 # List of BASH vals https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 
 # When debugging bash, $LINENO refers to current line of script
-# Also $RANDOM gives val from 0-32767
+# Also $RANDOM gives val from 0-32767, `shuf` command for ranges
 # Note that `caller expr` builtin prints call stack, where expr is framenumber.
 # Uses BASH_LINENO BASH_SOURCE & FUNCNAME arrays
 ############################################################################
