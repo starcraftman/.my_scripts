@@ -685,7 +685,7 @@ nnoremap <silent> <space>l :wincmd l<CR>
 nnoremap <C-J> <C-W>j<C-W>_
 nnoremap <C-K> <C-W>k<C-W>_
 " Change window right (<C-W>l) then maximize buffer width (<C-W>|)
-nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+nnoremap <C-V> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Toggles for the location and quickfix
@@ -1028,6 +1028,11 @@ if has('autocmd')
         "autocmd!
         "autocmd FileType vim call SetVimOptions()
     "augroup END
+
+    augroup netrw_maps
+        autocmd!
+        autocmd FileType netrw exec 'nnoremap <leader>x :call ToggleHide()<CR>:call feedkeys("<c-l>", "t")<CR>'
+    augroup END
 endif
 
 " }}}
@@ -1141,6 +1146,17 @@ endfunction
 function! s:OpenFT()
     let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
     exec 'sp ' . l:file
+endfunction
+
+function! ToggleHide()
+    let l:hide_dot = ',^\..*$'
+    let l:r_ind = stridx(g:netrw_list_hide, l:hide_dot) - 1
+
+    if l:r_ind > -1
+        let g:netrw_list_hide = g:netrw_list_hide[0:l:r_ind]
+    else
+        let g:netrw_list_hide .= l:hide_dot
+    endif
 endfunction
 " }}}
 "vim:set foldmethod=marker:
