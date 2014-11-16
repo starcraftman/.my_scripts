@@ -145,6 +145,11 @@ if valid_name dfc; then
     alias dfc='dfc -T'
 fi
 
+# For vims java eclipse completion
+if valid_name eclimd; then
+    alias eclimd='eclimd -b -Xss4m -Xms1024m -Xmx2048m'
+fi
+
 # Colored cat output
 if valid_name pygmentize; then
     alias ccat='pygmentize -g'
