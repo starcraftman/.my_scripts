@@ -18,6 +18,9 @@
 " * Vim Script: Learn to make plugins and contructs like loops, vars and commands
 "       http://learnvimscriptthehardway.stevelosh.com/
 "
+" * Vim Syntax/Indent Files:
+"       http://robots.thoughtbot.com/writing-vim-syntax-plugins
+"
 " * Vim NETRW remote editting
 "       http://www.vim.org/scripts/script.php?script_id=1075
 "
@@ -956,7 +959,8 @@ set textwidth=150
 " This list is used to build the strings for wildignore and netrw_list_hide
 " Any file ending in one of these extensions will be ignored in command completion & netrw browser
 let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
-let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg', 'deb', 'pdf']
+let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
+let exts += ['deb', 'pdf']
 
 " Add to ignore docs
 "let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
