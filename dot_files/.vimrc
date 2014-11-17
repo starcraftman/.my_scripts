@@ -222,6 +222,10 @@
 "       Whole suite to make editting csv easier.
 "       https://github.com/chrisbra/csv.vim
 "
+"   LaTeX-Box:
+"       Better highlighting and functions for LaTeX.
+"       https://github.com/LaTeX-Box-Team/LaTeX-Box
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -424,6 +428,7 @@ if exists(':Plugin')
     "Plugin 'chrisbra/csv.vim'
     Plugin 'clones/vim-zsh'
     Plugin 'elzr/vim-json'
+    "Plugin 'LaTeX-Box-Team/LaTeX-Box'
     Plugin 'plasticboy/vim-markdown'
     Plugin 'tomswartz07/vim-todo'
     Plugin 'zaiste/tmux.vim'
