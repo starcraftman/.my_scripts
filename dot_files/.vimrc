@@ -404,6 +404,7 @@ if exists(':Plugin')
     Plugin 'justinmk/vim-sneak'
     Plugin 'Konfekt/FastFold'
     Plugin 'majutsushi/tagbar'
+    Plugin 'MattesGroeger/vim-bookmarks'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'sjl/gundo.vim'
     Plugin 'vim-scripts/taghighlight'
@@ -421,7 +422,6 @@ if exists(':Plugin')
 
     " Utility
     Plugin 'kshenoy/vim-togglelist'
-    Plugin 'MattesGroeger/vim-bookmarks'
     Plugin 'tpope/vim-abolish'
     Plugin 'tpope/vim-sleuth'
     Plugin 'tpope/vim-surround'
