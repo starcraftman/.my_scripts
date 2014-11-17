@@ -226,6 +226,10 @@
 "       Better highlighting and functions for LaTeX.
 "       https://github.com/LaTeX-Box-Team/LaTeX-Box
 "
+"   vim-bookmarks:
+"       Better marking, nice sign usage.
+"       https://github.com/'MattesGroeger/vim-bookmarks
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -417,6 +421,7 @@ if exists(':Plugin')
 
     " Utility
     Plugin 'kshenoy/vim-togglelist'
+    Plugin 'MattesGroeger/vim-bookmarks'
     Plugin 'tpope/vim-abolish'
     Plugin 'tpope/vim-sleuth'
     Plugin 'tpope/vim-surround'
@@ -605,6 +610,14 @@ let g:tmuxline_preset = {
     "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
     "\       '#(ifconfig en1 | grep "inet " | awk {print "en1" $2})',
     "\       '#(ifconfig tun0 | grep "inet " | awk {print "vpn" $2})'],
+
+" Bookmarks
+"""""""""""
+" Center on jumping to bookmark
+let g:bookmark_center = 1
+
+" When jumping from quicklist, close it
+let g:bookmark_auto_close = 1
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
