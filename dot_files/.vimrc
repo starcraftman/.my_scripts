@@ -71,11 +71,12 @@
 "           Sets up powerline fonts for airline.
 "
 "   3b) Manually link/copy/download above. See ~/.my_scripts/dot_files
-    "   Get Vundle:
+"       Link from ~/.my_scripts/dot_files to $HOME
+"       Get Vundle:
 "           mkdir -p ~/.vim/bundle
 "           git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "       Further information:
-"       https://github.com/gmarik/vundle
+"           https://github.com/gmarik/vundle
 "
 "   4) Open vim and install plugins
 "       :PluginInstall
