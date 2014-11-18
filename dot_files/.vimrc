@@ -500,7 +500,8 @@ let g:EclimShowQuickfixSigns = 0
 let g:syntastic_mode_map={
         \ 'mode': 'active',
         \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
-        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']}
+        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']
+        \ }
 
 " Check syntax on file open
 "let g:syntastic_check_on_open = 1
@@ -603,12 +604,13 @@ let g:openbrowser_default_search = 'duckduckgo'
 """"""""""
 " Preset for my tmux line.
 let g:tmuxline_preset = {
-    \'a'    : '#h',
-    \'b'    : '#(curl icanhazip.com)',
-    \'win'  : '#I #W',
-    \'cwin' : '#I #W',
-    \'y'    : ['#S', '#I', '#P'],
-    \'z'    : ['%d %b %Y','%H:%M:%S']}
+        \'a'    : '#h',
+        \'b'    : '#(curl icanhazip.com)',
+        \'win'  : '#I #W',
+        \'cwin' : '#I #W',
+        \'y'    : ['#S', '#I', '#P'],
+        \'z'    : ['%d %b %Y','%H:%M:%S']
+    \ }
 
 " Unused options to display other addrs
     "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
@@ -1068,7 +1070,8 @@ if has('autocmd')
 
     augroup netrw_maps
         autocmd!
-        autocmd FileType netrw exec 'nnoremap <leader>x :call <SID>ToggleHide()<CR>:call feedkeys("<c-l>", "t")<CR>'
+        autocmd FileType netrw exec 'nnoremap <leader>x :call <SID>ToggleHide()<CR>'
+                    \ . ':call feedkeys("<c-l>", "t")<CR> :echo<CR>'
     augroup END
 endif
 
