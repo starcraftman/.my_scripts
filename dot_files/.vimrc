@@ -455,36 +455,6 @@ if exists(':Plugin')
     filetype plugin indent on
 endif
 
-" Syntastic
-"""""""""""
-" Set what chechers are active or passive
-let g:syntastic_mode_map={
-        \ 'mode': 'active',
-        \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
-        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']}
-
-" Check syntax on file open
-"let g:syntastic_check_on_open = 1
-
-" Show errors in the line numbers to left
-let g:syntastic_enable_signs = 1
-
-" Format the syntastic message
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-
-" List of files to ignore checking, may be useful later
-let g:syntastic_ignore_files = [ '\m^/usr/include/' ]
-
-" Always use location list
-let g:syntastic_always_populate_loc_list = 1
-
-" Override, don't think I'll run any unsecure perl files.
-let g:syntastic_enable_perl_checker = 1
-
-" Manually set important checkers:
-let g:syntastic_python_checkers = ['python', 'pychecker', 'pylint']
-let g:syntastic_perl_checkers = ['perl', 'perlcritic']
-
 " YouCompleteMe
 """""""""""""""
 " Global fall back if no config present.
@@ -517,6 +487,44 @@ let g:neocomplete#enable_smart_case = 1
 
 " Automatically select first option.
 let g:neocomplete#enable_auto_select = 1
+
+" Eclim
+"""""""
+" Disable until wanted.
+let g:EclimDisabled = 1
+
+" Fix for signs
+let g:EclimShowQuickfixSigns = 0
+
+" Syntastic
+"""""""""""
+" Set what chechers are active or passive
+let g:syntastic_mode_map={
+        \ 'mode': 'active',
+        \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
+        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']}
+
+" Check syntax on file open
+"let g:syntastic_check_on_open = 1
+
+" Show errors in the line numbers to left
+let g:syntastic_enable_signs = 1
+
+" Format the syntastic message
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+
+" List of files to ignore checking, may be useful later
+let g:syntastic_ignore_files = [ '\m^/usr/include/' ]
+
+" Always use location list
+let g:syntastic_always_populate_loc_list = 1
+
+" Override, don't think I'll run any unsecure perl files.
+let g:syntastic_enable_perl_checker = 1
+
+" Manually set important checkers:
+let g:syntastic_python_checkers = ['python', 'pychecker', 'pylint']
+let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 
 " UltiSnips
 """""""""""
