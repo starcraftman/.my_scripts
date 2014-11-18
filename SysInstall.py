@@ -159,6 +159,13 @@ def home_config():
         target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
         get_code(url, shell_dir + target)
 
+    # Vundle for vim plugins
+    bundle_dir = home + '.vim' + os.path.sep + 'bundle' + os.path.sep
+    if not os.path.exists(bundle_dir):
+        os.makedirs(bundle_dir)
+        get_code('https://github.com/gmarik/Vundle.vim',
+                bundle_dir + 'Vundle.vim')
+
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'
