@@ -40,14 +40,14 @@
 """"""""""""""""""""""""
 " {{{
 
-"   1) Install Vim:
-"       a) Linux
-"       YCM Requires Vim 7.4:
+"   1) Install Vim 7.4 with Python, Lua & Signs:
+"       a) Linux Package
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
-"       If can't install, try build from source:
-"       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+"
+"       b) POSIX Source Build
+"       BuildSrc.py vim
 "       OR
-"       Command: SysInstall vim
+"       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
 "       b) Windows
 "       Download and extract:
@@ -56,39 +56,36 @@
 "       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
 "
 "       c) Windows Babun (Cygwin)
-"       Use - https://github.com/babun/babun
+"       https://github.com/babun/babun
 "
-"   2) Ensure Vim Python Support:
-"       Some plugins use python (like Gundo), check support
-"       If not, recompile with it. See above for debian or source compile
+"   2) Check Support:
+"       :echo has('lua')
 "       :echo has('python')
+"       :echo has('signs')
 "
-"   Two Options to continue, use automated script or manually setup
-"   3a) Command: SysInstall home
-"       Will symbolically link .vimrc and .bash_aliases to .my_scripts
-"       Copys basic .vim folder to users home folder
-"       Will download Vundle to right location
-"       Will download powerline fonts for airline
-"       Will download and setup hg-prompt and git-bash-prompt
+"   3) Next setup config fils (.vim, .vimrc and so on)
+"       a) Python Script
+"       SysInstall home
+"           Symbolically links .vim & .vimrc to home.
+"           Downloads Vundle.vim to .vim/bundle.
+"           Sets up powerline fonts for airline.
 "
-"   3b) Manually continue to do the above. Copy/link manually
-"   Get Vundle:
-"       Plugin to manage installation of others
-"       For initial setup:
+"   3b) Manually link/copy/download above. See ~/.my_scripts/dot_files
+    "   Get Vundle:
 "           mkdir -p ~/.vim/bundle
 "           git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "       Further information:
 "       https://github.com/gmarik/vundle
 "
-"   4) Run BundleInstall:
-"       Run the command to get all bundles
+"   4) Open vim and install plugins
+"       :PluginInstall
 "
 "   5) Further Config:
-"       YouCompleteMe: Requires cpp compilation, see notes
+"       YouCompleteMe: Requires cpp compilation, see BuildSrc.py ycm.
 "       vim-airline: Requires powerline font modification
 "       TagBar: Requires exhuberant tags instead of gnu ctags
 "       ag.vim: Install 'silversearcher-ag' package.
-"       Dirs: Make ~/.vim/undo and ~/.vim/snippets
+"       ack.vim: Check for ack package.
 "       eclim: Follow install at: http://eclim.org/install.html
 
 " }}}
