@@ -41,36 +41,34 @@
 " {{{
 
 "   1) Install Vim 7.4 with Python, Lua & Signs:
-"       a) Linux Package
+"     a) Linux Package
 "       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
 "
-"       b) POSIX Source Build
+"     b) POSIX Source Build
 "       BuildSrc.py vim
 "       OR
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
-"       b) Windows
+"     b) Windows
 "       Download and extract:
 "       http://tuxproject.de/projects/vim/complete.7z
 "       Put the lua52.dll in the root project
 "       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
 "
-"       c) Windows Babun (Cygwin)
+"     c) Windows Babun (Cygwin)
 "       https://github.com/babun/babun
 "
-"   2) Check Support:
-"       :echo has('lua')
-"       :echo has('python')
-"       :echo has('signs')
+"   2) Check Support for features:
+"       :echo has('lua') && has('python') && has('signs')
 "
 "   3) Next setup config fils (.vim, .vimrc and so on)
-"       a) Python Script
+"     a) Python Script
 "       SysInstall home
 "           Symbolically links .vim & .vimrc to home.
 "           Downloads Vundle.vim to .vim/bundle.
 "           Sets up powerline fonts for airline.
 "
-"   3b) Manually link/copy/download above. See ~/.my_scripts/dot_files
+"     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
 "       Link from ~/.my_scripts/dot_files to $HOME
 "       Get Vundle:
 "           mkdir -p ~/.vim/bundle
