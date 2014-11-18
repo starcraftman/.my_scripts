@@ -592,12 +592,12 @@ let g:ack_default_options = " -s -H --nocolor --nogroup --column --sort-files --
 " Ag (Silver Searcher)
 """"""""""""""""""""""
 " Options to use when searching with ag
-let g:agprg="ag --column --smart-case --follow"
+let g:agprg = 'ag --column --smart-case --follow'
 
 " OpenBrowser
 """""""""""""
 " Default engine to duckduck
-let g:openbrowser_default_search =  'duckduckgo'
+let g:openbrowser_default_search = 'duckduckgo'
 
 " TmuxLine
 """"""""""
@@ -991,9 +991,9 @@ let exts += ['deb', 'pdf']
 let wild_s = ''
 let hide_s = ''
 
-for i in exts
-    let wild_s .= '*.' . i . ','
-    let hide_s .= i . '\|'
+for ext in exts
+    let wild_s .= '*.' . ext . ','
+    let hide_s .= ext . '\|'
 endfor
 
 " Don't leave trailing separator
@@ -1023,8 +1023,8 @@ let sort_exts = ['h', 'hh', 'hpp', 'hxx', 'c', 'cc', 'cpp', 'cxx', 'java']
 let sort_exts += ['py', 'pl', 'rb', 'html', 'css', 'js', 'xml', 'json']
 
 let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=\>,'
-for i in sort_exts
-    let g:netrw_sort_sequence .= '\.' . i . '$,'
+for ext in sort_exts
+    let g:netrw_sort_sequence .= '\.' . ext . '$,'
 endfor
 let g:netrw_sort_sequence .= '*,\.info$,\.swp$,\.bak$,\~$'
 let g:NERDTreeSortOrder = split(g:netrw_sort_sequence, ',')
@@ -1068,7 +1068,7 @@ if has('autocmd')
 
     augroup netrw_maps
         autocmd!
-        autocmd FileType netrw exec 'nnoremap <leader>x :call ToggleHide()<CR>:call feedkeys("<c-l>", "t")<CR>'
+        autocmd FileType netrw exec 'nnoremap <leader>x :call <SID>ToggleHide()<CR>:call feedkeys("<c-l>", "t")<CR>'
     augroup END
 endif
 
@@ -1185,7 +1185,7 @@ function! s:OpenFT()
     exec 'sp ' . l:file
 endfunction
 
-function! ToggleHide()
+function! s:ToggleHide()
     let l:hide_dot = ',^\..*$'
     let l:r_ind = stridx(g:netrw_list_hide, l:hide_dot) - 1
 
