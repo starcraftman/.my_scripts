@@ -473,9 +473,6 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_extra_conf_globlist = [
     \ '~/programming/*' ]
 
-" For eclim, YCM will query for completion
-let g:EclimCompletionMethod = 'omnifunc'
-
 " Neocomplete
 """""""""""""
 " Uses enter key to accept completion
@@ -492,6 +489,9 @@ let g:neocomplete#enable_auto_select = 1
 """""""
 " Disable until wanted.
 let g:EclimDisabled = 1
+
+" For eclim, YCM will query for completion
+let g:EclimCompletionMethod = 'omnifunc'
 
 " Fix for signs
 let g:EclimShowQuickfixSigns = 0
