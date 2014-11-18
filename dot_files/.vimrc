@@ -1012,6 +1012,17 @@ let g:netrw_sort_options = 'i'
 " NERDTreeIgnore if used
 let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
 
+" Sort by extensions commonly found
+let sort_exts = ['h', 'hh', 'hpp', 'hxx', 'c', 'cc', 'cpp', 'cxx', 'java']
+let sort_exts += ['py', 'pl', 'rb', 'html', 'css', 'js', 'xml', 'json']
+
+let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=\>,'
+for i in sort_exts
+    let g:netrw_sort_sequence .= '\.' . i . '$,'
+endfor
+let g:netrw_sort_sequence .= '*,\.info$,\.swp$,\.bak$,\~$'
+let g:NERDTreeSortOrder = split(g:netrw_sort_sequence, ',')
+
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autocommands & Filetype Specific
