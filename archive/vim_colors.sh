@@ -16,4 +16,8 @@ update_themes()
     done
 }
 
+if [ ! -d ~/.vim/colors ]; then
+    mkdir ~/.vim/colors
+fi
+
 update_themes ${THEMES[@]}
