@@ -29,11 +29,12 @@
 "
 " * For color schemes:
 "       Large selection of schemes: https://github.com/flazz/vim-colorschemes
-"       For molokai latest: https://github.com/tomasr/molokai
-"       Put colors folder into ~/.vim/ or use vundle install from github
-"       Favourites: molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
+"       Put schemes in ~/.vim/colors or use Vundle
+"       Favourites In Order:
+"           molokai, jellybeans, desert256, wombat256mod, mrkn256, xoria256, twilight256
 "
-" * Explore plugins at: http://vimawesome.com/
+" * Explore plugins at:
+"       http://vimawesome.com/
 
 " }}}
 " Installation Procedure
@@ -609,8 +610,7 @@ let g:tmuxline_preset = {
         \'win'  : '#I #W',
         \'cwin' : '#I #W',
         \'y'    : ['#S', '#I', '#P'],
-        \'z'    : ['%d %b %Y','%H:%M:%S']
-    \ }
+        \'z'    : ['%d %b %Y','%H:%M:%S']}
 
 " Unused options to display other addrs
     "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
