@@ -1200,4 +1200,4 @@ function! s:ToggleHide()
     let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
 endfunction
 " }}}
-"vim:set foldmethod=marker:
+" vim: set foldmethod=marker:
