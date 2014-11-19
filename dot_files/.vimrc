@@ -1071,8 +1071,7 @@ if has('autocmd')
 
     augroup netrw_maps
         autocmd!
-        autocmd FileType netrw exec 'nnoremap <leader>x :call <SID>ToggleHide()<CR>'
-                    \ . ':call feedkeys("<c-l>", "t")<CR> :echo<CR>'
+        autocmd FileType netrw map <leader>x gh
     augroup END
 endif
 
@@ -1189,16 +1188,5 @@ function! s:OpenFT()
     exec 'sp ' . l:file
 endfunction
 
-function! s:ToggleHide()
-    let l:hide_dot = ',^\..*$'
-    let l:r_ind = stridx(g:netrw_list_hide, l:hide_dot) - 1
-
-    if l:r_ind > -1
-        let g:netrw_list_hide = g:netrw_list_hide[0:l:r_ind]
-    else
-        let g:netrw_list_hide .= l:hide_dot
-    endif
-    let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
-endfunction
 " }}}
 " vim: set foldmethod=marker:
