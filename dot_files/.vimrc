@@ -610,7 +610,8 @@ let g:tmuxline_preset = {
         \'win'  : '#I #W',
         \'cwin' : '#I #W',
         \'y'    : ['#S', '#I', '#P'],
-        \'z'    : ['%d %b %Y','%H:%M:%S']
+        \'z'    : ['%d %b %Y','%H:%M:%S'],
+        \'options': {'status-justify' : 'left'}
     \ }
 
 " Unused options to display other addrs
