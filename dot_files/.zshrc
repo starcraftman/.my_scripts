@@ -271,8 +271,7 @@ function please() {
 }
 
 # Take a directory. If it doesn't exist, make it.
-function take()
-{
+function take() {
     local dir="$1"
     mkdir "$dir"
     cd "$dir"
@@ -285,8 +284,7 @@ function take()
 #  * Disables bash prompt to avoid pollution with xtrace.
 #
 #  N.B. zsh bug that xtrace can't be set in a function
-function debug()
-{
+function debug() {
     # If ps1 contains debug word, turn off debug mode
     if contains "$PS1" "DEBUG"; then
         PS1="$PS1_STD"
@@ -314,8 +312,7 @@ function debug()
 
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
-function ..()
-{
+function ..() {
     if [ $1 -ge 0 2> /dev/null ]; then
         x=$1
     else
@@ -328,24 +325,21 @@ function ..()
 }
 
 # Check if connection up at all by pinging google dns
-function conTest()
-{
+function conTest() {
     for url in "8.8.8.8" "8.8.4.4"; do
         ping -c 3 $url
     done
 }
 
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
-function termColor()
-{
+function termColor() {
     curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl 2>/dev/null
     perl ./c.pl
     \rm c.pl
 }
 
 # Format a json file to be pretty
-function jsonFix()
-{
+function jsonFix() {
     for file ; do
         cat "$file" | python -m json.tool > "fix_$file"
     done
@@ -354,8 +348,7 @@ function jsonFix()
 # Useful functions inspired by:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 # Get info on all network interfaces
-function listNics()
-{
+function listNics() {
     INTS=( "${(@f)$(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }')}" )
     # Ample use of awk/sed for field extraction.
     for INT in $INTS ; do
@@ -378,8 +371,7 @@ function listNics()
 }
 
 # Pretty print of df, like dfc.
-function prettyDf()
-{
+function prettyDf() {
     for fs ; do
 
         if [ ! -d $fs ]; then
@@ -405,8 +397,7 @@ function prettyDf()
 }
 
 # Get information on current system
-function ii()
-{
+function ii() {
     TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     print
     print "${fg_bold[blue]}$USERNAME${reset_color} is logged on ${fg_bold[blue]}$HOST${reset_color}"
@@ -657,22 +648,19 @@ vim_ins_mode="%{$fg_bold[red]%}[INS]%{$reset_color%}"
 vim_cmd_mode="%{$fg_bold[blue]%}[CMD]%{$reset_color%}"
 vim_mode=$vim_ins_mode
 
-function zle-keymap-select()
-{
+function zle-keymap-select() {
     vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
     zle reset-prompt
 }
 zle -N zle-keymap-select
 
-function zle-line-finish()
-{
+function zle-line-finish() {
     vim_mode=$vim_ins_mode
 }
 zle -N zle-line-finish
 
 # HG prompt like bash-git-prompt
-function hg_prompt()
-{
+function hg_prompt() {
     local p_line="${fg_bold[magenta]}{branch}${reset_color}{ ${fg[red]}↓{incoming|count}${reset_color}}"
     p_line="${p_line}{ ${fg[green]}↑{outgoing|count}${reset_color}}|${fg[yellow]}{status}{update}${reset_color}"
     local HG=$(hg prompt "[${p_line}]" 2>/dev/null)
@@ -689,8 +677,7 @@ function hg_prompt()
     echo "$HG"
 }
 
-function prompt_precmd()
-{
+function prompt_precmd() {
     if [ $? -eq 0 ]; then
         LAST="%F{green}✔%f"
     else
@@ -702,8 +689,7 @@ function prompt_precmd()
 
 # Save hooks if arge is 1, else restore them.
 # Needed for debug function above, or if I just want to disabe.
-function save_hooks
-{
+function save_hooks {
     if [ "$1" = "1" ]; then
         chpwd_functions=
         precmd_functions=

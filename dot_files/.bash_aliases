@@ -288,8 +288,7 @@ please() {
 }
 
 # Take a directory. If it doesn't exist, make it.
-take()
-{
+take() {
     local dir="$1"
     mkdir "$dir"
     cd "$dir"
@@ -300,8 +299,7 @@ take()
 #  * Prevents unsetting vars (nounset).
 #  * Prints lines before execution (verbose).
 #  * Disables bash prompt to avoid pollution with xtrace.
-debug()
-{
+debug() {
     # If command is blank, turn off debug mode
     if [ "x" == "x${PROMPT_COMMAND}" ]; then
         #set +o nounset
@@ -329,8 +327,7 @@ debug()
 
 # Function to go back up when deep in directories.
 # Example: .. 3 == cd ../../..
-..()
-{
+..() {
     if [ $1 -ge 0 2> /dev/null ]; then
         x=$1
     else
@@ -344,8 +341,7 @@ debug()
 
 # Repeat a command n times, example:
 #   repeat 10 echo foo
-repeat()
-{
+repeat() {
     if [ "$#" -lt 3 ]; then
         echo "Repeat a command n times, example:
         repeat 10 echo foo"
@@ -360,24 +356,21 @@ repeat()
 }
 
 # Check if connection up at all by pinging google dns
-conTest()
-{
+conTest() {
     for url in "8.8.8.8" "8.8.4.4"; do
         ping -c 3 $url
     done
 }
 
 # Check if term supports 256 -> http://www.robmeerman.co.uk/unix/256colours
-termColor()
-{
+termColor() {
     curl http://www.robmeerman.co.uk/_media/unix/256colors2.pl > c.pl 2>/dev/null
     perl ./c.pl
     \rm c.pl
 }
 
 # Format a json file to be pretty
-jsonFix()
-{
+jsonFix() {
     for file ; do
         cat "$file" | python -m json.tool > "fix_$file"
     done
@@ -386,8 +379,7 @@ jsonFix()
 # Useful functions inspired by:
 #http://www.tldp.org/LDP/abs/html/sample-bashrc.html
 # Get info on all network interfaces
-listNics()
-{
+listNics() {
     local INTS=($(ifconfig -s | awk ' /^wlan.*|eth.*/ { print $1 }'))
     # Ample use of awk/sed for field extraction.
     for INT in ${INTS[@]} ; do
@@ -409,8 +401,7 @@ listNics()
 }
 
 # Pretty print of df, like dfc.
-prettyDf()
-{
+prettyDf() {
     for fs ; do
 
         if [ ! -d $fs ]; then
@@ -435,8 +426,7 @@ prettyDf()
 }
 
 # Get information on current system
-ii()
-{
+ii() {
     local TOP=$(top -n 1 -o %CPU | sed '/^$/d' | head -n 12 | tail -n 11)
     echo
     echo -e "${T_BBLUE}$USER${T_RESET} is logged on ${T_BBLUE}$HOSTNAME${T_RESET}"
@@ -553,8 +543,7 @@ fi
 # This callback fetches the hg stuff to insert only if in hg repo, looks like bash-git-prompt message.
 # HG Prompt: http://sjl.bitbucket.org/hg-prompt/
 # Git Prompt: https://github.com/magicmonty/bash-git-prompt
-prompt_callback()
-{
+prompt_callback() {
     local p_line="${PS1_BMAGENTA}{branch}${PS1_R}{ ${PS1_RED}↓{incoming|count}${PS1_R}}"
     p_line="${p_line}{${PS1_GREEN}↑{outgoing|count}${PS1_R}}|${PS1_YELLOW}{status}{update}${PS1_R}"
     local HG=$(hg prompt "[${p_line}]" 2>/dev/null)
