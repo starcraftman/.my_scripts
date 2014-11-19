@@ -17,6 +17,7 @@ _tmux() {
         kill-session
         list-clients
         list-commands
+        list-keys
         list-sessions
         lock-client
         lock-session
