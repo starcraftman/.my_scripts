@@ -498,7 +498,7 @@ let g:EclimShowQuickfixSigns = 0
 " Syntastic
 """""""""""
 " Set what chechers are active or passive
-let g:syntastic_mode_map={
+let g:syntastic_mode_map = {
         \ 'mode': 'active',
         \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
         \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']
@@ -589,7 +589,7 @@ let NERDTreeWinSize = 50
 " Ack.vim
 """""""""
 " Options when using ack
-let g:ack_default_options = " -s -H --nocolor --nogroup --column --sort-files --smart-case --follow"
+let g:ack_default_options = ' -s -H --nocolor --nogroup --column --sort-files --smart-case --follow'
 
 " Ag (Silver Searcher)
 """"""""""""""""""""""
@@ -610,7 +610,8 @@ let g:tmuxline_preset = {
         \'win'  : '#I #W',
         \'cwin' : '#I #W',
         \'y'    : ['#S', '#I', '#P'],
-        \'z'    : ['%d %b %Y','%H:%M:%S']}
+        \'z'    : ['%d %b %Y','%H:%M:%S']
+    \ }
 
 " Unused options to display other addrs
     "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
@@ -647,12 +648,12 @@ let g:airline_powerline_fonts = 1
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
 if filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
-    let s:syn_status='|| %{SyntasticStatuslineFlag()}'
+    let s:syn_status = '|| %{SyntasticStatuslineFlag()}'
 endif
 
 " Not prettiest, but functional
-let &statusline = '%<%1* %t%m %y || %{&fenc?&fenc:&enc}[%{&ff}] ' . s:syn_status
-let &statusline .='%= %b(0x%B) || buf: %n || %p%% %l,%c %0*'
+let &statusline  = '%<%1* %t%m %y || %{&fenc?&fenc:&enc}[%{&ff}] ' . s:syn_status
+let &statusline .= '%= %b(0x%B) || buf: %n || %p%% %l,%c %0*'
 set laststatus=2
 
 " }}}
@@ -823,13 +824,13 @@ set foldminlines=6
 set foldnestmax=3
 
 " Enable folding at the syntax level
-let javaScript_fold=1
-let php_folding=1
-let r_syntax_folding=1
-let ruby_fold=1
-let sh_fold_enabled=1
-let vimsyn_folding='af'
-let xml_syntax_folding=1
+let javaScript_fold    = 1
+let php_folding        = 1
+let r_syntax_folding   = 1
+let ruby_fold          = 1
+let sh_fold_enabled    = 1
+let vimsyn_folding     = 'af'
+let xml_syntax_folding = 1
 
 " Sets how many lines of history & undo VIM has to remember
 set history=1000
