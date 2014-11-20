@@ -20,7 +20,7 @@ BuildSrc.py
 
 GetLibs.py
 ----------
-* Related to above, builds C libs locally to externalize depency from system. 
+* Related to above, builds C libs locally to externalize depency from system.
 
 MkSource.py
 -----------
@@ -38,7 +38,7 @@ unarchive
 
 valid_name
 ----------
-* Determins if a name is available on the default path, could be function, command etc... 
+* Determins if a name is available on the default path, could be function, command etc...
 
 contains
 --------
