@@ -24,6 +24,9 @@
 " * Vim NETRW remote editting
 "       http://www.vim.org/scripts/script.php?script_id=1075
 "
+" * Explore plugins at:
+"       http://vimawesome.com/
+
 " * For detailed breakdown of basic vim options, I started by looking at this one:
 "       http://amix.dk/vim/vimrc.html
 "
@@ -33,9 +36,6 @@
 "       Favourites In Order:
 "           molokai, jellybeans, desert256, wombat256mod, mrkn256, xoria256, twilight256
 "
-" * Explore plugins at:
-"       http://vimawesome.com/
-
 " }}}
 " Installation Procedure
 """"""""""""""""""""""""
@@ -821,7 +821,7 @@ set encoding=utf8
 " Folding method, for most code use indent, no need to clutter source
 set foldmethod=syntax
 set foldminlines=6
-set foldnestmax=3
+set foldnestmax=2
 
 " Enable folding at the syntax level
 let javaScript_fold    = 1
