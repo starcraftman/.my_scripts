@@ -1064,10 +1064,11 @@ if has('autocmd')
     augroup END
 
     " Register funcs with filetype load
-    "augroup filetype_funcs
-        "autocmd!
-        "autocmd FileType vim call SetVimOptions()
-    "augroup END
+    augroup filetype_funcs
+        autocmd!
+        " missing keywords for bash statement syntax
+        autocmd FileType sh exec 'syntax keyword shStatement source shopt'
+    augroup END
 
     augroup netrw_maps
         autocmd!
