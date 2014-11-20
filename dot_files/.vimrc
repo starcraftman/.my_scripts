@@ -1072,7 +1072,8 @@ if has('autocmd')
 
     augroup netrw_maps
         autocmd!
-        autocmd FileType netrw map <leader>x gh
+        autocmd FileType netrw nmap <leader>x gh
+        autocmd FileType netrw nmap <silent> <leader>z :call <SID>ShowSyms()<CR>
     augroup END
 endif
 
@@ -1187,6 +1188,40 @@ endfunction
 function! s:OpenFT()
     let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
     exec 'sp ' . l:file
+endfunction
+
+function! s:NetrwResolveFile(line)
+    let l:left = 0
+    let l:right = len(a:line) - 1
+    let l:char = a:line[l:left]
+    while l:char == ' ' || l:char == '|'
+        let l:left += 1
+        let l:char = a:line[l:left]
+    endwhile
+
+    let char = a:line[l:right]
+    while l:char =~ '[/*|@=]$'
+        let right -= 1
+        let char = a:line[l:right]
+    endwhile
+
+    return resolve(strpart(a:line, l:left, l:right - l:left + 1))
+endfunction
+
+function! s:ShowSyms()
+    let l:count = 1
+    let l:output = ""
+
+    for l:line in getline(1, '$')
+        if l:line =~ '@$'
+            let l:filename = s:NetrwResolveFile(l:line)
+            let l:output .= printf("ln: %5d %s -> %s@\n", l:count, l:line, l:filename)
+        endif
+
+        let l:count += 1
+    endfor
+
+    echo l:output
 endfunction
 
 " }}}
