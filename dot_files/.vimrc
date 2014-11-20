@@ -553,7 +553,6 @@ let g:sneak#map_netrw = 1
 
 " TagBar
 """"""""
-
 " Close on selecting an option
 let g:tagbar_autoclose = 1
 
@@ -605,13 +604,13 @@ let g:openbrowser_default_search = 'duckduckgo'
 """"""""""
 " Preset for my tmux line.
 let g:tmuxline_preset = {
-        \'a'    : '#h',
-        \'b'    : '#(curl icanhazip.com)',
-        \'win'  : '#I #W',
-        \'cwin' : '#I #W',
-        \'y'    : ['#S', '#I', '#P'],
-        \'z'    : ['%d %b %Y','%H:%M:%S'],
-        \'options': {'status-justify' : 'left'}
+        \'a'       : '#h',
+        \'b'       : '#(curl icanhazip.com)',
+        \'win'     : '#I #W',
+        \'cwin'    : '#I #W',
+        \'y'       : ['#S', '#I', '#P'],
+        \'z'       : ['%d %b %Y', '%H:%M:%S'],
+        \'options' : {'status-justify' : 'left'}
     \ }
 
 " Unused options to display other addrs
