@@ -1206,7 +1206,7 @@ function! s:NetrwResolveFile(line)
         let char = a:line[l:right]
     endwhile
 
-    return resolve(strpart(a:line, l:left, l:right - l:left + 1))
+    return resolve('./' . strpart(a:line, l:left, l:right - l:left + 1))
 endfunction
 
 function! s:ShowSyms()
