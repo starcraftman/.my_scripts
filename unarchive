@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-usage()
-{
+usage() {
     echo "${0##*/} archive1 archive2 archive3 ...
     Any archive supported is extracted to current dir.
 
@@ -8,8 +7,7 @@ usage()
     "
 }
 
-extract_files()
-{
+extract_files() {
     local tmpdir=$HOME/loopback
     for file ; do
         if [ ! -f $file ] ; then
@@ -53,8 +51,7 @@ extract_files()
     echo
 }
 
-extract_folder()
-{
+extract_folder() {
     local front=$(echo "$1" | sed -e 's/\([[:alnum:]]*\)[[:punct:]]*.*/\1/g')
     for file in ${front}*; do
         if [ "$file" == "$1" ]; then

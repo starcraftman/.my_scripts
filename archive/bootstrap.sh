@@ -3,8 +3,7 @@ PYTHON_URL=https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
 ZSH_URL=https://github.com/zsh-users/zsh.git
 DIR=~/.opt1
 
-build_python2()
-{
+build_python2() {
     local pyarc=python.tar.xz
     curl $PYTHON_URL > "$pyarc"
     xzcat "$pyarc" | tar xvf -
@@ -17,8 +16,7 @@ build_python2()
 }
 
 
-build_zsh()
-{
+build_zsh() {
     git clone https://github.com/zsh-users/zsh.git
     pushd zsh
     ./Util/preconfig

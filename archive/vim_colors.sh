@@ -6,8 +6,7 @@ THEMES=( 'chriskempson/vim-tomorrow-theme' 'nanotech/jellybeans.vim' 'Lokaltog/v
 'morhetz/gruvbox' 'tomasr/molokai' 'tpope/vim-vividchalk' 'vim-scripts/desert256.vim' )
 TMP_DIR=/tmp/vim_colors
 
-update_themes()
-{
+update_themes() {
     for theme ; do
         local gUrl="$URL$theme"
         git clone "$gUrl" "$TMP_DIR"
