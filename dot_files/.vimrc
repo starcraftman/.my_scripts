@@ -1193,6 +1193,7 @@ endfunction
 function! s:NetrwResolveFile(line)
     let l:left = 0
     let l:right = len(a:line) - 1
+
     let l:char = a:line[l:left]
     while l:char == ' ' || l:char == '|'
         let l:left += 1
