@@ -362,6 +362,8 @@
 " * To fix tabs, see `retab`. By default, %retab!
 "
 " * To paste yanked text in for Command, Ctrl + R then " (double quote)
+"
+" * With cursor over work, push K in nmode. Opens manpage.
 
 " }}}
 
@@ -907,6 +909,10 @@ set magic
 " Override with \c/\C flag in regex -- /\cword
 set ignorecase
 set smartcase
+
+" More intiutive when new splits at right and bottom
+set splitbelow
+set splitright
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
