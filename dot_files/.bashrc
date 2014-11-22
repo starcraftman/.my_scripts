@@ -7,8 +7,9 @@
 case $- in
     *i*)
         ;;
-      *)
-        return ;;
+    *)
+        return
+        ;;
 esac
 
 # make less more friendly for non-text input files, see lesspipe(1)
