@@ -989,34 +989,34 @@ set textwidth=150
 
 " This list is used to build the strings for wildignore and netrw_list_hide
 " Any file ending in one of these extensions will be ignored in command completion & netrw browser
-let exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
-let exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
-let exts += ['deb', 'pdf']
+let s:hide_exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
+let s:hide_exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
+let s:hide_exts += ['deb', 'pdf']
 
 " Add to ignore docs
-"let exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
+"let s:hide_exts += ['doc', 'docx', 'odt', 'xls', 'xlsx', 'ods', 'ppt', 'pptx', 'odp']
 
 " Processing here to build the large regexp
-let wild_s = ''
-let hide_s = ''
+let s:wild_regex = ''
+let s:netrw_regex = ''
 
-for ext in exts
-    let wild_s .= '*.' . ext . ','
-    let hide_s .= ext . '\|'
+for ext in s:hide_exts
+    let s:wild_regex .= '*.' . ext . ','
+    let s:netrw_regex .= ext . '\|'
 endfor
 
 " Don't leave trailing separator
-let wild_s = wild_s[:-2]
-let hide_s = hide_s[:-3]
+let s:wild_regex = s:wild_regex[:-2]
+let s:netrw_regex = s:netrw_regex[:-3]
 
 " Hide VCS folders in this list.
-let vcs_hide = '\.git/,\.hg/,\.svn/,\.bzr/'
+let s:vcs_hide = '\.git/,\.hg/,\.svn/,\.bzr/'
 
 " When using autocomplete tab, ignore all matching strings
-let &wildignore = wild_s . ',' . vcs_hide
+let &wildignore = s:wild_regex . ',' . s:vcs_hide
 
 " When browsing with netrw, ignore all matching files to this regex
-let g:netrw_list_hide = '\w\+\.\(' . hide_s . '\)\*\?$\c,' . vcs_hide
+let g:netrw_list_hide = '\w\+\.\(' . s:netrw_regex . '\)\*\?$\c,' . s:vcs_hide
 
 " Customize netrw use a tree style and ignore some extensions
 let g:netrw_liststyle = 3
