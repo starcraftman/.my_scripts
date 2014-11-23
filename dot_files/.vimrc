@@ -372,7 +372,6 @@
 " => Plugins with Vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
-
 " Vundle docs -> :help vundle
 set nocompatible
 filetype off
@@ -455,7 +454,11 @@ if exists(':Plugin')
     call vundle#end()
     filetype plugin indent on
 endif
-
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
 " YouCompleteMe
 """""""""""""""
 " Global fall back if no config present.
@@ -627,7 +630,6 @@ let g:bookmark_center = 1
 
 " When jumping from quicklist, close it
 let g:bookmark_auto_close = 1
-
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
