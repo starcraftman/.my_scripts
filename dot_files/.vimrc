@@ -382,11 +382,11 @@ set nocompatible
 filetype off
 
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
-let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
-let cygwin_shell = has('win32unix')
-let vim_dir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . expand(vim_dir . '/bundle/Vundle.vim')
-call vundle#begin(expand(vim_dir . '/bundle'))
+let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
+let g:cygwin_shell = has('win32unix')
+let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
+let &runtimepath .= ',' . expand(g:vim_dir . '/bundle/Vundle.vim')
+call vundle#begin(expand(g:vim_dir . '/bundle'))
 
 if exists(':Plugin')
     " Let Vundle manage itself.
@@ -540,7 +540,7 @@ let g:syntastic_perl_checkers = ['perl', 'perlcritic']
 " UltiSnips
 """""""""""
 " Set dir to .vim section
-let g:UltiSnipsSnippetsDir = expand(vim_dir . '/snippets')
+let g:UltiSnipsSnippetsDir = expand(g:vim_dir . '/snippets')
 
 " Force a version of python
 "let g:UltiSnipsUsePythonVersion = 2
@@ -837,13 +837,13 @@ set foldminlines=6
 set foldnestmax=2
 
 " Enable folding at the syntax level
-let javaScript_fold    = 1
-let php_folding        = 1
-let r_syntax_folding   = 1
-let ruby_fold          = 1
-let sh_fold_enabled    = 1
-let vimsyn_folding     = 'af'
-let xml_syntax_folding = 1
+let g:javaScript_fold    = 1
+let g:php_folding        = 1
+let g:r_syntax_folding   = 1
+let g:ruby_fold          = 1
+let g:sh_fold_enabled    = 1
+let g:vimsyn_folding     = 'af'
+let g:xml_syntax_folding = 1
 
 " Sets how many lines of history & undo VIM has to remember
 set history=1000
@@ -851,7 +851,7 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = expand(vim_dir . '/undo')
+    let &undodir = expand(g:vim_dir . '/undo')
     set undofile
 endif
 
@@ -1232,7 +1232,7 @@ function! s:ShowSyms()
     for l:line in getline(1, '$')
         if l:line =~ '@$'
             let l:filename = s:NetrwResolveFile(l:line)
-            let l:output .= printf("ln: %5d %s -> %s@\n", l:count, l:line, l:filename)
+            let l:output .= printf("ln: %5d %s -> %s\n", l:count, l:line, l:filename)
         endif
 
         let l:count += 1
