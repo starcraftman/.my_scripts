@@ -504,7 +504,7 @@ let g:syntastic_mode_map = {
         \ 'mode': 'active',
         \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
         \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']
-        \ }
+    \ }
 
 " Check syntax on file open
 "let g:syntastic_check_on_open = 1
@@ -700,10 +700,10 @@ inoremap jk <esc>
 "inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
-nnoremap <right>    :bnext<CR>
-nnoremap <left>     :bprevious<CR>
-nnoremap <up>       :tabn<CR>
-nnoremap <down>     :tabp<CR>
+nnoremap <right> :bnext<CR>
+nnoremap <left>  :bprevious<CR>
+nnoremap <up>    :tabn<CR>
+nnoremap <down>  :tabp<CR>
 
 " Remap Space + direction to move between split windows
 nnoremap <silent> <space>k :wincmd k<CR>
@@ -989,7 +989,7 @@ set textwidth=150
 
 " This list is used to build the strings for wildignore and netrw_list_hide
 " Any file ending in one of these extensions will be ignored in command completion & netrw browser
-let s:hide_exts = ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
+let s:hide_exts =  ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
 let s:hide_exts += ['pyc', 'class', 'com', 'rar', 'zip', 'gz', 'bz2', '7z', 'iso', 'jar', 'dmg']
 let s:hide_exts += ['deb', 'pdf']
 
@@ -1028,11 +1028,11 @@ let g:netrw_sort_options = 'i'
 let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
 
 " Sort by extensions commonly found
-let sort_exts = ['h', 'hh', 'hpp', 'hxx', 'c', 'cc', 'cpp', 'cxx', 'java']
-let sort_exts += ['py', 'pl', 'rb', 'html', 'css', 'js', 'xml', 'json']
+let s:sort_exts =  ['h', 'hh', 'hpp', 'hxx', 'c', 'cc', 'cpp', 'cxx', 'java']
+let s:sort_exts += ['py', 'pl', 'rb', 'html', 'css', 'js', 'xml', 'json']
 
 let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=\>,'
-for ext in sort_exts
+for ext in s:sort_exts
     let g:netrw_sort_sequence .= '\.' . ext . '$,'
 endfor
 let g:netrw_sort_sequence .= '*,\.info$,\.swp$,\.bak$,\~$'
@@ -1046,7 +1046,6 @@ let g:NERDTreeSortOrder = split(g:netrw_sort_sequence, ',')
 
 " Protection against older Vim versions. Gvim reports falsely augroup = 0 sometimes.
 if has('autocmd')
-
     if has('gui')
         augroup gui_cmds
             autocmd!
