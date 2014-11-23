@@ -1206,7 +1206,7 @@ function! s:OpenFT()
     exec 'sp ' . l:file
 endfunction
 
-function! s:NetrwResolveFile(line)
+function! s:ExtractFullPath(line)
     let l:left = 0
     let l:right = len(a:line) - 1
 
@@ -1222,22 +1222,33 @@ function! s:NetrwResolveFile(line)
         let char = a:line[l:right]
     endwhile
 
-    return resolve(getcwd() . '/' . strpart(a:line, l:left, l:right - l:left + 1))
+    let l:link = strpart(a:line, l:left, l:right - l:left + 1)
+
+    if len(l:link) > s:max_link
+        let s:max_link = len(l:link)
+    endif
+
+    return [l:link, resolve(getcwd() . "/" . l:link)]
 endfunction
 
 function! s:ShowSyms()
     let l:count = 1
-    let l:output = ""
+    let l:files = []
+    let s:max_link = 0
 
     for l:line in getline(1, '$')
         if l:line =~ '@$'
-            let l:filename = s:NetrwResolveFile(l:line)
-            let l:output .= printf("ln: %5d %s -> %s\n", l:count, l:line, l:filename)
+            let l:files  += [[l:count] + s:ExtractFullPath(l:line)]
         endif
 
         let l:count += 1
     endfor
 
+    let l:output = ""
+    let l:fmt = "ln: %5d %" . s:max_link . "s -> %s\n"
+    for l:entry in l:files
+        let l:output .= printf(l:fmt, l:entry[0], l:entry[1], l:entry[2])
+    endfor
     echo l:output
 endfunction
 
