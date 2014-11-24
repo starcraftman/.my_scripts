@@ -16,34 +16,34 @@ extract_files() {
         fi
 
         case $file in
-            *.deb)               ar p "$file" data.tar.gz | tar zx ;;
-            *.rpm)               rpm2cpio "$file" | cpio -vid      ;;
-            *.jar)               jar xf "$file"                    ;;
-            *.iso)               7z x "$file"                      ;;
-            *.tar)               tar xf "$file"                    ;;
-            *.tbz2|*.tar.bz2)    tar xjf "$file"                   ;;
-            *.tgz|*.tar.gz)      tar xzf "$file"                   ;;
-            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -          ;;
-            *.tar.xz)            xzcat "$file" | tar xf -          ;;
-            *.tar.Z)             zcat "$file" | tar xf -           ;;
-            *.bz|*.bz2)          bunzip2 "$file"                   ;;
-            *.gz)                gunzip "$file"                    ;;
-            *.lzma)              unlzma "$file"                    ;;
-            *.rar)               unrar "$file"                     ;;
-            *.xz)                unxz "$file"                      ;;
-            *.Z)                 uncompress "$file"                ;;
-            *.zip)               unzip "$file"                     ;;
-            *.7z)                7z x "$file"                      ;;
+            *.deb)               ar p "$file" data.tar.gz | tar zx  ;;
+            *.rpm)               rpm2cpio "$file" | cpio -vid       ;;
+            *.jar)               jar xf "$file"                     ;;
+            *.iso)               7z x "$file"                       ;;
+            *.tar)               tar xf "$file"                     ;;
+            *.tbz2|*.tar.bz2)    tar xjf "$file"                    ;;
+            *.tgz|*.tar.gz)      tar xzf "$file"                    ;;
+            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -           ;;
+            *.tar.xz)            xzcat "$file" | tar xf -           ;;
+            *.tar.Z)             zcat "$file" | tar xf -            ;;
+            *.bz|*.bz2)          bunzip2 "$file"                    ;;
+            *.gz)                gunzip "$file"                     ;;
+            *.lzma)              unlzma "$file"                     ;;
+            *.rar)               unrar "$file"                      ;;
+            *.xz)                unxz "$file"                       ;;
+            *.Z)                 uncompress "$file"                 ;;
+            *.zip)               unzip "$file"                      ;;
+            *.7z)                7z x "$file"                       ;;
             *.dmg)
                 mkdir -vp $tmpdir
                 mount -o loop -t hfs "$file" $tmpdir
-                echo "'$file' mounted at '$tmpdir'."               ;;
+                echo "'$file' mounted at '$tmpdir'."                ;;
             *.img|*.dd)
                 mkdir -vp $tmpdir
                 mount -o loop -t iso9660 "$file" $tmpdir
-                echo "'$file' mounted at '$tmpdir'."               ;;
+                echo "'$file' mounted at '$tmpdir'."                ;;
             *)
-                echo "${0##*/}: ERROR: Cannot extract '$file'"            ;;
+                echo "${0##*/}: ERROR: Cannot extract '$file'"      ;;
         esac
         local folder=$(extract_folder "$file")
         echo -n "${folder} "
