@@ -395,6 +395,7 @@ if exists(':Plugin')
     " Completion & Syntax Checking (Heavyiest Stuff)
     Plugin 'Valloric/YouCompleteMe'
     "Plugin 'Shougo/neocomplete.vim'
+    "Plugin 'starcraftman/vim-eclim'
     Plugin 'scrooloose/syntastic'
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets' " Default snippets for ultisnips
@@ -497,9 +498,6 @@ let g:neocomplete#enable_auto_select = 1
 
 " Eclim
 """""""
-" Disable until wanted.
-let g:EclimDisabled = 1
-
 " For eclim, YCM will query for completion
 let g:EclimCompletionMethod = 'omnifunc'
 
