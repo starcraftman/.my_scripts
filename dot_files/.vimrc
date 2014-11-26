@@ -800,8 +800,8 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 inoremap <silent> <F3> <Esc>:GundoToggle<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle line numbers
-nnoremap <silent> <F5> :set number!<CR>
-inoremap <silent> <F5> <Esc>:set number!<CR>:call feedkeys('i', 'n')<CR>
+nnoremap <silent> <F5> :set number!<CR>:sign unplace *<CR>
+inoremap <silent> <F5> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle showing whitespace
 nnoremap <silent> <F6> :set list!<CR>
@@ -1104,6 +1104,7 @@ com! -nargs=0 PickScheme call s:PickScheme()
 com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
 com! -nargs=+ -range VChangeSpace call s:VChangeSpace(<f-args>)
 com! -nargs=0 OpenFT call s:OpenFT()
+com! -nargs=1 -complete=dir DeployEclimd call s:DeployEclimd(<f-args>)
 
 function! s:InitScheme(remDefaults)
     if exists('s:c_init')
@@ -1248,6 +1249,27 @@ function! s:ShowSyms()
         let l:output .= printf(l:fmt, l:entry[0], l:entry[1], l:entry[2])
     endfor
     echo l:output
+endfunction
+
+com! -nargs=1 -complete=dir DeployEclimd call s:DeployEclimd(<f-args>)
+function! s:DeployEclimd(eclipsePath)
+    if ! filereadable(a:eclipsePath . '/eclipse')
+        echo 'Eclipse path invalid.'
+        return
+    endif
+
+    let l:jar_name = 'eclim.jar'
+    let l:jar_url = 'http://sourceforge.net/projects/eclim/'
+                \ . 'files/eclim/2.4.0/eclim_2.4.0.jar/download'
+
+    let l:cmd = printf('silent !wget -O %s %s', l:jar_name, l:jar_url)
+    execute l:cmd
+    let l:cmd = printf('silent !java -Dvim.skip=true -Declipse.home=%s -jar %s install',
+                \ getcwd() . '/' . a:eclipsePath, l:jar_name)
+    execute l:cmd
+
+    " Force refresh, bug?
+    call feedkeys('<C-l>', 't')
 endfunction
 
 " }}}
