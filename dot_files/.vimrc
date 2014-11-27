@@ -1104,7 +1104,6 @@ com! -nargs=0 PickScheme call s:PickScheme()
 com! -nargs=+ ChangeSpace call s:ChangeSpace(<f-args>)
 com! -nargs=+ -range VChangeSpace call s:VChangeSpace(<f-args>)
 com! -nargs=0 OpenFT call s:OpenFT()
-com! -nargs=1 -complete=dir DeployEclimd call s:DeployEclimd(<f-args>)
 
 function! s:InitScheme(remDefaults)
     if exists('s:c_init')
@@ -1253,23 +1252,26 @@ endfunction
 
 com! -nargs=1 -complete=dir DeployEclimd call s:DeployEclimd(<f-args>)
 function! s:DeployEclimd(eclipsePath)
-    if ! filereadable(a:eclipsePath . '/eclipse')
-        echo 'Eclipse path invalid.'
+    let l:eclipse_d = resolve(getcwd() . '/' . a:eclipsePath)
+    let l:eclim_d = 'eclim'
+    let l:vim_d = getcwd() . '/.vim/bundle/vim-eclim'
+
+    if ! filereadable(l:eclipse_d . '/eclipse')
+        echom 'Eclipse path invalid.'
         return
     endif
 
-    let l:jar_name = 'eclim.jar'
-    let l:jar_url = 'http://sourceforge.net/projects/eclim/'
-                \ . 'files/eclim/2.4.0/eclim_2.4.0.jar/download'
-
-    let l:cmd = printf('silent !wget -O %s %s', l:jar_name, l:jar_url)
-    execute l:cmd
-    let l:cmd = printf('silent !java -Dvim.skip=true -Declipse.home=%s -jar %s install',
-                \ getcwd() . '/' . a:eclipsePath, l:jar_name)
-    execute l:cmd
-
-    " Force refresh, bug?
-    call feedkeys('<C-l>', 't')
+    "let l:cmds = [':cd '. l:eclim_d,
+                "\ 'silent !ant -Dvim.files=/tmp/vim-eclim -Declipse.home=' . l:eclipse_d,
+                "\ ':cd -']
+    let l:cmds = ['silent !git clone --depth 1 git://github.com/ervandew/eclim.git ' . l:eclim_d,
+                \ ':cd '. l:eclim_d,
+                \ 'silent !ant -Dvim.files=/tmp/vim-eclim -Declipse.home=' . l:eclipse_d,
+                \ ':cd -',
+                \ 'silent !rm -rf ' . l:eclim_d]
+    for l:cmd in l:cmds
+        execute l:cmd
+    endfor
 endfunction
 
 " }}}
