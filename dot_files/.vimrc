@@ -1250,29 +1250,5 @@ function! s:ShowSyms()
     echo l:output
 endfunction
 
-com! -nargs=1 -complete=dir DeployEclimd call s:DeployEclimd(<f-args>)
-function! s:DeployEclimd(eclipsePath)
-    let l:eclipse_d = resolve(getcwd() . '/' . a:eclipsePath)
-    let l:eclim_d = 'eclim'
-    let l:vim_d = getcwd() . '/.vim/bundle/vim-eclim'
-
-    if ! filereadable(l:eclipse_d . '/eclipse')
-        echom 'Eclipse path invalid.'
-        return
-    endif
-
-    "let l:cmds = [':cd '. l:eclim_d,
-                "\ 'silent !ant -Dvim.files=/tmp/vim-eclim -Declipse.home=' . l:eclipse_d,
-                "\ ':cd -']
-    let l:cmds = ['silent !git clone --depth 1 git://github.com/ervandew/eclim.git ' . l:eclim_d,
-                \ ':cd '. l:eclim_d,
-                \ 'silent !ant -Dvim.files=/tmp/vim-eclim -Declipse.home=' . l:eclipse_d,
-                \ ':cd -',
-                \ 'silent !rm -rf ' . l:eclim_d]
-    for l:cmd in l:cmds
-        execute l:cmd
-    endfor
-endfunction
-
 " }}}
 " vim: set foldmethod=marker:
