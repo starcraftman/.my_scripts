@@ -574,19 +574,19 @@ let g:tagbar_compact = 1
 " Nerdtree
 """""""""""""
 " Show hidden files by default
-"let NERDTreeShowHidden = 1
+let g:NERDTreeShowHidden = 1
 
-" Sort order for files, takes list of wildcards
-"let NERDTreeSortOrder = []
+" Don't need window after selecting file
+let g:NERDTreeQuitOnOpen = 1
 
 " Classic theme with |'s instead of >'s.
-let NERDTreeDirArrows = 0
+let g:NERDTreeDirArrows = 0
 
 " Width of window
-let NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 50
 
 " Don't replace netrw (i.e. :e directory), defualt is 1
-"let NERDTreeHijackNetrw = 0
+"let g:NERDTreeHijackNetrw = 0
 
 " DeleteTrailingWhitespace
 """"""""""""""""""""""""""
@@ -703,9 +703,9 @@ cnoreabbrev pu PluginUpdate
 cnoreabbrev pc PluginClean
 cnoreabbrev ps PluginSearch
 
-" Faster binding to escape insert
+" Faster binding to escape insert/visual
 inoremap jk <esc>
-"vnoremap jk <esc>
+vnoremap i  <esc>
 "inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
