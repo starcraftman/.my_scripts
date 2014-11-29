@@ -1090,7 +1090,7 @@ if has('autocmd')
         autocmd FileType netrw nmap <buffer> <leader>x gh
         autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
         autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
-        autocmd FileType netrw unmap <C-L>
+        autocmd FileType netrw unmap <buffer> <C-L>
     augroup END
 endif
 
