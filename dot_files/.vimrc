@@ -724,7 +724,7 @@ nnoremap <silent> <space>l :wincmd l<CR>
 nnoremap <C-J> <C-W>j<C-W>_
 nnoremap <C-K> <C-W>k<C-W>_
 " Change window right (<C-W>l) then maximize buffer width (<C-W>|)
-nnoremap <C-V> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Toggles for the location and quickfix
@@ -1090,6 +1090,7 @@ if has('autocmd')
         autocmd FileType netrw nmap <buffer> <leader>x gh
         autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
         autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
+        autocmd FileType netrw unmap <C-L>
     augroup END
 endif
 
