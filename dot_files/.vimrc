@@ -734,15 +734,12 @@ nnoremap <silent> <leader>l :ToggleLL<CR>
 " Make all windows equal in size
 "nnoremap <leader>q <C-W>=
 
-" Shortcut to remember how to reindent file
-nnoremap <F12> mzgg=G'z
-
 " Open netrw in current buffer
 nnoremap <silent> <leader>e :Explore<CR>
 
 " Open netrw vertically or horizontally
-nnoremap <silent> <leader>ev :Vexplore<CR>
-nnoremap <silent> <leader>eh :Hexplore!<CR>
+nnoremap <silent> <leader>v :call <SID>VexToggle()<CR>
+"nnoremap <silent> <leader>h :Hexplore!<CR>
 
 " To open NERDTree when used
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -806,6 +803,9 @@ inoremap <silent> <F5> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i
 " Toggle showing whitespace
 nnoremap <silent> <F6> :set list!<CR>
 inoremap <silent> <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
+
+" Shortcut to remember how to reindent file
+nnoremap <F12> mzgg=G'z
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -996,6 +996,15 @@ set textwidth=150
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" Customize netrw use a tree style and ignore some extensions
+let g:netrw_liststyle = 3
+
+" Set the explorer sorting to case insensitive
+let g:netrw_sort_options = 'i'
+
+" Controls what happens when you push enter over file, default open in buffer
+let g:netrw_browse_split = 0
+
 " This list is used to build the strings for wildignore and netrw_list_hide
 " Any file ending in one of these extensions will be ignored in command completion & netrw browser
 let s:hide_exts =  ['jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'xpm', 'so', 'dll', 'exe', 'o', 'a']
@@ -1026,14 +1035,6 @@ let &wildignore = s:wild_regex . ',' . s:vcs_hide
 
 " When browsing with netrw, ignore all matching files to this regex
 let g:netrw_list_hide = '\w\+\.\(' . s:netrw_regex . '\)\*\?$\c,' . s:vcs_hide
-
-" Customize netrw use a tree style and ignore some extensions
-let g:netrw_liststyle = 3
-
-" Set the explorer sorting to case insensitive
-let g:netrw_sort_options = 'i'
-
-" NERDTreeIgnore if used
 let g:NERDTreeIgnore = split(g:netrw_list_hide, ',')
 
 " Sort by extensions commonly found
@@ -1078,16 +1079,17 @@ if has('autocmd')
     augroup END
 
     " Register funcs with filetype load
-    augroup filetype_funcs
+    augroup ftype_cmds
         autocmd!
         " missing keywords for bash statement syntax
         autocmd FileType sh exec 'syntax keyword shStatement source shopt'
     augroup END
 
-    augroup netrw_maps
+    augroup netrw_cmds
         autocmd!
-        autocmd FileType netrw nmap <leader>x gh
-        autocmd FileType netrw nmap <silent> <leader>z :call <SID>ShowSyms()<CR>
+        autocmd FileType netrw nmap <buffer> <leader>x gh
+        autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
+        autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
     augroup END
 endif
 
@@ -1248,6 +1250,38 @@ function! s:ShowSyms()
         let l:output .= printf(l:fmt, l:entry[0], l:entry[1], l:entry[2])
     endfor
     echo l:output
+endfunction
+
+function! s:VexOpen()
+    let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
+    let g:netrw_browse_split = 4
+
+    execute 'new'
+    execute 'topleft Vexplore'
+    wincmd H
+
+    let t:vex.new_buf = bufnr('%')
+endfunction
+
+function! s:VexClose()
+    let vex_buf = bufwinnr(t:vex.new_buf)
+
+    if vex_buf != -1
+        execute vex_buf . ' wincmd w'
+        close
+        execute t:vex.orig_buf . ' wincmd w'
+    endif
+
+    let g:netrw_browse_split = t:vex.orig_bsplit
+    unlet t:vex
+endfunction
+
+function! s:VexToggle()
+    if exists('t:vex')
+        call s:VexClose()
+    else
+        call s:VexOpen()
+    endif
 endfunction
 
 " }}}
