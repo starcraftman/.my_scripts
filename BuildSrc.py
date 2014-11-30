@@ -30,6 +30,7 @@ except ImportError:
 URL_CLANG = 'http://llvm.org/releases/3.5.0/\
 clang+llvm-3.5.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz'
 URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
+URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.2.0.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
@@ -94,6 +95,17 @@ BUILDS = {
         'globs': [
             ('bin/doxygen', 'bin/'),
             ('doc/*.1', 'share/man/man1/'),
+        ],
+    },
+    'git': {
+        'name' : 'git',
+        'check': 'bin/git',
+        'url'  : URL_GIT,
+        'cmds' : [
+            'make configure',
+            './configure --prefix=TARGET',
+            'make -jJOBS all doc info',
+            'make install install-doc install-html install-info',
         ],
     },
     'neovim': {
@@ -393,6 +405,7 @@ def main():
     cmake        Build the latest cmake.
     dev          Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen      Build the latest doxygen.
+    git          Build the latest git release.
     neovim       Build neovim from source (still alpha).
     python       Build the latest python 2.x.
     python3      Build the latest python 3.x.
