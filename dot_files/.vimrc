@@ -1076,6 +1076,7 @@ if has('autocmd')
         " Includes cursor position, fold states,
         "au BufWinLeave *.* silent! mkview
         "au BufWinEnter *.* silent! loadview
+        autocmd BufRead * call <SID>VexDrawerCheck()
     augroup END
 
     " Register funcs with filetype load
@@ -1244,7 +1245,6 @@ function! s:VexOpen()
     let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
     let g:netrw_browse_split = 4
 
-    execute 'new'
     execute 'topleft Vexplore'
     wincmd H
 
@@ -1269,6 +1269,12 @@ function! s:VexToggle()
         call s:VexClose()
     else
         call s:VexOpen()
+    endif
+endfunction
+
+function! s:VexDrawerCheck()
+    if exists('t:vex')
+        call s:VexClose()
     endif
 endfunction
 
