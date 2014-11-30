@@ -583,7 +583,7 @@ let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrows = 0
 
 " Width of window
-let g:NERDTreeWinSize = 50
+let g:NERDTreeWinSize = 40
 
 " Don't replace netrw (i.e. :e directory), defualt is 1
 "let g:NERDTreeHijackNetrw = 0
@@ -1097,16 +1097,15 @@ endif
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Useful Functions
+" => Useful Functions & Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Command declarations, functions below
+" A simple colorscheme function to test colors for a buffer
+" Allow both cycling choosing by name
 command! -nargs=0 NScheme call s:NextScheme(0)
 command! -nargs=0 PScheme call s:NextScheme(1)
 command! -nargs=0 PickScheme call s:PickScheme()
-command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-args>)
-command! -nargs=0 OpenFT call s:OpenFT()
 
 function! s:InitScheme(remDefaults)
     if exists('s:c_init')
@@ -1178,6 +1177,8 @@ function! s:PickScheme()
     call s:SetScheme()
 endfunction
 
+" For a block of lines change spacing from old tab size to new tab size.
+command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-args>)
 function! s:ChangeSpace(line1, line2, old_tab, new_tab)
     let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
 
@@ -1190,11 +1191,14 @@ function! s:ChangeSpace(line1, line2, old_tab, new_tab)
     exec l:rtab_cmd
 endfunction
 
+" Open the ftplugin file for current buffer
+command! -nargs=0 OpenFT call s:OpenFT()
 function! s:OpenFT()
     let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
     exec 'sp ' . l:file
 endfunction
 
+" Given a netrw buffer, extract filename on line
 function! s:ExtractFullPath(line)
     let l:left = 0
     let l:right = len(a:line) - 1
@@ -1220,6 +1224,7 @@ function! s:ExtractFullPath(line)
     return [l:link, resolve(getcwd() . "/" . l:link)]
 endfunction
 
+" Shows in an echo the target of links
 function! s:ShowSyms()
     let l:count = 1
     let l:files = []
@@ -1241,12 +1246,22 @@ function! s:ShowSyms()
     echo l:output
 endfunction
 
+" Make a NERDTree like side buffer
+function! s:VexToggle()
+    if exists('t:vex')
+        call s:VexClose()
+    else
+        call s:VexOpen()
+    endif
+endfunction
+
 function! s:VexOpen()
     let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
     let g:netrw_browse_split = 4
 
     execute 'topleft Vexplore'
     wincmd H
+    execute 'vertical resize ' . g:NERDTreeWinSize
 
     let t:vex.new_buf = bufnr('%')
 endfunction
@@ -1262,14 +1277,6 @@ function! s:VexClose()
 
     let g:netrw_browse_split = t:vex.orig_bsplit
     unlet t:vex
-endfunction
-
-function! s:VexToggle()
-    if exists('t:vex')
-        call s:VexClose()
-    else
-        call s:VexOpen()
-    endif
 endfunction
 
 function! s:VexDrawerCheck()
