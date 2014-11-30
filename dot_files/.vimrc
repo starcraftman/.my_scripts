@@ -1090,7 +1090,7 @@ if has('autocmd')
         autocmd FileType netrw nmap <buffer> <leader>x gh
         autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
         autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
-        autocmd FileType netrw unmap <buffer> <C-L>
+        autocmd FileType netrw nunmap <buffer> <C-L>
     augroup END
 endif
 
@@ -1177,7 +1177,6 @@ function! s:PickScheme()
     call s:SetScheme()
 endfunction
 
-" Take a range, change spacing. Wish had this elsewhere.
 function! s:ChangeSpace(line1, line2, old_tab, new_tab)
     let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
 
