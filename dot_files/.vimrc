@@ -738,7 +738,7 @@ nnoremap <silent> <leader>l :ToggleLL<CR>
 nnoremap <silent> <leader>e :Explore<CR>
 
 " Open netrw vertically or horizontally
-nnoremap <silent> <leader>v :call <SID>VexToggle()<CR>
+nnoremap <silent> <leader>v :call Vex.Toggle()<CR>
 "nnoremap <silent> <leader>h :Hexplore!<CR>
 
 " To open NERDTree when used
@@ -1076,7 +1076,7 @@ if has('autocmd')
         " Includes cursor position, fold states,
         "au BufWinLeave *.* silent! mkview
         "au BufWinEnter *.* silent! loadview
-        autocmd BufRead * call <SID>VexOff()
+        autocmd BufRead * call Vex.Off()
     augroup END
 
     " Register funcs with filetype load
@@ -1090,8 +1090,8 @@ if has('autocmd')
         autocmd!
         autocmd FileType netrw nmap <buffer> <leader>x gh
         autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
-        autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
-        autocmd FileType netrw nmap <buffer> <silent> o :call <SID>VexAction('new')<CR>
+        autocmd FileType netrw nmap <buffer> <silent> q :call Vex.Close()<CR>
+        autocmd FileType netrw nmap <buffer> <silent> o :call Vex.Action('new')<CR>
         autocmd FileType netrw nunmap <buffer> <C-L>
     augroup END
 endif
@@ -1248,21 +1248,22 @@ function! s:ShowSyms()
 endfunction
 
 " Make a NERDTree like side buffer
-function! s:VexToggle()
+let g:Vex = {}
+function! Vex.Toggle()
     if exists('t:vex')
-        call s:VexClose()
+        call self.Close()
     else
-        call s:VexOpen()
+        call self.Open()
     endif
 endfunction
 
-function! s:VexOff()
+function! Vex.Off()
     if exists('t:vex')
-        call s:VexClose()
+        call self.Close()
     endif
 endfunction
 
-function! s:VexOpen()
+function! Vex.Open()
     let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
     let g:netrw_browse_split = 4
 
@@ -1273,7 +1274,7 @@ function! s:VexOpen()
     let t:vex.new_buf = bufnr('%')
 endfunction
 
-function! s:VexClose()
+function! Vex.Close()
     let vex_buf = bufwinnr(t:vex.new_buf)
 
     if vex_buf != -1
@@ -1286,10 +1287,11 @@ function! s:VexClose()
     unlet t:vex
 endfunction
 
-function! s:VexAction(action)
+function! Vex.Action(action)
     let l:orig_win = winnr()
     wincmd l
     execute a:action
+    let t:vex.orig_buf = winnr()
     execute l:orig_win . ' wincmd w'
     call feedkeys("\<CR>", 't')
 endfunction
