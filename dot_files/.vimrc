@@ -1076,7 +1076,7 @@ if has('autocmd')
         " Includes cursor position, fold states,
         "au BufWinLeave *.* silent! mkview
         "au BufWinEnter *.* silent! loadview
-        autocmd BufRead * call <SID>VexDrawerCheck()
+        autocmd BufRead * call <SID>VexOff()
     augroup END
 
     " Register funcs with filetype load
@@ -1091,6 +1091,7 @@ if has('autocmd')
         autocmd FileType netrw nmap <buffer> <leader>x gh
         autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
         autocmd FileType netrw nmap <buffer> <silent> q :call <SID>VexClose()<CR>
+        autocmd FileType netrw nmap <buffer> <silent> o :call <SID>VexAction('new')<CR>
         autocmd FileType netrw nunmap <buffer> <C-L>
     augroup END
 endif
@@ -1247,11 +1248,18 @@ function! s:ShowSyms()
 endfunction
 
 " Make a NERDTree like side buffer
+s:VEX = {}
 function! s:VexToggle()
     if exists('t:vex')
         call s:VexClose()
     else
         call s:VexOpen()
+    endif
+endfunction
+
+function! s:VexOff()
+    if exists('t:vex')
+        call s:VexClose()
     endif
 endfunction
 
@@ -1279,10 +1287,12 @@ function! s:VexClose()
     unlet t:vex
 endfunction
 
-function! s:VexDrawerCheck()
-    if exists('t:vex')
-        call s:VexClose()
-    endif
+function! s:VexAction(action)
+    let l:orig_win = winnr()
+    wincmd l
+    execute a:action
+    execute l:orig_win . ' wincmd w'
+    call feedkeys("\<CR>", 't')
 endfunction
 
 " }}}
