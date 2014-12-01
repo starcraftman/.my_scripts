@@ -1248,7 +1248,6 @@ function! s:ShowSyms()
 endfunction
 
 " Make a NERDTree like side buffer
-s:VEX = {}
 function! s:VexToggle()
     if exists('t:vex')
         call s:VexClose()
