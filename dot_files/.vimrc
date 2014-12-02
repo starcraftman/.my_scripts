@@ -1218,7 +1218,7 @@ function! s:ExtractFullPath(line)
 
     let l:link = strpart(a:line, l:left, l:right - l:left + 1)
 
-    if len(l:link) > s:max_link
+    if exists('s:max_link') && len(l:link) > s:max_link
         let s:max_link = len(l:link)
     endif
 
