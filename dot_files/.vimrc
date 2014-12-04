@@ -9,6 +9,9 @@
 """""""""""""
 " {{{
 
+" * To Learn Vim: vimtutor
+"       The vim tutor is an introductory programs, useful for beginners.
+"
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
 "
