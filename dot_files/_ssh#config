@@ -7,7 +7,7 @@ Host *
    Protocol 2
    ControlMaster auto
    ControlPath /tmp/ssh_control_%r@%h:%p
-   ControlPersist 3600
+   ControlPersist 600
    #SendEnv LANG LC_*
    #HashKnownHosts yes
    #GSSAPIAuthentication yes
