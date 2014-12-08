@@ -228,7 +228,11 @@
 "
 "   vim-bookmarks:
 "       Better marking, nice sign usage.
-"       https://github.com/'MattesGroeger/vim-bookmarks
+"       https://github.com/MattesGroeger/vim-bookmarks
+"
+"   smartpairs.vim:
+"       Easy visual selections, use vv to select on matching pair.
+"       https://github.com/gorkunov/smartpairs.vim
 "
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
@@ -428,6 +432,7 @@ if exists(':Plugin')
     Plugin 'tpope/vim-fugitive'
 
     " Utility
+    Plugin 'gorkunov/smartpairs.vim'
     Plugin 'kshenoy/vim-togglelist'
     Plugin 'tpope/vim-abolish'
     Plugin 'tpope/vim-sleuth'
