@@ -771,7 +771,6 @@ nnoremap <leader>ft :OpenFT<CR>
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
 nnoremap <leader>pm :CtrlPMRUFiles<CR>
-nnoremap <leader>ps :CtrlPBuffer<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <leader>j :YcmCompleter GoTo<CR>
