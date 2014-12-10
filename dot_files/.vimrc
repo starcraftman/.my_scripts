@@ -75,10 +75,9 @@
 "     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
 "       Link from ~/.my_scripts/dot_files to $HOME
 "       Get Vundle:
-"           mkdir -p ~/.vim/bundle
-"           git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+"           git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 "       Further information:
-"           https://github.com/gmarik/vundle
+"           https://github.com/gmarik/Vundle.vim
 "
 "   4) Open vim and install plugins
 "       :PluginInstall
