@@ -399,9 +399,12 @@ if exists(':Plugin')
     " Let Vundle manage itself.
     Plugin 'gmarik/Vundle.vim'
 
-    " Completion & Syntax Checking (Heavyiest Stuff)
-    Plugin 'Valloric/YouCompleteMe'
-    "Plugin 'Shougo/neocomplete.vim'
+    " Completion & Syntax Checking (Heavy Stuff)
+    if g:win_shell == 0 && g:cygwin_shell == 0
+        Plugin 'Valloric/YouCompleteMe'
+    else
+        Plugin 'Shougo/neocomplete.vim'
+    endif
     "Plugin 'starcraftman/vim-eclim'
     Plugin 'scrooloose/syntastic'
     Plugin 'SirVer/ultisnips'
