@@ -55,7 +55,7 @@
 "
 "     b) Windows
 "       Download and extract:
-"       http://tuxproject.de/projects/vim/complete.7z
+"       http://tuxproject.de/projects/vim/complete-x86.7z
 "       Put the lua52.dll in the root project
 "       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
 "
