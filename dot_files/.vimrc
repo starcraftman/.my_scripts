@@ -992,6 +992,11 @@ set autoindent
 " Wrap lines when hit right side, doesn't affect buffer
 set wrap
 
+" When wrapping, respect the indent of original line.
+if exists('&breakindent')
+    set breakindent
+endif
+
 " Makes smarter decisions about what stays on wrapped line
 set linebreak
 
