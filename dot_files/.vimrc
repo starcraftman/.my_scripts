@@ -768,7 +768,7 @@ let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " Open the filetype specific file
-nnoremap <leader>ft :OpenFT<CR>
+nnoremap <leader>ft :FTOpen<CR>
 
 " Binding for extra search modes
 nnoremap <leader>p :CtrlPBuffer<CR>
@@ -1202,8 +1202,8 @@ function! s:ChangeSpace(line1, line2, old_tab, new_tab)
 endfunction
 
 " Open the ftplugin file for current buffer
-command! -nargs=0 OpenFT call s:OpenFT()
-function! s:OpenFT()
+command! -nargs=0 FTOpen call s:FTOpen()
+function! s:FTOpen()
     let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
     exec 'sp ' . l:file
 endfunction
