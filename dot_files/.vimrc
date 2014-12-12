@@ -136,7 +136,9 @@
 "   CtrlP:
 "       Fuzzy file finding that is a bit easier than CtrlT
 "       Searches under root, looks for .hg/.git or so to define top
-"       Use Ctlr+P to access
+"       Use Ctrl+P to access
+"       Original doesn't get updates, now using fork:
+"       https://github.com/ctrlpvim/ctrlp.vim
 "       https://github.com/kien/ctrlp.vim
 "
 "   TagBar:
@@ -423,7 +425,7 @@ if exists(':Plugin')
     Plugin 'vim-scripts/taghighlight'
 
     " Searching & Files
-    Plugin 'kien/ctrlp.vim'
+    Plugin 'ctrlpvim/ctrlp.vim'
     Plugin 'mileszs/ack.vim'
     Plugin 'rking/ag.vim'
     "Plugin 'scrooloose/nerdtree'
