@@ -313,7 +313,7 @@
 "       Improved php syntax files.
 "       https://github.com/elzr/vim-json
 "
-"  vim-ruby:
+"   vim-ruby:
 "       Provides better syntax, indent and config for ruby dev.
 "       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
 "
