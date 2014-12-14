@@ -45,12 +45,10 @@
 " {{{
 
 "   1) Install Vim 7.4 with Python, Lua & Signs:
-"     a) Linux Package
-"       http://ubuntuhandbook.org/index.php/2013/08/upgrade-vim-7-4-ubuntu/
-"
-"     b) POSIX Source Build
+"     a) Automated Build
 "       BuildSrc.py vim
-"       OR
+"
+"     b) Manual Build
 "       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 "
 "     b) Windows
@@ -76,19 +74,21 @@
 "       Link from ~/.my_scripts/dot_files to $HOME
 "       Get Vundle:
 "           git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"       Further information:
-"           https://github.com/gmarik/Vundle.vim
+"           For info: `:h vundle`
+"       Powerline Fonts:
+"           See steps at:
+"           http://powerline.readthedocs.org/en/latest/installation.html
 "
 "   4) Open vim and install plugins
 "       :PluginInstall
 "
 "   5) Further Config:
-"       YouCompleteMe: Requires cpp compilation, see BuildSrc.py ycm.
-"       vim-airline: Requires powerline font modification
-"       TagBar: Requires exhuberant tags instead of gnu ctags
-"       ag.vim: Install 'silversearcher-ag' package.
-"       ack.vim: Check for ack package.
-"       eclim: Follow install at: http://eclim.org/install.html
+"       YouCompleteMe : Requires cpp compilation, see BuildSrc.py ycm.
+"       vim-airline   : Powerline fonts optional.
+"       TagBar        : Requires exhuberant tags instead of gnu ctags
+"       ag.vim        : Ag must be available on cmdline.
+"       ack.vim       : Ack must be available on cmdline.
+"       eclim         : Use 'starcraftman/eclim for DeployEclim command.
 
 " }}}
 " Plugin Information
