@@ -156,7 +156,7 @@
 "       https://github.com/tpope/vim-abolish
 "
 "   NERDComment:
-"       Bunch of comment commands. Mainly <leader>ci to comment line
+"       Bunch of comment commands. Mainly <Leader>ci to comment line
 "       https://github.com/scrooloose/nerdcommenter
 "
 "   vim-surround:
@@ -274,7 +274,7 @@
 "
 "   EasyMotion
 "       Provides alternative motion for word jumping
-"       Use <leader><leader>w to jump then select
+"       Use <Leader><Leader>w to jump then select
 "       https://github.com/Lokaltog/vim-easymotion
 "
 "   Golden View:
@@ -363,7 +363,7 @@
 "       za
 "
 " * To see conflicting maps:
-"       :verbose map <leader>jd
+"       :verbose map <Leader>jd
 "
 " * To repeat last command (colon): `@:`, to repeat last register `@@`.
 "
@@ -564,7 +564,7 @@ let g:sneak#streak = 1
 let g:sneak#use_ic_scs = 1
 
 " Toggle to allow or prevent sneak in netrw
-" When enabled, moves old s binding to <leader>s/S
+" When enabled, moves old s binding to <Leader>s/S
 let g:sneak#map_netrw = 1
 
 " CtrlP
@@ -692,7 +692,7 @@ let mapleader = ","
 let maplocalleader = '\\'
 
 " Never use ex mode
-map Q <nop>
+map Q <Nop>
 
 " Aliasing some commands to make tabs/buffers easy to manage
 " Some of these exist, I put them here to remember
@@ -716,21 +716,21 @@ cnoreabbrev pc PluginClean
 cnoreabbrev ps PluginSearch
 
 " Faster binding to escape insert/visual
-inoremap jk <esc>
-vnoremap i  <esc>
+inoremap jk <Esc>
+vnoremap i  <Esc>
 "inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
-nnoremap <right> :bnext<CR>
-nnoremap <left>  :bprevious<CR>
-nnoremap <up>    :tabn<CR>
-nnoremap <down>  :tabp<CR>
+nnoremap <Right> :bnext<CR>
+nnoremap <Left>  :bprevious<CR>
+nnoremap <Up>    :tabn<CR>
+nnoremap <Down>  :tabp<CR>
 
 " Remap Space + direction to move between split windows
-nnoremap <silent> <space>k :wincmd k<CR>
-nnoremap <silent> <space>j :wincmd j<CR>
-nnoremap <silent> <space>h :wincmd h<CR>
-nnoremap <silent> <space>l :wincmd l<CR>
+nnoremap <silent> <Space>k :wincmd k<CR>
+nnoremap <silent> <Space>j :wincmd j<CR>
+nnoremap <silent> <Space>h :wincmd h<CR>
+nnoremap <silent> <Space>l :wincmd l<CR>
 
 " Change window down (<C-W>j) then maximize buffer height (<C-W>_)
 nnoremap <C-J> <C-W>j<C-W>_
@@ -740,28 +740,28 @@ nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Toggles for the location and quickfix
-nnoremap <silent> <leader>q :ToggleQF<CR>
-nnoremap <silent> <leader>l :ToggleLL<CR>
+nnoremap <silent> <Leader>q :ToggleQF<CR>
+nnoremap <silent> <Leader>l :ToggleLL<CR>
 
 " Make all windows equal in size
-"nnoremap <leader>q <C-W>=
+"nnoremap <Leader>q <C-W>=
 
 " Open netrw in current buffer
-nnoremap <silent> <leader>e :Explore<CR>
+nnoremap <silent> <Leader>e :Explore<CR>
 
 " Open netrw vertically or horizontally
-nnoremap <silent> <leader>v :call Vex.Toggle()<CR>
-"nnoremap <silent> <leader>h :Hexplore!<CR>
+nnoremap <silent> <Leader>v :call Vex.Toggle()<CR>
+"nnoremap <silent> <Leader>h :Hexplore!<CR>
 
 " To open NERDTree when used
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 
 " Find the current file in the source tree
-nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
 " Signify binding to jump between hunks.
-nmap <leader>hj <plug>(signify-next-hunk)
-nmap <leader>hk <plug>(signify-prev-hunk)
+nmap <Leader>hj <Plug>(signify-next-hunk)
+nmap <Leader>hk <Plug>(signify-prev-hunk)
 
 " Sneak explicit mappings
 nmap ; <Plug>SneakNext
@@ -770,37 +770,37 @@ nmap ' <Plug>SneakPrevious
 xmap ' <Plug>SneakPrevious
 
 " Key bindings for UltiSnips, all of these are ctrl + key
-let g:UltiSnipsExpandTrigger       = '<c-j>'
-let g:UltiSnipsListSnippets        = '<c-l>'
-let g:UltiSnipsJumpForwardTrigger  = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+let g:UltiSnipsExpandTrigger       = '<C-J>'
+let g:UltiSnipsListSnippets        = '<C-L>'
+let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 
 " Open the filetype specific file
-nnoremap <leader>ft :FTOpen<CR>
+nnoremap <Leader>ft :FTOpen<CR>
 
 " Binding for extra search modes
-nnoremap <leader>p :CtrlPBuffer<CR>
-nnoremap <leader>pm :CtrlPMRUFiles<CR>
+nnoremap <Leader>p :CtrlPBuffer<CR>
+nnoremap <Leader>pm :CtrlPMRUFiles<CR>
 
 " Add shortcut to jump to definition/declaration of c file
-nnoremap <leader>j :YcmCompleter GoTo<CR>
+nnoremap <Leader>j :YcmCompleter GoTo<CR>
 
 " Shortcut to swap to header file, horizontal split
-nnoremap <leader>a :AS<CR>
+nnoremap <Leader>a :AS<CR>
 
 " Shortcut to swap to header file, vertical split
-nnoremap <leader>av :AV<CR>
+nnoremap <Leader>av :AV<CR>
 
 " Mapping to trigger make build and run
-nnoremap <leader>m :!make && make run<CR>
+nnoremap <Leader>m :!make && make run<CR>
 
 " Hex editting command on x
-nnoremap <leader>x :%!xxd<CR>
-nnoremap <leader>X :%!xxd -r<CR>
+nnoremap <Leader>x :%!xxd<CR>
+nnoremap <Leader>X :%!xxd -r<CR>
 
 " Fix oneline json files
-nnoremap <leader>jq :%!jq .<CR>
-nnoremap <leader>jQ :%!jq . -c<CR>
+nnoremap <Leader>jq :%!jq .<CR>
+nnoremap <Leader>jQ :%!jq . -c<CR>
 
 " Paste toggle button, disables f1 help use command instead
 set pastetoggle=<F1>
@@ -1110,8 +1110,8 @@ if has('autocmd')
 
     augroup netrw_cmds
         autocmd!
-        autocmd FileType netrw nmap <buffer> <leader>x gh
-        autocmd FileType netrw nmap <buffer> <silent> <leader>z :call <SID>ShowSyms()<CR>
+        autocmd FileType netrw nmap <buffer> <Leader>x gh
+        autocmd FileType netrw nmap <buffer> <silent> <Leader>z :call <SID>ShowSyms()<CR>
         autocmd FileType netrw nmap <buffer> <silent> q :call Vex.Close()<CR>
         autocmd FileType netrw nmap <buffer> <silent> o :call Vex.Action('new')<CR>
         autocmd FileType netrw nunmap <buffer> <C-L>
