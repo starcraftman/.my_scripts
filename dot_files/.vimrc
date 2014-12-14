@@ -763,6 +763,12 @@ nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 nmap <leader>hj <plug>(signify-next-hunk)
 nmap <leader>hk <plug>(signify-prev-hunk)
 
+" Sneak explicit mappings
+nmap ; <Plug>SneakNext
+nmap ; <Plug>SneakNext
+nmap ' <Plug>SneakPrevious
+xmap ' <Plug>SneakPrevious
+
 " Key bindings for UltiSnips, all of these are ctrl + key
 let g:UltiSnipsExpandTrigger       = '<c-j>'
 let g:UltiSnipsListSnippets        = '<c-l>'
