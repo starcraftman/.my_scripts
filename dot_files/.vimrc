@@ -736,8 +736,8 @@ nnoremap <silent> <Space>l :wincmd l<CR>
 nnoremap <C-J> <C-W>j<C-W>_
 nnoremap <C-K> <C-W>k<C-W>_
 " Change window right (<C-W>l) then maximize buffer width (<C-W>|)
-nnoremap <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
-nnoremap <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+nnoremap <silent> <C-L> <C-W>l:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
+nnoremap <silent> <C-H> <C-W>h:vertical resize<CR>:AirlineToggle<CR>:AirlineToggle<CR>
 
 " Toggles for the location and quickfix
 nnoremap <silent> <Leader>q :ToggleQF<CR>
