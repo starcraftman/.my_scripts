@@ -760,14 +760,14 @@ nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
 " Signify binding to jump between hunks.
-nnoremap <Leader>hj <Plug>(signify-next-hunk)
-nnoremap <Leader>hk <Plug>(signify-prev-hunk)
+nmap <Leader>hj <Plug>(signify-next-hunk)
+nmap <Leader>hk <Plug>(signify-prev-hunk)
 
 " Sneak explicit mappings
-nnoremap ; <Plug>SneakNext
-xnoremap ; <Plug>SneakNext
-nnoremap ' <Plug>SneakPrevious
-xnoremap ' <Plug>SneakPrevious
+nmap ; <Plug>SneakNext
+xmap ; <Plug>SneakNext
+nmap ' <Plug>SneakPrevious
+xmap ' <Plug>SneakPrevious
 
 " Key bindings for UltiSnips, all of these are ctrl + key
 let g:UltiSnipsExpandTrigger       = '<C-J>'
