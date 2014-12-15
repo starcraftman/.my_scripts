@@ -692,7 +692,7 @@ let mapleader = ","
 let maplocalleader = '\\'
 
 " Never use ex mode
-map Q <Nop>
+nnoremap Q <Nop>
 
 " Aliasing some commands to make tabs/buffers easy to manage
 " Some of these exist, I put them here to remember
@@ -760,14 +760,14 @@ nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
 " Signify binding to jump between hunks.
-nmap <Leader>hj <Plug>(signify-next-hunk)
-nmap <Leader>hk <Plug>(signify-prev-hunk)
+nnoremap <Leader>hj <Plug>(signify-next-hunk)
+nnoremap <Leader>hk <Plug>(signify-prev-hunk)
 
 " Sneak explicit mappings
-nmap ; <Plug>SneakNext
-nmap ; <Plug>SneakNext
-nmap ' <Plug>SneakPrevious
-xmap ' <Plug>SneakPrevious
+nnoremap ; <Plug>SneakNext
+xnoremap ; <Plug>SneakNext
+nnoremap ' <Plug>SneakPrevious
+xnoremap ' <Plug>SneakPrevious
 
 " Key bindings for UltiSnips, all of these are ctrl + key
 let g:UltiSnipsExpandTrigger       = '<C-J>'
