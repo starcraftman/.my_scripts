@@ -1127,7 +1127,7 @@ endif
 " A simple colorscheme function to test colors for a buffer
 " Allow both cycling choosing by name
 command! -nargs=0 SchemeNext call Color.Next()
-command! -nargs=0 SchemePrev call Color.Prev()
+command! -nargs=0 SchemeBack call Color.Prev()
 command! -nargs=0 SchemePick call Color.Pick()
 
 let g:Color = {'ready': 0}
