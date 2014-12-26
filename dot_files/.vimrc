@@ -1126,15 +1126,16 @@ endif
 
 " A simple colorscheme function to test colors for a buffer
 " Allow both cycling choosing by name
-command! -nargs=0 NScheme call s:NextScheme(0)
-command! -nargs=0 PScheme call s:NextScheme(1)
-command! -nargs=0 PickScheme call s:PickScheme()
+command! -nargs=0 SchemeNext call Color.Next()
+command! -nargs=0 SchemePrev call Color.Prev()
+command! -nargs=0 SchemePick call Color.Pick()
 
-function! s:InitScheme(remDefaults)
-    if exists('s:c_init')
+let Color = {'ready': 0}
+function! Color.Init(remDefaults)
+    if self.ready == 1
         return
     endif
-    let s:c_init = 1
+    let self.ready = 1
 
     " Populate list
     let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
@@ -1142,27 +1143,57 @@ function! s:InitScheme(remDefaults)
         let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
         let schemes = filter(schemes, "v:val !~ pattern")
     endif
-    let s:c_list= sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
+    let self.list = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
 
     " Find current index
-    let s:c_ind = 0
+    let self.index = 0
     for scheme in schemes
         if scheme ==? g:colors_name
             break
         endif
-        let s:c_ind += 1
+        let self.index += 1
     endfor
-    let s:c_default = s:c_ind + 1
+    let self.default = self.index + 1
 
-    if (len(s:c_list) > 26)
+    if (len(self.list) > 26)
         echom 'too many schemes, listing first 26'
         return
     endif
+endfunction
 
-    " Create Message
+function! Color.Set()
+    " Set new scheme
+    syntax off
+    set background=dark
+    exec 'colorscheme ' . self.list[self.index]
+    syntax on
+    echom 'colorscheme is now: ' . g:colors_name
+endfunction
+
+function! Color.Next()
+    call self.Init(1)
+    let self.index = (self.index + 1) % len(self.list)
+    call self.Set()
+endfunction
+
+function! Color.Prev()
+    call self.Init(1)
+    let self.index = (self.index - 1) % len(self.list)
+    call self.Set()
+endfunction
+
+function! Color.Pick()
+    call self.Init(1)
+    " Returns index of 1 - n choices
+    let self.index = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
+    call self.Set()
+endfunction
+
+" Returns a string with anchors for confirm dialog
+function! Color.Choices()
     let msg = ""
     let char = "A"
-    for s in s:c_list
+    for s in self.list
         let msg .= "&" . char . s . "\n"
         let char = nr2char(char2nr(char) + 1)
         " Stop at 26th
@@ -1170,34 +1201,7 @@ function! s:InitScheme(remDefaults)
             break
         endif
     endfor
-    let s:c_msg = msg[0:-2]
-endfunction
-
-function! s:SetScheme()
-    " Set new scheme
-    syntax off
-    set background=dark
-    exec 'colorscheme ' . s:c_list[s:c_ind]
-    syntax on
-    echom 'colorscheme is now: ' . g:colors_name
-endfunction
-
-function! s:NextScheme(reverse)
-    call s:InitScheme(1)
-
-    " Set next index
-    let s:c_ind = (a:reverse ? s:c_ind - 1 : s:c_ind + 1) % len(s:c_list)
-
-    call s:SetScheme()
-endfunction
-
-function! s:PickScheme()
-    call s:InitScheme(1)
-
-    " Returns index of 1 - n choices
-    let s:c_ind = confirm("Pick Scheme From:", s:c_msg, s:c_default) - 1
-
-    call s:SetScheme()
+    return msg[0:-2]
 endfunction
 
 " For a block of lines change spacing from old tab size to new tab size.
