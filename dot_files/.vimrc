@@ -1130,7 +1130,7 @@ command! -nargs=0 SchemeNext call Color.Next()
 command! -nargs=0 SchemePrev call Color.Prev()
 command! -nargs=0 SchemePick call Color.Pick()
 
-let Color = {'ready': 0}
+let g:Color = {'ready': 0}
 function! Color.Init(remDefaults)
     if self.ready == 1
         return
