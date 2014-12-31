@@ -1130,13 +1130,8 @@ command! -nargs=0 SchemeNext call Color.Next()
 command! -nargs=0 SchemeBack call Color.Prev()
 command! -nargs=0 SchemePick call Color.Pick()
 
-let g:Color = {'ready': 0}
+let g:Color = {}
 function! Color.Init(remDefaults)
-    if self.ready == 1
-        return
-    endif
-    let self.ready = 1
-
     " Populate list
     let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
     if a:remDefaults == 1
@@ -1161,34 +1156,6 @@ function! Color.Init(remDefaults)
     endif
 endfunction
 
-function! Color.Set()
-    " Set new scheme
-    syntax off
-    set background=dark
-    exec 'colorscheme ' . self.list[self.index]
-    syntax on
-    echom 'colorscheme is now: ' . g:colors_name
-endfunction
-
-function! Color.Next()
-    call self.Init(1)
-    let self.index = (self.index + 1) % len(self.list)
-    call self.Set()
-endfunction
-
-function! Color.Prev()
-    call self.Init(1)
-    let self.index = (self.index - 1) % len(self.list)
-    call self.Set()
-endfunction
-
-function! Color.Pick()
-    call self.Init(1)
-    " Returns index of 1 - n choices
-    let self.index = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
-    call self.Set()
-endfunction
-
 " Returns a string with anchors for confirm dialog
 function! Color.Choices()
     let msg = ""
@@ -1203,6 +1170,32 @@ function! Color.Choices()
     endfor
     return msg[0:-2]
 endfunction
+
+function! Color.Set()
+    " Set new scheme
+    syntax off
+    set background=dark
+    exec 'colorscheme ' . self.list[self.index]
+    syntax on
+    echom 'colorscheme is now: ' . g:colors_name
+endfunction
+
+function! Color.Next()
+    let self.index = (self.index + 1) % len(self.list)
+    call self.Set()
+endfunction
+
+function! Color.Prev()
+    let self.index = (self.index - 1) % len(self.list)
+    call self.Set()
+endfunction
+
+function! Color.Pick()
+    " Returns index of 1 - n choices
+    let self.index = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
+    call self.Set()
+endfunction
+call Color.Init(1)
 
 " For a block of lines change spacing from old tab size to new tab size.
 command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-args>)
