@@ -1141,14 +1141,14 @@ function! Color.Init(remDefaults)
     let self.list = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
 
     " Find current index
-    let self.index = 0
+    let index = 0
     for scheme in schemes
         if scheme ==? g:colors_name
             break
         endif
-        let self.index += 1
+        let index += 1
     endfor
-    let self.default = self.index + 1
+    let self.default = index + 1
 
     if (len(self.list) > 26)
         echom 'too many schemes, listing first 26'
