@@ -41,6 +41,7 @@ Thumbs.db
 ########
 smbHelper
 workbench.xmi
+dot_files/.vim/autoload/plug.vim
 dot_files/.vim/bundle/
 dot_files/.vim/eclim/
 dot_files/.vim/undo/

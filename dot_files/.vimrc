@@ -393,85 +393,95 @@ filetype off
 let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . expand(g:vim_dir . '/bundle/Vundle.vim')
-call vundle#begin(expand(g:vim_dir . '/bundle'))
 
-if exists(':Plugin')
-    " Let Vundle manage itself.
-    Plugin 'gmarik/Vundle.vim'
+command! -nargs=0 Bootstrap call s:bootstrap()
+function! s:bootstrap()
+    if ! g:win_shell
+        let pdir = expand(g:vim_dir . '/autoload')
+        execute 'silent !mkdir -p ' . pdir
+        execute 'silent !curl -fLo ' .  pdir .
+            \ '/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        execute 'quit'
+    endif
+endfunction
 
+try
+    call plug#begin(expand(g:vim_dir . '/bundle'))
     " Completion & Syntax Checking (Heavy Stuff)
     if g:win_shell == 0 && g:cygwin_shell == 0
-        Plugin 'Valloric/YouCompleteMe'
+        Plug 'Valloric/YouCompleteMe'
     else
-        Plugin 'Shougo/neocomplete.vim'
+        Plug 'Shougo/neocomplete.vim'
     endif
-    "Plugin 'starcraftman/vim-eclim'
-    Plugin 'scrooloose/syntastic'
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets' " Default snippets for ultisnips
+    "Plug 'starcraftman/vim-eclim'
+    Plug 'scrooloose/syntastic'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets' " Default snippets for ultisnips
 
     " UI & Enhancements
-    Plugin 'bling/vim-airline'
-    Plugin 'edkolev/tmuxline.vim'
-    Plugin 'edsono/vim-matchit'
-    Plugin 'godlygeek/tabular'
-    Plugin 'justinmk/vim-sneak'
-    "Plugin 'Konfekt/FastFold'
-    Plugin 'majutsushi/tagbar'
-    Plugin 'MattesGroeger/vim-bookmarks'
-    Plugin 'scrooloose/nerdcommenter'
-    Plugin 'sjl/gundo.vim'
-    Plugin 'vim-scripts/taghighlight'
+    Plug 'bling/vim-airline'
+    Plug 'edkolev/tmuxline.vim'
+    Plug 'edsono/vim-matchit'
+    Plug 'godlygeek/tabular'
+    Plug 'justinmk/vim-sneak'
+    "Plug 'Konfekt/FastFold'
+    Plug 'majutsushi/tagbar'
+    Plug 'MattesGroeger/vim-bookmarks'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'sjl/gundo.vim'
+    Plug 'vim-scripts/taghighlight'
 
     " Searching & Files
-    Plugin 'ctrlpvim/ctrlp.vim'
-    Plugin 'mileszs/ack.vim'
-    Plugin 'rking/ag.vim'
-    "Plugin 'scrooloose/nerdtree'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'mileszs/ack.vim'
+    Plug 'rking/ag.vim'
+    "Plug 'scrooloose/nerdtree'
 
     " Diffing
-    Plugin 'ludovicchabant/vim-lawrencium'
-    Plugin 'mhinz/vim-signify'
-    Plugin 'tpope/vim-fugitive'
+    Plug 'ludovicchabant/vim-lawrencium'
+    Plug 'mhinz/vim-signify'
+    Plug 'tpope/vim-fugitive'
 
     " Utility
-    Plugin 'gorkunov/smartpairs.vim'
-    Plugin 'kshenoy/vim-togglelist'
-    Plugin 'tpope/vim-abolish'
-    Plugin 'tpope/vim-sleuth'
-    Plugin 'tpope/vim-surround'
-    Plugin 'tyru/open-browser.vim'
-    Plugin 'vim-scripts/a.vim'
-    Plugin 'vim-scripts/DeleteTrailingWhitespace'
+    Plug 'gorkunov/smartpairs.vim'
+    Plug 'kshenoy/vim-togglelist'
+    Plug 'tpope/vim-abolish'
+    Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-surround'
+    Plug 'tyru/open-browser.vim'
+    Plug 'vim-scripts/a.vim'
+    Plug 'vim-scripts/DeleteTrailingWhitespace'
 
     " Syntax / File Specific
-    "Plugin 'chrisbra/csv.vim'
-    Plugin 'clones/vim-zsh'
-    Plugin 'elzr/vim-json'
-    "Plugin 'LaTeX-Box-Team/LaTeX-Box'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'tomswartz07/vim-todo'
-    Plugin 'zaiste/tmux.vim'
+    "Plug 'chrisbra/csv.vim'
+    Plug 'clones/vim-zsh'
+    Plug 'elzr/vim-json'
+    "Plug 'LaTeX-Box-Team/LaTeX-Box'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'tomswartz07/vim-todo'
+    Plug 'zaiste/tmux.vim'
 
     " Web Programming
-    "Plugin 'othree/html5.vim'
-    "Plugin 'ap/vim-css-color'
-    "Plugin 'hail2u/vim-css3-syntax'
-    "Plugin 'kchmck/vim-coffee-script'
-    "Plugin 'pangloss/vim-javascript'
-    "Plugin 'vim-scripts/jQuery'
-    "Plugin 'Shutnik/jshint2.vim'
-    "Plugin 'StanAngeloff/php.vim'
-    "Plugin 'vim-ruby/vim-ruby'
+    "Plug 'othree/html5.vim'
+    "Plug 'ap/vim-css-color'
+    "Plug 'hail2u/vim-css3-syntax'
+    "Plug 'kchmck/vim-coffee-script'
+    "Plug 'pangloss/vim-javascript'
+    "Plug 'vim-scripts/jQuery'
+    "Plug 'Shutnik/jshint2.vim'
+    "Plug 'StanAngeloff/php.vim'
+    "Plug 'vim-ruby/vim-ruby'
 
     " Very Large Number of Colorschemes
-    "Plugin 'flazz/vim-colorschemes'
+    "Plug 'flazz/vim-colorschemes'
 
     " Turn on after vundle works
-    call vundle#end()
-    filetype plugin indent on
-endif
+    call plug#end()
+catch
+    echo 'Run command `Bootstrap`. After restart run command `pi'
+finally
+filetype plugin indent on
+endtry
 
 " }}}
 " Plugin Configuration
@@ -670,7 +680,7 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
-if filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
+if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
     let s:syn_status = '|| %{SyntasticStatuslineFlag()}'
 endif
 
@@ -710,10 +720,9 @@ cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
 
 " Shortcuts for bundle management
-cnoreabbrev pi PluginInstall
-cnoreabbrev pu PluginUpdate
-cnoreabbrev pc PluginClean
-cnoreabbrev ps PluginSearch
+cnoreabbrev pi PlugInstall
+cnoreabbrev pu PlugUpdate
+cnoreabbrev pc PlugClean
 
 " Faster binding to escape insert/visual
 inoremap jk <Esc>
