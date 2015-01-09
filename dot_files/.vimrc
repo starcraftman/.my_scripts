@@ -417,7 +417,7 @@ if exists(':Plugin')
     Plugin 'edsono/vim-matchit'
     Plugin 'godlygeek/tabular'
     Plugin 'justinmk/vim-sneak'
-    Plugin 'Konfekt/FastFold'
+    "Plugin 'Konfekt/FastFold'
     Plugin 'majutsushi/tagbar'
     Plugin 'MattesGroeger/vim-bookmarks'
     Plugin 'scrooloose/nerdcommenter'
