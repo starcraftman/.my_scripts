@@ -480,7 +480,7 @@ try
 catch
     echo 'Run command `Bootstrap`. After restart run command `pi'
 finally
-filetype plugin indent on
+    filetype plugin indent on
 endtry
 
 " }}}
