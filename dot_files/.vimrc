@@ -429,7 +429,7 @@ try
     Plug 'edsono/vim-matchit'
     Plug 'godlygeek/tabular'
     Plug 'justinmk/vim-sneak'
-    "Plug 'Konfekt/FastFold'
+    Plug 'Konfekt/FastFold'
     Plug 'majutsushi/tagbar'
     Plug 'MattesGroeger/vim-bookmarks'
     Plug 'scrooloose/nerdcommenter'

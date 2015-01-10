@@ -55,9 +55,9 @@ build_src() {
 
 update_repos "${REPOS[@]}"
 
-if [ -d ~/.vim/bundle/Vundle.vim ]; then
+if [ -f ~/.vim/autoload/plug.vim ]; then
     echo 'Updating vim plugins.'
-    vim +PluginUpdate +qa
+    vim +pu +qa
     "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
     BuildSrc.py ycm >/dev/null 2>&1 &
 fi
