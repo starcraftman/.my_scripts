@@ -458,13 +458,13 @@ try
     Plug 'vim-scripts/DeleteTrailingWhitespace'
 
     " Syntax / File Specific
-    "Plug 'chrisbra/csv.vim'
-    Plug 'clones/vim-zsh'
-    Plug 'elzr/vim-json'
-    "Plug 'LaTeX-Box-Team/LaTeX-Box'
-    Plug 'plasticboy/vim-markdown'
-    Plug 'tomswartz07/vim-todo'
-    Plug 'zaiste/tmux.vim'
+    Plug 'chrisbra/csv.vim',            { 'for': 'csv' }
+    Plug 'clones/vim-zsh',              { 'for': 'zsh' }
+    Plug 'elzr/vim-json',               { 'for': 'json'}
+    Plug 'LaTeX-Box-Team/LaTeX-Box',    { 'for': 'tex' }
+    Plug 'plasticboy/vim-markdown',     { 'for': ['markdown', 'md'] }
+    Plug 'tomswartz07/vim-todo',        { 'for': 'todo' }
+    Plug 'zaiste/tmux.vim',             { 'for': 'tmux' }
 
     " Web Programming
     "Plug 'othree/html5.vim'
