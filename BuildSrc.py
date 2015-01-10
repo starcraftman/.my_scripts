@@ -160,7 +160,7 @@ BUILDS = {
         'cmds' : [
             './configure --with-features=huge --enable-gui=gtk2 \
             --enable-cscope --enable-multibyte --enable-luainterp \
-            --enable-perlinterp --enable-pythoninterp --enable-rubyinterp \
+            --enable-perlinterp --enable-rubyinterp --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config \
             --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
