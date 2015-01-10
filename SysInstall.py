@@ -139,9 +139,8 @@ def home_config():
     helper = make_cmd(src, home)
     helper(files, os.symlink)
 
-    # Init vundle for vim plugin install.
-    ddir = home + '.vim' + os.sep + 'bundle' + os.sep
-    get_code('https://github.com/gmarik/Vundle.vim.git', ddir + 'Vundle.vim')
+    # Clone vim plugin manager
+    subprocess.call('vim +Bootstrap +qa'.split())
 
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep

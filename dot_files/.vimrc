@@ -35,7 +35,7 @@
 "
 " * For color schemes:
 "       Large selection of schemes: https://github.com/flazz/vim-colorschemes
-"       Put schemes in ~/.vim/colors or use Vundle
+"       Put schemes in ~/.vim/colors or use a plugin manager
 "       Favourites In Order:
 "           molokai, jellybeans, desert256, wombat256mod, mrkn256, xoria256, twilight256
 "
@@ -67,14 +67,13 @@
 "     a) Python Script
 "       SysInstall home
 "           Symbolically links .vim & .vimrc to home.
-"           Downloads Vundle.vim to .vim/bundle.
+"           Bootstraps vim plugin manager.
 "           Sets up powerline fonts for airline.
 "
 "     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
 "       Link from ~/.my_scripts/dot_files to $HOME
-"       Get Vundle:
-"           git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"           For info: `:h vundle`
+"       Get Manager:
+"           vim +Bootstrap +qa
 "       Powerline Fonts:
 "           See steps at:
 "           http://powerline.readthedocs.org/en/latest/installation.html
@@ -83,6 +82,7 @@
 "       :PluginInstall
 "
 "   5) Further Config:
+"       Plug          : Requires ruby support for parallel.
 "       YouCompleteMe : Requires cpp compilation, see BuildSrc.py ycm.
 "       vim-airline   : Powerline fonts optional.
 "       TagBar        : Requires exhuberant tags instead of gnu ctags
@@ -95,10 +95,10 @@
 """"""""""""""""""""
 " {{{
 
-"   Vundle:
-"       Very good plugin manager, only supports git
-"       Need to look into revision support, doesn't work at this time
-"       https://github.com/gmarik/vundle
+"   Plug:
+"       Minimal new plugin manager with parallelism.
+"       PlugUpdate only does bundles, PlugUpgrade for manager.
+"       https://github.com/junegunn/vim-plug
 "
 "   YouCompleteMe:
 "       Very good autocomplete, includes path completion,
@@ -244,6 +244,11 @@
 """""""""""""""""""
 " {{{
 
+"   Vundle:
+"       Very good plugin manager, only supports git
+"       Need to look into revision support, doesn't work at this time
+"       https://github.com/gmarik/vundle
+"
 "   neocomplete:
 "       Fairly complete YCM replacement for on Windows.
 "       https://github.com/Shougo/neocomplete.vim
@@ -377,7 +382,7 @@
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins with Vundle
+" => Plugins with Plug
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
@@ -385,7 +390,6 @@
 """""""""
 " {{{
 
-" Vundle docs -> :help vundle
 set nocompatible
 filetype off
 
@@ -425,7 +429,7 @@ try
     Plug 'edsono/vim-matchit'
     Plug 'godlygeek/tabular'
     Plug 'justinmk/vim-sneak'
-    Plug 'Konfekt/FastFold'
+    "Plug 'Konfekt/FastFold'
     Plug 'majutsushi/tagbar'
     Plug 'MattesGroeger/vim-bookmarks'
     Plug 'scrooloose/nerdcommenter'
@@ -476,7 +480,6 @@ try
     " Very Large Number of Colorschemes
     "Plug 'flazz/vim-colorschemes'
 
-    " Turn on after vundle works
     call plug#end()
 catch
     echo 'Run command `Bootstrap`. After restart run command `pi'
