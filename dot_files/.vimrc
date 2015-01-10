@@ -407,6 +407,7 @@ endfunction
 
 try
     call plug#begin(expand(g:vim_dir . '/bundle'))
+
     " Completion & Syntax Checking (Heavy Stuff)
     if g:win_shell == 0 && g:cygwin_shell == 0
         Plug 'Valloric/YouCompleteMe'
