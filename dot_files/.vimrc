@@ -441,7 +441,7 @@ try
     Plug 'mileszs/ack.vim'
     Plug 'rking/ag.vim'
     "Plug 'scrooloose/nerdtree'
-    Plug 'vim-scripts/LargeFile'
+    Plug 'mhinz/vim-hugefile'
 
     " Diffing
     Plug 'ludovicchabant/vim-lawrencium'
@@ -664,8 +664,8 @@ let g:bookmark_auto_close = 1
 
 " LargeFile
 """""""""""
-" The size a file is considered large, in MB
-let g:LargeFile = 10
+" The size a file is considered large, in MiB. Manual -> HugefileToggle
+"let g:hugefile_trigger_size = 2
 
 " }}}
 
