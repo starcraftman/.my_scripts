@@ -1299,9 +1299,10 @@ function! Vex.Open()
     let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
     let g:netrw_browse_split = 4
 
-    execute 'topleft Vexplore'
+    execute 'topleft vnew'
     wincmd H
     execute 'vertical resize ' . g:NERDTreeWinSize
+    execute 'Explore'
 
     let t:vex.new_buf = bufnr('%')
 endfunction
