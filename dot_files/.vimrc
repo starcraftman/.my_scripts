@@ -447,6 +447,7 @@ try
     Plug 'ludovicchabant/vim-lawrencium'
     Plug 'mhinz/vim-signify'
     Plug 'tpope/vim-fugitive'
+    Plug 'zhaocai/DirDiff.vim'
 
     " Utility
     Plug 'gorkunov/smartpairs.vim'
