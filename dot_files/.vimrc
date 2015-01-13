@@ -441,6 +441,7 @@ try
     Plug 'mileszs/ack.vim'
     Plug 'rking/ag.vim'
     "Plug 'scrooloose/nerdtree'
+    Plug 'vim-scripts/LargeFile'
 
     " Diffing
     Plug 'ludovicchabant/vim-lawrencium'
@@ -660,6 +661,11 @@ let g:bookmark_center = 1
 
 " When jumping from quicklist, close it
 let g:bookmark_auto_close = 1
+
+" LargeFile
+"""""""""""
+" The size a file is considered large, in MB
+let g:LargeFile = 10
 
 " }}}
 
