@@ -1258,6 +1258,7 @@ function! s:ExtractFullPath(line)
 endfunction
 
 " Shows in an echo the target of links
+" New netrw >= 153 seems to support it via display
 function! s:ShowSyms()
     let l:count = 1
     let l:files = []
