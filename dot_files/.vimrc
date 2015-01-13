@@ -1154,14 +1154,14 @@ function! Color.Init(remDefaults)
     let self.list = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
 
     " Find current index
-    let index = 0
+    let self.cur = 0
     for scheme in schemes
         if scheme ==? g:colors_name
             break
         endif
-        let index += 1
+        let self.cur += 1
     endfor
-    let self.default = index + 1
+    let self.default = self.cur + 1
 
     if (len(self.list) > 26)
         echom 'too many schemes, listing first 26'
@@ -1188,24 +1188,24 @@ function! Color.Set()
     " Set new scheme
     syntax off
     set background=dark
-    exec 'colorscheme ' . self.list[self.index]
+    exec 'colorscheme ' . self.list[self.cur]
     syntax on
     echom 'colorscheme is now: ' . g:colors_name
 endfunction
 
 function! Color.Next()
-    let self.index = (self.index + 1) % len(self.list)
+    let self.cur = (self.cur + 1) % len(self.list)
     call self.Set()
 endfunction
 
 function! Color.Prev()
-    let self.index = (self.index - 1) % len(self.list)
+    let self.cur = (self.cur - 1) % len(self.list)
     call self.Set()
 endfunction
 
 function! Color.Pick()
-    " Returns index of 1 - n choices
-    let self.index = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
+    " Returns cur of 1 - n choices
+    let self.cur = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
     call self.Set()
 endfunction
 call Color.Init(1)
