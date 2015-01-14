@@ -231,6 +231,18 @@
 "       Better marking, nice sign usage.
 "       https://github.com/MattesGroeger/vim-bookmarks
 "
+"   committia:
+"       Display diff in the vim commit box. Handy
+"       https://github.com/rhysd/committia.vim
+"
+"   hugefile:
+"       For very large files, turn off some features.
+"       https://github.com/mhinz/vim-hugefile
+"
+"   DirDiff:
+"       Diff two directories and have some ops.
+"       https://github.com/zhaocai/DirDiff.vim
+"
 "   smartpairs.vim:
 "       Easy visual selections, use vv to select on matching pair.
 "       https://github.com/gorkunov/smartpairs.vim
