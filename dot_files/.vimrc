@@ -432,16 +432,17 @@ try
     Plug 'Konfekt/FastFold'
     Plug 'majutsushi/tagbar'
     Plug 'MattesGroeger/vim-bookmarks'
+    Plug 'rhysd/committia.vim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'sjl/gundo.vim'
     Plug 'vim-scripts/taghighlight'
 
     " Searching & Files
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'mhinz/vim-hugefile'
     Plug 'mileszs/ack.vim'
     Plug 'rking/ag.vim'
     "Plug 'scrooloose/nerdtree'
-    Plug 'mhinz/vim-hugefile'
 
     " Diffing
     Plug 'ludovicchabant/vim-lawrencium'
