@@ -1376,6 +1376,23 @@ def print_arg(name, lock):
         time.sleep(1)
 
 log('hello', 'hi')
+#lock = multi.Lock()
+#threads = []
+#nthreads = 6
+#work = ['work-{}'.format(i) for i in range(11)]
+#while len(work) != 0:
+    #while len(threads) < nthreads:
+        #unit = work.pop(0)
+        #proc = multi.Process(target=print_arg, name=unit, args=[unit, lock])
+        #proc.start()
+        #threads.append(proc)
+
+    #threads[0].join()
+    #threads = threads[1:]
+
+#for thread in threads:
+    #thread.join()
+
 EOF
 endfunction
 
