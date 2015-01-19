@@ -1356,42 +1356,67 @@ function! s:py_crash()
     python << EOF
 import multiprocessing as multi
 import os
-import Queue
 import time
+import datetime
+import shutil
 
-def log(fname, msg):
-    with open(fname, 'a') as fil:
-        fil.write(msg)
+class Logger(object):
+    def __init__(self, ldir, fname):
+        self.fname = os.path.expanduser('{}/{}.log'.format(ldir, fname))
+        self.flog = open(self.fname, 'w')
 
-def print_arg(name, lock):
-    flog = os.path.expanduser('/tmp/mytmp/{}'.format(name))
-    if not os.path.exists('/tmp/mytmp'):
-        os.makedirs('/tmp/mytmp')
-    if os.path.exists(flog):
-        os.remove(flog)
+    def write(self, msg):
+        time = datetime.datetime.now().strftime('%H:%M:%S %f')
+        self.flog.write('[{}] {}{}'.format(time, msg, os.linesep))
+        self.flog.flush()
+
+    def close(self):
+        self.flog.close()
+
+def print_arg(name, lock, ldir):
+    log = Logger(ldir, name)
 
     for i in range(10):
         with lock:
-            log(flog, 'Has {}.'.format(i))
+            log.write('I have {}.'.format(i))
         time.sleep(1)
 
-log('hello', 'hi')
-#lock = multi.Lock()
-#threads = []
-#nthreads = 6
-#work = ['work-{}'.format(i) for i in range(11)]
-#while len(work) != 0:
-    #while len(threads) < nthreads:
-        #unit = work.pop(0)
-        #proc = multi.Process(target=print_arg, name=unit, args=[unit, lock])
-        #proc.start()
-        #threads.append(proc)
+    log.close()
 
-    #threads[0].join()
-    #threads = threads[1:]
+def master_entry(ldir):
+    ldir = os.path.expanduser(ldir)
+    if os.path.exists(ldir):
+        shutil.rmtree(ldir)
+    os.makedirs(ldir)
 
-#for thread in threads:
-    #thread.join()
+    lock = multi.Lock()
+    threads = []
+    nthreads = 6
+    start_threads = 6
+    work = ['work{}'.format(i) for i in range(15)]
+    work.reverse()
+
+    log = Logger(ldir, 'master')
+
+    time_limit = time.time() + 60
+    while len(work) != 0:
+        log.write('{} work units left.'.format(len(work)))
+
+        while len(work) != 0 and len(threads) != nthreads:
+            unit = work.pop()
+            proc = multi.Process(target=print_arg, name=unit, args=[unit, lock, ldir])
+            proc.start()
+            threads.append(proc)
+
+        while len(threads) == nthreads:
+            time.sleep(1)
+            threads = [thread for thread in threads if thread.is_alive()]
+
+    log.close()
+
+logdir = os.path.expanduser('~/vim-plug-py/tmp')
+proc = multi.Process(target=master_entry, args=[logdir])
+proc.start()
 
 EOF
 endfunction
