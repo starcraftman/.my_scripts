@@ -1031,7 +1031,7 @@ set smarttab
 set autoindent
 
 " Wrap lines when hit right side, doesn't affect buffer
-set wrap
+set nowrap
 
 " When wrapping, respect the indent of original line.
 if exists('&breakindent')
@@ -1043,7 +1043,8 @@ set linebreak
 
 " When inserting text, force a line break at this amount
 " Set to 0 to disable
-set textwidth=150
+"set textwidth=150
+set textwidth=0
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1348,6 +1349,34 @@ function! Vex.Action(action)
     let t:vex.orig_buf = winnr()
     execute l:orig_win . ' wincmd w'
     call feedkeys("\<CR>", 't')
+endfunction
+
+command! -nargs=0 PyCrash call s:py_crash()
+function! s:py_crash()
+    python << EOF
+import multiprocessing as multi
+import os
+import Queue
+import time
+
+def log(fname, msg):
+    with open(fname, 'a') as fil:
+        fil.write(msg)
+
+def print_arg(name, lock):
+    flog = os.path.expanduser('/tmp/mytmp/{}'.format(name))
+    if not os.path.exists('/tmp/mytmp'):
+        os.makedirs('/tmp/mytmp')
+    if os.path.exists(flog):
+        os.remove(flog)
+
+    for i in range(10):
+        with lock:
+            log(flog, 'Has {}.'.format(i))
+        time.sleep(1)
+
+log('hello', 'hi')
+EOF
 endfunction
 
 " }}}
