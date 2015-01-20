@@ -247,6 +247,11 @@
 "       Easy visual selections, use vv to select on matching pair.
 "       https://github.com/gorkunov/smartpairs.vim
 "
+"   Vader.vim:
+"       Testing framework for vim, no dependencies.
+"       Execute .vader files with Vader file.vader.
+"       https://github.com/junegunn/vader.vim
+"
 "   Version Control:
 "       GIT -> https://github.com/tpope/vim-fugitive
 "       Hg -> https://github.com/ludovicchabant/vim-lawrencium
@@ -480,6 +485,9 @@ try
     Plug 'plasticboy/vim-markdown',     { 'for': ['markdown', 'md'] }
     Plug 'tomswartz07/vim-todo',        { 'for': 'todo' }
     Plug 'zaiste/tmux.vim',             { 'for': 'tmux' }
+
+    " Testing vim
+    Plug 'junegunn/vader.vim'
 
     " Web Programming
     "Plug 'othree/html5.vim'
