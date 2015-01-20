@@ -1400,13 +1400,13 @@ def master_entry(ldir):
 
     time_limit = time.time() + 60
     while len(work) != 0:
-        log.write('{} work units left.'.format(len(work)))
-
         while len(work) != 0 and len(threads) != nthreads:
             unit = work.pop()
             proc = multi.Process(target=print_arg, name=unit, args=[unit, lock, ldir])
             proc.start()
             threads.append(proc)
+
+        log.write('{} work units left.'.format(len(work)))
 
         while len(threads) == nthreads:
             time.sleep(1)
