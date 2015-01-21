@@ -415,6 +415,9 @@ let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 
+" YouCompleteMe is VERY SLOW installing, make command timeout long
+let g:plug_timeout = 180
+
 command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
     if ! g:win_shell
