@@ -434,7 +434,7 @@ try
 
     " Completion & Syntax Checking (Heavy Stuff)
     if g:win_shell == 0 && g:cygwin_shell == 0
-        Plug 'Valloric/YouCompleteMe'
+        Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
     else
         Plug 'Shougo/neocomplete.vim'
     endif
