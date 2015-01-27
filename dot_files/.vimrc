@@ -418,24 +418,12 @@ let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 " YouCompleteMe is VERY SLOW installing, make command timeout long
 let g:plug_timeout = 180
 
-" Fetch plug.vim with curl or fallback to python
+" Fetch plug.vim to manage plugins
 command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
-    let s:plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    let s:plug_dst = expand(g:vim_dir . '/jeremy/plug.vim')
-    if executable('curl')
-        call mkdir(expand(g:vim_dir . '/jeremy'), 'p')
-        execute 'silent !curl -fLo ' . s:plug_dst . ' '  . s:plug_src
-    elseif has('python')
-python << EOF
-import os
-import urllib
-import vim
-src, dst = vim.eval('s:plug_src'), vim.eval('s:plug_dst')
-os.makedirs(os.path.dirname(dst))
-urllib.urlretrieve(src, dst)
-EOF
-    endif
+    let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    let plug_dst = expand(g:vim_dir . '/jeremy/plug.vim')
+    call FetchFile(plug_src, plug_dst)
     execute 'quit'
 endfunction
 
@@ -1370,6 +1358,27 @@ function! Vex.Action(action)
     let t:vex.orig_buf = winnr()
     execute l:orig_win . ' wincmd w'
     call feedkeys("\<CR>", 't')
+endfunction
+
+function! FetchFile(src, dst)
+    let l:src = expand(a:src)
+    let l:dst = expand(a:dst)
+    let l:dst_dir = fnamemodify(a:dst, ':h')
+    if executable('curl')
+        call mkdir(l:dst_dir, 'p')
+        execute 'silent !curl -fLo ' . l:dst . ' '  . l:src
+    elseif has('python')
+python << EOF
+import os
+import urllib
+import vim
+src, dst = vim.eval('l:src'), vim.eval('l:dst')
+dst_dir = os.path.dirname(dst)
+if not os.path.exists(dst_dir):
+    os.makedirs(dst_dir)
+urllib.urlretrieve(src, dst)
+EOF
+    endif
 endfunction
 
 " }}}
