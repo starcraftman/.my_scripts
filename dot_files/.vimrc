@@ -422,9 +422,9 @@ let g:plug_timeout = 180
 command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
     let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    let plug_dst = expand(g:vim_dir . '/jeremy/plug.vim')
+    let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
     call FetchFile(plug_src, plug_dst)
-    execute 'quit'
+    echo 'Done, please restart and run PlugInstall.'
 endfunction
 
 try
@@ -1361,18 +1361,18 @@ function! Vex.Action(action)
 endfunction
 
 function! FetchFile(src, dst)
-    let l:src = expand(a:src)
-    let l:dst = expand(a:dst)
     let l:dst_dir = fnamemodify(a:dst, ':h')
     if executable('curl')
-        call mkdir(l:dst_dir, 'p')
-        execute 'silent !curl -fLo ' . l:dst . ' '  . l:src
+        if !isdirectory(l:dst_dir)
+            call mkdir(l:dst_dir, 'p')
+        endif
+        execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
     elseif has('python')
 python << EOF
 import os
 import urllib
 import vim
-src, dst = vim.eval('l:src'), vim.eval('l:dst')
+src, dst = vim.eval('a:src'), vim.eval('a:dst')
 dst_dir = os.path.dirname(dst)
 if not os.path.exists(dst_dir):
     os.makedirs(dst_dir)
