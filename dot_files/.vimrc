@@ -423,7 +423,7 @@ command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
     let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
-    call FetchFile(plug_src, plug_dst)
+    call FileFetch(plug_src, plug_dst)
     echo 'Done, please restart and run `PlugInstall`.'
 endfunction
 
@@ -1360,34 +1360,45 @@ function! Vex.Action(action)
     call feedkeys("\<CR>", 't')
 endfunction
 
-function! FetchFile(src, dst)
+command! -nargs=+ FileFetch call g:FileFetch(<f-args>)
+function! g:FileFetch(src, dst)
     let l:dst_dir = fnamemodify(a:dst, ':h')
+    if !isdirectory(l:dst_dir)
+        call mkdir(l:dst_dir, 'p')
+    endif
     if executable('curl')
-        if !isdirectory(l:dst_dir)
-            call mkdir(l:dst_dir, 'p')
-        endif
         execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
     elseif has('python')
-python << EOF
-import os
-import urllib
-import vim
-src, dst = vim.eval('a:src'), vim.eval('a:dst')
-dst_dir = os.path.dirname(dst)
-if not os.path.exists(dst_dir):
-    os.makedirs(dst_dir)
-urllib.urlretrieve(src, dst)
-EOF
+        call s:fetch_python(a:src, a:st)
+    elseif has('ruby')
+        call s:fetch_ruby(a:src, a:dst)
     else
         echoerr 'No supported file download method.'
     endif
     echom 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
 endfunction
 
+function! s:fetch_python(src, dst)
+python << EOF
+import urllib
+import vim
+urllib.urlretrieve(vim.eval('a:src'), vim.eval('a:dst'))
+EOF
+endfunction
+
+function! s:fetch_ruby(src, dst)
+ruby << EOF
+  require 'open-uri'
+  File.open(VIM::evaluate('a:dst'), 'w') do |f|
+    f << open(VIM::evaluate('a:src')).read
+  end
+EOF
+endfunction
+
 command! -nargs=0 VimrcUpdate call s:vimrc_update()
 function! s:vimrc_update()
     let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
-    call FetchFile(src, $MYVIMRC)
+    call FileFetch(src, $MYVIMRC)
 endfunction
 " }}}
 " vim: set foldmethod=marker:
