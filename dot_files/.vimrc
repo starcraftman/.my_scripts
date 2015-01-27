@@ -424,7 +424,7 @@ function! s:bootstrap()
     let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
     call FetchFile(plug_src, plug_dst)
-    echo 'Done, please restart and run PlugInstall.'
+    echo 'Done, please restart and run `PlugInstall`.'
 endfunction
 
 try
@@ -1378,8 +1378,16 @@ if not os.path.exists(dst_dir):
     os.makedirs(dst_dir)
 urllib.urlretrieve(src, dst)
 EOF
+    else
+        echoerr 'No supported file download method.'
     endif
+    echom 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
 endfunction
 
+command! -nargs=0 VimrcUpdate call s:vimrc_update()
+function! s:vimrc_update()
+    let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
+    call FetchFile(src, $MYVIMRC)
+endfunction
 " }}}
 " vim: set foldmethod=marker:
