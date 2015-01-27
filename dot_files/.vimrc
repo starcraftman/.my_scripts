@@ -418,15 +418,25 @@ let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 " YouCompleteMe is VERY SLOW installing, make command timeout long
 let g:plug_timeout = 180
 
+" Fetch plug.vim with curl or fallback to python
 command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
-    if ! g:win_shell
-        let pdir = expand(g:vim_dir . '/autoload')
-        execute 'silent !mkdir -p ' . pdir
-        execute 'silent !curl -fLo ' .  pdir .
-            \ '/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        execute 'quit'
+    let s:plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    let s:plug_dst = expand(g:vim_dir . '/jeremy/plug.vim')
+    if executable('curl')
+        call mkdir(expand(g:vim_dir . '/jeremy'), 'p')
+        execute 'silent !curl -fLo ' . s:plug_dst . ' '  . s:plug_src
+    elseif has('python')
+python << EOF
+import os
+import urllib
+import vim
+src, dst = vim.eval('s:plug_src'), vim.eval('s:plug_dst')
+os.makedirs(os.path.dirname(dst))
+urllib.urlretrieve(src, dst)
+EOF
     endif
+    execute 'quit'
 endfunction
 
 try
@@ -434,7 +444,8 @@ try
 
     " Completion & Syntax Checking (Heavy Stuff)
     if g:win_shell == 0 && g:cygwin_shell == 0
-        Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
+        Plug 'Valloric/YouCompleteMe'
+        "Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
     else
         Plug 'Shougo/neocomplete.vim'
     endif
@@ -1360,76 +1371,6 @@ function! Vex.Action(action)
     let t:vex.orig_buf = winnr()
     execute l:orig_win . ' wincmd w'
     call feedkeys("\<CR>", 't')
-endfunction
-
-command! -nargs=0 PyCrash call s:py_crash()
-function! s:py_crash()
-    python << EOF
-import multiprocessing as multi
-import os
-import time
-import datetime
-import shutil
-
-class Logger(object):
-    def __init__(self, ldir, fname):
-        self.fname = os.path.expanduser('{}/{}.log'.format(ldir, fname))
-        self.flog = open(self.fname, 'w')
-
-    def write(self, msg):
-        time = datetime.datetime.now().strftime('%H:%M:%S %f')
-        self.flog.write('[{}] {}{}'.format(time, msg, os.linesep))
-        self.flog.flush()
-
-    def close(self):
-        self.flog.close()
-
-def print_arg(name, lock, ldir):
-    log = Logger(ldir, name)
-
-    for i in range(10):
-        with lock:
-            log.write('I have {}.'.format(i))
-        time.sleep(1)
-
-    log.close()
-
-def master_entry(ldir):
-    ldir = os.path.expanduser(ldir)
-    if os.path.exists(ldir):
-        shutil.rmtree(ldir)
-    os.makedirs(ldir)
-
-    lock = multi.Lock()
-    threads = []
-    nthreads = 6
-    start_threads = 6
-    work = ['work{}'.format(i) for i in range(15)]
-    work.reverse()
-
-    log = Logger(ldir, 'master')
-
-    time_limit = time.time() + 60
-    while len(work) != 0:
-        log.write('{} work units left.'.format(len(work)))
-
-        while len(work) != 0 and len(threads) != nthreads:
-            unit = work.pop()
-            proc = multi.Process(target=print_arg, name=unit, args=[unit, lock, ldir])
-            proc.start()
-            threads.append(proc)
-
-        while len(threads) == nthreads:
-            time.sleep(1)
-            threads = [thread for thread in threads if thread.is_alive()]
-
-    log.close()
-
-logdir = os.path.expanduser('~/vim-plug-py/tmp')
-proc = multi.Process(target=master_entry, args=[logdir])
-proc.start()
-
-EOF
 endfunction
 
 " }}}

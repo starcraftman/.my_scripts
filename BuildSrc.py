@@ -177,16 +177,6 @@ BUILDS = {
             ('*.1', 'share/man/man1/'),
         ],
     },
-    'ycm': {
-        'name' : 'ycm',
-        'check': 'bin/ycm',
-        'url'  : URL_CLANG,
-        'cmds' : [
-            'cmake -DPATH_TO_LLVM_ROOT=. . \
-                ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp',
-            'make -jJOBS ycm_support_libs',
-        ],
-    },
     'zsh': {
         'name' : 'zsh',
         'check': 'bin/zsh',
