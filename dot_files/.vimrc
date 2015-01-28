@@ -247,6 +247,10 @@
 "       Easy visual selections, use vv to select on matching pair.
 "       https://github.com/gorkunov/smartpairs.vim
 "
+"   github-issues.vim:
+"       Github integration inside commit windows. Neat.
+"       https://github.com/jaxbot/github-issues.vim
+"
 "   Vader.vim:
 "       Testing framework for vim, no dependencies.
 "       Execute .vader files with Vader file.vader.
@@ -470,6 +474,7 @@ try
 
     " Utility
     Plug 'gorkunov/smartpairs.vim'
+    Plug 'jaxbot/github-issues.vim'
     Plug 'kshenoy/vim-togglelist'
     Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-sleuth'
@@ -689,6 +694,11 @@ let g:bookmark_auto_close = 1
 """""""""""
 " The size a file is considered large, in MiB. Manual -> HugefileToggle
 "let g:hugefile_trigger_size = 2
+
+" Github Issues
+"""""""""""""""
+" On forks, find issues from upstream too.
+let g:github_upstream_issues = 1
 
 " }}}
 
