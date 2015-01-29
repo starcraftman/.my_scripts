@@ -837,6 +837,15 @@ nnoremap <Leader>pm :CtrlPMRUFiles<CR>
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <Leader>j :YcmCompleter GoTo<CR>
 
+" For smart TAB completion.
+function! s:check_back_space()
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ neocomplete#start_manual_complete()
+
 " Shortcut to swap to header file, horizontal split
 nnoremap <Leader>a :AS<CR>
 
