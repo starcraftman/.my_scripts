@@ -214,7 +214,7 @@ fi
 if valid_name apt-get; then
     alias apti='sudo apt-get -y install'
     alias aptr='sudo apt-get -y remove'
-    alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade'
+    alias aptu='sudo apt-get update && sudo apt-get -y dist-upgrade && sudo apt-get autoremove'
 fi
 
 # Alias for color tools.
