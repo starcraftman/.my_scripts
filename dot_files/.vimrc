@@ -708,7 +708,7 @@ let g:github_upstream_issues = 1
 " vim-Airline
 """""""""""""
 " Enable syntastic integration
-let g:airline_enable_syntastic = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " Enable a smart tab top
 let g:airline#extensions#tabline#enabled = 1
