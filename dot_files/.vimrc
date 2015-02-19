@@ -694,8 +694,8 @@ let g:bookmark_auto_close = 1
 
 " Github Issues
 """""""""""""""
-" On forks, find issues from upstream too.
-let g:github_upstream_issues = 1
+" On forks, find issues from upstream ONLY.
+"let g:github_upstream_issues = 1
 
 " }}}
 
