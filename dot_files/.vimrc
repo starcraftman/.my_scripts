@@ -424,7 +424,7 @@ command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
     let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
-    call FileFetch(plug_src, plug_dst)
+    call g:FileFetch(plug_src, plug_dst)
     echo 'Done, please restart and run `PlugInstall`.'
 endfunction
 
@@ -1385,7 +1385,7 @@ function! g:FileFetch(src, dst)
     if executable('curl')
         execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
     elseif has('python')
-        call s:fetch_python(a:src, a:st)
+        call s:fetch_python(a:src, a:dst)
     elseif has('ruby')
         call s:fetch_ruby(a:src, a:dst)
     else
@@ -1414,7 +1414,7 @@ endfunction
 command! -nargs=0 VimrcUpdate call s:vimrc_update()
 function! s:vimrc_update()
     let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
-    call FileFetch(src, $MYVIMRC)
+    call g:FileFetch(src, $MYVIMRC)
 endfunction
 " }}}
 " vim: set foldmethod=marker:
