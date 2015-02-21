@@ -245,11 +245,11 @@ def find_archive(url):
 def extract_archive(archive):
     """ Given an archive, extract it. Prefer python libs if supported. """
     if tarfile.is_tarfile(archive):
-        with tarfile.open(archive) as tarf:
-            tarf.extractall()
+        tarf = tarfile.open(archive)
+        tarf.extractall()
     if zipfile.is_zipfile(archive):
-        with zipfile.ZipFile(archive) as zipf:
-            zipf.extractall()
+        zipf = zipfile.ZipFile(archive)
+        zipf.extractall()
     else:
         cmd = 'unarchive ' + archive
         subprocess.call(cmd.split())
@@ -443,4 +443,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
