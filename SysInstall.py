@@ -139,9 +139,6 @@ def home_config():
     helper = make_cmd(src, home)
     helper(files, os.symlink)
 
-    # Clone vim plugin manager
-    subprocess.call('vim +Bootstrap +qa'.split())
-
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep
     get_code('http://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
@@ -157,13 +154,6 @@ def home_config():
     for url in git_urls:
         target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
         get_code(url, shell_dir + target)
-
-    # Vundle for vim plugins
-    bundle_dir = home + '.vim' + os.path.sep + 'bundle' + os.path.sep
-    if not os.path.exists(bundle_dir):
-        os.makedirs(bundle_dir)
-        get_code('https://github.com/gmarik/Vundle.vim',
-                bundle_dir + 'Vundle.vim')
 
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'

@@ -432,9 +432,9 @@ try
     call plug#begin(expand(g:vim_dir . '/bundle'))
 
     " Completion & Syntax Checking (Heavy Stuff)
-    if g:win_shell == 0 && g:cygwin_shell == 0
+    if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 || (v:version == 703 && has('patch584')))
         Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
-    else
+    elseif has('lua')
         Plug 'Shougo/neocomplete.vim'
     endif
     "Plug 'starcraftman/vim-eclim'
