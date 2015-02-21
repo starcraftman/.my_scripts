@@ -401,7 +401,6 @@ def main():
     python3      Build the latest python 3.x.
     tmux         Build the latest tmux.
     vim          Build the latest vim.
-    ycm          Build the ycm server for vim, depends on .vim/bundle/YouCompleteMe.
     zsh          Build the latest zsh.
     """
 
