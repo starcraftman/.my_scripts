@@ -118,7 +118,7 @@ def make_cmd(src, dst):
         for fil in files:
             sfile, dfile = [x + fil for x in (src, dst)]
             if not os.path.exists(dfile):
-                print("{} >>>>> {}".format(dfile, sfile))
+                print("{0} >>>>> {1}".format(dfile, sfile))
                 command(sfile, dfile, *opts)
     return cmd_when_dst_empty
 

@@ -414,9 +414,8 @@ def main():
     actions = {
         'dev':  functools.partial(builds.extend, dev_keys),
     }
-    gen_actions = {key: functools.partial(builds.append, key)
-            for key in set(BUILDS.keys()).difference(dev_keys)}
-    actions.update(gen_actions)
+    for key in BUILDS.keys():
+        actions[key] = functools.partial(builds.append, key)
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
