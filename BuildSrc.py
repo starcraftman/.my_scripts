@@ -29,9 +29,9 @@ except ImportError:
 
 URL_CLANG = 'http://llvm.org/releases/3.5.0/\
 clang+llvm-3.5.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz'
-URL_CMAKE = 'http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz'
-URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.2.0.tar.xz'
-URL_PYTHON = 'https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz'
+URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
+URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz'
+URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
 tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
