@@ -172,8 +172,9 @@ def main():
     ldir = os.path.abspath(args.ldir)
 
     builds = []
-    actions = {key: functools.partial(builds.append, key)
-        for key in BUILDS.keys()}
+    actions = {}
+    for key in BUILDS.keys():
+        actions[key] = functools.partial(builds.append, key)
 
     try:
         # Need this for jam to build mpi & graph_parallel.
