@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PYTHON_URL=https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+PYTHON_URL=https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz
 ZSH_URL=https://github.com/zsh-users/zsh.git
 DIR=~/.opt1
 

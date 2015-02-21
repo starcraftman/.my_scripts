@@ -322,7 +322,7 @@ def main():
     choice       effect
     ------------------------------------------------------
     home         Setup home config files.
-    home_restore Restore home files and undo home_config.
+    home_restore Restore home files and undo home_save.
     home_save    Save existing home files.
     babun        Install babun packages.
     cabal        Install haskell packages for eclipse.
