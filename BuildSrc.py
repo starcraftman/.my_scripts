@@ -409,7 +409,8 @@ def main():
         'dev':  functools.partial(builds.extend, dev_keys),
     }
     for key in BUILDS.keys():
-        actions[key] = functools.partial(builds.append, key)
+        if key not in dev_keys:
+            actions[key] = functools.partial(builds.append, key)
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
