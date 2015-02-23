@@ -1382,12 +1382,12 @@ function! g:FileFetch(src, dst)
     if !isdirectory(l:dst_dir)
         call mkdir(l:dst_dir, 'p')
     endif
-    if executable('curl')
-        execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
-    elseif has('python')
+    if has('python')
         call s:fetch_python(a:src, a:dst)
     elseif has('ruby')
         call s:fetch_ruby(a:src, a:dst)
+    elseif executable('curl')
+        execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
     else
         echoerr 'No supported file download method.'
     endif
