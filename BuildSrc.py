@@ -26,9 +26,6 @@ except ImportError:
         pass
 
 # Data
-
-URL_CLANG = 'http://llvm.org/releases/3.5.0/\
-clang+llvm-3.5.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz'
 URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
 URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
@@ -160,9 +157,7 @@ BUILDS = {
         'cmds' : [
             './configure --with-features=huge --enable-gui=gtk2 \
             --enable-cscope --enable-multibyte --enable-luainterp \
-            --enable-perlinterp --enable-rubyinterp --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config \
-            --prefix=TARGET',
+            --enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make -jJOBS install',
         ],
