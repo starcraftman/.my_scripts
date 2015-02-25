@@ -438,8 +438,7 @@ try
         Plug 'Shougo/neocomplete.vim'
     endif
     Plug 'scrooloose/syntastic'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets' " Default snippets for ultisnips
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' "Default snippets
 
     " UI & Enhancements
     Plug 'bling/vim-airline'
