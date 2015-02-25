@@ -437,7 +437,6 @@ try
     elseif has('lua')
         Plug 'Shougo/neocomplete.vim'
     endif
-    "Plug 'starcraftman/vim-eclim'
     Plug 'scrooloose/syntastic'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets' " Default snippets for ultisnips
