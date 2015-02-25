@@ -136,7 +136,7 @@ def home_config():
 
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep
-    get_code('http://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
+    get_code('https://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
 
     git_urls = [
         'https://github.com/magicmonty/bash-git-prompt.git',
