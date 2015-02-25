@@ -178,7 +178,10 @@ def home_restore():
     dot_dir = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
 
     for folder in ('.shell', '.fonts', '.ccache',):
-        shutil.rmtree(home + folder)
+        try:
+            shutil.rmtree(home + folder)
+        except OSError:
+            pass
 
     # Clear existing configs if they are symlinks
     files = glob.glob(dot_dir + '.*')
