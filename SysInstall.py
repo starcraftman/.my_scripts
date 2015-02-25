@@ -6,6 +6,7 @@
 from __future__ import print_function
 from BuildSrc import get_code
 import argparse
+import functools
 import glob
 import os
 import shlex
@@ -23,6 +24,13 @@ except ImportError:
         pass
 
 # Packages to install follow, broken down into categories.
+MINIMUM = """ \
+    vim build-essential git-core mercurial ccache fontconfig gdb lynx \
+    colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
+    p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
+    htop iotop itop mytop dos2unix tree dfc \
+    """
+
 PROGRAMS = """ \
     htop iotop itop mytop pkg-config aptitude synaptic dos2unix oxygen-molecule \
     kubuntu-restricted-extras kubuntu-restricted-addons \
@@ -39,7 +47,7 @@ PROGRAMS = """ \
     samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev wondershaper \
     vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
-    virtualbox-qt wine \
+    virtualbox-qt wine vagrant \
     ttf-xfree86-nonfree \
     """
 
@@ -65,7 +73,7 @@ PROGRAMMING = """ \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
-    libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev liblzma-dev libbz2-dev \
+    libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev libmpfr-dev \
     libcurl4-openssl-dev libevent-dev libarchive-dev libcurl4-gnutls-dev \
@@ -246,12 +254,15 @@ def packs_cabal():
     cmd = 'cabal install ' + CABAL
     subprocess.call(shlex.split(cmd))
 
-def packs_debian():
+def packs_debian(server=False):
     """ Install packages on the current system. """
     if os.getuid() != 0:
         raise NotSudo
 
-    packages = (PROGRAMS + PROGRAMMING + KEYRINGS).split()
+    if server:
+        packages = MINIMUM.split()
+    else:
+        packages = (PROGRAMS + PROGRAMMING + KEYRINGS).split()
 
     cache = apt.Cache()
     print("One moment while we update cache.")
@@ -321,6 +332,7 @@ def main():
     babun        Install babun packages.
     cabal        Install haskell packages for eclipse.
     debian       Install debian packages.
+    server       Install debian packages for server, minimal.
     jshint       Install jshint via npm for javascript vim.
     pip          Install python libraries via pip.
     pipelight    Install pipelight flash & silverlight.
@@ -333,6 +345,7 @@ def main():
         'babun':        packs_babun,
         'cabal':        packs_cabal,
         'debian':       packs_debian,
+        'server':       functools.partial(packs_debian, True),
         'jshint':       install_jshint,
         'pip':          packs_py,
         'pipelight':    install_pipelight,
