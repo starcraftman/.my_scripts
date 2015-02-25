@@ -449,11 +449,11 @@ def main():
         # build the components in parallel
         build_pool(builds, odir)
     finally:
-        srcdir = odir + os.path.sep + 'src'
-        if len(os.listdir(srcdir)) == 0:
-            os.removedirs(srcdir)
-        if len(os.listdir(odir)) == 0:
+        try:
+            os.removedirs(odir + os.path.sep + 'src')
             os.removedirs(odir)
+        except OSError:
+            pass
 
 if __name__ == '__main__':
     main()

@@ -17,6 +17,7 @@ import itertools
 import multiprocessing
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import tarfile
@@ -28,9 +29,12 @@ except ImportError:
         """ Dummy func. """
         pass
 
+class WorkerInterrupted(Exception):
+    pass
+
 URL_ARGTABLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
-URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.56.0/\
-boost_1_56_0.tar.bz2/download'
+URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.57.0/\
+boost_1_57_0.tar.bz2/download'
 URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
 
 TMP_DIR = '/tmp/SysInstall'
@@ -195,17 +199,15 @@ def find_archive(url):
 
 def extract_archive(archive):
     """ Given an archive, extract it. Prefer python libs if supported. """
-    arc_ext = os.path.splitext(archive)[1][1:]
-
-    if arc_ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz']:
-        with tarfile.open(archive) as tarf:
-            tarf.extractall()
-    elif arc_ext == '.zip':
-        with zipfile.ZipFile(archive) as zipf:
-            zipf.extractall()
+    if tarfile.is_tarfile(archive):
+        tarf = tarfile.open(archive)
+        tarf.extractall()
+    if zipfile.is_zipfile(archive):
+        zipf = zipfile.ZipFile(archive)
+        zipf.extractall()
     else:
         cmd = 'unarchive ' + archive
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
 def get_archive(url, target):
     """ Fetch an archive from a site. Works on regular ftp & sourceforge.
@@ -227,15 +229,19 @@ def get_archive(url, target):
     try:
         # Using wget because of sourceforge corner case
         cmd = 'wget -O %s %s' % (tmp_file, url)
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
         extract_archive(tmp_file)
+
+        # Infer target dir by chopping off target right most folder
+        target_r_index = target.rfind(os.path.sep, 0, len(target) - 2)
+        target_dir = target[0:target_r_index]
 
         # extracted dir doesn't always match arc_name, glob to be sure
         arc_front = re.split('[-_]', arc_name)[0] + '*'
         extracted = None
         for name in glob.glob(arc_front):
-            if name != arc_name:
+            if name not in [arc_name, target_dir]:
                 extracted = name
 
         os.rename(extracted, target)
@@ -261,7 +267,7 @@ def get_code(url, target):
         cmd = 'hg clone' + cmd
 
     if not os.path.exists(target):
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
 def build_src(build, target=None):
     """ Build a project downloeaded from url. build is a json object.
@@ -303,7 +309,7 @@ def build_src(build, target=None):
         for cmd in build.get('cmds', []):
             cmd = cmd.replace('TARGET', tdir)
             cmd = cmd.replace('JOBS', '%d' % multiprocessing.cpu_count())
-            subprocess.call(cmd.split())
+            subprocess.call(shlex.split(cmd))
         PDir.pop()
 
         # Manual copies sometimes required to finish install
@@ -318,11 +324,13 @@ def build_src(build, target=None):
     finally:
         shutil.rmtree(srcdir)
 
-    print('Finished building ' + build['name'])
-
 def build_wrap(args):
-    """ Wrapper for build_src in process pool. """
-    build_src(*args)
+    """ Wrapper for build_src in process pool.
+        Pool doesn't handle interrupt well, throw a different one. """
+    try:
+        build_src(*args)
+    except KeyboardInterrupt:
+        raise WorkerInterrupted
 
 def build_pool(builds, target):
     """ Take a series of build objects and use a pool of workers
@@ -331,9 +339,16 @@ def build_pool(builds, target):
     """
     pool_args = itertools.izip(builds, itertools.repeat(target))
     pool = multiprocessing.Pool()
-    pool.map_async(build_wrap, pool_args)
-    pool.close()
-    pool.join()
+    try:
+        pool.map(build_wrap, pool_args, 1)
+        pool.close()
+    except IOError as exc:
+        print('Failed to install: {}'.format(exc))
+        pool.terminate()
+    except (KeyboardInterrupt, Exception) as exc:
+        pool.terminate()
+    finally:
+        pool.join()
 
 def main():
     """ Main function. """
@@ -360,18 +375,19 @@ def main():
     """
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('-l', '--ldir', nargs='?', default='./libs',
+    parser.add_argument('-l', '--ldir', nargs='?', default='libs',
             help='library directory to install to')
     parser.add_argument('libs', nargs='+', help='libs selected for install',
-            choices=BUILDS.keys())
+            choices=sorted(BUILDS.keys(), key=str.lower))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
     ldir = os.path.abspath(args.ldir)
 
     builds = []
-    actions = {key: functools.partial(builds.append, key)
-        for key in BUILDS.keys()}
+    actions = {}
+    for key in BUILDS.keys():
+        actions[key] = functools.partial(builds.append, BUILDS[key])
 
     try:
         # Need this for jam to build mpi & graph_parallel.
@@ -383,10 +399,14 @@ def main():
             actions[lib]()
 
         # Multiprocess to overlap builds
-        build_objs = (BUILDS[name] for name in builds)
-        build_pool(build_objs, ldir)
+        build_pool(builds, ldir)
     finally:
-        os.remove(config)
+        try:
+            os.remove(config)
+            os.removedirs(ldir + os.path.sep + 'src')
+            os.removedirs(ldir)
+        except OSError:
+            pass
 
 if __name__ == '__main__':
     main()
