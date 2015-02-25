@@ -8,6 +8,7 @@ from BuildSrc import get_code
 import argparse
 import glob
 import os
+import shlex
 import shutil
 import subprocess
 try:
@@ -162,7 +163,7 @@ def home_config():
         os.mkdir(ddir)
         get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
         cmd = 'fc-cache -vf ' + ddir
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
     # Create dir for ccache
     ddir = home + '.ccache'
@@ -218,7 +219,7 @@ def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
     cmd = 'pact install ' + BABUN
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
     # Now prepare then invoke regular setup link common files
     home = os.path.expanduser('~') + os.sep
@@ -240,10 +241,10 @@ def packs_babun():
 def packs_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
     cmd = 'cabal update'
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
     cmd = 'cabal install ' + CABAL
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
 def packs_debian():
     """ Install packages on the current system. """
@@ -277,16 +278,16 @@ def packs_py():
 
     # Use python package manager.
     cmd = 'sudo pip install ' + PY_PACKS
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
     # Install python completion to system bash_completion.d.
     cmd = 'activate-global-python-argcomplete --user'
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
 def install_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
     cmd = 'npm install jshint -g'
-    subprocess.call(cmd.split())
+    subprocess.call(shlex.split(cmd))
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.

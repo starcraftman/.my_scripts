@@ -14,6 +14,7 @@ import itertools
 import multiprocessing
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import tarfile
@@ -250,7 +251,7 @@ def extract_archive(archive):
         zipf.extractall()
     else:
         cmd = 'unarchive ' + archive
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
 def get_archive(url, target):
     """ Fetch an archive from a site. Works on regular ftp & sourceforge.
@@ -272,7 +273,7 @@ def get_archive(url, target):
     try:
         # Using wget because of sourceforge corner case
         cmd = 'wget -O %s %s' % (tmp_file, url)
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
         extract_archive(tmp_file)
 
@@ -310,7 +311,7 @@ def get_code(url, target):
         cmd = 'hg clone' + cmd
 
     if not os.path.exists(target):
-        subprocess.call(cmd.split())
+        subprocess.call(shlex.split(cmd))
 
 def build_src(build, target=None):
     """ Build a project downloeaded from url. build is a json object.
@@ -352,7 +353,7 @@ def build_src(build, target=None):
         for cmd in build.get('cmds', []):
             cmd = cmd.replace('TARGET', tdir)
             cmd = cmd.replace('JOBS', '%d' % multiprocessing.cpu_count())
-            subprocess.call(cmd.split())
+            subprocess.call(shlex.split(cmd))
         PDir.pop()
 
         # Manual copies sometimes required to finish install
