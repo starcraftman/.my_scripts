@@ -189,6 +189,11 @@ def main():
         build_pool(builds, ldir)
     finally:
         os.remove(config)
+        srcdir = ldir + os.path.sep + 'src'
+        if len(os.listdir(srcdir)) == 0:
+            os.removedirs(srcdir)
+        if len(os.listdir(ldir)) == 0:
+            os.removedirs(ldir)
 
 if __name__ == '__main__':
     main()

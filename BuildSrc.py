@@ -441,11 +441,18 @@ def main():
     if args.odir != None:
         odir = args.odir
 
-    for key in args.keys:
-        actions[key]()
+    try:
+        for key in args.keys:
+            actions[key]()
 
-    # build the components in parallel
-    build_pool(builds, odir)
+        # build the components in parallel
+        build_pool(builds, odir)
+    finally:
+        srcdir = odir + os.path.sep + 'src'
+        if len(os.listdir(srcdir)) == 0:
+            os.removedirs(srcdir)
+        if len(os.listdir(odir)) == 0:
+            os.removedirs(odir)
 
 if __name__ == '__main__':
     main()
