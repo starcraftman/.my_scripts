@@ -25,6 +25,9 @@ except ImportError:
         """ Dummy func. """
         pass
 
+class WorkerInterrupted(Exception):
+    pass
+
 # Data
 URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
 URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz'
@@ -365,8 +368,12 @@ def build_src(build, target=None):
         shutil.rmtree(srcdir)
 
 def build_wrap(args):
-    """ Wrapper for build_src in process pool. """
-    build_src(*args)
+    """ Wrapper for build_src in process pool.
+        Pool doesn't handle interrupt well, throw a different one. """
+    try:
+        build_src(*args)
+    except KeyboardInterrupt:
+        raise WorkerInterrupted
 
 def build_pool(builds, target):
     """ Take a series of build objects and use a pool of workers
@@ -375,9 +382,16 @@ def build_pool(builds, target):
     """
     pool_args = itertools.izip(builds, itertools.repeat(target))
     pool = multiprocessing.Pool()
-    pool.map(build_wrap, pool_args, 1)
-    pool.close()
-    pool.join()
+    try:
+        pool.map(build_wrap, pool_args, 1)
+        pool.close()
+    except IOError as exc:
+        print('Failed to install: {}'.format(exc))
+        pool.terminate()
+    except (KeyboardInterrupt, Exception) as exc:
+        pool.terminate()
+    finally:
+        pool.join()
 
 # Main
 def main():
@@ -404,13 +418,14 @@ def main():
     builds = []
 
     # Use a dict of funcs to process args
-    dev_keys = ('ack', 'ag', 'parallel', 'vimpager', 'zsh_docs')
+    dev_keys = (BUILDS['ack'], BUILDS['ag'], BUILDS['parallel'],
+            BUILDS['vimpager'], BUILDS['zsh_docs'])
     actions = {
         'dev':  functools.partial(builds.extend, dev_keys),
     }
     for key in BUILDS.keys():
         if key not in dev_keys:
-            actions[key] = functools.partial(builds.append, key)
+            actions[key] = functools.partial(builds.append, BUILDS[key])
 
     parser = argparse.ArgumentParser(description=mesg,
             formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -426,16 +441,11 @@ def main():
     if args.odir != None:
         odir = args.odir
 
-    try:
-        for key in args.keys:
-            actions[key]()
+    for key in args.keys:
+        actions[key]()
 
-        # build the components in parallel
-        build_objs = [BUILDS[name] for name in builds]
-        build_pool(build_objs, odir)
-
-    except IOError as exc:
-        print('Failed to install: {}'.format(exc))
+    # build the components in parallel
+    build_pool(builds, odir)
 
 if __name__ == '__main__':
     main()

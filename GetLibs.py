@@ -174,7 +174,7 @@ def main():
     builds = []
     actions = {}
     for key in BUILDS.keys():
-        actions[key] = functools.partial(builds.append, key)
+        actions[key] = functools.partial(builds.append, BUILDS[key])
 
     try:
         # Need this for jam to build mpi & graph_parallel.
@@ -186,8 +186,7 @@ def main():
             actions[lib]()
 
         # Multiprocess to overlap builds
-        build_objs = (BUILDS[name] for name in builds)
-        build_pool(build_objs, ldir)
+        build_pool(builds, ldir)
     finally:
         os.remove(config)
 
