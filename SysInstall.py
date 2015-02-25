@@ -134,12 +134,6 @@ def home_config():
     src = script_dir + os.sep + 'dot_files' + os.sep
     home = os.path.expanduser('~') + os.sep
 
-    # Glob all files in dot_files and link them to home
-    files = glob.glob(src + '.*')
-    files = [x[x.rindex(os.sep)+1:] for x in files]
-    helper = make_cmd(src, home)
-    helper(files, os.symlink)
-
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep
     get_code('http://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
@@ -169,6 +163,12 @@ def home_config():
     ddir = home + '.ccache'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
+
+    # Glob all files in dot_files and link them to home
+    files = glob.glob(src + '.*')
+    files = [x[x.rindex(os.sep)+1:] for x in files]
+    helper = make_cmd(src, home)
+    helper(files, os.symlink)
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
