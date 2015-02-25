@@ -68,7 +68,7 @@ PROGRAMMING = """ \
     bash-doc bash-builtins bashdb zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
-    docutils-common docutils-doc \
+    docutils-common docutils-doc asciidoc xmlto docbook2x \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
