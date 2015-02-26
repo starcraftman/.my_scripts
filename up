@@ -12,7 +12,7 @@ update_repos() {
             cd "$dir"
             echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
             if [ -d ".git" ]; then
-                git pull
+                git pull && git submodule update --init --recursive
             elif [ -d ".hg" ]; then
                 hg pull
             fi

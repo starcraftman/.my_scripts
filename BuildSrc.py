@@ -303,7 +303,7 @@ def get_code(url, target):
     cmd = ' %s %s' % (url, target)
     # Git urls always end in .git
     if url.find('git') != -1:
-        cmd = 'git clone --depth 1' + cmd
+        cmd = 'git clone --recursive --depth 1' + cmd
     # svn always at front of proto
     elif url.find('svn') != -1:
         cmd = 'svn checkout' + cmd
