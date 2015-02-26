@@ -31,7 +31,7 @@ class WorkerInterrupted(Exception):
 
 # Data
 URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
-URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.xz'
+URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.1.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
@@ -105,8 +105,8 @@ BUILDS = {
         'cmds' : [
             'make configure',
             './configure --prefix=TARGET',
-            'make -jJOBS all doc info',
-            'make install install-doc install-html install-info',
+            'make -jJOBS',
+            'make install',
         ],
     },
     'neovim': {
