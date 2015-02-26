@@ -167,6 +167,9 @@ alias types='type -a'
 # Always open with splits
 alias vims='vim -o'
 
+# Bundle env variables, vimrc & .vim folders for remote deploy
+alias myvim="bash <(curl -L https://raw.githubusercontent.com/junegunn/myvim/master/myvim)"
+
 # df/du defaults, du -L to follow symlinks
 alias df='df -hT'
 alias du='du -h'
