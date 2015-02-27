@@ -1417,5 +1417,15 @@ function! s:vimrc_update()
     let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
     call g:FileFetch(src, $MYVIMRC)
 endfunction
+
+" Bundle env variables, vimrc & .vim folders for remote deploy
+command! -nargs=0 BundleVim call s:bundle_vim()
+function! s:bundle_vim()
+    let src = 'https://raw.githubusercontent.com/junegunn/myvim/master/myvim'
+    let dst = 'myvim'
+    call g:FileFetch(src, dst)
+    execute '!bash ' . dst
+    call delete(dst)
+endfunction
 " }}}
 " vim: set foldmethod=marker:
