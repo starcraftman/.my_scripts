@@ -419,15 +419,6 @@ let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 
-" Fetch plug.vim to manage plugins
-command! -nargs=0 Bootstrap call s:bootstrap()
-function! s:bootstrap()
-    let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
-    call g:FileFetch(plug_src, plug_dst)
-    echo 'Done, please restart and run `PlugInstall`.'
-endfunction
-
 try
     call plug#begin(expand(g:vim_dir . '/bundle'))
 
@@ -1407,6 +1398,14 @@ ruby << EOF
     f << open(VIM::evaluate('a:src')).read
   end
 EOF
+endfunction
+
+command! -nargs=0 Bootstrap call s:bootstrap()
+function! s:bootstrap()
+    let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
+    call g:FileFetch(plug_src, plug_dst)
+    echo 'Done, please restart and run `PlugInstall`.'
 endfunction
 
 command! -nargs=0 VimrcUpdate call s:vimrc_update()
