@@ -1,3 +1,6 @@
+![Issues][badge-issues]
+[badge-issues]: http://img.shields.io/github/issues/starcraftman/.my_scripts.svg?style=flat-square
+
 My Scripts
 ==========
 
