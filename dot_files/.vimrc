@@ -251,6 +251,10 @@
 "       Github integration inside commit windows. Neat.
 "       https://github.com/jaxbot/github-issues.vim
 "
+"   vim-fetch:
+"       Do immediate line/col jumps to a file, with :e file:20:44
+"       https://github.com/kopischke/vim-fetch
+"
 "   Vader.vim:
 "       Testing framework for vim, no dependencies.
 "       Execute .vader files with Vader file.vader.
@@ -447,6 +451,7 @@ try
 
     " Searching & Files
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'kopischke/vim-fetch'
     Plug 'mhinz/vim-hugefile'
     Plug 'mileszs/ack.vim'
     Plug 'rking/ag.vim'
