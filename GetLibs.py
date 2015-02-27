@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 """ Build C libraries for development. """
-
-# Imports
 from __future__ import print_function
 from BuildSrc import build_pool
 import argparse
@@ -14,27 +12,27 @@ except ImportError:
         """ Dummy func. """
         pass
 
-URL_ARGTABLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
+URL_ARGTBLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
 URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.57.0/\
 boost_1_57_0.tar.bz2/download'
 URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
 
 BUILDS = {
     'cppunit': {
-        'name' : 'cppunit',
+        'name': 'cppunit',
         'check': 'lib/libcppunit.a',
-        'url'  : 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
-        'cmds' : [
+        'url': 'git://anongit.freedesktop.org/git/libreoffice/cppunit/',
+        'cmds': [
             './autogen.sh',
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'gtest': {
-        'name' : 'gtest',
+        'name': 'gtest',
         'check': 'lib/libgtest.a',
-        'url'  : URL_GTEST,
-        'cmds' : [
+        'url': URL_GTEST,
+        'cmds': [
             'chmod u+x configure ./scripts/*',
             './configure --prefix=TARGET',
             'make',
@@ -46,10 +44,10 @@ BUILDS = {
         ],
     },
     'boost': {
-        'name' : 'boost',
+        'name': 'boost',
         'check': 'lib/libboost_thread.a',
-        'url'  : URL_BOOST,
-        'cmds' : [
+        'url': URL_BOOST,
+        'cmds': [
             './bootstrap.sh --prefix=TARGET',
             './b2 install',
         ],
@@ -58,29 +56,29 @@ BUILDS = {
         ],
     },
     'jsoncpp': {
-        'name' : 'jsoncpp',
+        'name': 'jsoncpp',
         'check': 'lib/libjsoncpp.so',
-        'url'  : 'https://github.com/open-source-parsers/jsoncpp',
-        'cmds' : [
+        'url': 'https://github.com/open-source-parsers/jsoncpp',
+        'cmds': [
             'cmake -DCMAKE_INSTALL_PREFIX=TARGET -DCMAKE_BUILD_TYPE=debug \
                     -DJSONCPP_LIB_BUILD_SHARED=ON .',
             'make install',
         ],
     },
     'jsonrpc': {
-        'name' : 'jsonrpc',
+        'name': 'jsonrpc',
         'check': 'lib/libjsonrpc.so',
-        'url'  : 'https://github.com/cinemast/libjson-rpc-cpp',
-        'cmds' : [
+        'url': 'https://github.com/cinemast/libjson-rpc-cpp',
+        'cmds': [
             'cmake -DCMAKE_INSTALL_PREFIX=TARGET .',
             'make -jJOBS install',
         ],
     },
     'SDL': {
-        'name' : 'SDL',
+        'name': 'SDL',
         'check': 'lib/libSDL.a',
-        'url'  : 'http://hg.libsdl.org/SDL',
-        'cmds' : [
+        'url': 'http://hg.libsdl.org/SDL',
+        'cmds': [
             'hg update SDL-1.2',
             './autogen.sh',
             './configure --prefix=TARGET',
@@ -88,54 +86,53 @@ BUILDS = {
         ],
     },
     'SDL2': {
-        'name' : 'SDL2',
+        'name': 'SDL2',
         'check': 'lib/libSDL2.a',
-        'url'  : 'http://hg.libsdl.org/SDL',
-        'cmds' : [
+        'url': 'http://hg.libsdl.org/SDL',
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'argtable': {
-        'name' : 'argtable',
+        'name': 'argtable',
         'check': 'lib/libargtable2.a',
-        'url'  : URL_ARGTABLE,
-        'cmds' : [
+        'url': URL_ARGTBLE,
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'cunit': {
-        'name' : 'cunit',
+        'name': 'cunit',
         'check': 'lib/libcunit.a',
-        'url'  : 'svn://svn.code.sf.net/p/cunit/code/trunk',
-        'cmds' : [
+        'url': 'svn://svn.code.sf.net/p/cunit/code/trunk',
+        'cmds': [
             'sh ./bootstrap TARGET',
             'make -jJOBS install',
         ],
     },
     'jansson': {
-        'name' : 'jansson',
+        'name': 'jansson',
         'check': 'lib/libjansson.so',
-        'url'  : 'https://github.com/akheron/jansson',
-        'cmds' : [
+        'url': 'https://github.com/akheron/jansson',
+        'cmds': [
             'autoreconf -i',
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'libxml': {
-        'name' : 'libxml',
+        'name': 'libxml',
         'check': 'lib/libxml2.so',
-        'url'  : 'ftp://xmlsoft.org/libxml2/libxml2-git-snapshot.tar.gz',
-        'cmds' : [
+        'url': 'ftp://xmlsoft.org/libxml2/libxml2-git-snapshot.tar.gz',
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
 }
 
-# Functions
 
 def main():
     """ Main function. """
@@ -161,11 +158,12 @@ def main():
     libxml      Install a xml parsing library.
     """
     parser = argparse.ArgumentParser(description=mesg,
-            formatter_class=argparse.RawDescriptionHelpFormatter)
+                                     formatter_class=argparse.
+                                     RawDescriptionHelpFormatter)
     parser.add_argument('-l', '--ldir', nargs='?', default='./libs',
-            help='library directory to install to')
+                        help='library directory to install to')
     parser.add_argument('libs', nargs='+', help='libs selected for install',
-            choices=sorted(BUILDS.keys(), key=str.lower))
+                        choices=sorted(BUILDS.keys(), key=str.lower))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]

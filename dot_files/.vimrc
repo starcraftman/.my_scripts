@@ -573,8 +573,13 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_perl_checker = 1
 
 " Manually set important checkers:
-let g:syntastic_python_checkers = ['python', 'pychecker', 'pylint']
+let g:syntastic_python_checkers = ['python', 'pylint', 'flake8']
 let g:syntastic_perl_checkers = ['perl', 'perlcritic']
+
+" Options to pass to above checkers take form:
+" syntastic_filetype_checker_argtype = ''
+" Command Run: <exe> <args> <fname> <post_args> <tail>
+let g:syntastic_python_flake8_args = "--max-complexity 10"
 
 " UltiSnips
 """""""""""

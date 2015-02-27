@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 """ Install packages and setup home configs on fresh system. """
-
-# Imports
 from __future__ import print_function
 from BuildSrc import get_code
 import argparse
@@ -32,8 +30,8 @@ MINIMUM = """ \
     """
 
 PROGRAMS = """ \
-    htop iotop itop mytop pkg-config aptitude synaptic dos2unix oxygen-molecule \
-    kubuntu-restricted-extras kubuntu-restricted-addons \
+    htop iotop itop mytop pkg-config aptitude synaptic dos2unix \
+    oxygen-molecule kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
@@ -44,8 +42,8 @@ PROGRAMS = """ \
     fuse gparted quicksynergy tree dfc sharutils sharutils-doc \
     libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx \
-    samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev wondershaper \
-    vlc ffmpeg ffmpeg-doc mplayer mencoder \
+    samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev \
+    wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
     virtualbox-qt wine vagrant \
     ttf-xfree86-nonfree \
@@ -61,11 +59,12 @@ PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
-    codeblocks kdevelop qt-sdk \
+    codeblocks kdevelop qt-sdk graphviz \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
-    flex flex-doc bison bison-doc graphviz exuberant-ctags sphinx-common sphinx-doc \
-    bash-doc bash-builtins bashdb zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
+    flex flex-doc bison bison-doc exuberant-ctags sphinx-common sphinx-doc \
+    bash-doc bash-builtins bashdb \
+    zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
     docutils-common docutils-doc asciidoc xmlto docbook2x \
@@ -75,9 +74,9 @@ PROGRAMMING = """ \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev libmpfr-dev \
-    libcurl4-openssl-dev libevent-dev libarchive-dev libcurl4-gnutls-dev \
-    openmpi-bin openmpi-checkpoint openmpi-common \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
+    libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev \
+    libcurl4-gnutls-dev openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     haskell-devscripts haskell-doc cabal-install \
@@ -86,7 +85,8 @@ PROGRAMMING = """ \
     lua5.2 lua5.2-doc luadoc liblua5.2-dev \
     monodevelop-debugger-gdb monodevelop-nunit \
     nodejs nodejs-dev nodejs-legacy npm \
-    perl perl-doc libperl-dev perl-modules libpadwalker-perl libfile-next-perl \
+    perl perl-doc libperl-dev perl-modules libpadwalker-perl \
+    libfile-next-perl \
     php5 php5-mysql phpunit php5-dev \
     swi-prolog swi-prolog-doc \
     python python-dev python-doc python-pip \
@@ -108,13 +108,11 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete Pygments pytest trash-cli"
 
-# Classes
 
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
-# Functions
 
 def make_cmd(src, dst):
     """ Generate a function helper. """
@@ -122,7 +120,7 @@ def make_cmd(src, dst):
         """ When dst doesn't have file do:
                 command(src + file, dst + file, *opts)
         """
-        if opts == None:
+        if opts is None:
             opts = ()
         for fil in files:
             sfile, dfile = [x + fil for x in (src, dst)]
@@ -130,6 +128,7 @@ def make_cmd(src, dst):
                 print("{0} >>>>> {1}".format(dfile, sfile))
                 command(sfile, dfile, *opts)
     return cmd_when_dst_empty
+
 
 def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
@@ -180,6 +179,7 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
+
 def home_restore():
     """ Undo changes by home_config & restore backup if exists. """
     arc_dir = os.path.expanduser('~/.home_bak/')
@@ -207,6 +207,7 @@ def home_restore():
 
     os.rmdir(arc_dir)
 
+
 def home_save():
     """ Save existing home configs to a backup dir. """
     arc_dir = os.path.expanduser('~/.home_bak/')
@@ -222,6 +223,7 @@ def home_save():
 
     helper = make_cmd(home, arc_dir)
     helper(files, os.rename)
+
 
 def packs_babun():
     """ Setup a fresh babun install. """
@@ -246,6 +248,7 @@ def packs_babun():
 
     home_config()
 
+
 def packs_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
     cmd = 'cabal update'
@@ -253,6 +256,7 @@ def packs_cabal():
 
     cmd = 'cabal install ' + CABAL
     subprocess.call(shlex.split(cmd))
+
 
 def packs_debian(server=False):
     """ Install packages on the current system. """
@@ -282,6 +286,7 @@ def packs_debian(server=False):
     print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
 
+
 def packs_py():
     """ Installs python packages using pip. """
     if os.getuid() != 0:
@@ -295,10 +300,12 @@ def packs_py():
     cmd = 'activate-global-python-argcomplete --user'
     subprocess.call(shlex.split(cmd))
 
+
 def install_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
     cmd = 'npm install jshint -g'
     subprocess.call(shlex.split(cmd))
+
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.
@@ -319,6 +326,7 @@ def install_pipelight():
     for cmd in cmds:
         subprocess.call(cmd)
     print("Installation over, remember to use a useragent switcher.")
+
 
 def main():
     """ Main function. """
@@ -351,9 +359,10 @@ def main():
         'pipelight':    install_pipelight,
     }
     parser = argparse.ArgumentParser(description=mesg,
-            formatter_class=argparse.RawDescriptionHelpFormatter)
+                                     formatter_class=argparse.
+                                     RawDescriptionHelpFormatter)
     parser.add_argument('stages', nargs='+', help='stages to execute',
-            choices=sorted(actions.keys()))
+                        choices=sorted(actions.keys()))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]

@@ -4,8 +4,6 @@
     Depends on wget -- archive downloads, blame SourceForge  --
     and standard c++ build tools.
 """
-
-# Imports
 from __future__ import print_function
 import argparse
 import functools
@@ -26,10 +24,11 @@ except ImportError:
         """ Dummy func. """
         pass
 
+
 class WorkerInterrupted(Exception):
+    """ Workers handle Exception's easier than intterupts. """
     pass
 
-# Data
 URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
 URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.1.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
@@ -42,10 +41,10 @@ zsh-5.0.7.tar.bz2/download'
 TMP_DIR = '/tmp/BuildSrc'
 BUILDS = {
     'ack': {
-        'name' : 'ack',
+        'name': 'ack',
         'check': 'bin/ack',
-        'url'  : 'https://github.com/petdance/ack2.git',
-        'cmds' : [
+        'url': 'https://github.com/petdance/ack2.git',
+        'cmds': [
             'perl Makefile.PL',
             'make -jJOBS ack-standalone',
             'make manifypods',
@@ -57,28 +56,28 @@ BUILDS = {
         ],
     },
     'ag': {
-        'name' : 'ag',
+        'name': 'ag',
         'check': 'bin/ag',
-        'url'  : 'https://github.com/ggreer/the_silver_searcher.git',
-        'cmds' : [
+        'url': 'https://github.com/ggreer/the_silver_searcher.git',
+        'cmds': [
             './build.sh --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'atom': {
-        'name' : 'atom',
+        'name': 'atom',
         'check': 'bin/atom',
-        'url'  : 'https://github.com/atom/atom',
-        'cmds' : [
+        'url': 'https://github.com/atom/atom',
+        'cmds': [
             'script/build',
             'script/grunt install --install-dir TARGET',
         ],
     },
     'cmake': {
-        'name' : 'cmake',
+        'name': 'cmake',
         'check': 'bin/cmake',
-        'url'   : URL_CMAKE,
-        'cmds' : [
+        'url': URL_CMAKE,
+        'cmds': [
             './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
             --mandir=share/man --system-libs --enable-ccache --qt-gui \
             --sphinx-man --sphinx-html',
@@ -86,10 +85,10 @@ BUILDS = {
         ],
     },
     'doxygen': {
-        'name' : 'doxygen',
+        'name': 'doxygen',
         'check': 'bin/doxygen',
-        'url'  : 'https://github.com/doxygen/doxygen.git',
-        'cmds' : [
+        'url': 'https://github.com/doxygen/doxygen.git',
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS',
         ],
@@ -99,10 +98,10 @@ BUILDS = {
         ],
     },
     'git': {
-        'name' : 'git',
+        'name': 'git',
         'check': 'bin/git',
-        'url'  : URL_GIT,
-        'cmds' : [
+        'url': URL_GIT,
+        'cmds': [
             'make configure',
             './configure --prefix=TARGET',
             'make -jJOBS',
@@ -110,55 +109,55 @@ BUILDS = {
         ],
     },
     'neovim': {
-        'name' : 'neovim',
+        'name': 'neovim',
         'check': 'bin/nvim',
-        'url'  : 'https://github.com/neovim/neovim',
-        'cmds' : [
+        'url': 'https://github.com/neovim/neovim',
+        'cmds': [
             'make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" \
             install',
         ],
     },
     'parallel': {
-        'name' : 'parallel',
+        'name': 'parallel',
         'check': 'bin/parallel',
-        'url'  : 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
-        'cmds' : [
+        'url': 'http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2',
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'python': {
-        'name' : 'python',
+        'name': 'python',
         'check': 'bin/python',
-        'url'  : URL_PYTHON,
-        'cmds' : [
+        'url': URL_PYTHON,
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'python3': {
-        'name' : 'python3',
+        'name': 'python3',
         'check': 'bin/python3',
-        'url'  : URL_PYTHON3,
-        'cmds' : [
+        'url': URL_PYTHON3,
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'tmux': {
-        'name' : 'tmux',
+        'name': 'tmux',
         'check': 'bin/tmux',
-        'url'  : URL_TMUX,
-        'cmds' : [
+        'url': URL_TMUX,
+        'cmds': [
             './configure --prefix=TARGET',
             'make -jJOBS install',
         ],
     },
     'vim': {
-        'name' : 'vim',
+        'name': 'vim',
         'check': 'bin/vim',
-        'url'  : 'https://code.google.com/p/vim/',
-        'cmds' : [
+        'url': 'https://code.google.com/p/vim/',
+        'cmds': [
             './configure --with-features=huge --enable-gui=gtk2 \
             --enable-cscope --enable-multibyte --enable-luainterp \
             --enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
@@ -167,9 +166,9 @@ BUILDS = {
         ],
     },
     'vimpager': {
-        'name' : 'vimpager',
+        'name': 'vimpager',
         'check': 'bin/vimpager',
-        'url'  : 'https://github.com/rkitover/vimpager.git',
+        'url': 'https://github.com/rkitover/vimpager.git',
         'globs': [
             ('vimcat', 'bin/'),
             ('vimpager', 'bin/'),
@@ -177,10 +176,10 @@ BUILDS = {
         ],
     },
     'zsh': {
-        'name' : 'zsh',
+        'name': 'zsh',
         'check': 'bin/zsh',
-        'url'  : 'https://github.com/zsh-users/zsh.git',
-        'cmds' : [
+        'url': 'https://github.com/zsh-users/zsh.git',
+        'cmds': [
             './Util/preconfig',
             'autoconf',
             './configure --prefix=TARGET --enable-cap --enable-pcre \
@@ -189,24 +188,25 @@ BUILDS = {
         ],
     },
     'zsh_docs': {
-        'name' : 'zsh_docs',
+        'name': 'zsh_docs',
         'check': 'share/man/man1/zshall.1',
-        'url'  : URL_ZSH,
+        'url': URL_ZSH,
         'globs': [
             ('Doc/*.1', 'share/man/man1/'),
         ],
     },
 }
 
-# Classes
 
 class ArchiveNotSupported(Exception):
     """ Archive can't be processed. """
     pass
 
+
 class PDir(object):
     """ Pushd analog for personal use. """
     dirs = []
+
     @staticmethod
     def push(new_dir):
         """ Push curdir to stack and change to new_dir. """
@@ -214,6 +214,7 @@ class PDir(object):
         PDir.dirs.append(curdir)
         os.chdir(new_dir)
         print("%s >>> %s" % (curdir, new_dir))
+
     @staticmethod
     def pop():
         """ Pop the dirstack and return to it. """
@@ -221,14 +222,13 @@ class PDir(object):
         os.chdir(old_dir)
         print(">>> %s" % old_dir)
 
-# Functions
 
 def find_archive(url):
     """ Given a url, returns archive name found inside.
     If extension not supported throws excetion. """
     arc_ext = None
     for ext in ['.tgz', '.tbz2', '.tar.bz2', '.tar.gz', 'tar.xz',
-            '.xz', '.rar', '.zip', '.7z']:
+                '.xz', '.rar', '.zip', '.7z']:
         right = url.rfind(ext)
         if right != -1:
             right += len(ext)
@@ -236,10 +236,11 @@ def find_archive(url):
             arc_ext = ext
             break
 
-    if arc_ext == None:
+    if arc_ext is None:
         raise ArchiveNotSupported
 
     return url[left:right]
+
 
 def extract_archive(archive):
     """ Given an archive, extract it. Prefer python libs if supported. """
@@ -252,6 +253,7 @@ def extract_archive(archive):
     else:
         cmd = 'unarchive ' + archive
         subprocess.call(shlex.split(cmd))
+
 
 def get_archive(url, target):
     """ Fetch an archive from a site. Works on regular ftp & sourceforge.
@@ -295,6 +297,7 @@ def get_archive(url, target):
         if os.path.exists(extracted):
             shutil.rmtree(extracted)
 
+
 def get_code(url, target):
     """ Wrapper function to clone repos, only executes if target doesn't exist
     url: The origin to clone
@@ -313,6 +316,7 @@ def get_code(url, target):
     if not os.path.exists(target):
         subprocess.call(shlex.split(cmd))
 
+
 def build_src(build, target=None):
     """ Build a project downloeaded from url. build is a json object.
         The format is described below.
@@ -322,7 +326,7 @@ def build_src(build, target=None):
         {
           R 'name': 'ack',
           R 'check': 'path/to/check',
-          R 'url' : 'https://github.com/petdance/ack2.git',
+          R 'url': 'https://github.com/petdance/ack2.git',
             'tdir': /path/to/install/to,
             'cmds': [
                 'perl Makefile.PL',
@@ -368,6 +372,7 @@ def build_src(build, target=None):
     finally:
         shutil.rmtree(srcdir)
 
+
 def build_wrap(args):
     """ Wrapper for build_src in process pool.
         Pool doesn't handle interrupt well, throw a different one. """
@@ -375,6 +380,7 @@ def build_wrap(args):
         build_src(*args)
     except KeyboardInterrupt:
         raise WorkerInterrupted
+
 
 def build_pool(builds, target):
     """ Take a series of build objects and use a pool of workers
@@ -394,7 +400,7 @@ def build_pool(builds, target):
     finally:
         pool.join()
 
-# Main
+
 def main():
     """ Main function. """
     mesg = """Build some tools from source to get latest.
@@ -420,7 +426,7 @@ def main():
 
     # Use a dict of funcs to process args
     dev_keys = (BUILDS['ack'], BUILDS['ag'], BUILDS['parallel'],
-            BUILDS['vimpager'], BUILDS['zsh_docs'])
+                BUILDS['vimpager'], BUILDS['zsh_docs'])
     actions = {
         'dev':  functools.partial(builds.extend, dev_keys),
     }
@@ -429,17 +435,18 @@ def main():
             actions[key] = functools.partial(builds.append, BUILDS[key])
 
     parser = argparse.ArgumentParser(description=mesg,
-            formatter_class=argparse.RawDescriptionHelpFormatter)
+                                     formatter_class=argparse.
+                                     RawDescriptionHelpFormatter)
     parser.add_argument('-o', '--odir', nargs='?', default=None,
-            help='install dir')
+                        help='install dir')
     parser.add_argument('keys', nargs='+', help='progs to build',
-            choices=sorted(actions.keys()))
+                        choices=sorted(actions.keys()))
 
     autocomplete(parser)
     args = parser.parse_args()  # Default parses argv[1:]
 
     # Nicer override than OPTDIR
-    if args.odir != None:
+    if args.odir is not None:
         odir = args.odir
 
     try:

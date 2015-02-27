@@ -7,8 +7,6 @@
 ''' Implements code to support my templating system for source files.
     For autocomplete functionality, see the docs which contain setup info.
 '''
-
-# Imports
 from __future__ import print_function
 import argparse
 import os
@@ -42,7 +40,7 @@ LANGS = {
         'ext': '.pl',
     },
     'prolog': {
-        'ext':'.pdb',
+        'ext': '.pdb',
     },
     'python': {
         'ext': '.py',
@@ -53,16 +51,16 @@ LANGS = {
 }
 
 CONFIGS = {
-    'make' : 'Makefile',
+    'make': 'Makefile',
     'maked': 'Make.defines',
-    'ycm'  : '.ycm_extra_conf.py',
+    'ycm': '.ycm_extra_conf.py',
 }
 
-# Functions
 
 class BadArgs(Exception):
     """ Bad args passed in to the command. """
     pass
+
 
 def file_replace(target, old_text, new_text):
     """ Perform text replacements on the file.
@@ -75,6 +73,7 @@ def file_replace(target, old_text, new_text):
 
     with open(target, 'w') as out:
         out.writelines(new_lines)
+
 
 def copy_files(source, targets, headers=False):
     """ For each target copy source to it.
@@ -105,8 +104,9 @@ def process_args(lang, target, s_files, h_files):
     if hext:
         h_template = TEMPLATE_DIR + '%s_template%s' % (lang, hext)
         headers = [target + os.sep + name + hext
-                for name in h_files]
+                   for name in h_files]
         copy_files(h_template, headers, True)
+
 
 def main():
     """ Main function. """
@@ -116,7 +116,7 @@ def main():
     """
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('-c', '--config', nargs='+', action='append',
-                        dest='configs', default=[], help='non source templates',
+                        dest='configs', default=[], help='config templates',
                         choices=CONFIGS.keys())
     parser.add_argument('-i', '--header', action='append', dest='h_files',
                         default=[], help='header file to create')
