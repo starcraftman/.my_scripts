@@ -202,12 +202,20 @@ def extract_archive(archive):
     if tarfile.is_tarfile(archive):
         tarf = tarfile.open(archive)
         tarf.extractall()
-    if zipfile.is_zipfile(archive):
+    elif zipfile.is_zipfile(archive):
         zipf = zipfile.ZipFile(archive)
         zipf.extractall()
     else:
-        cmd = 'unarchive ' + archive
-        subprocess.call(shlex.split(cmd))
+        # Fall back to shell tools to extract
+        unarc_src = 'https://raw.githubusercontent.com/starcraftman/' \
+                    '.my_scripts/master/unarchive'
+        cmds = ['curl -o una ' + unarc_src, 'bash ./una ' + archive]
+        for cmd in cmds:
+            proc = subprocess.Popen(shlex.split(cmd))
+            proc.wait()
+            if proc.returncode != 0:
+                raise OSError('Some shell util like curl unavailable.')
+        os.remove('una')
 
 def get_archive(url, target):
     """ Fetch an archive from a site. Works on regular ftp & sourceforge.
