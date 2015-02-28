@@ -33,10 +33,10 @@ URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
 URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.1.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
-URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/\
-tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
-URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/\
-zsh-5.0.7.tar.bz2/download'
+URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/' \
+            'tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
+URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/' \
+            'zsh-5.0.7.tar.bz2/download'
 
 TMP_DIR = '/tmp/BuildSrc'
 BUILDS = {
@@ -78,9 +78,9 @@ BUILDS = {
         'check': 'bin/cmake',
         'url': URL_CMAKE,
         'cmds': [
-            './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 \
-            --mandir=share/man --system-libs --enable-ccache --qt-gui \
-            --sphinx-man --sphinx-html',
+            './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 '
+            '--mandir=share/man --system-libs --enable-ccache --qt-gui '
+            '--sphinx-man --sphinx-html',
             'make -jJOBS install',
         ],
     },
@@ -113,8 +113,8 @@ BUILDS = {
         'check': 'bin/nvim',
         'url': 'https://github.com/neovim/neovim',
         'cmds': [
-            'make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" \
-            install',
+            'make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" '
+            'install',
         ],
     },
     'parallel': {
@@ -158,9 +158,9 @@ BUILDS = {
         'check': 'bin/vim',
         'url': 'https://code.google.com/p/vim/',
         'cmds': [
-            './configure --with-features=huge --enable-gui=gtk2 \
-            --enable-cscope --enable-multibyte --enable-luainterp \
-            --enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
+            './configure --with-features=huge --enable-gui=gtk2 '
+            '--enable-cscope --enable-multibyte --enable-luainterp '
+            '--enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
             'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make -jJOBS install',
         ],
@@ -182,8 +182,8 @@ BUILDS = {
         'cmds': [
             './Util/preconfig',
             'autoconf',
-            './configure --prefix=TARGET --enable-cap --enable-pcre \
-            --enable-maildir-support',
+            './configure --prefix=TARGET --enable-cap --enable-pcre '
+            '--enable-maildir-support',
             'make -jJOBS install',
         ],
     },

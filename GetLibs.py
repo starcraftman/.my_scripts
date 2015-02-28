@@ -13,8 +13,8 @@ except ImportError:
         pass
 
 URL_ARGTBLE = 'http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz'
-URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.57.0/\
-boost_1_57_0.tar.bz2/download'
+URL_BOOST = 'http://sourceforge.net/projects/boost/files/boost/1.57.0/' \
+            'boost_1_57_0.tar.bz2/download'
 URL_GTEST = 'https://googletest.googlecode.com/files/gtest-1.7.0.zip'
 
 BUILDS = {
@@ -60,8 +60,8 @@ BUILDS = {
         'check': 'lib/libjsoncpp.so',
         'url': 'https://github.com/open-source-parsers/jsoncpp',
         'cmds': [
-            'cmake -DCMAKE_INSTALL_PREFIX=TARGET -DCMAKE_BUILD_TYPE=debug \
-                    -DJSONCPP_LIB_BUILD_SHARED=ON .',
+            'cmake -DCMAKE_INSTALL_PREFIX=TARGET -DCMAKE_BUILD_TYPE=debug '
+            '-DJSONCPP_LIB_BUILD_SHARED=ON .',
             'make install',
         ],
     },
