@@ -46,7 +46,7 @@ BUILDS = {
         'url': 'https://github.com/petdance/ack2.git',
         'cmds': [
             'perl Makefile.PL',
-            'make -jJOBS ack-standalone',
+            'make ack-standalone',
             'make manifypods',
         ],
         'globs': [
@@ -61,7 +61,7 @@ BUILDS = {
         'url': 'https://github.com/ggreer/the_silver_searcher.git',
         'cmds': [
             './build.sh --prefix=TARGET',
-            'make -jJOBS install',
+            'make install',
         ],
     },
     'atom': {
@@ -90,7 +90,7 @@ BUILDS = {
         'url': 'https://github.com/doxygen/doxygen.git',
         'cmds': [
             './configure --prefix=TARGET',
-            'make -jJOBS',
+            'make',
         ],
         'globs': [
             ('bin/doxygen', 'bin/'),
@@ -150,7 +150,7 @@ BUILDS = {
         'url': URL_TMUX,
         'cmds': [
             './configure --prefix=TARGET',
-            'make -jJOBS install',
+            'make install',
         ],
     },
     'vim': {
