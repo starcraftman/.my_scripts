@@ -25,7 +25,7 @@ except ImportError:
 MINIMUM = """ \
     vim build-essential git-core mercurial ccache fontconfig gdb lynx \
     colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
-    p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
+    p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
     htop iotop itop mytop dos2unix tree dfc \
     """
 
@@ -44,7 +44,7 @@ PROGRAMS = """ \
     redshift geoclue geoclue-hostip numlockx \
     samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev \
     wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
-    p7zip-full rar zip unzip gzip xz-utils liblzma-dev liblzma5 \
+    p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
     virtualbox-qt wine vagrant \
     ttf-xfree86-nonfree \
     """

@@ -23,7 +23,8 @@ extract_files() {
             *.tar)               tar xf "$file"                     ;;
             *.tbz2|*.tar.bz2)    tar xjf "$file"                    ;;
             *.tgz|*.tar.gz)      tar xzf "$file"                    ;;
-            *.tar.lz|*.tar.lzma) lzcat "$file" | tar xf -           ;;
+            *.tar.lz)            tar xlf "$file"                    ;;
+            *.tar.lzma)          lzcat "$file" | tar xf -           ;;
             *.tar.xz)            xzcat "$file" | tar xf -           ;;
             *.tar.Z)             zcat "$file" | tar xf -            ;;
             *.bz|*.bz2)          bunzip2 "$file"                    ;;
