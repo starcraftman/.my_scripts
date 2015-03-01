@@ -79,7 +79,7 @@ BUILDS = {
     },
     'gnump': {
         'name': 'gnump',
-        'check': 'lib/libgnump.a',
+        'check': 'lib/libgmp.a',
         'url': URL_GNUMP,
         'cmds': [
             './configure --prefix=TARGET',
