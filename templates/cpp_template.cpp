@@ -50,8 +50,8 @@
 //#include <cctype> /* Character check functions */
 //#include <climits>
 //#include <cassert>
-//$include <cmath>
-//$include <cstdint> /* C++11 only, standard u_int16 & such */
+//#include <cmath>
+//#include <cstdint> /* C++11 only, standard u_int16 & such */
 
 /**************** Namespace Declarations ******************/
 using std::cin;
@@ -85,3 +85,4 @@ using std::string;
  * Force call to use another version of virtual function: baseP->Item_base::net_price(42);
  *
  */
+
