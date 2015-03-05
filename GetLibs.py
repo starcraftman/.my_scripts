@@ -56,16 +56,6 @@ BUILDS = {
             ('libs/date_time/data/*', 'share/boost/date_time/'),
         ],
     },
-    'gnump': {
-        'name': 'gnump',
-        'check': 'lib/libgmp.a',
-        'url': URL_GNUMP,
-        'cmds': [
-            './configure --prefix=TARGET',
-            'make -jJOBS',
-            'make install',
-        ],
-    },
     'jsoncpp': {
         'name': 'jsoncpp',
         'check': 'lib/libjsoncpp.so',
@@ -123,6 +113,16 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'gnump': {
+        'name': 'gnump',
+        'check': 'lib/libgmp.a',
+        'url': URL_GNUMP,
+        'cmds': [
+            './configure --prefix=TARGET',
+            'make -jJOBS',
+            'make install',
+        ],
+    },
     'jansson': {
         'name': 'jansson',
         'check': 'lib/libjansson.so',
@@ -156,7 +156,6 @@ def main():
     cppunit     Install the cppunit library.
     gtest       Install the gtest library.
     boost       Install latest boost dev library.
-    gnump       Install the GNU multiprecision library.
     jsonrpc     Install jsonrpc-cpp library. Beta lib & build not working atm.
     jsoncpp     Install json parsing library.
     SDL         Install the SDL1.xx game library.
@@ -166,6 +165,7 @@ def main():
     ------------------------------------------------------
     argtable    Install args parsing library..
     cunit       Install the cunit test library.
+    gnump       Install the GNU multiprecision library.
     jansson     Install a json parsing library.
     libxml      Install a xml parsing library.
     """
