@@ -497,7 +497,11 @@ try
     "Plug 'StanAngeloff/php.vim'
     "Plug 'vim-ruby/vim-ruby'
 
-    " Very Large Number of Colorschemes
+    " Best Schemes
+    "Plug 'nanotech/jellybeans.vim'
+    "Plug 'tomasr/molokai'
+    "Plug 'w0ng/vim-hybrid'
+    " Large Group
     "Plug 'flazz/vim-colorschemes'
 
     call plug#end()
@@ -1259,12 +1263,10 @@ command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-a
 function! s:ChangeSpace(line1, line2, old_tab, new_tab)
     let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
 
-    let l:old = printf('set ts=%s sts=%s sw=%s noet', a:old_tab, a:old_tab, a:old_tab)
-    exec l:old
+    exec printf('set ts=%s sts=%s sw=%s noet', a:old_tab, a:old_tab, a:old_tab)
     exec l:rtab_cmd . '!'
 
-    let l:new = printf('set ts=%s sts=%s sw=%s et', a:new_tab, a:new_tab, a:new_tab)
-    exec l:new
+    exec printf('set ts=%s sts=%s sw=%s et', a:new_tab, a:new_tab, a:new_tab)
     exec l:rtab_cmd
 endfunction
 

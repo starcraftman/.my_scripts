@@ -3,7 +3,7 @@
 DST=~/.vim/colors
 URL=http://github.com/
 THEMES=( 'chriskempson/vim-tomorrow-theme' 'nanotech/jellybeans.vim' 'Lokaltog/vim-distinguished' \
-'morhetz/gruvbox' 'tomasr/molokai' 'tpope/vim-vividchalk' 'vim-scripts/desert256.vim' )
+'morhetz/gruvbox' 'tomasr/molokai' 'tpope/vim-vividchalk' 'vim-scripts/desert256.vim' 'w0ng/vim-hybrid' )
 TMP_DIR=/tmp/vim_colors
 
 update_themes() {
