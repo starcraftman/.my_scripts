@@ -501,7 +501,7 @@ try
     "Plug 'nanotech/jellybeans.vim'
     "Plug 'tomasr/molokai'
     "Plug 'w0ng/vim-hybrid'
-    " Large Group
+    " Large Selection, too many for longterm
     "Plug 'flazz/vim-colorschemes'
 
     call plug#end()
