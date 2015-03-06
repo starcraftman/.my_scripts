@@ -49,8 +49,8 @@
 //#include <cctype> /* Character check functions */
 //#include <climits>
 //#include <cassert>
-//$include <cmath>
-//$include <cstdint> /* C++11 only, standard u_int16 & such */
+//#include <cmath>
+//#include <cstdint> /* C++11 only, standard u_int16 & such */
 
 /* Project Headers */
 
