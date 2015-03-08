@@ -355,6 +355,16 @@ repeat() {
     done
 }
 
+batCheck() {
+    if valid_name upower; then
+        upower -i /org/freedesktop/UPower/devices/battery_BAT0
+    elif valid_name acpi; then
+        acpi -i -b
+    else
+        echo 'Install acpi or upower commands.'
+    fi
+}
+
 # Check if connection up at all by pinging google dns
 conTest() {
     for url in "8.8.8.8" "8.8.4.4"; do
