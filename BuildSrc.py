@@ -312,9 +312,12 @@ def get_code(url, target):
     target: Where to clone to
     """
     cmd = ' %s %s' % (url, target)
+    retry = None
     # Git urls always end in .git
     if url.find('git') != -1:
         cmd = 'git clone --recursive --depth 1' + cmd
+        retry = lambda: subprocess.call(shlex.split(
+            cmd.replace('git', '/usr/bin/git', 1)))
     # svn always at front of proto
     elif url.find('svn') != -1:
         cmd = 'svn checkout' + cmd
@@ -322,7 +325,10 @@ def get_code(url, target):
         cmd = 'hg clone' + cmd
 
     if not os.path.exists(target):
-        subprocess.call(shlex.split(cmd))
+        ret = subprocess.call(shlex.split(cmd))
+        if retry and ret != 0:
+            retry()
+
 
 
 def build_src(build, target=None):

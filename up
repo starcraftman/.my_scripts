@@ -42,13 +42,13 @@ build_src() {
     # Link to OPT_ALT until update done
     local opt_orig=~/.opt1
     local opt_alt=~/.opt2
+    rm "$OPTDIR"
     mv "$opt_orig" "$opt_alt"
-    rm -rf "$OPTDIR"
     ln -s "$opt_alt" "$OPTDIR"
 
     BuildSrc.py --odir "$opt_orig" $opts >/dev/null 2>&1
 
-    rm -rf "$OPTDIR"
+    rm "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
     rm -rf $opt_alt
 }
@@ -59,7 +59,6 @@ if [ -f ~/.vim/autoload/plug.vim ]; then
     echo 'Updating vim plugins.'
     vim +PlugUpdate +qa
     "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
-    "$HOME/.vim/bundle/YouCompleteMe/install.sh" --clang-completer >/dev/null 2>&1 &
 fi
 
 if valid_name apt-get; then
