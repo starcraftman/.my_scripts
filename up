@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
-SCRIPT_D=$(dirname $0)
+SCRIPT_D=$(readlink -f $(dirname $0))
 
 # Update repositories passed as arguments
 update_repos() {
