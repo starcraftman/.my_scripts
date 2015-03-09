@@ -614,6 +614,7 @@ let g:sneak#map_netrw = 1
 " Using user command speeds up but means have to change command for options
 " like hidden or ignores
 if executable('ag')
+    let &grepprg = 'ag --nogroup --nocolor'
     let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
           \ --ignore .bzr
           \ --ignore .git
