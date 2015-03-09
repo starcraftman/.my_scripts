@@ -615,7 +615,7 @@ let g:sneak#map_netrw = 1
 " like hidden or ignores
 if executable('ag')
     let &grepprg = 'ag --nogroup --nocolor'
-    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+    let s:ctrlp_ag = 'ag %s -i --nocolor --nogroup --hidden
           \ --ignore .bzr
           \ --ignore .git
           \ --ignore .hg
@@ -626,6 +626,9 @@ if executable('ag')
           \ --ignore "**/*.o"
           \ -g ""'
 endif
+
+" Use git when possible, faster for repos
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard', s:ctrlp_ag]
 
 " Faster matcher
 if has('python')
