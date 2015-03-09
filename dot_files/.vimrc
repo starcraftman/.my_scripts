@@ -450,7 +450,7 @@ try
     Plug 'vim-scripts/taghighlight'
 
     " Searching & Files
-    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'ctrlpvim/ctrlp.vim' | Plug 'FelikZ/ctrlp-py-matcher'
     Plug 'kopischke/vim-fetch'
     Plug 'mhinz/vim-hugefile'
     Plug 'mileszs/ack.vim'
@@ -611,8 +611,25 @@ let g:sneak#map_netrw = 1
 
 " CtrlP
 """""""
-" Index hidden files
-"let g:ctrlp_show_hidden = 1
+" Using user command speeds up but means have to change command for options
+" like hidden or ignores
+if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+          \ --ignore .bzr
+          \ --ignore .git
+          \ --ignore .hg
+          \ --ignore .svn
+          \ --ignore .DS_Store
+          \ --ignore "**/*.pyc"
+          \ --ignore "**/*.class"
+          \ --ignore "**/*.o"
+          \ -g ""'
+endif
+
+" Faster matcher
+if has('python')
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
 
 " TagBar
 """"""""
