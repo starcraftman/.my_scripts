@@ -628,7 +628,7 @@ if executable('ag')
 endif
 
 " Use git when possible, faster for repos
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --exclude-standard', s:ctrlp_ag]
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard', s:ctrlp_ag]
 
 " Faster matcher
 if has('python')
