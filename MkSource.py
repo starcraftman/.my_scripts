@@ -7,7 +7,6 @@
 ''' Implements code to support my templating system for source files.
     For autocomplete functionality, see the docs which contain setup info.
 '''
-from __future__ import print_function
 import argparse
 import os
 import shutil
@@ -115,8 +114,8 @@ def main():
     Specify as many source or header files as required.
     """
     parser = argparse.ArgumentParser(description=desc)
-    parser.add_argument('-c', '--config', nargs='+', action='append',
-                        dest='configs', default=[], help='config templates',
+    parser.add_argument('-c', '--config', nargs='+', dest='configs',
+                        default=[], help='config templates',
                         choices=CONFIGS.keys())
     parser.add_argument('-i', '--header', action='append', dest='h_files',
                         default=[], help='header file to create')
