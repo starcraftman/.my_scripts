@@ -106,7 +106,7 @@ BABUN = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
-PY_PACKS = "argcomplete Pygments pytest trash-cli"
+PY_PACKS = "argcomplete cram Pygments pytest trash-cli"
 
 
 class NotSudo(Exception):
