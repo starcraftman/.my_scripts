@@ -1,413 +1,7 @@
 " If you are confused by not seeing a lot of text, push zi
-" For more info, see :help folding
+" For more info, see :help folding. Read General Notes section to learn.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimrc General Notes
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" {{{
-
-" Quick Links
-"""""""""""""
-" {{{
-
-" * To Learn Vim: vimtutor
-"       The vim tutor is an introductory programs, useful for beginners.
-"
-" * Vim Cheatsheet and Tutorial:
-"       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
-"
-" * Vim regex:
-"       http://www.vimregex.com/
-"
-" * Vim Script: Learn to make plugins and contructs like loops, vars and commands
-"       http://learnvimscriptthehardway.stevelosh.com/
-"
-" * Vim Syntax/Indent Files:
-"       http://robots.thoughtbot.com/writing-vim-syntax-plugins
-"
-" * Vim NETRW remote editting
-"       http://www.vim.org/scripts/script.php?script_id=1075
-"
-" * Explore plugins at:
-"       http://vimawesome.com/
-
-" * For detailed breakdown of basic vim options, I started by looking at this one:
-"       http://amix.dk/vim/vimrc.html
-"
-" * For color schemes:
-"       Large selection of schemes: https://github.com/flazz/vim-colorschemes
-"       Put schemes in ~/.vim/colors or use a plugin manager
-"       Favourites In Order:
-"           molokai, jellybeans, desert256, wombat256mod, mrkn256, xoria256, twilight256
-"
-" }}}
-" Installation Procedure
-""""""""""""""""""""""""
-" {{{
-
-"   1) Install Vim 7.4 with Python, Lua & Signs:
-"     a) Automated Build
-"       BuildSrc.py vim
-"
-"     b) Manual Build
-"       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
-"
-"     b) Windows
-"       Download and extract:
-"       http://tuxproject.de/projects/vim/complete-x86.7z
-"       Put the lua52.dll in the root project
-"       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
-"
-"     c) Windows Babun (Cygwin)
-"       https://github.com/babun/babun
-"
-"   2) Check Support for features:
-"       :echo has('lua') && has('python') && has('signs')
-"
-"   3) Next setup config fils (.vim, .vimrc and so on)
-"     a) Python Script
-"       SysInstall home
-"           Symbolically links .vim & .vimrc to home.
-"           Bootstraps vim plugin manager.
-"           Sets up powerline fonts for airline.
-"
-"     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
-"       Link from ~/.my_scripts/dot_files to $HOME
-"       Get Manager:
-"           vim +Bootstrap +qa
-"       Powerline Fonts:
-"           See steps at:
-"           http://powerline.readthedocs.org/en/latest/installation.html
-"
-"   4) Open vim and install plugins
-"       :PluginInstall
-"
-"   5) Further Config:
-"       Plug          : Requires ruby support for parallel.
-"       YouCompleteMe : Requires cpp compilation, see BuildSrc.py ycm.
-"       vim-airline   : Powerline fonts optional.
-"       TagBar        : Requires exhuberant tags instead of gnu ctags
-"       ag.vim        : Ag must be available on cmdline.
-"       ack.vim       : Ack must be available on cmdline.
-"       eclim         : Use 'starcraftman/eclim for DeployEclim command.
-
-" }}}
-" Plugin Information
-""""""""""""""""""""
-" {{{
-
-"   Plug:
-"       Minimal new plugin manager with parallelism.
-"       PlugUpdate only does bundles, PlugUpgrade for manager.
-"       https://github.com/junegunn/vim-plug
-"
-"   YouCompleteMe:
-"       Very good autocomplete, includes path completion,
-"       automatic function indexing and clang checking with syntastic
-"       Info at url below or use ycm_compile.py in my repo
-"       https://github.com/Valloric/YouCompleteMe
-"
-"   Syntastic:
-"       Syntax checking without running code usually on buffer write
-"       https://github.com/scrooloose/syntastic
-"       Extra Info: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
-"
-"   vim-airline:
-"       Plugin that gives nice colored status line
-"       https://github.com/bling/vim-airline
-"       See :help airline and AirlineToggle
-"       NB: Be sure to patch ~/.fonts with powerline-fonts
-"       See: https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
-"
-"   ultisnips:
-"       Same as SnipMate, seems that project may be unmaintained
-"       https://github.com/SirVer/ultisnips
-"       Required default snippets now externalized to below
-"       https://github.com/honza/vim-snippets
-"
-"   vim-sneak:
-"       Provies quick motion for cursor
-"       Keys:
-"           s<char><char> - search for word
-"           s/; - next word
-"           S/, - prev word match
-"           ctrl + o - back to start
-"       https://github.com/justinmk/vim-sneak
-"
-"   CtrlP:
-"       Fuzzy file finding that is a bit easier than CtrlT
-"       Searches under root, looks for .hg/.git or so to define top
-"       Use Ctrl+P to access
-"       Original doesn't get updates, now using fork:
-"       https://github.com/ctrlpvim/ctrlp.vim
-"       https://github.com/kien/ctrlp.vim
-"
-"   TagBar:
-"       A outline of the files contents
-"       Uses exuberant ctags, not GNU ctags
-"       See info at: https://github.com/majutsushi/tagbar
-"
-"   Gundo:
-"       Graphical tree like explorer for visualizing undo history
-"       Project: https://github.com/sjl/gundo.vim
-"       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
-"
-"  abolish:
-"       Help for renaming, has easy syntax alternative to regexp.
-"       https://github.com/tpope/vim-abolish
-"
-"   NERDComment:
-"       Bunch of comment commands. Mainly <Leader>ci to comment line
-"       https://github.com/scrooloose/nerdcommenter
-"
-"   vim-surround:
-"       Modify the tags or brackets of code
-"       https://github.com/tpope/vim-surround
-"
-"   vim-matchit:
-"       Extends the % command to jump to matching xml or if/fi tags
-"       https://github.com/edsono/vim-matchit
-"
-"   A.vim:
-"       Swap between a c source and header file with :A
-"       https://github.com/vim-scripts/a.vim
-"
-"   DeleteTrailingWhitespace:
-"       Use [Range]DeleteTrailingWhitespace, where range is an optional line range
-"       https://github.com/vim-scripts/DeleteTrailingWhitespace
-"
-"   vim-Markdown:
-"       Adds support for markdown syntax
-"       https://github.com/plasticboy/vim-markdown/
-"
-"   vim-signify:
-"       Shows the diff of file being eddited to left of numbers, i.e. 'gutter'
-"       https://github.com/mhinz/vim-signify
-"
-"   vim-sleuth:
-"       Detects the right whitespace useage based on file detection.
-"       https://github.com/tpope/vim-sleuth
-"
-"   open-browser:
-"       Provides OpenBrowser URI to go directly to your local browser.
-"       https://github.com/tyru/open-browser.vim
-"
-"   vim-togglelist:
-"       Provides simple keystroke to toggle lists.
-"       https://github.com/kshenoy/vim-togglelist
-"
-"   ag.vim (Silver Searcher):
-"       Searches code quickly, faster than grep. Requires silversearcher-ag.
-"       https://github.com/rking/ag.vim
-"
-"   ack.vim:
-"       Same as ag.vim, though based on ack-grep a perl file.
-"       https://github.com/mileszs/ack.vim
-"
-"   FastFold:
-"       Make folding bit faster.
-"       https://github.com/zaiste/tmux.vim
-"
-"   Tabular:
-"       Align text easily with regex patterns.
-"       https://github.com/godlygeek/tabular
-"
-"   tmux.vim:
-"       Syntax highlighting for .tmux.conf files.
-"       https://github.com/zaiste/tmux.vim
-"
-"   vim-zsh:
-"       Better syntax highlighting for zsh.
-"       https://github.com/clones/vim-zsh
-"
-"   csv.vim:
-"       Whole suite to make editting csv easier.
-"       https://github.com/chrisbra/csv.vim
-"
-"   LaTeX-Box:
-"       Better highlighting and functions for LaTeX.
-"       https://github.com/LaTeX-Box-Team/LaTeX-Box
-"
-"   vim-bookmarks:
-"       Better marking, nice sign usage.
-"       https://github.com/MattesGroeger/vim-bookmarks
-"
-"   committia:
-"       Display diff in the vim commit box. Handy
-"       https://github.com/rhysd/committia.vim
-"
-"   hugefile:
-"       For very large files, turn off some features.
-"       https://github.com/mhinz/vim-hugefile
-"
-"   DirDiff:
-"       Diff two directories and have some ops.
-"       https://github.com/zhaocai/DirDiff.vim
-"
-"   smartpairs.vim:
-"       Easy visual selections, use vv to select on matching pair.
-"       https://github.com/gorkunov/smartpairs.vim
-"
-"   github-issues.vim:
-"       Github integration inside commit windows. Neat.
-"       https://github.com/jaxbot/github-issues.vim
-"
-"   vim-fetch:
-"       Do immediate line/col jumps to a file, with :e file:20:44
-"       https://github.com/kopischke/vim-fetch
-"
-"   Vader.vim:
-"       Testing framework for vim, no dependencies.
-"       Execute .vader files with Vader file.vader.
-"       https://github.com/junegunn/vader.vim
-"
-"   Version Control:
-"       GIT -> https://github.com/tpope/vim-fugitive
-"       Hg -> https://github.com/ludovicchabant/vim-lawrencium
-
-" }}}
-" Less Used Plugins
-"""""""""""""""""""
-" {{{
-
-"   Vundle:
-"       Very good plugin manager, only supports git
-"       Need to look into revision support, doesn't work at this time
-"       https://github.com/gmarik/vundle
-"
-"   neocomplete:
-"       Fairly complete YCM replacement for on Windows.
-"       https://github.com/Shougo/neocomplete.vim
-"
-"   NERDTree:
-"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
-"       Open with :NERDTree command
-"       https://github.com/scrooloose/nerdtree
-"
-"   Local Vimrc:
-"       Allows project specific settings with .lvimrc files
-"       https://github.com/embear/vim-localvimrc
-"
-"   Cmd Alias:
-"       Better command remapping instead of cabbr.
-"       http://www.vim.org/scripts/script.php?script_id=746
-"       https://github.com/vim-scripts/cmdalias.vim
-"
-"   CtrlP Switcher:
-"       Finds files in the tree similar to current buffer
-"       https://github.com/ivan-cukic/vim-ctrlp-switcher
-"
-"   SnipMate:
-"       Allows you to expand boilerplate code
-"       https://github.com/msanders/snipmate.vim
-"       Usage: http://www.bestofvim.com/plugin/snipmate/
-"       Related: https://github.com/scrooloose/snipmate-snippets
-"
-"   EasyMotion
-"       Provides alternative motion for word jumping
-"       Use <Leader><Leader>w to jump then select
-"       https://github.com/Lokaltog/vim-easymotion
-"
-"   Golden View:
-"       Based on golden ratio for windows.
-"       https://github.com/zhaocai/GoldenView.vim
-"
-"   Golden Ratio:
-"       Plugin that resizes windows on focus gain. Neat.
-"       https://github.com/roman/golden-ratio
-"
-"   html5.vim:
-"       Provides better highlighting for new html5 elements.
-"       https://github.com/Sothree/html5.vim
-"
-"   vim-css-color:
-"       Provides highlighting of color codes like hex and regular words like red.
-"       https://github.com/ap/vim-css-color
-"
-"   vim-css3-syntax:
-"       Provides better highlighting for css3 files.
-"       https://github.com/hail2u/vim-css3-syntax
-"
-"   vim-javascript:
-"       Has some improvements to syntax and indents.
-"       https://github.com/pangloss/vim-javascript
-"
-"   jshint:
-"       Provides javascript checking, requires node.js and other installation steps.
-"       https://github.com/Shutnik/jshint2.vim
-"
-"   jQuery:
-"       Plugin provides better highlighting for jQuery.
-"       https://github.com/vim-scripts/jQuery
-"
-"   php.vim:
-"       Improved php syntax files.
-"       https://github.com/elzr/vim-json
-"
-"   vim-ruby:
-"       Provides better syntax, indent and config for ruby dev.
-"       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
-"
-"   Pathogen:
-"       A manual alternative to Vundle
-"       https://github.com/tpope/vim-pathogen
-
-" }}}
-" Notes To Remember
-"""""""""""""""""""
-" {{{
-
-" * To indent:
-"       5>>: Indent next 5 lines 1 tab
-"       5<<: De-Indent next 5 lines 1 tab
-"
-" * Use :help [option|key] to get info
-"   For plugins: :help syntastic, :help YCM
-"
-" * To override language specific settings, see ~/.vim/ftplugin for lang files
-"
-" * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
-"   paste mode that will prevent the auto indenting/format
-"
-" * See scrolloff value for interesting effect on vim
-"   Keeps certain amount of lines always below cursor when scrolling
-"
-" * See list for ability to see trailing whitespace
-"
-" * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier
-"
-" * To see all errors list:
-"   open -> :Errors
-"   close -> :lclose
-"   NB: Overrides location list when called
-"
-" * Code comment:
-"   current line -> , c c
-"   block comment (with visual) -> V (select) , c c
-"   toggle comment for lines: , c i
-"
-" * Reindent a file:
-"       Whole File: ,t
-"       Some Lines: <movement>=
-"
-" * To see folded code:
-"       za
-"
-" * To see conflicting maps:
-"       :verbose map <Leader>jd
-"
-" * To repeat last command (colon): `@:`, to repeat last register `@@`.
-"
-" * To fix tabs, see `retab`. By default, %retab!
-"
-" * To paste yanked text in for Command, Ctrl + R then " (double quote)
-"
-" * With cursor over work, push K in nmode. Opens manpage.
-
-" }}}
-
-" }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins with Plug
+" => Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
@@ -452,6 +46,7 @@ try
     " Searching & Files
     Plug 'ctrlpvim/ctrlp.vim' | Plug 'FelikZ/ctrlp-py-matcher'
     Plug 'kopischke/vim-fetch'
+    "Plug 'ludovicchabant/vim-gutentags'
     Plug 'mhinz/vim-hugefile'
     Plug 'mileszs/ack.vim'
     Plug 'rking/ag.vim'
@@ -724,7 +319,7 @@ let g:bookmark_auto_close = 1
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Status line
+" => Status Line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
@@ -742,7 +337,7 @@ let g:airline_powerline_fonts = 1
 " Regular Status Line
 """""""""""""""""""""
 " Syntastic modification to line, only if installed
-let s:syn_status = ''
+let s:syn_status = '%{gutentags#statusline()}'
 if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
     let s:syn_status = '|| %{SyntasticStatuslineFlag()}'
 endif
@@ -1023,7 +618,7 @@ set splitright
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => Colors & Fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
@@ -1455,5 +1050,415 @@ function! s:bundle_vim()
     execute '!bash ' . dst
     call delete(dst)
 endfunction
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Notes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" {{{
+
+" Quick Links
+"""""""""""""
+" {{{
+
+" * To Learn Vim: vimtutor
+"       The vim tutor is an introductory programs, useful for beginners.
+"
+" * Vim Cheatsheet and Tutorial:
+"       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
+"
+" * Vim regex:
+"       http://www.vimregex.com/
+"
+" * Vim Script: Learn to make plugins and contructs like loops, vars and commands
+"       http://learnvimscriptthehardway.stevelosh.com/
+"
+" * Vim Syntax/Indent Files:
+"       http://robots.thoughtbot.com/writing-vim-syntax-plugins
+"
+" * Vim NETRW remote editting
+"       http://www.vim.org/scripts/script.php?script_id=1075
+"
+" * Explore plugins at:
+"       http://vimawesome.com/
+
+" * For detailed breakdown of basic vim options, I started by looking at this one:
+"       http://amix.dk/vim/vimrc.html
+"
+" * For color schemes:
+"       Large selection of schemes: https://github.com/flazz/vim-colorschemes
+"       Put schemes in ~/.vim/colors or use a plugin manager
+"       Favourites In Order:
+"           molokai, jellybeans, desert256, wombat256mod, mrkn256, xoria256, twilight256
+"
+" }}}
+" Installation Procedure
+""""""""""""""""""""""""
+" {{{
+
+"   1) Install Vim 7.4 with Python, Lua & Signs:
+"     a) Automated Build
+"       BuildSrc.py vim
+"
+"     b) Manual Build
+"       https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+"
+"     b) Windows
+"       Download and extract:
+"       http://tuxproject.de/projects/vim/complete-x86.7z
+"       Put the lua52.dll in the root project
+"       http://sourceforge.net/projects/luabinaries/files/5.2/Windows%20Libraries/Dynamic/"
+"
+"     c) Windows Babun (Cygwin)
+"       https://github.com/babun/babun
+"
+"   2) Check Support for features:
+"       :echo has('lua') && has('python') && has('signs')
+"
+"   3) Next setup config fils (.vim, .vimrc and so on)
+"     a) Python Script
+"       SysInstall home
+"           Symbolically links .vim & .vimrc to home.
+"           Bootstraps vim plugin manager.
+"           Sets up powerline fonts for airline.
+"
+"     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
+"       Link from ~/.my_scripts/dot_files to $HOME
+"       Get Manager:
+"           vim +Bootstrap +qa
+"       Powerline Fonts:
+"           See steps at:
+"           http://powerline.readthedocs.org/en/latest/installation.html
+"
+"   4) Open vim and install plugins
+"       :PluginInstall
+"
+"   5) Further Config:
+"       Plug          : Requires ruby support for parallel.
+"       YouCompleteMe : Requires cpp compilation, see BuildSrc.py ycm.
+"       vim-airline   : Powerline fonts optional.
+"       TagBar        : Requires exhuberant tags instead of gnu ctags
+"       ag.vim        : Ag must be available on cmdline.
+"       ack.vim       : Ack must be available on cmdline.
+"       eclim         : Use 'starcraftman/eclim for DeployEclim command.
+
+" }}}
+" Plugin Information
+""""""""""""""""""""
+" {{{
+
+"   Plug:
+"       Minimal new plugin manager with parallelism.
+"       PlugUpdate only does bundles, PlugUpgrade for manager.
+"       https://github.com/junegunn/vim-plug
+"
+"   YouCompleteMe:
+"       Very good autocomplete, includes path completion,
+"       automatic function indexing and clang checking with syntastic
+"       Info at url below or use ycm_compile.py in my repo
+"       https://github.com/Valloric/YouCompleteMe
+"
+"   Syntastic:
+"       Syntax checking without running code usually on buffer write
+"       https://github.com/scrooloose/syntastic
+"       Extra Info: http://blog.jpalardy.com/posts/how-to-configure-syntastic/
+"
+"   vim-airline:
+"       Plugin that gives nice colored status line
+"       https://github.com/bling/vim-airline
+"       See :help airline and AirlineToggle
+"       NB: Be sure to patch ~/.fonts with powerline-fonts
+"       See: https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
+"
+"   ultisnips:
+"       Same as SnipMate, seems that project may be unmaintained
+"       https://github.com/SirVer/ultisnips
+"       Required default snippets now externalized to below
+"       https://github.com/honza/vim-snippets
+"
+"   vim-sneak:
+"       Provies quick motion for cursor
+"       Keys:
+"           s<char><char> - search for word
+"           s/; - next word
+"           S/, - prev word match
+"           ctrl + o - back to start
+"       https://github.com/justinmk/vim-sneak
+"
+"   CtrlP:
+"       Fuzzy file finding that is a bit easier than CtrlT
+"       Searches under root, looks for .hg/.git or so to define top
+"       Use Ctrl+P to access
+"       Original doesn't get updates, now using fork:
+"       https://github.com/ctrlpvim/ctrlp.vim
+"       https://github.com/kien/ctrlp.vim
+"
+"   TagBar:
+"       A outline of the files contents
+"       Uses exuberant ctags, not GNU ctags
+"       See info at: https://github.com/majutsushi/tagbar
+"
+"   Gundo:
+"       Graphical tree like explorer for visualizing undo history
+"       Project: https://github.com/sjl/gundo.vim
+"       Usage: http://sjl.bitbucket.org/gundo.vim/#Usage
+"
+"  abolish:
+"       Help for renaming, has easy syntax alternative to regexp.
+"       https://github.com/tpope/vim-abolish
+"
+"   NERDComment:
+"       Bunch of comment commands. Mainly <Leader>ci to comment line
+"       https://github.com/scrooloose/nerdcommenter
+"
+"   vim-surround:
+"       Modify the tags or brackets of code
+"       https://github.com/tpope/vim-surround
+"
+"   vim-matchit:
+"       Extends the % command to jump to matching xml or if/fi tags
+"       https://github.com/edsono/vim-matchit
+"
+"   A.vim:
+"       Swap between a c source and header file with :A
+"       https://github.com/vim-scripts/a.vim
+"
+"   DeleteTrailingWhitespace:
+"       Use [Range]DeleteTrailingWhitespace, where range is an optional line range
+"       https://github.com/vim-scripts/DeleteTrailingWhitespace
+"
+"   vim-Markdown:
+"       Adds support for markdown syntax
+"       https://github.com/plasticboy/vim-markdown/
+"
+"   vim-signify:
+"       Shows the diff of file being eddited to left of numbers, i.e. 'gutter'
+"       https://github.com/mhinz/vim-signify
+"
+"   vim-sleuth:
+"       Detects the right whitespace useage based on file detection.
+"       https://github.com/tpope/vim-sleuth
+"
+"   open-browser:
+"       Provides OpenBrowser URI to go directly to your local browser.
+"       https://github.com/tyru/open-browser.vim
+"
+"   vim-togglelist:
+"       Provides simple keystroke to toggle lists.
+"       https://github.com/kshenoy/vim-togglelist
+"
+"   ag.vim (Silver Searcher):
+"       Searches code quickly, faster than grep. Requires silversearcher-ag.
+"       https://github.com/rking/ag.vim
+"
+"   ack.vim:
+"       Same as ag.vim, though based on ack-grep a perl file.
+"       https://github.com/mileszs/ack.vim
+"
+"   FastFold:
+"       Make folding bit faster.
+"       https://github.com/zaiste/tmux.vim
+"
+"   Tabular:
+"       Align text easily with regex patterns.
+"       https://github.com/godlygeek/tabular
+"
+"   tmux.vim:
+"       Syntax highlighting for .tmux.conf files.
+"       https://github.com/zaiste/tmux.vim
+"
+"   vim-zsh:
+"       Better syntax highlighting for zsh.
+"       https://github.com/clones/vim-zsh
+"
+"   csv.vim:
+"       Whole suite to make editting csv easier.
+"       https://github.com/chrisbra/csv.vim
+"
+"   LaTeX-Box:
+"       Better highlighting and functions for LaTeX.
+"       https://github.com/LaTeX-Box-Team/LaTeX-Box
+"
+"   vim-bookmarks:
+"       Better marking, nice sign usage.
+"       https://github.com/MattesGroeger/vim-bookmarks
+"
+"   committia:
+"       Display diff in the vim commit box. Handy
+"       https://github.com/rhysd/committia.vim
+"
+"   hugefile:
+"       For very large files, turn off some features.
+"       https://github.com/mhinz/vim-hugefile
+"
+"   DirDiff:
+"       Diff two directories and have some ops.
+"       https://github.com/zhaocai/DirDiff.vim
+"
+"   smartpairs.vim:
+"       Easy visual selections, use vv to select on matching pair.
+"       https://github.com/gorkunov/smartpairs.vim
+"
+"   github-issues.vim:
+"       Github integration inside commit windows. Neat.
+"       https://github.com/jaxbot/github-issues.vim
+"
+"   vim-fetch:
+"       Do immediate line/col jumps to a file, with :e file:20:44
+"       https://github.com/kopischke/vim-fetch
+"
+"   Vader.vim:
+"       Testing framework for vim, no dependencies.
+"       Execute .vader files with Vader file.vader.
+"       https://github.com/junegunn/vader.vim
+"
+"   vim-gutentags:
+"       Ctags background generation & updating.
+"       https://github.com/ludovicchabant/vim-gutentags
+"
+"   Version Control:
+"       GIT -> https://github.com/tpope/vim-fugitive
+"       Hg -> https://github.com/ludovicchabant/vim-lawrencium
+
+" }}}
+" Less Used Plugins
+"""""""""""""""""""
+" {{{
+
+"   Vundle:
+"       Very good plugin manager, only supports git
+"       Need to look into revision support, doesn't work at this time
+"       https://github.com/gmarik/vundle
+"
+"   neocomplete:
+"       Fairly complete YCM replacement for on Windows.
+"       https://github.com/Shougo/neocomplete.vim
+"
+"   NERDTree:
+"       Plugin that is a pretty NETRW replacement. I'm not sure I want it, but may re-evaluate
+"       Open with :NERDTree command
+"       https://github.com/scrooloose/nerdtree
+"
+"   Local Vimrc:
+"       Allows project specific settings with .lvimrc files
+"       https://github.com/embear/vim-localvimrc
+"
+"   Cmd Alias:
+"       Better command remapping instead of cabbr.
+"       http://www.vim.org/scripts/script.php?script_id=746
+"       https://github.com/vim-scripts/cmdalias.vim
+"
+"   CtrlP Switcher:
+"       Finds files in the tree similar to current buffer
+"       https://github.com/ivan-cukic/vim-ctrlp-switcher
+"
+"   SnipMate:
+"       Allows you to expand boilerplate code
+"       https://github.com/msanders/snipmate.vim
+"       Usage: http://www.bestofvim.com/plugin/snipmate/
+"       Related: https://github.com/scrooloose/snipmate-snippets
+"
+"   EasyMotion
+"       Provides alternative motion for word jumping
+"       Use <Leader><Leader>w to jump then select
+"       https://github.com/Lokaltog/vim-easymotion
+"
+"   Golden View:
+"       Based on golden ratio for windows.
+"       https://github.com/zhaocai/GoldenView.vim
+"
+"   Golden Ratio:
+"       Plugin that resizes windows on focus gain. Neat.
+"       https://github.com/roman/golden-ratio
+"
+"   html5.vim:
+"       Provides better highlighting for new html5 elements.
+"       https://github.com/Sothree/html5.vim
+"
+"   vim-css-color:
+"       Provides highlighting of color codes like hex and regular words like red.
+"       https://github.com/ap/vim-css-color
+"
+"   vim-css3-syntax:
+"       Provides better highlighting for css3 files.
+"       https://github.com/hail2u/vim-css3-syntax
+"
+"   vim-javascript:
+"       Has some improvements to syntax and indents.
+"       https://github.com/pangloss/vim-javascript
+"
+"   jshint:
+"       Provides javascript checking, requires node.js and other installation steps.
+"       https://github.com/Shutnik/jshint2.vim
+"
+"   jQuery:
+"       Plugin provides better highlighting for jQuery.
+"       https://github.com/vim-scripts/jQuery
+"
+"   php.vim:
+"       Improved php syntax files.
+"       https://github.com/elzr/vim-json
+"
+"   vim-ruby:
+"       Provides better syntax, indent and config for ruby dev.
+"       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
+"
+"   Pathogen:
+"       A manual alternative to Vundle
+"       https://github.com/tpope/vim-pathogen
+
+" }}}
+" Notes To Remember
+"""""""""""""""""""
+" {{{
+
+" * To indent:
+"       5>>: Indent next 5 lines 1 tab
+"       5<<: De-Indent next 5 lines 1 tab
+"
+" * Use :help [option|key] to get info
+"   For plugins: :help syntastic, :help YCM
+"
+" * To override language specific settings, see ~/.vim/ftplugin for lang files
+"
+" * With auto indent on, need to use: set paste|nopaste or <F2> to toggle
+"   paste mode that will prevent the auto indenting/format
+"
+" * See scrolloff value for interesting effect on vim
+"   Keeps certain amount of lines always below cursor when scrolling
+"
+" * See list for ability to see trailing whitespace
+"
+" * Omni complete within file: <CTRL> + p, <CTRL> + n for previous and following identifier
+"
+" * To see all errors list:
+"   open -> :Errors
+"   close -> :lclose
+"   NB: Overrides location list when called
+"
+" * Code comment:
+"   current line -> , c c
+"   block comment (with visual) -> V (select) , c c
+"   toggle comment for lines: , c i
+"
+" * Reindent a file:
+"       Whole File: ,t
+"       Some Lines: <movement>=
+"
+" * To see folded code:
+"       za
+"
+" * To see conflicting maps:
+"       :verbose map <Leader>jd
+"
+" * To repeat last command (colon): `@:`, to repeat last register `@@`.
+"
+" * To fix tabs, see `retab`. By default, %retab!
+"
+" * To paste yanked text in for Command, Ctrl + R then " (double quote)
+"
+" * With cursor over work, push K in nmode. Opens manpage.
+
+" }}}
+
 " }}}
 " vim: set foldmethod=marker:
