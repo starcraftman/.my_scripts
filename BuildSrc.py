@@ -84,6 +84,16 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'ctags': {
+        'name': 'ctags',
+        'check': 'bin/ctags',
+        'url': 'https://github.com/fishman/ctags.git',
+        'cmds': [
+            'autoreconf -fiv',
+            './configure --prefix=TARGET',
+            'make install',
+        ],
+    },
     'doxygen': {
         'name': 'doxygen',
         'check': 'bin/doxygen',
@@ -423,6 +433,7 @@ def main():
     ------------------------------------------------------
     atom         Build the latest atom editor.
     cmake        Build the latest cmake.
+    ctags        Build the latest exhuberant ctags github fork.
     dev          Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen      Build the latest doxygen.
     git          Build the latest git release.
