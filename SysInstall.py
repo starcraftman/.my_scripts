@@ -125,7 +125,7 @@ def make_cmd(src, dst):
         for fil in files:
             sfile, dfile = [x + fil for x in (src, dst)]
             if not os.path.exists(dfile):
-                print("{0} >>>>> {1}".format(dfile, sfile))
+                print("{0} >>>>> {1}".format(sfile, dfile))
                 command(sfile, dfile, *opts)
     return cmd_when_dst_empty
 
@@ -137,8 +137,7 @@ def home_config():
     if script_dir == '':
         script_dir = '.'
 
-    # Leaving trailing sep for ease later.
-    src = script_dir + os.sep + 'dot_files' + os.sep
+    dot_dir = script_dir + os.sep + 'dot_files' + os.sep
     home = os.path.expanduser('~') + os.sep
 
     # Get shell utilities
@@ -165,15 +164,12 @@ def home_config():
         get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
         subprocess.call(['fc-cache', '-vf', ddir])
 
-    # Create dir for ccache
     ddir = home + '.ccache'
     if not os.path.exists(ddir):
         os.mkdir(ddir)
 
-    # Glob all files in dot_files and link them to home
-    files = glob.glob(src + '.*')
-    files = [os.path.basename(x) for x in files]
-    helper = make_cmd(src, home)
+    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
+    helper = make_cmd(dot_dir, home)
     helper(files, os.symlink)
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
@@ -192,15 +188,12 @@ def home_restore():
             pass
 
     # Clear existing configs if they are symlinks
-    files = glob.glob(dot_dir + '.*')
-    files = [os.path.basename(x) for x in files]
+    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
     for fil in [home + fil for fil in files]:
         if os.path.islink(fil):
             os.remove(fil)
 
-    arc_files = glob.glob(arc_dir + '.*')
-    arc_files = [os.path.basename(x) for x in arc_files]
-
+    arc_files = [os.path.basename(x) for x in glob.glob(arc_dir + '.*')]
     helper = make_cmd(arc_dir, home)
     helper(arc_files, os.rename)
 
@@ -219,8 +212,7 @@ def home_save():
     if not os.path.exists(arc_dir):
         os.makedirs(arc_dir)
 
-    files = glob.glob(dot_dir + '.*')
-    files = [os.path.basename(x) for x in files]
+    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
     files = [x for x in files if os.path.exists(home + x)]
 
     helper = make_cmd(home, arc_dir)
