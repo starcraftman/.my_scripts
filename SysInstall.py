@@ -225,21 +225,7 @@ def packs_babun():
     cmd = 'pact install ' + BABUN
     subprocess.call(shlex.split(cmd))
 
-    # Now prepare then invoke regular setup link common files
-    home = os.path.expanduser('~') + os.sep
-
-    # Prevent fonts from running with home_config
-    ddir = home + '.fonts'
-    if not os.path.exists(ddir):
-        os.mkdir(ddir)
-
-    # Backup defaults and allow for new ones
-    for name in ['.gitconfig', '.vim']:
-        dfile = home + name
-        dfile_bak = dfile + '_bak'
-        if os.path.exists(dfile) and not os.path.exists(dfile_bak):
-            os.rename(dfile, dfile_bak)
-
+    home_save()
     home_config()
 
 
