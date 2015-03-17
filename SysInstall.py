@@ -160,11 +160,10 @@ def home_config():
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
     dpow = ddir + os.sep + 'powerline-fonts'
-    if not os.path.exists(ddir):
+    if not os.path.exists(ddir) and subprocess.call(['which', 'fc-cache']) == 0:
         os.mkdir(ddir)
         get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
-        cmd = 'fc-cache -vf ' + ddir
-        subprocess.call(shlex.split(cmd))
+        subprocess.call(['fc-cache', '-vf', ddir])
 
     # Create dir for ccache
     ddir = home + '.ccache'
