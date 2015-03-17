@@ -172,7 +172,7 @@ def home_config():
 
     # Glob all files in dot_files and link them to home
     files = glob.glob(src + '.*')
-    files = [x[x.rindex(os.sep)+1:] for x in files]
+    files = [os.path.basename(x) for x in files]
     helper = make_cmd(src, home)
     helper(files, os.symlink)
 
@@ -193,18 +193,21 @@ def home_restore():
 
     # Clear existing configs if they are symlinks
     files = glob.glob(dot_dir + '.*')
-    files = [x[x.rindex(os.sep)+1:] for x in files]
+    files = [os.path.basename(x) for x in files]
     for fil in [home + fil for fil in files]:
         if os.path.islink(fil):
             os.remove(fil)
 
     arc_files = glob.glob(arc_dir + '.*')
-    arc_files = [x[x.rindex(os.sep)+1:] for x in arc_files]
+    arc_files = [os.path.basename(x) for x in arc_files]
 
     helper = make_cmd(arc_dir, home)
     helper(arc_files, os.rename)
 
-    os.rmdir(arc_dir)
+    try:
+        os.rmdir(arc_dir)
+    except OSError:
+        pass
 
 
 def home_save():
@@ -217,7 +220,7 @@ def home_save():
         os.makedirs(arc_dir)
 
     files = glob.glob(dot_dir + '.*')
-    files = [x[x.rindex(os.sep)+1:] for x in files]
+    files = [os.path.basename(x) for x in files]
     files = [x for x in files if os.path.exists(home + x)]
 
     helper = make_cmd(home, arc_dir)

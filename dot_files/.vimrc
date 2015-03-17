@@ -101,7 +101,7 @@ try
 
     call plug#end()
 catch
-    echo 'Run command `Bootstrap`. After restart run command `pi'
+    echomsg 'Run command `Bootstrap`. After restart run command `pi'
 finally
     filetype plugin indent on
 endtry
@@ -828,7 +828,7 @@ function! Color.Init(remDefaults)
     let self.default = self.cur + 1
 
     if (len(self.list) > 26)
-        echom 'too many schemes, listing first 26'
+        echomsg 'too many schemes, listing first 26'
         return
     endif
 endfunction
@@ -854,7 +854,7 @@ function! Color.Set()
     set background=dark
     exec 'colorscheme ' . self.list[self.cur]
     syntax on
-    echom 'colorscheme is now: ' . g:colors_name
+    echomsg 'colorscheme is now: ' . g:colors_name
 endfunction
 
 function! Color.Next()
@@ -1007,7 +1007,7 @@ function! g:FileFetch(src, dst)
     else
         echoerr 'No supported file download method.'
     endif
-    echom 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
+    echomsg 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
 endfunction
 
 function! s:fetch_python(src, dst)
