@@ -46,6 +46,7 @@ build_src() {
     mv "$opt_orig" "$opt_alt"
     ln -s "$opt_alt" "$OPTDIR"
 
+    echo "CMD: BuildSrc.py --odir $opt_orig $opts"
     BuildSrc.py --odir "$opt_orig" $opts >/dev/null 2>&1
 
     rm "$OPTDIR"
