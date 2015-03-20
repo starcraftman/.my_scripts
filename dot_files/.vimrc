@@ -640,9 +640,11 @@ endif
 
 syntax on
 
-" Highlight with ColorColumn lines over a certain  limit.
-"highlight ColorColumn ctermbg=8
-call matchadd('ColorColumn', '\%100v', 100)
+highlight ColorColumn ctermbg=239
+function s:match_col_no()
+    let col_no = exists('b:match_column_no') ? b:match_column_no : 100
+    call matchadd('ColorColumn', '\%>' . col_no . 'v', 100)
+endfunction
 
 " Set font when using gui version
 if has('gui_running')
@@ -776,6 +778,9 @@ if has('autocmd')
         "au BufWinLeave *.* silent! mkview
         "au BufWinEnter *.* silent! loadview
         autocmd BufRead * call Vex.Off()
+
+        "Highlight when I exceed a column limit
+        autocmd BufEnter * call s:match_col_no()
     augroup END
 
     " Register funcs with filetype load
