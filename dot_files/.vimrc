@@ -640,7 +640,7 @@ endif
 
 syntax on
 
-highlight ColorColumn ctermbg=239
+highlight ColorColumn ctermbg=238
 function s:match_col_no()
     let col_no = exists('b:match_column_no') ? b:match_column_no : 100
     call matchadd('ColorColumn', '\%>' . col_no . 'v', 100)
