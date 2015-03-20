@@ -142,8 +142,6 @@ def home_config():
 
     # Get shell utilities
     shell_dir = home + '.shell' + os.sep
-    get_code('https://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
-
     git_urls = [
         'https://github.com/magicmonty/bash-git-prompt.git',
         'https://github.com/starcraftman/zsh-git-prompt.git',
@@ -155,6 +153,8 @@ def home_config():
     for url in git_urls:
         target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
         get_code(url, shell_dir + target)
+
+    get_code('https://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
 
     # Setup powerline fonts if not done.
     ddir = home + '.fonts'
