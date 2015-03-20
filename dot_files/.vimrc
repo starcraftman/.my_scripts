@@ -210,20 +210,29 @@ let g:sneak#map_netrw = 1
 " like hidden or ignores
 if executable('ag')
     let &grepprg = 'ag --nogroup --nocolor'
-    let s:ctrlp_ag = 'ag %s -i --nocolor --nogroup --hidden
-          \ --ignore .bzr
-          \ --ignore .git
-          \ --ignore .hg
-          \ --ignore .svn
-          \ --ignore .DS_Store
-          \ --ignore "**/*.pyc"
-          \ --ignore "**/*.class"
-          \ --ignore "**/*.o"
-          \ -g ""'
+    let s:ctrlp_fallback = 'ag %s -i --nocolor --nogroup --hidden
+        \ --ignore .bzr
+        \ --ignore .git
+        \ --ignore .hg
+        \ --ignore .svn
+        \ --ignore .DS_Store
+        \ --ignore "**/*.pyc"
+        \ --ignore "**/*.class"
+        \ --ignore "**/*.o"
+        \ -g ""'
+elseif g:win_shell
+    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+else
+    let s:ctrlp_fallback = 'find %s -type f'
 endif
 
-" Use git when possible, faster for repos
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard', s:ctrlp_ag]
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': s:ctrlp_fallback
+\ }
 
 " Faster matcher
 if has('python')
@@ -283,14 +292,14 @@ let g:openbrowser_default_search = 'duckduckgo'
 """"""""""
 " Preset for my tmux line.
 let g:tmuxline_preset = {
-        \'a'       : '#h',
-        \'b'       : '#(curl icanhazip.com)',
-        \'win'     : '#I #W',
-        \'cwin'    : '#I #W',
-        \'y'       : ['#S', '#I', '#P'],
-        \'z'       : ['%d %b %Y', '%H:%M:%S'],
-        \'options' : {'status-justify' : 'left'}
-    \ }
+    \'a'       : '#h',
+    \'b'       : '#(curl icanhazip.com)',
+    \'win'     : '#I #W',
+    \'cwin'    : '#I #W',
+    \'y'       : ['#S', '#I', '#P'],
+    \'z'       : ['%d %b %Y', '%H:%M:%S'],
+    \'options' : {'status-justify' : 'left'}
+\ }
 
 " Unused options to display other addrs
     "\'c'    : ['#(ifconfig en0 | grep "inet " | awk {print "en0" $2})',
