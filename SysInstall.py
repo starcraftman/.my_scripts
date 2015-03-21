@@ -25,8 +25,9 @@ except ImportError:
 MINIMUM = """ \
     vim build-essential git-core mercurial ccache fontconfig gdb lynx \
     colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
-    p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
-    htop iotop itop mytop dos2unix tree dfc \
+    tcl p7zip-full rar zip unzip gzip lzip xz-utils liblzma5 \
+    htop dos2unix tree dfc flex bison sphinx-common gettext libfile-next-perl \
+    libexpat-dev liblzma-dev libpcre3-dev libcurl4-dev libarchive-dev libevent-dev \
     """
 
 PROGRAMS = """ \
