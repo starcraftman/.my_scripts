@@ -15,97 +15,97 @@ let g:cygwin_shell = has('win32unix')
 let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 
 try
-    call plug#begin(expand(g:vim_dir . '/bundle'))
+  call plug#begin(expand(g:vim_dir . '/bundle'))
 
-    " Completion & Syntax Checking (Heavy Stuff)
-    if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 || (v:version == 703 && has('patch584')))
-        Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
-    elseif has('lua')
-        Plug 'Shougo/neocomplete.vim'
-    endif
-    Plug 'scrooloose/syntastic'
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' "Default snippets
+  " Completion & Syntax Checking (Heavy Stuff)
+  if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 || (v:version == 703 && has('patch584')))
+    Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
+  elseif has('lua')
+    Plug 'Shougo/neocomplete.vim'
+  endif
+  Plug 'scrooloose/syntastic'
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' "Default snippets
 
-    " UI & Enhancements
-    Plug 'bling/vim-airline'
-    Plug 'edkolev/tmuxline.vim'
-    Plug 'edsono/vim-matchit'
-    Plug 'godlygeek/tabular'
-    Plug 'justinmk/vim-sneak'
-    Plug 'Konfekt/FastFold'
-    Plug 'majutsushi/tagbar'
-    Plug 'MattesGroeger/vim-bookmarks'
-    Plug 'rhysd/committia.vim'
-    Plug 'scrooloose/nerdcommenter'
-    Plug 'sjl/gundo.vim'
-    Plug 'vim-scripts/taghighlight'
+  " UI & Enhancements
+  Plug 'bling/vim-airline'
+  Plug 'edkolev/tmuxline.vim'
+  Plug 'edsono/vim-matchit'
+  Plug 'godlygeek/tabular'
+  Plug 'justinmk/vim-sneak'
+  Plug 'Konfekt/FastFold'
+  Plug 'majutsushi/tagbar'
+  Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'rhysd/committia.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'sjl/gundo.vim'
+  Plug 'vim-scripts/taghighlight'
 
-    " Searching & Files
-    Plug 'ctrlpvim/ctrlp.vim' | Plug 'FelikZ/ctrlp-py-matcher'
-    Plug 'kopischke/vim-fetch'
-    "Plug 'ludovicchabant/vim-gutentags'
-    Plug 'mhinz/vim-hugefile'
-    Plug 'mileszs/ack.vim'
-    Plug 'rking/ag.vim'
-    "Plug 'scrooloose/nerdtree'
+  " Searching & Files
+  Plug 'ctrlpvim/ctrlp.vim' | Plug 'FelikZ/ctrlp-py-matcher'
+  Plug 'kopischke/vim-fetch'
+  "Plug 'ludovicchabant/vim-gutentags'
+  Plug 'mhinz/vim-hugefile'
+  Plug 'mileszs/ack.vim'
+  Plug 'rking/ag.vim'
+  "Plug 'scrooloose/nerdtree'
 
-    " Diffing
-    Plug 'ludovicchabant/vim-lawrencium'
-    Plug 'mhinz/vim-signify'
-    Plug 'tpope/vim-fugitive'
-    Plug 'zhaocai/DirDiff.vim'
+  " Diffing
+  Plug 'ludovicchabant/vim-lawrencium'
+  Plug 'mhinz/vim-signify'
+  Plug 'tpope/vim-fugitive'
+  Plug 'zhaocai/DirDiff.vim'
 
-    " Utility
-    Plug 'gorkunov/smartpairs.vim'
-    Plug 'hdima/python-syntax'
-    Plug 'jaxbot/github-issues.vim'
-    Plug 'kshenoy/vim-togglelist'
-    Plug 'tpope/vim-abolish'
-    Plug 'tpope/vim-sleuth'
-    Plug 'tpope/vim-surround'
-    Plug 'tyru/open-browser.vim'
-    Plug 'vim-scripts/a.vim'
-    Plug 'vim-scripts/DeleteTrailingWhitespace'
+  " Utility
+  Plug 'gorkunov/smartpairs.vim'
+  Plug 'hdima/python-syntax'
+  Plug 'jaxbot/github-issues.vim'
+  Plug 'kshenoy/vim-togglelist'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-sleuth'
+  Plug 'tpope/vim-surround'
+  Plug 'tyru/open-browser.vim'
+  Plug 'vim-scripts/a.vim'
+  Plug 'vim-scripts/DeleteTrailingWhitespace'
 
-    " Syntax / File Specific
-    Plug 'chrisbra/csv.vim',            { 'for': 'csv' }
-    Plug 'clones/vim-zsh',              { 'for': 'zsh' }
-    Plug 'elzr/vim-json',               { 'for': 'json' }
-    Plug 'LaTeX-Box-Team/LaTeX-Box',    { 'for': 'tex' }
-    Plug 'plasticboy/vim-markdown',     { 'for': ['markdown', 'md'] }
-    Plug 'tomswartz07/vim-todo',        { 'for': 'todo' }
-    Plug 'zaiste/tmux.vim',             { 'for': 'tmux' }
+  " Syntax / File Specific
+  Plug 'chrisbra/csv.vim',      { 'for': 'csv' }
+  Plug 'clones/vim-zsh',        { 'for': 'zsh' }
+  Plug 'elzr/vim-json',       { 'for': 'json' }
+  Plug 'LaTeX-Box-Team/LaTeX-Box',  { 'for': 'tex' }
+  Plug 'plasticboy/vim-markdown',   { 'for': ['markdown', 'md'] }
+  Plug 'tomswartz07/vim-todo',    { 'for': 'todo' }
+  Plug 'zaiste/tmux.vim',       { 'for': 'tmux' }
 
-    " Testing vim
-    Plug 'junegunn/vader.vim'
+  " Testing vim
+  Plug 'junegunn/vader.vim'
 
-    " Web Programming
-    "Plug 'othree/html5.vim'
-    "Plug 'ap/vim-css-color'
-    "Plug 'hail2u/vim-css3-syntax'
-    "Plug 'kchmck/vim-coffee-script'
-    "Plug 'pangloss/vim-javascript'
-    "Plug 'vim-scripts/jQuery'
-    "Plug 'Shutnik/jshint2.vim'
-    "Plug 'StanAngeloff/php.vim'
-    "Plug 'vim-ruby/vim-ruby'
+  " Web Programming
+  "Plug 'othree/html5.vim'
+  "Plug 'ap/vim-css-color'
+  "Plug 'hail2u/vim-css3-syntax'
+  "Plug 'kchmck/vim-coffee-script'
+  "Plug 'pangloss/vim-javascript'
+  "Plug 'vim-scripts/jQuery'
+  "Plug 'Shutnik/jshint2.vim'
+  "Plug 'StanAngeloff/php.vim'
+  "Plug 'vim-ruby/vim-ruby'
 
-    " Color Schemes I like
-    Plug 'nanotech/jellybeans.vim'
-    Plug 'tomasr/molokai'
-    Plug 'w0ng/vim-hybrid'
-    Plug 'morhetz/gruvbox'
-    " Nice Alternatives
-    "Plug 'chriskempson/vim-tomorrow-theme'
-    "Plug 'Lokaltog/vim-distinguished'
-    "Plug 'tpope/vim-vividchalk'
-    "Plug 'vim-scripts/desert256.vim'
-    " Large Selection to sample
-    "Plug 'flazz/vim-colorschemes'
+  " Color Schemes I like
+  Plug 'nanotech/jellybeans.vim'
+  Plug 'tomasr/molokai'
+  Plug 'w0ng/vim-hybrid'
+  Plug 'morhetz/gruvbox'
+  " Nice Alternatives
+  "Plug 'chriskempson/vim-tomorrow-theme'
+  "Plug 'Lokaltog/vim-distinguished'
+  "Plug 'tpope/vim-vividchalk'
+  "Plug 'vim-scripts/desert256.vim'
+  " Large Selection to sample
+  "Plug 'flazz/vim-colorschemes'
 
-    call plug#end()
+  call plug#end()
 catch
-    echomsg 'Run command `Bootstrap`. After restart run command `pi'
+  echomsg 'Run command `Bootstrap`. After restart run command `pi'
 endtry
 
 " }}}
@@ -154,10 +154,10 @@ let g:EclimShowQuickfixSigns = 0
 """""""""""
 " Set what chechers are active or passive
 let g:syntastic_mode_map = {
-        \ 'mode': 'active',
-        \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
-        \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']
-    \ }
+    \ 'mode': 'active',
+    \ 'active_filetypes': ['c', 'cpp', 'java', 'lisp', 'python', 'perl', 'ruby',
+    \                      'sh', 'xml', 'json', 'xhtml', 'html', 'css', 'javascript']
+\ }
 
 " Check syntax on file open
 "let g:syntastic_check_on_open = 1
@@ -211,34 +211,34 @@ let g:sneak#map_netrw = 1
 " Using user command speeds up but means have to change command for options
 " like hidden or ignores
 if executable('ag')
-    let &grepprg = 'ag --nogroup --nocolor'
-    let s:ctrlp_fallback = 'ag %s -i --nocolor --nogroup --hidden
-        \ --ignore .bzr
-        \ --ignore .git
-        \ --ignore .hg
-        \ --ignore .svn
-        \ --ignore .DS_Store
-        \ --ignore "**/*.pyc"
-        \ --ignore "**/*.class"
-        \ --ignore "**/*.o"
-        \ -g ""'
+  let &grepprg = 'ag --nogroup --nocolor'
+  let s:ctrlp_fallback = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .bzr
+      \ --ignore .git
+      \ --ignore .hg
+      \ --ignore .svn
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore "**/*.class"
+      \ --ignore "**/*.o"
+      \ -g ""'
 elseif g:win_shell
-    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+  let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
 else
-    let s:ctrlp_fallback = 'find %s -type f'
+  let s:ctrlp_fallback = 'find %s -type f'
 endif
 
 let g:ctrlp_user_command = {
     \ 'types': {
-        \ 1: ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard'],
-        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      \ 1: ['.git', 'cd %s && git ls-files . --cached --others --exclude-standard'],
+      \ 2: ['.hg', 'hg --cwd %s locate -I .'],
     \ },
     \ 'fallback': s:ctrlp_fallback
 \ }
 
 " Faster matcher
 if has('python')
-    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
 
 " TagBar
@@ -294,12 +294,12 @@ let g:openbrowser_default_search = 'duckduckgo'
 """"""""""
 " Preset for my tmux line.
 let g:tmuxline_preset = {
-    \'a'       : '#h',
-    \'b'       : '#(curl icanhazip.com)',
+    \'a'     : '#h',
+    \'b'     : '#(curl icanhazip.com)',
     \'win'     : '#I #W',
     \'cwin'    : '#I #W',
-    \'y'       : ['#S', '#I', '#P'],
-    \'z'       : ['%d %b %Y', '%H:%M:%S'],
+    \'y'     : ['#S', '#I', '#P'],
+    \'z'     : ['%d %b %Y', '%H:%M:%S'],
     \'options' : {'status-justify' : 'left'}
 \ }
 
@@ -350,10 +350,10 @@ let g:airline_powerline_fonts = 1
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
 if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/vim-gutentags/LICENCE'))
-    let s:syn_status .= '%{gutentags#statusline()}'
+  let s:syn_status .= '%{gutentags#statusline()}'
 endif
 if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
-    let s:syn_status .= ' || %{SyntasticStatuslineFlag()}'
+  let s:syn_status .= ' || %{SyntasticStatuslineFlag()}'
 endif
 
 " Not prettiest, but functional
@@ -468,8 +468,8 @@ nnoremap <Leader>j :YcmCompleter GoTo<CR>
 
 " For smart TAB completion.
 function! s:check_back_space()
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
@@ -556,8 +556,8 @@ set undolevels=1000
 
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
-    let &undodir = expand(g:vim_dir . '/undo')
-    set undofile
+  let &undodir = expand(g:vim_dir . '/undo')
+  set undofile
 endif
 
 " Autocomplete feature for command mode (i.e. :command)
@@ -582,7 +582,7 @@ set t_vb=
 
 " Set minimum screen size for GVim, on console just fill
 if has('gui_running')
-    set lines=80 columns=140
+  set lines=80 columns=140
 endif
 
 " Enable the mouse in all modes of operation
@@ -641,17 +641,17 @@ syntax off
 " Set dark background before, else colors off
 set background=dark
 try
-    if &diff && (has('gui_running') || &t_Co > 255)
-        colorscheme jellybeans
-    elseif has('gui_running') || &t_Co > 255
-        colorscheme molokai
-        " Molokai CursorLine isn't bright enough.
-        hi CursorLine  ctermbg=236
-    else
-        colorscheme gruvbox
-    endif
+  if &diff && (has('gui_running') || &t_Co > 255)
+    colorscheme jellybeans
+  elseif has('gui_running') || &t_Co > 255
+    colorscheme molokai
+    " Molokai CursorLine isn't bright enough.
+    hi CursorLine  ctermbg=236
+  else
+    colorscheme gruvbox
+  endif
 catch
-    colorscheme desert
+  colorscheme desert
 endtry
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
@@ -660,17 +660,17 @@ syntax on
 
 highlight ColorColumn ctermbg=238
 function s:match_col_no()
-    let col_no = exists('b:match_column_no') ? b:match_column_no : 100
-    call matchadd('ColorColumn', '\%>' . col_no . 'v', 100)
+  let col_no = exists('b:match_column_no') ? b:match_column_no : 100
+  call matchadd('ColorColumn', '\%>' . col_no . 'v', 100)
 endfunction
 
 " Set font when using gui version
 if has('gui_running')
-    if has('gui_gtk2')
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-    elseif has('gui_win32')
-        set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
-    endif
+  if has('gui_gtk2')
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+  elseif has('gui_win32')
+    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+  endif
 endif
 
 " }}}
@@ -698,7 +698,7 @@ set nowrap
 
 " When wrapping, respect the indent of original line.
 if exists('&breakindent')
-    set breakindent
+  set breakindent
 endif
 
 " Makes smarter decisions about what stays on wrapped line
@@ -738,8 +738,8 @@ let s:wild_regex = ''
 let s:netrw_regex = ''
 
 for ext in s:hide_exts
-    let s:wild_regex .= '*.' . ext . ','
-    let s:netrw_regex .= ext . '\|'
+  let s:wild_regex .= '*.' . ext . ','
+  let s:netrw_regex .= ext . '\|'
 endfor
 
 " Don't leave trailing separator
@@ -762,7 +762,7 @@ let s:sort_exts += ['py', 'pl', 'rb', 'html', 'css', 'js', 'xml', 'json']
 
 let g:netrw_sort_sequence = '[\/]$,\<core\%(\.\d\+\)\=\>,'
 for ext in s:sort_exts
-    let g:netrw_sort_sequence .= '\.' . ext . '$,'
+  let g:netrw_sort_sequence .= '\.' . ext . '$,'
 endfor
 let g:netrw_sort_sequence .= '*,\.info$,\.swp$,\.bak$,\~$'
 let g:NERDTreeSortOrder = split(g:netrw_sort_sequence, ',')
@@ -775,47 +775,47 @@ let g:NERDTreeSortOrder = split(g:netrw_sort_sequence, ',')
 
 " Protection against older Vim versions. Gvim reports falsely augroup = 0 sometimes.
 if has('autocmd')
-    if has('gui')
-        augroup gui_cmds
-            autocmd!
-            " Stop bell on gvim.
-            autocmd GuiEnter * set visualbell t_vb=
-        augroup END
-    endif
-
-    augroup buf_cmds
-        autocmd!
-        " Prevent undo files in some paths
-        autocmd BufWritePre /tmp/* setlocal noundofile
-        " All .md files should be markdown
-        autocmd BufRead,BufNewFile *.md set filetype=markdown
-        " When change vimrc, reload it on write.
-        "autocmd BufWritePost $MYVIMRC source $MYVIMRC
-        " When leaving window, save state to a file. Restore on return
-        " Includes cursor position, fold states,
-        "au BufWinLeave *.* silent! mkview
-        "au BufWinEnter *.* silent! loadview
-        autocmd BufRead * call Vex.Off()
-
-        "Highlight when I exceed a column limit
-        autocmd BufEnter * call s:match_col_no()
+  if has('gui')
+    augroup gui_cmds
+      autocmd!
+      " Stop bell on gvim.
+      autocmd GuiEnter * set visualbell t_vb=
     augroup END
+  endif
 
-    " Register funcs with filetype load
-    augroup ftype_cmds
-        autocmd!
-        " missing keywords for bash statement syntax
-        autocmd FileType sh exec 'syntax keyword shStatement source shopt'
-    augroup END
+  augroup buf_cmds
+    autocmd!
+    " Prevent undo files in some paths
+    autocmd BufWritePre /tmp/* setlocal noundofile
+    " All .md files should be markdown
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    " When change vimrc, reload it on write.
+    "autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    " When leaving window, save state to a file. Restore on return
+    " Includes cursor position, fold states,
+    "au BufWinLeave *.* silent! mkview
+    "au BufWinEnter *.* silent! loadview
+    autocmd BufRead * call Vex.Off()
 
-    augroup netrw_cmds
-        autocmd!
-        autocmd FileType netrw nmap <buffer> <Leader>x gh
-        autocmd FileType netrw nmap <buffer> <silent> <Leader>z :call <SID>ShowSyms()<CR>
-        autocmd FileType netrw nmap <buffer> <silent> q :call Vex.Close()<CR>
-        autocmd FileType netrw nmap <buffer> <silent> o :call Vex.Action('new')<CR>
-        autocmd FileType netrw nunmap <buffer> <C-L>
-    augroup END
+    "Highlight when I exceed a column limit
+    autocmd BufEnter * call s:match_col_no()
+  augroup END
+
+  " Register funcs with filetype load
+  augroup ftype_cmds
+    autocmd!
+    " missing keywords for bash statement syntax
+    autocmd FileType sh exec 'syntax keyword shStatement source shopt'
+  augroup END
+
+  augroup netrw_cmds
+    autocmd!
+    autocmd FileType netrw nmap <buffer> <Leader>x gh
+    autocmd FileType netrw nmap <buffer> <silent> <Leader>z :call <SID>ShowSyms()<CR>
+    autocmd FileType netrw nmap <buffer> <silent> q :call Vex.Close()<CR>
+    autocmd FileType netrw nmap <buffer> <silent> o :call Vex.Action('new')<CR>
+    autocmd FileType netrw nunmap <buffer> <C-L>
+  augroup END
 endif
 
 " }}}
@@ -832,205 +832,205 @@ command! -nargs=0 SchemePick call Color.Pick()
 
 let g:Color = {}
 function! Color.Init(remDefaults)
-    " Populate list
-    let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
-    if a:remDefaults == 1
-        let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
-        let schemes = filter(schemes, "v:val !~ pattern")
-    endif
-    let self.list = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
+  " Populate list
+  let schemes = split(globpath(&rtp, 'colors/*.vim'), '\n')
+  if a:remDefaults == 1
+    let pattern = g:win_shell ? 'vim7.4withLua' : 'share/vim'
+    let schemes = filter(schemes, "v:val !~ pattern")
+  endif
+  let self.list = sort(map(schemes, "fnamemodify(v:val, ':t')[0:-5]"))
 
-    " Find current index
-    let self.cur = 0
-    for scheme in schemes
-        if scheme ==? g:colors_name
-            break
-        endif
-        let self.cur += 1
-    endfor
-    let self.default = self.cur + 1
-
-    if (len(self.list) > 26)
-        echomsg 'too many schemes, listing first 26'
-        return
+  " Find current index
+  let self.cur = 0
+  for scheme in schemes
+    if scheme ==? g:colors_name
+      break
     endif
+    let self.cur += 1
+  endfor
+  let self.default = self.cur + 1
+
+  if (len(self.list) > 26)
+    echomsg 'too many schemes, listing first 26'
+    return
+  endif
 endfunction
 
 " Returns a string with anchors for confirm dialog
 function! Color.Choices()
-    let msg = ""
-    let char = "A"
-    for s in self.list
-        let msg .= "&" . char . s . "\n"
-        let char = nr2char(char2nr(char) + 1)
-        " Stop at 26th
-        if char == "["
-            break
-        endif
-    endfor
-    return msg[0:-2]
+  let msg = ""
+  let char = "A"
+  for s in self.list
+    let msg .= "&" . char . s . "\n"
+    let char = nr2char(char2nr(char) + 1)
+    " Stop at 26th
+    if char == "["
+      break
+    endif
+  endfor
+  return msg[0:-2]
 endfunction
 
 function! Color.Set()
-    " Set new scheme
-    syntax off
-    set background=dark
-    exec 'colorscheme ' . self.list[self.cur]
-    syntax on
-    echomsg 'colorscheme is now: ' . g:colors_name
+  " Set new scheme
+  syntax off
+  set background=dark
+  exec 'colorscheme ' . self.list[self.cur]
+  syntax on
+  echomsg 'colorscheme is now: ' . g:colors_name
 endfunction
 
 function! Color.Next()
-    let self.cur = (self.cur + 1) % len(self.list)
-    call self.Set()
+  let self.cur = (self.cur + 1) % len(self.list)
+  call self.Set()
 endfunction
 
 function! Color.Prev()
-    let self.cur = (self.cur - 1) % len(self.list)
-    call self.Set()
+  let self.cur = (self.cur - 1) % len(self.list)
+  call self.Set()
 endfunction
 
 function! Color.Pick()
-    " Returns cur of 1 - n choices
-    let self.cur = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
-    call self.Set()
+  " Returns cur of 1 - n choices
+  let self.cur = confirm("Pick Scheme From:", self.Choices(), self.default) - 1
+  call self.Set()
 endfunction
 call Color.Init(1)
 
 " For a block of lines change spacing from old tab size to new tab size.
 command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-args>)
 function! s:ChangeSpace(line1, line2, old_tab, new_tab)
-    let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
+  let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
 
-    exec printf('set ts=%s sts=%s sw=%s noet', a:old_tab, a:old_tab, a:old_tab)
-    exec l:rtab_cmd . '!'
+  exec printf('set ts=%s sts=%s sw=%s noet', a:old_tab, a:old_tab, a:old_tab)
+  exec l:rtab_cmd . '!'
 
-    exec printf('set ts=%s sts=%s sw=%s et', a:new_tab, a:new_tab, a:new_tab)
-    exec l:rtab_cmd
+  exec printf('set ts=%s sts=%s sw=%s et', a:new_tab, a:new_tab, a:new_tab)
+  exec l:rtab_cmd
 endfunction
 
 " Open the ftplugin file for current buffer
 command! -nargs=0 FTOpen call s:FTOpen()
 function! s:FTOpen()
-    let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
-    exec 'sp ' . l:file
+  let l:file = printf('%s/ftplugin/%s.vim', g:vim_dir, &ft)
+  exec 'sp ' . l:file
 endfunction
 
 " Given a netrw buffer, extract filename on line
 function! s:ExtractFullPath(line)
-    let l:left = 0
-    let l:right = len(a:line) - 1
+  let l:left = 0
+  let l:right = len(a:line) - 1
 
+  let l:char = a:line[l:left]
+  while l:char == ' ' || l:char == '|'
+    let l:left += 1
     let l:char = a:line[l:left]
-    while l:char == ' ' || l:char == '|'
-        let l:left += 1
-        let l:char = a:line[l:left]
-    endwhile
+  endwhile
 
+  let char = a:line[l:right]
+  while l:char =~ '[/*|@=]$'
+    let right -= 1
     let char = a:line[l:right]
-    while l:char =~ '[/*|@=]$'
-        let right -= 1
-        let char = a:line[l:right]
-    endwhile
+  endwhile
 
-    let l:link = strpart(a:line, l:left, l:right - l:left + 1)
+  let l:link = strpart(a:line, l:left, l:right - l:left + 1)
 
-    if exists('s:max_link') && len(l:link) > s:max_link
-        let s:max_link = len(l:link)
-    endif
+  if exists('s:max_link') && len(l:link) > s:max_link
+    let s:max_link = len(l:link)
+  endif
 
-    return [l:link, resolve(getcwd() . "/" . l:link)]
+  return [l:link, resolve(getcwd() . "/" . l:link)]
 endfunction
 
 " Shows in an echo the target of links
 " New netrw >= 153 seems to support it via display
 function! s:ShowSyms()
-    let l:count = 1
-    let l:files = []
-    let s:max_link = 0
+  let l:count = 1
+  let l:files = []
+  let s:max_link = 0
 
-    for l:line in getline(1, '$')
-        if l:line =~ '@$'
-            let l:files  += [[l:count] + s:ExtractFullPath(l:line)]
-        endif
+  for l:line in getline(1, '$')
+    if l:line =~ '@$'
+      let l:files  += [[l:count] + s:ExtractFullPath(l:line)]
+    endif
 
-        let l:count += 1
-    endfor
+    let l:count += 1
+  endfor
 
-    let l:output = ""
-    let l:fmt = "ln: %5d %" . s:max_link . "s -> %s\n"
-    for l:entry in l:files
-        let l:output .= printf(l:fmt, l:entry[0], l:entry[1], l:entry[2])
-    endfor
-    echo l:output
+  let l:output = ""
+  let l:fmt = "ln: %5d %" . s:max_link . "s -> %s\n"
+  for l:entry in l:files
+    let l:output .= printf(l:fmt, l:entry[0], l:entry[1], l:entry[2])
+  endfor
+  echo l:output
 endfunction
 
 " Make a NERDTree like side buffer
 let g:Vex = {}
 function! Vex.Toggle()
-    if exists('t:vex')
-        call self.Close()
-    else
-        call self.Open()
-    endif
+  if exists('t:vex')
+    call self.Close()
+  else
+    call self.Open()
+  endif
 endfunction
 
 function! Vex.Off()
-    if exists('t:vex')
-        call self.Close()
-    endif
+  if exists('t:vex')
+    call self.Close()
+  endif
 endfunction
 
 function! Vex.Open()
-    let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
-    let g:netrw_browse_split = 4
+  let t:vex = {'orig_buf': winnr(), 'orig_bsplit': g:netrw_browse_split}
+  let g:netrw_browse_split = 4
 
-    topleft vnew
-    wincmd H
-    execute 'vertical resize ' . g:NERDTreeWinSize
-    Explore
+  topleft vnew
+  wincmd H
+  execute 'vertical resize ' . g:NERDTreeWinSize
+  Explore
 
-    let t:vex.new_buf = bufnr('%')
+  let t:vex.new_buf = bufnr('%')
 endfunction
 
 function! Vex.Close()
-    let vex_buf = bufwinnr(t:vex.new_buf)
+  let vex_buf = bufwinnr(t:vex.new_buf)
 
-    if vex_buf != -1
-        execute vex_buf . ' wincmd w'
-        close
-        execute t:vex.orig_buf . ' wincmd w'
-    endif
+  if vex_buf != -1
+    execute vex_buf . ' wincmd w'
+    close
+    execute t:vex.orig_buf . ' wincmd w'
+  endif
 
-    let g:netrw_browse_split = t:vex.orig_bsplit
-    unlet t:vex
+  let g:netrw_browse_split = t:vex.orig_bsplit
+  unlet t:vex
 endfunction
 
 function! Vex.Action(action)
-    let l:orig_win = winnr()
-    wincmd l
-    execute a:action
-    let t:vex.orig_buf = winnr()
-    execute l:orig_win . ' wincmd w'
-    call feedkeys("\<CR>", 't')
+  let l:orig_win = winnr()
+  wincmd l
+  execute a:action
+  let t:vex.orig_buf = winnr()
+  execute l:orig_win . ' wincmd w'
+  call feedkeys("\<CR>", 't')
 endfunction
 
 command! -nargs=+ FileFetch call g:FileFetch(<f-args>)
 function! g:FileFetch(src, dst)
-    let l:dst_dir = fnamemodify(a:dst, ':h')
-    if !isdirectory(l:dst_dir)
-        call mkdir(l:dst_dir, 'p')
-    endif
-    if has('python')
-        call s:fetch_python(a:src, a:dst)
-    elseif has('ruby')
-        call s:fetch_ruby(a:src, a:dst)
-    elseif executable('curl')
-        execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
-    else
-        echoerr 'No supported file download method.'
-    endif
-    echomsg 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
+  let l:dst_dir = fnamemodify(a:dst, ':h')
+  if !isdirectory(l:dst_dir)
+    call mkdir(l:dst_dir, 'p')
+  endif
+  if has('python')
+    call s:fetch_python(a:src, a:dst)
+  elseif has('ruby')
+    call s:fetch_ruby(a:src, a:dst)
+  elseif executable('curl')
+    execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
+  else
+    echoerr 'No supported file download method.'
+  endif
+  echomsg 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
 endfunction
 
 function! s:fetch_python(src, dst)
@@ -1043,35 +1043,35 @@ endfunction
 
 function! s:fetch_ruby(src, dst)
 ruby << EOF
-  require 'open-uri'
-  File.open(VIM::evaluate('a:dst'), 'w') do |f|
-    f << open(VIM::evaluate('a:src')).read
-  end
+require 'open-uri'
+File.open(VIM::evaluate('a:dst'), 'w') do |f|
+f << open(VIM::evaluate('a:src')).read
+end
 EOF
 endfunction
 
 command! -nargs=0 Bootstrap call s:bootstrap()
 function! s:bootstrap()
-    let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
-    call g:FileFetch(plug_src, plug_dst)
-    echo 'Done, please restart and run `PlugInstall`.'
+  let plug_src = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  let plug_dst = expand(g:vim_dir . '/autoload/plug.vim')
+  call g:FileFetch(plug_src, plug_dst)
+  echo 'Done, please restart and run `PlugInstall`.'
 endfunction
 
 command! -nargs=0 VimrcUpdate call s:vimrc_update()
 function! s:vimrc_update()
-    let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
-    call g:FileFetch(src, $MYVIMRC)
+  let src = 'https://raw.githubusercontent.com/starcraftman/.my_scripts/master/dot_files/.vimrc'
+  call g:FileFetch(src, $MYVIMRC)
 endfunction
 
 " Bundle env variables, vimrc & .vim folders for remote deploy
 command! -nargs=0 BundleVim call s:bundle_vim()
 function! s:bundle_vim()
-    let src = 'https://raw.githubusercontent.com/junegunn/myvim/master/myvim'
-    let dst = 'myvim'
-    call g:FileFetch(src, dst)
-    execute '!bash ' . dst
-    call delete(dst)
+  let src = 'https://raw.githubusercontent.com/junegunn/myvim/master/myvim'
+  let dst = 'myvim'
+  call g:FileFetch(src, dst)
+  execute '!bash ' . dst
+  call delete(dst)
 endfunction
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
