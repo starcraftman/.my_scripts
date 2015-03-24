@@ -144,6 +144,16 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'libuv': {
+        'name': 'libuv',
+        'check': 'lib/libuv.so',
+        'url': 'https://github.com/libuv/libuv',
+        'cmds': [
+            'sh autogen.sh',
+            './configure --prefix=TARGET',
+            'make install',
+        ],
+    },
     'jansson': {
         'name' : 'jansson',
         'check': 'lib/libjansson.so',
@@ -391,6 +401,7 @@ def main():
     argtable    Install args parsing library..
     cunit       Install the cunit test library.
     jansson     Install a json parsing library.
+    libuv       Install an async IO library.
     libxml      Install a xml parsing library.
     """
     parser = argparse.ArgumentParser(description=mesg,

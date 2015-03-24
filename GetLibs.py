@@ -133,6 +133,16 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'libuv': {
+        'name': 'libuv',
+        'check': 'lib/libuv.so',
+        'url': 'https://github.com/libuv/libuv',
+        'cmds': [
+            'sh autogen.sh',
+            './configure --prefix=TARGET',
+            'make install',
+        ],
+    },
     'libxml': {
         'name': 'libxml',
         'check': 'lib/libxml2.so',
@@ -167,6 +177,7 @@ def main():
     cunit       Install the cunit test library.
     gnump       Install the GNU multiprecision library.
     jansson     Install a json parsing library.
+    libuv       Install an async IO library.
     libxml      Install a xml parsing library.
     """
     parser = argparse.ArgumentParser(description=mesg,
