@@ -640,15 +640,19 @@ syntax off
 
 " Set dark background before, else colors off
 set background=dark
-if &diff && (has('gui_running') || &t_Co > 255)
-    colorscheme jellybeans
-elseif has('gui_running') || &t_Co > 255
-    colorscheme molokai
-    " Molokai CursorLine isn't bright enough.
-    hi CursorLine  ctermbg=236
-else
+try
+    if &diff && (has('gui_running') || &t_Co > 255)
+        colorscheme jellybeans
+    elseif has('gui_running') || &t_Co > 255
+        colorscheme molokai
+        " Molokai CursorLine isn't bright enough.
+        hi CursorLine  ctermbg=236
+    else
+        colorscheme gruvbox
+    endif
+catch
     colorscheme desert
-endif
+endtry
 " Other good colorschemes:
 "   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
