@@ -93,11 +93,17 @@ try
     "Plug 'StanAngeloff/php.vim'
     "Plug 'vim-ruby/vim-ruby'
 
-    " Best Schemes
-    "Plug 'nanotech/jellybeans.vim'
-    "Plug 'tomasr/molokai'
-    "Plug 'w0ng/vim-hybrid'
-    " Large Selection, too many for longterm
+    " Color Schemes I like
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'tomasr/molokai'
+    Plug 'w0ng/vim-hybrid'
+    Plug 'morhetz/gruvbox'
+    " Nice Alternatives
+    "Plug 'chriskempson/vim-tomorrow-theme'
+    "Plug 'Lokaltog/vim-distinguished'
+    "Plug 'tpope/vim-vividchalk'
+    "Plug 'vim-scripts/desert256.vim'
+    " Large Selection to sample
     "Plug 'flazz/vim-colorschemes'
 
     call plug#end()

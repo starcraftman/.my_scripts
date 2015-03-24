@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
-SCRIPT_D=$(readlink -f $(dirname $0))
 
 # Update repositories passed as arguments
 update_repos() {
@@ -59,7 +58,6 @@ update_repos "${REPOS[@]}"
 if [ -f ~/.vim/autoload/plug.vim ]; then
     echo 'Updating vim plugins.'
     vim +PlugUpdate +qa
-    "$SCRIPT_D/archive/vim_colors.sh" >/dev/null 2>&1 &
 fi
 
 if valid_name apt-get; then
