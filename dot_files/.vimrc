@@ -9,9 +9,6 @@
 """""""""
 " {{{
 
-set nocompatible
-filetype off
-
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
@@ -109,8 +106,6 @@ try
     call plug#end()
 catch
     echomsg 'Run command `Bootstrap`. After restart run command `pi'
-finally
-    filetype plugin indent on
 endtry
 
 " }}}
