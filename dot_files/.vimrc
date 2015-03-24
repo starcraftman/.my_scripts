@@ -60,6 +60,7 @@ try
 
     " Utility
     Plug 'gorkunov/smartpairs.vim'
+    Plug 'hdima/python-syntax'
     Plug 'jaxbot/github-issues.vim'
     Plug 'kshenoy/vim-togglelist'
     Plug 'tpope/vim-abolish'
@@ -73,7 +74,6 @@ try
     Plug 'chrisbra/csv.vim',            { 'for': 'csv' }
     Plug 'clones/vim-zsh',              { 'for': 'zsh' }
     Plug 'elzr/vim-json',               { 'for': 'json' }
-    Plug 'hdima/python-syntax',         { 'for': 'python' }
     Plug 'LaTeX-Box-Team/LaTeX-Box',    { 'for': 'tex' }
     Plug 'plasticboy/vim-markdown',     { 'for': ['markdown', 'md'] }
     Plug 'tomswartz07/vim-todo',        { 'for': 'todo' }
