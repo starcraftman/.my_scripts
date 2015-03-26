@@ -336,7 +336,6 @@ endfunction
 function s:goyo_leave()
   " Hack to fix airline bug
   split
-  redraw
   quit
 endfunction
 
