@@ -123,7 +123,8 @@ BUILDS = {
         'check': 'bin/nvim',
         'url': 'https://github.com/neovim/neovim',
         'cmds': [
-            'make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" '
+            'make CMAKE_BUILD_TYPE=RelWithDebInfo ' \
+            'CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" '
             'install',
         ],
     },

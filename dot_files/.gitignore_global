@@ -76,6 +76,8 @@ Thumbs.db
 # Extra #
 #########
 .ycm_extra_conf.py*
+tags
+*.taghl
 *.kdev4
 *-swp
 *.swp
