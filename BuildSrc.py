@@ -435,6 +435,7 @@ def main():
     atom         Build the latest atom editor.
     cmake        Build the latest cmake.
     ctags        Build the latest exhuberant ctags github fork.
+                    OPTIONAL: sudo gem install CoffeeTags
     dev          Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen      Build the latest doxygen.
     git          Build the latest git release.
