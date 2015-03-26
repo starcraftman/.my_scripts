@@ -349,9 +349,6 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
-if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/vim-gutentags/LICENCE'))
-  let s:syn_status .= '%{gutentags#statusline()}'
-endif
 if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
   let s:syn_status .= ' || %{SyntasticStatuslineFlag()}'
 endif
