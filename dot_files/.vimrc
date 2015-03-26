@@ -59,6 +59,7 @@ try
   Plug 'gorkunov/smartpairs.vim'
   Plug 'hdima/python-syntax'
   Plug 'jaxbot/github-issues.vim'
+  Plug 'junegunn/goyo.vim'
   Plug 'kshenoy/vim-togglelist'
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-sleuth'
@@ -91,10 +92,10 @@ try
   "Plug 'vim-ruby/vim-ruby'
 
   " Color Schemes I like
+  Plug 'morhetz/gruvbox'
   Plug 'nanotech/jellybeans.vim'
   Plug 'tomasr/molokai'
   Plug 'w0ng/vim-hybrid'
-  Plug 'morhetz/gruvbox'
   " Nice Alternatives
   "Plug 'chriskempson/vim-tomorrow-theme'
   "Plug 'Lokaltog/vim-distinguished'
@@ -325,6 +326,24 @@ let g:bookmark_auto_close = 1
 """""""""""""""
 " On forks, find issues from upstream ONLY.
 "let g:github_upstream_issues = 1
+
+" Goyo.vim
+""""""""""
+" Hooks that run on enter/exit of Goyo command
+function s:goyo_enter()
+endfunction
+
+function s:goyo_leave()
+  " Hack to fix airline bug
+  split
+  redraw
+  quit
+endfunction
+
+autocmd! User GoyoEnter
+autocmd! User GoyoLeave
+autocmd  User GoyoEnter nested call <SID>goyo_enter()
+autocmd  User GoyoLeave nested call <SID>goyo_leave()
 
 " }}}
 
