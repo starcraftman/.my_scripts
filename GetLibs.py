@@ -62,7 +62,7 @@ BUILDS = {
         'url': 'https://github.com/open-source-parsers/jsoncpp',
         'cmds': [
             'cmake -DCMAKE_INSTALL_PREFIX=TARGET -DCMAKE_BUILD_TYPE=debug '
-            '-DJSONCPP_LIB_BUILD_SHARED=ON .',
+                    '-DJSONCPP_LIB_BUILD_SHARED=ON .',
             'make install',
         ],
     },

@@ -123,9 +123,9 @@ BUILDS = {
         'check': 'bin/nvim',
         'url': 'https://github.com/neovim/neovim',
         'cmds': [
-            'make CMAKE_BUILD_TYPE=RelWithDebInfo ' \
-            'CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" '
-            'install',
+            'make CMAKE_BUILD_TYPE=RelWithDebInfo '
+                    'CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=TARGET" '
+                    'install',
         ],
     },
     'parallel': {
@@ -170,9 +170,9 @@ BUILDS = {
         'url': 'https://code.google.com/p/vim/',
         'cmds': [
             './configure --with-features=huge --enable-gui=gtk2 '
-            '--enable-cscope --enable-multibyte --enable-luainterp '
-            '--enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
-            'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
+                    '--enable-cscope --enable-multibyte --enable-luainterp '
+                    '--enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
+                    'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make -jJOBS install',
         ],
     },
