@@ -167,7 +167,8 @@ BUILDS = {
     'vim': {
         'name': 'vim',
         'check': 'bin/vim',
-        'url': 'https://code.google.com/p/vim/',
+        #'url': 'https://code.google.com/p/vim/',
+        'url': 'https://github.com/vim/vim',
         'cmds': [
             './configure --with-features=huge --enable-gui=gtk2 '
                     '--enable-cscope --enable-multibyte --enable-luainterp '
