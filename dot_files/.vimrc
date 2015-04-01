@@ -700,6 +700,9 @@ set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 
+" When using `<<` or `>>`, round to nearest multiple of shiftwidth
+set shiftround
+
 " Use spaces instead of tabs
 set expandtab
 

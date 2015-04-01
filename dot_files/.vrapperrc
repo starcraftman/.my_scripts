@@ -4,11 +4,15 @@ imap jk <esc>
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set shiftround
+set expandtab
 
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+
+set cursorline
 set number
 set scrolloff=10
 
