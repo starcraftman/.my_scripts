@@ -82,7 +82,7 @@ tags
 *-swp
 *.swp
 /build
-/build_i
+/i
 *.pro
 
 # You can uncomment the ".directory" it if you don't care about e.g.:
