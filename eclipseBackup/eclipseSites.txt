@@ -12,6 +12,9 @@ UI:
     Color Plugin - http://eclipse-color-theme.github.com/update/
     Vim Plugin - http://vrapper.sourceforge.net/update-site/stable
 
+Tools:
+    TCF Terminals Luna SR2+ Site - http://download.eclipse.org/tools/tcf/terminals_lunasr2
+
 Experimental:
     DarkTheme - https://raw.github.com/guari/eclipse-ui-theme/master/com.github.eclipseuitheme.themes.updatesite
 
