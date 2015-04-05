@@ -452,6 +452,7 @@ def main():
     doxygen      Build the latest doxygen.
     git          Build the latest git release.
     neovim       Build neovim from source (still alpha).
+    ninja        Build latest ninja release (GNU Make replacement).
     python       Build the latest python 2.x.
     python3      Build the latest python 3.x.
     tmux         Build the latest tmux.
