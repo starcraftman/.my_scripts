@@ -128,6 +128,17 @@ BUILDS = {
                     'install',
         ],
     },
+    'ninja': {
+        'name': 'ninja',
+        'check': 'bin/ninja',
+        'url': '-b release https://github.com/martine/ninja.git',
+        'cmds': [
+            './configure.py --bootstrap',
+        ],
+        'globs': [
+            ('ninja', 'bin/')
+        ],
+    },
     'parallel': {
         'name': 'parallel',
         'check': 'bin/parallel',

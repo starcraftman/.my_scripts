@@ -32,6 +32,7 @@ export ANT_HOME=/usr/share/ant
 
 # Path to lookup functions
 fpath=(~/.shell/.zsh-completions/src $fpath)
+fpath=(~/.zsh_completions $fpath)
 #}}}
 ############################################################################
 # Environment Variables
