@@ -29,10 +29,10 @@ class WorkerInterrupted(Exception):
     """ Workers handle Exception's easier than intterupts. """
     pass
 
-URL_CMAKE = 'http://www.cmake.org/files/v3.1/cmake-3.1.3.tar.gz'
-URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.1.tar.xz'
+URL_CMAKE = 'http://www.cmake.org/files/v3.2/cmake-3.2.1.tar.gz'
+URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.5.tar.xz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
-URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz'
+URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz'
 URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/' \
             'tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/' \
