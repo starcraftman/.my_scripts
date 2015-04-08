@@ -69,13 +69,13 @@ try
   Plug 'vim-scripts/DeleteTrailingWhitespace'
 
   " Syntax / File Specific
-  Plug 'chrisbra/csv.vim',      { 'for': 'csv' }
-  Plug 'clones/vim-zsh',        { 'for': 'zsh' }
-  Plug 'elzr/vim-json',       { 'for': 'json' }
+  Plug 'chrisbra/csv.vim',          { 'for': 'csv' }
+  Plug 'clones/vim-zsh',            { 'for': 'zsh' }
+  Plug 'elzr/vim-json',             { 'for': 'json' }
   Plug 'LaTeX-Box-Team/LaTeX-Box',  { 'for': 'tex' }
   Plug 'plasticboy/vim-markdown',   { 'for': ['markdown', 'md'] }
-  Plug 'tomswartz07/vim-todo',    { 'for': 'todo' }
-  Plug 'zaiste/tmux.vim',       { 'for': 'tmux' }
+  Plug 'tomswartz07/vim-todo',      { 'for': 'todo' }
+  Plug 'zaiste/tmux.vim',           { 'for': 'tmux' }
 
   " Testing vim
   Plug 'junegunn/vader.vim'
@@ -573,6 +573,10 @@ set undolevels=1000
 " Keep a persistent backup file, preserves undo history between edit sessions
 if has('persistent_undo')
   let &undodir = expand(g:vim_dir . '/undo')
+  try
+    call mkdir(&undodir, 'p')
+  catch
+  endtry
   set undofile
 endif
 
