@@ -510,7 +510,12 @@ nnoremap <Leader>jq :%!jq .<CR>
 nnoremap <Leader>jQ :%!jq . -c<CR>
 
 " Paste toggle button, disables f1 help use command instead
-set pastetoggle=<F1>
+" No longer needed on nvim
+if !has('nvim')
+  set pastetoggle=<F1>
+else
+  nmap <silent> <F1> <F5>
+endif
 
 " Shortcut for tagbar outline of file
 nnoremap <silent> <F2> :TagbarToggle<CR>
@@ -530,6 +535,10 @@ inoremap <silent> <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
 
 " Shortcut to remember how to reindent file
 nnoremap <F12> mzgg=G'z
+
+if has('nvim')
+  tnoremap jk <C-\><C-n>
+endif
 
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
