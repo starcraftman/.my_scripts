@@ -537,7 +537,7 @@ inoremap <silent> <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
 nnoremap <F12> mzgg=G'z
 
 if has('nvim')
-  tnoremap jk <C-\><C-n>
+  tnoremap <C-J> <C-\><C-n>
 endif
 
 " }}}
