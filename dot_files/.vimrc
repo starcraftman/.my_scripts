@@ -12,7 +12,8 @@
 " On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
 let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
-let g:vim_dir = g:win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
+let s:prefix = has('nvim') ? 'nvim' : 'vim'
+let g:vim_dir = printf(g:win_shell ? '$HOME/%sfiles' : '$HOME/.%s', s:prefix)
 
 try
   call plug#begin(expand(g:vim_dir . '/bundle'))
