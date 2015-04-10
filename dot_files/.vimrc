@@ -105,6 +105,11 @@ try
   " Large Selection to sample
   "Plug 'flazz/vim-colorschemes'
 
+  " Vim/Nvim specific
+  if !has('nvim')
+    Plug 'ConradIrwin/vim-bracketed-paste'
+  endif
+
   call plug#end()
 catch
   echomsg 'Run command `Bootstrap`. After restart run command `pi'
@@ -509,13 +514,8 @@ nnoremap <Leader>X :%!xxd -r<CR>
 nnoremap <Leader>jq :%!jq .<CR>
 nnoremap <Leader>jQ :%!jq . -c<CR>
 
-" Paste toggle button, disables f1 help use command instead
-" No longer needed on nvim
-if !has('nvim')
-  set pastetoggle=<F1>
-else
-  nmap <silent> <F1> <F5>
-endif
+" Paste toggle button, disables indents. No longer needed?
+"set pastetoggle=<F1>
 
 " Shortcut for tagbar outline of file
 nnoremap <silent> <F2> :TagbarToggle<CR>
@@ -526,12 +526,12 @@ nnoremap <silent> <F3> :GundoToggle<CR>
 inoremap <silent> <F3> <Esc>:GundoToggle<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle line numbers
-nnoremap <silent> <F5> :set number!<CR>:sign unplace *<CR>
-inoremap <silent> <F5> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
+nnoremap <silent> <F1> :set number!<CR>:sign unplace *<CR>
+inoremap <silent> <F1> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle showing whitespace
-nnoremap <silent> <F6> :set list!<CR>
-inoremap <silent> <F6> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
+nnoremap <silent> <F5> :set list!<CR>
+inoremap <silent> <F5> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
 
 " Shortcut to remember how to reindent file
 nnoremap <F12> mzgg=G'z
