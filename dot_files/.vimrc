@@ -220,12 +220,21 @@ let g:sneak#map_netrw = 1
 " like hidden or ignores
 if executable('ag')
   let &grepprg = 'ag --nogroup --nocolor'
-  let s:ctrlp_fallback = 'ag %s -i --nocolor --nogroup --hidden
+  let s:ctrlp_fallback = 'ag %s
+      \ --nocolor --nogroup --depth 5
+      \ --hidden --follow --smart-case
+      \ --ignore .bazaar
       \ --ignore .bzr
       \ --ignore .git
       \ --ignore .hg
       \ --ignore .svn
+      \ --ignore .ccache
       \ --ignore .DS_Store
+      \ --ignore .opt1
+      \ --ignore .pylint.d
+      \ --ignore .shell
+      \ --ignore .wine
+      \ --ignore .wine-pipelight
       \ --ignore "**/*.pyc"
       \ --ignore "**/*.class"
       \ --ignore "**/*.o"
