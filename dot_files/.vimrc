@@ -47,8 +47,9 @@ try
   "Plug 'ludovicchabant/vim-gutentags'
   Plug 'mhinz/vim-hugefile'
   Plug 'mileszs/ack.vim'
-  Plug 'rking/ag.vim'
+  "Plug 'rking/ag.vim'
   "Plug 'scrooloose/nerdtree'
+  Plug 'gabesoft/vim-ags'
 
   " Diffing
   Plug 'ludovicchabant/vim-lawrencium'
