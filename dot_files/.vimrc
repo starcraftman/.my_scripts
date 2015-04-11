@@ -47,7 +47,6 @@ try
   "Plug 'ludovicchabant/vim-gutentags'
   Plug 'mhinz/vim-hugefile'
   Plug 'mileszs/ack.vim'
-  "Plug 'rking/ag.vim'
   "Plug 'scrooloose/nerdtree'
   Plug 'gabesoft/vim-ags'
 
@@ -1376,7 +1375,7 @@ endfunction
 "       Execute .vader files with Vader file.vader.
 "       https://github.com/junegunn/vader.vim
 "   vim-tasklist:
-"       <Leader>t -> quickfix with TODOs/FIXMEs.
+"       <Leader>t -> quickfix with todos/fixmes.
 "       https://github.com/vim-scripts/tasklist.vim
 "   vim-bracketed-paste:
 "       No more paste toggle before pasting.
@@ -1402,8 +1401,11 @@ endfunction
 "   Pathogen:
 "       A manual alternative to Vundle
 "       https://github.com/tpope/vim-pathogen
+"   vim-startify:
+"       Nicer homepage with MRU files.TODO
+"       https://github.com/mhinz/vim-startify
 "   vim-gutentags:
-"       Ctags background generation & updating. TODO
+"       Ctags background generation & updating.TODO
 "       https://github.com/ludovicchabant/vim-gutentags
 "   ag.vim (Silver Searcher):
 "       Searches code quickly, faster than grep. Requires silversearcher-ag.
