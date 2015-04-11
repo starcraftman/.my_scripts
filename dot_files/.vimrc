@@ -72,14 +72,14 @@ try
   Plug 'vim-scripts/tasklist.vim'
 
   " Syntax / File Specific
-  Plug 'chrisbra/csv.vim',          { 'for': 'csv' }
-  Plug 'clones/vim-zsh',            { 'for': 'zsh' }
-  Plug 'elzr/vim-json',             { 'for': 'json' }
-  Plug 'justinmk/vim-syntax-extra', { 'for': 'c' }
-  Plug 'LaTeX-Box-Team/LaTeX-Box',  { 'for': 'tex' }
-  Plug 'plasticboy/vim-markdown',   { 'for': ['markdown', 'md'] }
-  Plug 'tomswartz07/vim-todo',      { 'for': 'todo' }
-  Plug 'zaiste/tmux.vim',           { 'for': 'tmux' }
+  Plug 'chrisbra/csv.vim',                      { 'for': 'csv' }
+  Plug 'clones/vim-zsh',                        { 'for': 'zsh' }
+  Plug 'elzr/vim-json',                         { 'for': 'json' }
+  Plug 'justinmk/vim-syntax-extra',             { 'for': 'c' }
+  Plug 'LaTeX-Box-Team/LaTeX-Box',              { 'for': 'tex' }
+  Plug 'plasticboy/vim-markdown',               { 'for': ['markdown', 'md'] }
+  Plug 'tomswartz07/vim-todo',                  { 'for': 'todo' }
+  Plug 'zaiste/tmux.vim',                       { 'for': 'tmux' }
 
   " Testing vim
   Plug 'junegunn/vader.vim'
@@ -1410,6 +1410,9 @@ endfunction
 "   ag.vim (Silver Searcher):
 "       Searches code quickly, faster than grep. Requires silversearcher-ag.
 "       https://github.com/rking/ag.vim
+"   linux-coding-style:
+"       C Files for kernel coding style.
+"       https://github.com/vivien/vim-addon-linux-coding-style
 "   Local Vimrc:
 "       Allows project specific settings with .lvimrc files
 "       https://github.com/embear/vim-localvimrc
