@@ -399,6 +399,14 @@ let maplocalleader = '\\'
 " Never use ex mode
 nnoremap Q <Nop>
 
+" Save your left pinky
+"nnoremap ; :
+
+" Faster binding to escape insert/visual
+inoremap jk <Esc>
+vnoremap i  <Esc>
+"inoremap <esc> <nop>
+
 " Aliasing some commands to make tabs/buffers easy to manage
 " Some of these exist, I put them here to remember
 " Note with hidden set, buffers and tabs are largely the same
@@ -418,11 +426,6 @@ cnoreabbrev Ev Sexplore!
 cnoreabbrev pi PlugInstall
 cnoreabbrev pu PlugUpdate
 cnoreabbrev pc PlugClean
-
-" Faster binding to escape insert/visual
-inoremap jk <Esc>
-vnoremap i  <Esc>
-"inoremap <esc> <nop>
 
 " Arrow keys to move through buffers/tabs
 nnoremap <Right> :bnext<CR>
