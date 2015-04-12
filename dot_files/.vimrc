@@ -58,7 +58,6 @@ try
 
   " Utility
   Plug 'gorkunov/smartpairs.vim'
-  Plug 'hdima/python-syntax'
   Plug 'jaxbot/github-issues.vim'
   Plug 'junegunn/goyo.vim'
   Plug 'kshenoy/vim-togglelist'
@@ -72,14 +71,18 @@ try
   Plug 'vim-scripts/tasklist.vim'
 
   " Syntax / File Specific
-  Plug 'chrisbra/csv.vim',                      { 'for': 'csv' }
-  Plug 'clones/vim-zsh',                        { 'for': 'zsh' }
-  Plug 'elzr/vim-json',                         { 'for': 'json' }
-  Plug 'justinmk/vim-syntax-extra',             { 'for': 'c' }
-  Plug 'LaTeX-Box-Team/LaTeX-Box',              { 'for': 'tex' }
-  Plug 'plasticboy/vim-markdown',               { 'for': ['markdown', 'md'] }
-  Plug 'tomswartz07/vim-todo',                  { 'for': 'todo' }
-  Plug 'zaiste/tmux.vim',                       { 'for': 'tmux' }
+  Plug 'chrisbra/csv.vim'
+  Plug 'clones/vim-zsh'
+  Plug 'elzr/vim-json'
+  Plug 'hdima/python-syntax'
+  Plug 'justinmk/vim-syntax-extra'
+  " Very large, enable when needed
+  "Plug 'LaTeX-Box-Team/LaTeX-Box'
+  Plug 'plasticboy/vim-markdown'
+  Plug 'tomswartz07/vim-todo'
+  " Linux Kernel style plugin
+  "Plug 'vivien/vim-addon-linux-coding-style'
+  Plug 'zaiste/tmux.vim'
 
   " Testing vim
   Plug 'junegunn/vader.vim'
