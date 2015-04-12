@@ -19,7 +19,8 @@ try
   call plug#begin(expand(g:vim_dir . '/bundle'))
 
   " Completion & Syntax Checking (Heavy Stuff)
-  if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 || (v:version == 703 && has('patch584')))
+  if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 ||
+        \ (v:version == 703 && has('patch584')))
     Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
   elseif has('lua')
     Plug 'Shougo/neocomplete.vim'
@@ -56,7 +57,8 @@ try
   Plug 'tpope/vim-fugitive'
   Plug 'zhaocai/DirDiff.vim'
 
-  " Utility
+  " Small Functions
+  Plug 'embear/vim-localvimrc'
   Plug 'gorkunov/smartpairs.vim'
   Plug 'jaxbot/github-issues.vim'
   Plug 'junegunn/goyo.vim'
@@ -1346,7 +1348,10 @@ endfunction
 "   DeleteTrailingWhitespace:
 "       Use [Range]DeleteTrailingWhitespace, where range is an optional line range
 "       https://github.com/vim-scripts/DeleteTrailingWhitespace
-"   vim-Markdown:
+"   vim-localvimrc:
+"       Allows project specific settings with .lvimrc files
+"       https://github.com/embear/vim-localvimrc
+"   vim-markdown:
 "       Adds support for markdown syntax
 "       https://github.com/plasticboy/vim-markdown/
 "   open-browser:
@@ -1416,9 +1421,6 @@ endfunction
 "   linux-coding-style:
 "       C Files for kernel coding style.
 "       https://github.com/vivien/vim-addon-linux-coding-style
-"   Local Vimrc:
-"       Allows project specific settings with .lvimrc files
-"       https://github.com/embear/vim-localvimrc
 "   Cmd Alias:
 "       Better command remapping instead of cabbr.
 "       http://www.vim.org/scripts/script.php?script_id=746
