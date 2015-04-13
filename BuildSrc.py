@@ -122,10 +122,11 @@ BUILDS = {
         'name': 'gradle',
         'check': 'bin/gradle',
         'url': '-b REL_2.3 https://github.com/gradle/gradle',
-        # Due to gradle install need to install to separate dir from TARGET
         'cmds': [
             './gradlew --parallel installAll -Pgradle_installPath=TARGET2 '
                     '-x test -x integTest',
+            'rm -rf TARGET',
+            'mv TARGET2 TARGET',
         ],
     },
     'neovim': {
@@ -462,6 +463,7 @@ def main():
     doxygen     Build the latest doxygen.
     git         Build the latest git release.
     gradle      Build  the latest gradle release (java build system).
+                    NB: Run gradle install alone due to install issue.
     neovim      Build neovim from source (still alpha).
     ninja       Build latest ninja release (GNU Make replacement).
     python      Build the latest python 2.x.
