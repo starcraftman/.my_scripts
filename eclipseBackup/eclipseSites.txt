@@ -6,6 +6,7 @@ Languages:
     Haskell - http://eclipsefp.sf.net/updates
     Eclox (doxygen) - http://download.gna.org/eclox/update
     AndroidDev - https://dl-ssl.google.com/android/eclipse/
+    Groovy - http://dist.springsource.org/release/GRECLIPSE/e4.4/
 
 UI:
     AnyEdit - http://andrei.gmxhome.de/eclipse/
