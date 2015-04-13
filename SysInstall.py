@@ -80,6 +80,7 @@ PROGRAMMING = """ \
     libcurl4-gnutls-dev openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
+    groovy groovy-doc \
     haskell-devscripts haskell-doc cabal-install \
     junit junit-doc maven openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
     openjdk-7-source openjdk-7-demo icedtea-7-plugin \
