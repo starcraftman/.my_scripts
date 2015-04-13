@@ -514,7 +514,7 @@ function! s:check_back_space()
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+inoremap <expr><TAB>  pumvisible() ? "\<C-N>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ neocomplete#start_manual_complete()
 
@@ -538,6 +538,10 @@ nnoremap <Leader>jQ :%!jq . -c<CR>
 " Paste toggle button, disables indents. No longer needed?
 "set pastetoggle=<F1>
 
+" Toggle line numbers
+nnoremap <silent> <F1> :set number!<CR>:sign unplace *<CR>
+inoremap <silent> <F1> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
+
 " Shortcut for tagbar outline of file
 nnoremap <silent> <F2> :TagbarToggle<CR>
 inoremap <silent> <F2> <Esc>:TagbarToggle<CR>:call feedkeys('i', 'n')<CR>
@@ -545,10 +549,6 @@ inoremap <silent> <F2> <Esc>:TagbarToggle<CR>:call feedkeys('i', 'n')<CR>
 " Shortcut for gundo sidebar
 nnoremap <silent> <F3> :GundoToggle<CR>
 inoremap <silent> <F3> <Esc>:GundoToggle<CR>:call feedkeys('i', 'n')<CR>
-
-" Toggle line numbers
-nnoremap <silent> <F1> :set number!<CR>:sign unplace *<CR>
-inoremap <silent> <F1> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
 
 " Toggle showing whitespace
 nnoremap <silent> <F5> :set list!<CR>
