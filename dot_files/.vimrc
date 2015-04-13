@@ -81,6 +81,7 @@ try
   " Very large, enable when needed
   "Plug 'LaTeX-Box-Team/LaTeX-Box'
   Plug 'plasticboy/vim-markdown'
+  Plug 'tfnico/vim-gradle'
   Plug 'tomswartz07/vim-todo'
   " Linux Kernel style plugin
   "Plug 'vivien/vim-addon-linux-coding-style'
