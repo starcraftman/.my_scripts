@@ -24,6 +24,7 @@ MYSCRIPTS=~/.my_scripts
 HASKELL_BIN=~/.cabal/bin
 
 export GRADLE_HOME=$SOFT/gradle
+export GROOVY_HOME=$SOFT/groovy
 
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
@@ -31,7 +32,7 @@ export JAVA_HOME=$SOFT/jdk
 export CLASSPATH=$SOFT/jlibs:$JAVA_HOME/lib:/usr/share/ant/lib:/usr/share/java:$CLASSPATH
 # /usr/lib/ccache on path -> links gcc, g++ to ccache aliases, put at front.
 export PATH=/usr/lib/ccache:$MYSCRIPTS:$SOFT/bin:$OPTDIR/bin:$JAVA_HOME/bin:$HASKELL_BIN:$PATH
-export PATH=$GRADLE_HOME/bin:$ANDROID:$PATH
+export PATH=$GROOVY_HOME/bin:$GRADLE_HOME/bin:$ANDROID:$PATH
 #export CPATH=$SOFT/libs/include:$CPATH
 #export LIBRARY_PATH=$SOFT/libs/lib:$LIBRARY_PATH
 

@@ -118,17 +118,6 @@ BUILDS = {
             'make install',
         ],
     },
-    'gradle': {
-        'name': 'gradle',
-        'check': 'bin/gradle',
-        'url': '-b REL_2.3 https://github.com/gradle/gradle',
-        'cmds': [
-            './gradlew --parallel installAll -Pgradle_installPath=TARGET2 '
-                    '-x test -x integTest',
-            'rm -rf TARGET',
-            'mv TARGET2 TARGET',
-        ],
-    },
     'neovim': {
         'name': 'neovim',
         'check': 'bin/nvim',
