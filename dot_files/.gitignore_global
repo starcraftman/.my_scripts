@@ -75,15 +75,15 @@ Thumbs.db
 
 # Extra #
 #########
-.ycm_extra_conf.py*
 tags
-*.taghl
+.ycm_extra_conf.py*
 *.kdev4
+*.pro
 *-swp
 *.swp
+*.taghl
 /build
 /i
-*.pro
 
 # You can uncomment the ".directory" it if you don't care about e.g.:
 #
