@@ -452,22 +452,23 @@ def main():
     """ Main function. """
     mesg = """Build some tools from source to get latest.
 
-    choice       effect
+    choice      effect
     ------------------------------------------------------
-    atom         Build the latest atom editor.
-    cmake        Build the latest cmake.
-    ctags        Build the latest exhuberant ctags github fork.
+    atom        Build the latest atom editor.
+    cmake       Build the latest cmake.
+    ctags       Build the latest exhuberant ctags github fork.
                     OPTIONAL: sudo gem install CoffeeTags
-    dev          Build ack, ag, parallel, vimpager & zsh_docs.
-    doxygen      Build the latest doxygen.
-    git          Build the latest git release.
-    neovim       Build neovim from source (still alpha).
-    ninja        Build latest ninja release (GNU Make replacement).
-    python       Build the latest python 2.x.
-    python3      Build the latest python 3.x.
-    tmux         Build the latest tmux.
-    vim          Build the latest vim.
-    zsh          Build the latest zsh.
+    dev         Build ack, ag, parallel, vimpager & zsh_docs.
+    doxygen     Build the latest doxygen.
+    git         Build the latest git release.
+    gradle      Build  the latest gradle release (java build system).
+    neovim      Build neovim from source (still alpha).
+    ninja       Build latest ninja release (GNU Make replacement).
+    python      Build the latest python 2.x.
+    python3     Build the latest python 3.x.
+    tmux        Build the latest tmux.
+    vim         Build the latest vim.
+    zsh         Build the latest zsh.
     """
 
     # Simple wrapper saves func
