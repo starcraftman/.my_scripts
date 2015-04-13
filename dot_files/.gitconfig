@@ -66,6 +66,8 @@
     tool = kdiff3
 [push]
     default = nothing
+[url "git@github.com:"]
+    insteadOf = gh:
 [url "git://anongit.kde.org/"]
     insteadOf = kde:
 [url "git@git.kde.org:"]
