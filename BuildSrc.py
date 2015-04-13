@@ -118,6 +118,16 @@ BUILDS = {
             'make install',
         ],
     },
+    'gradle': {
+        'name': 'gradle',
+        'check': 'bin/gradle',
+        'url': '-b REL_2.3 https://github.com/gradle/gradle',
+        # Due to gradle install need to install to separate dir from TARGET
+        'cmds': [
+            './gradlew --parallel installAll -Pgradle_installPath=TARGET2 '
+                    '-x test -x integTest',
+        ],
+    },
     'neovim': {
         'name': 'neovim',
         'check': 'bin/nvim',
