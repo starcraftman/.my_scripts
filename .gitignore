@@ -47,6 +47,7 @@ dot_files/.vim/plugged/
 dot_files/.vim/eclim/
 dot_files/.vim/undo/
 dot_files/.vim/view/
+dot_files/.vim/.lvimrc_persist
 dot_files/.vim/.netrwhist
 dot_files/.vim/plugin/eclim.vim
 #!.git*

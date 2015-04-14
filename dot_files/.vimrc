@@ -29,6 +29,8 @@ try
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' "Default snippets
 
   " UI & Enhancements
+  " TODO: Under evaluation
+  "Plug 'benekastah/neomake'
   Plug 'bling/vim-airline'
   Plug 'edkolev/tmuxline.vim'
   Plug 'edsono/vim-matchit'
@@ -368,6 +370,15 @@ autocmd! User GoyoEnter
 autocmd! User GoyoLeave
 autocmd  User GoyoEnter nested call <SID>goyo_enter()
 autocmd  User GoyoLeave nested call <SID>goyo_leave()
+
+" LocalVimrc
+""""""""""""
+" Allow non-sandbox
+let g:localvimrc_sandbox = 0
+
+" Store decisions on Y/N/A in file
+let g:localvimrc_persistent = 1
+let g:localvimrc_persistence_file = expand(g:vim_dir . '/.lvimrc_persist')
 
 " }}}
 
