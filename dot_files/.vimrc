@@ -14,13 +14,13 @@ let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let s:prefix = has('nvim') ? 'nvim' : 'vim'
 let g:vim_dir = printf(g:win_shell ? '$HOME/%sfiles' : '$HOME/.%s', s:prefix)
-
+let s:use_ycm = has('nvim') || (g:win_shell == 0 && g:cygwin_shell == 0 &&
+        \ (v:version >= 704 || (v:version == 703 && has('patch584'))))
 try
-  call plug#begin(expand(g:vim_dir . '/bundle'))
+  call plug#begin(expand(g:vim_dir . '/plugged'))
 
   " Completion & Syntax Checking (Heavy Stuff)
-  if g:win_shell == 0 && g:cygwin_shell == 0 && (v:version >= 704 ||
-        \ (v:version == 703 && has('patch584')))
+  if s:use_ycm
     Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
   elseif has('lua')
     Plug 'Shougo/neocomplete.vim'
@@ -48,7 +48,7 @@ try
   "Plug 'ludovicchabant/vim-gutentags'
   Plug 'mhinz/vim-hugefile'
   Plug 'mileszs/ack.vim'
-  "Plug 'scrooloose/nerdtree'
+  "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'gabesoft/vim-ags'
 
   " Diffing
