@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Zero drive before backup, writes zeros until drive full then deletes file
+# Run ON mounted target drive
+#dd if=/dev/zero of=./delete.me bs=8M; \rm ./delete.me
+
 # Backup mbr, restore reverse if/of
 #dd if=/dev/sdb of=./mbr.img bs=512 count=1 conv=sync,noerror
 
@@ -9,5 +13,3 @@
 # Restore partition
 #gunzip -c ./Win7_C.img.gz | dd of=/dev/sdb2 conv=sync,noerror bs=64K
 
-# Zero drive first, writes zeros until drive full then deletes file
-#dd if=/dev/zero of=./delete.me bs=8M; \rm ./delete.me
