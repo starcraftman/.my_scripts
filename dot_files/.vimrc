@@ -534,8 +534,9 @@ nnoremap <Leader>a :AS<CR>
 " Shortcut to swap to header file, vertical split
 nnoremap <Leader>av :AV<CR>
 
-" Mapping to trigger make build and run
-nnoremap <Leader>m :!make && make run<CR>
+" Mappings for vim-dispatch
+nnoremap <Leader>m  :Make!
+nnoremap <Leader>di :Dispatch!
 
 " Hex editting command on x
 nnoremap <Leader>x :%!xxd<CR>
