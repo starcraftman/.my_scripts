@@ -24,7 +24,7 @@ build_groovy() {
   rm -rf groovy-core
 }
 
-build_python2() {
+build_python() {
   local pyarc=python.tar.xz
   curl -flo "$pyarc" $PYTHON_URL
   xzcat "$pyarc" | tar xvf -
@@ -50,8 +50,8 @@ build_zsh() {
 
 usage() {
   echo "$(basename $0) arg1 arg2 ...
-  --ldir DIR : Install into $(pwd)/folder.
-  --path PATH: Install into full path.
+  --ldir DIR : Install into $(pwd)/DIR
+  --path PATH: Install into PATH
   gradle     : A java build system.
   groovy     : A python like dynamic lang on jvm.
   python     : Install a local python 2.x.
@@ -75,17 +75,8 @@ while (( $# > 0 )); do
       DIR="$1"
       shift
       ;;
-    py*)
-      build_python2
-      ;;
-    zsh)
-      build_zsh
-      ;;
-    gradle)
-      build_gradle
-      ;;
-    groovy)
-      build_groovy
+    gradle|groovy|python|zsh)
+      "build_$arg"
       ;;
     *) # Default
       echo "$arg: Not Recognized!"
