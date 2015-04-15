@@ -72,11 +72,11 @@ try
   Plug 'embear/vim-localvimrc'
   Plug 'jaxbot/github-issues.vim'
   Plug 'kopischke/vim-fetch'
+  "Plug 'ludovicchabant/vim-gutentags'
   Plug 'mhinz/vim-hugefile'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-sleuth'
   Plug 'tyru/open-browser.vim'
-  "Plug 'ludovicchabant/vim-gutentags'
 
   " Syntax / File Specific
   Plug 'chrisbra/csv.vim'
