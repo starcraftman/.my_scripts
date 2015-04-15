@@ -14,8 +14,8 @@ let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let s:prefix = has('nvim') ? 'nvim' : 'vim'
 let g:vim_dir = printf(g:win_shell ? '$HOME/%sfiles' : '$HOME/.%s', s:prefix)
-let s:use_ycm = has('nvim') || (g:win_shell == 0 && g:cygwin_shell == 0 &&
-        \ (v:version >= 704 || (v:version == 703 && has('patch584'))))
+let s:use_ycm = !g:win_shell && !g:cygwin_shell &&
+      \  (has('nvim') || (v:version >= 704 || (v:version == 703 && has('patch584'))))
 try
   call plug#begin(expand(g:vim_dir . '/plugged'))
 
@@ -83,6 +83,7 @@ try
   Plug 'clones/vim-zsh'
   Plug 'elzr/vim-json'
   Plug 'hdima/python-syntax'
+  Plug 'junegunn/vader.vim' "Testing vim scripts
   Plug 'justinmk/vim-syntax-extra'
   " Very large, enable when needed
   "Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -92,9 +93,6 @@ try
   " Linux Kernel style plugin
   "Plug 'vivien/vim-addon-linux-coding-style'
   Plug 'zaiste/tmux.vim'
-
-  " Testing vim
-  Plug 'junegunn/vader.vim'
 
   " Web Programming
   "Plug 'othree/html5.vim'
