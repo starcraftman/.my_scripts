@@ -318,13 +318,13 @@ let g:openbrowser_default_search = 'duckduckgo'
 """"""""""
 " Preset for my tmux line.
 let g:tmuxline_preset = {
-    \'a'     : '#h',
-    \'b'     : '#(curl icanhazip.com)',
+    \'a'       : '#h',
+    \'b'       : '#(curl icanhazip.com)',
     \'win'     : '#I #W',
     \'cwin'    : '#I #W',
-    \'y'     : ['#S', '#I', '#P'],
-    \'z'     : ['%d %b %Y', '%H:%M:%S'],
-    \'options' : {'status-justify' : 'left'}
+    \'y'       : ['#S', '#I', '#P'],
+    \'z'       : ['%d %b %Y', '%H:%M:%S'],
+    \'options' : {'status-justify': 'left'}
 \ }
 
 " Unused options to display other addrs
@@ -523,8 +523,8 @@ function! s:check_back_space()
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-N>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ neocomplete#start_manual_complete()
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ neocomplete#start_manual_complete()
 
 " Shortcut to swap to header file, horizontal split
 nnoremap <Leader>a :AS<CR>
@@ -713,8 +713,6 @@ try
 catch
   colorscheme desert
 endtry
-" Other good colorschemes:
-"   molokai, desert256, jellybeans, wombat256mod, mrkn256, xoria256, twilight256
 
 syntax on
 
