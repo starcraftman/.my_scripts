@@ -19,60 +19,64 @@ let s:use_ycm = has('nvim') || (g:win_shell == 0 && g:cygwin_shell == 0 &&
 try
   call plug#begin(expand(g:vim_dir . '/plugged'))
 
-  " Completion & Syntax Checking (Heavy Stuff)
+  " Completion
   if s:use_ycm
     Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
   elseif has('lua')
     Plug 'Shougo/neocomplete.vim'
   endif
-  Plug 'scrooloose/syntastic'
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' "Default snippets
 
-  " UI & Enhancements
-  " TODO: Under evaluation
-  "Plug 'benekastah/neomake'
+  " UI
   Plug 'bling/vim-airline'
   Plug 'edkolev/tmuxline.vim'
-  Plug 'edsono/vim-matchit'
-  Plug 'godlygeek/tabular'
-  Plug 'justinmk/vim-sneak'
+  Plug 'junegunn/goyo.vim'
   Plug 'Konfekt/FastFold'
+  Plug 'kshenoy/vim-togglelist'
   Plug 'majutsushi/tagbar'
-  Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'mhinz/vim-signify'
   Plug 'rhysd/committia.vim'
-  Plug 'scrooloose/nerdcommenter'
+  Plug 'scrooloose/syntastic'
   Plug 'sjl/gundo.vim'
   Plug 'vim-scripts/taghighlight'
 
+  " Movement
+  Plug 'edsono/vim-matchit'
+  Plug 'justinmk/vim-sneak'
+  Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'vim-scripts/a.vim'
+  Plug 'vim-scripts/tasklist.vim'
+
+  " Editting
+  Plug 'godlygeek/tabular'
+  Plug 'gorkunov/smartpairs.vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-speeddating'
+  Plug 'tpope/vim-surround'
+  Plug 'vim-scripts/DeleteTrailingWhitespace'
+  if !has('nvim')
+    Plug 'ConradIrwin/vim-bracketed-paste'
+  endif
+
   " Searching & Files
   Plug 'ctrlpvim/ctrlp.vim' | Plug 'FelikZ/ctrlp-py-matcher'
-  Plug 'kopischke/vim-fetch'
-  "Plug 'ludovicchabant/vim-gutentags'
-  Plug 'mhinz/vim-hugefile'
-  Plug 'mileszs/ack.vim'
-  "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'gabesoft/vim-ags'
-
-  " Diffing
   Plug 'ludovicchabant/vim-lawrencium'
-  Plug 'mhinz/vim-signify'
+  "Plug 'mileszs/ack.vim'
+  "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'tpope/vim-fugitive'
   Plug 'zhaocai/DirDiff.vim'
 
-  " Small Functions
+  " Misc Functions
   Plug 'embear/vim-localvimrc'
-  Plug 'gorkunov/smartpairs.vim'
   Plug 'jaxbot/github-issues.vim'
-  Plug 'junegunn/goyo.vim'
-  Plug 'kshenoy/vim-togglelist'
-  Plug 'tpope/vim-abolish'
+  Plug 'kopischke/vim-fetch'
+  Plug 'mhinz/vim-hugefile'
+  Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-speeddating'
-  Plug 'tpope/vim-surround'
   Plug 'tyru/open-browser.vim'
-  Plug 'vim-scripts/a.vim'
-  Plug 'vim-scripts/DeleteTrailingWhitespace'
-  Plug 'vim-scripts/tasklist.vim'
+  "Plug 'ludovicchabant/vim-gutentags'
 
   " Syntax / File Specific
   Plug 'chrisbra/csv.vim'
@@ -115,11 +119,6 @@ try
   "Plug 'vim-scripts/desert256.vim'
   " Large Selection to sample
   "Plug 'flazz/vim-colorschemes'
-
-  " Vim/Nvim specific
-  if !has('nvim')
-    Plug 'ConradIrwin/vim-bracketed-paste'
-  endif
 
   call plug#end()
 catch
