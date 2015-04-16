@@ -9,7 +9,7 @@
 """""""""
 " {{{
 
-" On Windows with cmd.exe use vimfiles, else use normal unix .vim folder.
+" On Windows with cmd.exe use vimfiles, else use normal unix .vim folder
 let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let s:prefix = has('nvim') ? 'nvim' : 'vim'
@@ -48,12 +48,14 @@ try
   Plug 'vim-scripts/tasklist.vim'
 
   " Editting
+  Plug 'bkad/CamelCaseMotion'
   Plug 'godlygeek/tabular'
   Plug 'gorkunov/smartpairs.vim'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-surround'
+  Plug 'vim-scripts/argtextobj.vim'
   Plug 'vim-scripts/DeleteTrailingWhitespace'
   if !has('nvim')
     Plug 'ConradIrwin/vim-bracketed-paste'
@@ -130,7 +132,7 @@ endtry
 
 " YouCompleteMe
 """""""""""""""
-" Global fall back if no config present.
+" Global fall back if no config present
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 " Allow completion of identifiers in comments too
@@ -154,7 +156,7 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase
 let g:neocomplete#enable_smart_case = 1
 
-" Automatically select first option.
+" Automatically select first option
 let g:neocomplete#enable_auto_select = 1
 
 " Eclim
@@ -189,7 +191,7 @@ let g:syntastic_ignore_files = [ '\m^/usr/include/' ]
 " Always use location list
 let g:syntastic_always_populate_loc_list = 1
 
-" Override, don't think I'll run any unsecure perl files.
+" Override, don't think I'll run any unsecure perl files
 let g:syntastic_enable_perl_checker = 1
 
 " Manually set important checkers:
@@ -284,7 +286,7 @@ let g:NERDTreeShowHidden = 1
 " Don't need window after selecting file
 let g:NERDTreeQuitOnOpen = 1
 
-" Classic theme with |'s instead of >'s.
+" Classic theme with |'s instead of >'s
 let g:NERDTreeDirArrows = 0
 
 " Width of window
@@ -316,7 +318,7 @@ let g:openbrowser_default_search = 'duckduckgo'
 
 " TmuxLine
 """"""""""
-" Preset for my tmux line.
+" Preset for my tmux line
 let g:tmuxline_preset = {
     \'a'       : '#h',
     \'b'       : '#(curl icanhazip.com)',
@@ -347,7 +349,7 @@ let g:bookmark_auto_close = 1
 
 " Github Issues
 """""""""""""""
-" On forks, find issues from upstream ONLY.
+" On forks, find issues from upstream ONLY
 "let g:github_upstream_issues = 1
 
 " Goyo.vim
@@ -491,7 +493,7 @@ nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 " Find the current file in the source tree
 nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
-" Signify binding to jump between hunks.
+" Signify binding to jump between hunks
 nmap <Leader>hj <Plug>(signify-next-hunk)
 nmap <Leader>hk <Plug>(signify-prev-hunk)
 
@@ -517,7 +519,7 @@ nnoremap <Leader>pm :CtrlPMRUFiles<CR>
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <Leader>j :YcmCompleter GoTo<CR>
 
-" For smart TAB completion.
+" For smart TAB completion
 function! s:check_back_space()
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -576,10 +578,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" Ensure backspace works as you'd expect, over lines/indents.
+" Ensure backspace works as you'd expect, over lines/indents
 set backspace=indent,eol,start
 
-" This is the timeout on key combos and map commands.
+" This is the timeout on key combos and map commands
 set timeout
 set timeoutlen=500
 
@@ -705,7 +707,7 @@ try
     colorscheme jellybeans
   elseif has('gui_running') || &t_Co > 255
     colorscheme molokai
-    " Molokai CursorLine isn't bright enough.
+    " Molokai CursorLine isn't bright enough
     hi CursorLine  ctermbg=236
   else
     colorscheme gruvbox
@@ -757,7 +759,7 @@ set autoindent
 " Wrap lines when hit right side, doesn't affect buffer
 set nowrap
 
-" When wrapping, respect the indent of original line.
+" When wrapping, respect the indent of original line
 if exists('&breakindent')
   set breakindent
 endif
@@ -807,7 +809,7 @@ endfor
 let s:wild_regex = s:wild_regex[:-2]
 let s:netrw_regex = s:netrw_regex[:-3]
 
-" Hide VCS folders in this list.
+" Hide VCS folders in this list
 let s:vcs_hide = '\.git/,\.hg/,\.svn/,\.bzr/'
 
 " When using autocomplete tab, ignore all matching strings
@@ -839,7 +841,7 @@ if has('autocmd')
   if has('gui')
     augroup gui_cmds
       autocmd!
-      " Stop bell on gvim.
+      " Stop bell on gvim
       autocmd GuiEnter * set visualbell t_vb=
     augroup END
   endif
@@ -850,7 +852,7 @@ if has('autocmd')
     autocmd BufWritePre /tmp/* setlocal noundofile
     " All .md files should be markdown
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    " When change vimrc, reload it on write.
+    " When change vimrc, reload it on write
     "autocmd BufWritePost $MYVIMRC source $MYVIMRC
     " When leaving window, save state to a file. Restore on return
     " Includes cursor position, fold states,
@@ -958,7 +960,7 @@ function! Color.Pick()
 endfunction
 call Color.Init(1)
 
-" For a block of lines change spacing from old tab size to new tab size.
+" For a block of lines change spacing from old tab size to new tab size
 command! -nargs=+ -range=% ChangeSpace call s:ChangeSpace(<line1>, <line2>, <f-args>)
 function! s:ChangeSpace(line1, line2, old_tab, new_tab)
   let l:rtab_cmd = printf('%s,%sretab', a:line1, a:line2)
@@ -1145,7 +1147,7 @@ endfunction
 " {{{
 
 " * To Learn Vim: vimtutor
-"       The vim tutor is an introductory programs, useful for beginners.
+"       The vim tutor is an introductory programs, useful for beginners
 "
 " * Vim Cheatsheet and Tutorial:
 "       http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html
@@ -1201,9 +1203,9 @@ endfunction
 "   3) Next setup config fils (.vim, .vimrc and so on)
 "     a) Python Script
 "       SysInstall home
-"           Symbolically links .vim & .vimrc to home.
-"           Bootstraps vim plugin manager.
-"           Sets up powerline fonts for airline.
+"           Symbolically links .vim & .vimrc to home
+"           Bootstraps vim plugin manager
+"           Sets up powerline fonts for airline
 "
 "     b) Manually link/copy/download above. See ~/.my_scripts/dot_files
 "       Link from ~/.my_scripts/dot_files to $HOME
@@ -1217,13 +1219,13 @@ endfunction
 "       :PluginInstall
 "
 "   5) Further Config:
-"       Plug          : Requires ruby support for parallel.
-"       YouCompleteMe : Requires cpp compilation, see BuildSrc.py ycm.
-"       vim-airline   : Powerline fonts optional.
-"       TagBar        : Requires exhuberant tags instead of gnu ctags
-"       ag.vim        : Ag must be available on cmdline.
-"       ack.vim       : Ack must be available on cmdline.
-"       eclim         : Use 'starcraftman/eclim for DeployEclim command.
+"       Plug            : Requires nvim/python/ruby for parallel install
+"       YouCompleteMe   : Requires cpp compilation, done on hook for *nix
+"       vim-airline     : Powerline fonts optional, see SysInstall.py home
+"       TagBar          : Requires exhuberant tags, see BuildSrc.py ctags
+"       taghighlight    : Same as above.
+"       vim-ags/ack.vim : Ag/Ack on system, see BuildSrc.py dev
+"       eclim           : See manual steps from site
 
 " }}}
 " Plugin Information
@@ -1231,11 +1233,11 @@ endfunction
 " {{{
 
 "   Plug:
-"       Minimal new plugin manager with parallelism, nvim/python/ruby.
-"       PlugUpdate only does bundles, PlugUpgrade for manager.
+"       Minimal new plugin manager with parallelism, nvim/python/ruby
+"       PlugUpdate only does bundles, PlugUpgrade for manager
 "       https://github.com/junegunn/vim-plug
 "   neocomplete:
-"       Fairly complete YCM replacement for on Windows.
+"       Fairly complete YCM replacement for on Windows
 "       https://github.com/Shougo/neocomplete.vim
 "   YouCompleteMe:
 "       Very good autocomplete, includes path completion,
@@ -1256,7 +1258,7 @@ endfunction
 "       NB: Be sure to patch ~/.fonts with powerline-fonts
 "       See: https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
 "   tmuxline.vim:
-"       Copy airline scheme onto tmux on vim startup.
+"       Copy airline scheme onto tmux on vim startup
 "       https://github.com/jedkolev/tmuxline.vim
 "   ultisnips:
 "       Same as SnipMate, seems that project may be unmaintained
@@ -1286,7 +1288,7 @@ endfunction
 "       Uses exuberant ctags, not GNU ctags
 "       See info at: https://github.com/majutsushi/tagbar
 "   taghighlight:
-"       Allow highlighting types based on ctags.:w
+"       Allow highlighting types based on ctags
 "       https://github.com/vim-scripts/taghighlight
 "   Gundo:
 "       Graphical tree like explorer for visualizing undo history
@@ -1300,16 +1302,16 @@ endfunction
 "       Open with :NERDTree command
 "       https://github.com/scrooloose/nerdtree
 "   vim-abolish:
-"       Help for renaming, has easy syntax alternative to regexp.
+"       Help for renaming, has easy syntax alternative to regexp
 "       https://github.com/tpope/vim-abolish
 "   vim-fugitive:
-"       Provides git integration.
+"       Provides git integration
 "       https://github.com/tpope/vim-fugitive
 "   vim-sleuth:
-"       Detects the right whitespace useage based on file detection.
+"       Detects the right whitespace useage based on file detection
 "       https://github.com/tpope/vim-sleuth
 "   vim-speeddating:
-"       Make <C-A>, <C-X> work for dates.
+"       Make <C-A>, <C-X> work for dates
 "       https://github.com/tpope/vim-speeddating'
 "   vim-surround:
 "       Modify the tags or brackets of code
@@ -1318,34 +1320,43 @@ endfunction
 "       Provides hg integration
 "       https://github.com/ludovicchabant/vim-lawrencium
 "   vim-ags:
-"       Excellent ag integration.
+"       Excellent ag integration
 "       https;//github.com/gabesoft/vim-ags
 "   ack.vim:
-"       Same as ag.vim, though based on ack-grep a perl file.
+"       Same as ag.vim, though based on ack-grep a perl file
 "       https://github.com/mileszs/ack.vim
 "   FastFold:
-"       Make folding bit faster.
+"       Make folding much faster
 "       https://github.com/zaiste/tmux.vim
 "   Tabular:
-"       Align text easily with regex patterns.
+"       Align text easily with regex patterns
 "       https://github.com/godlygeek/tabular
 "   vim-bookmarks:
-"       Better marking, nice sign usage.
+"       Easier bookmarks, with or without annotation
+"       verbose map m
 "       https://github.com/MattesGroeger/vim-bookmarks
 "   committia:
-"       Display diff in the vim commit box. Handy
+"       Display diff in the vim commit box
 "       https://github.com/rhysd/committia.vim
 "   DirDiff:
-"       Diff two directories and have some ops.
+"       Diffs two dirs with vim: DirDiff dir1 dir2
 "       https://github.com/zhaocai/DirDiff.vim
+"   CamelCaseMotion:
+"       Defines ,w/,b/,e text objects for maipulating camelCase or snake_case
+"       Example: v3i,w - visual select 3 subsections to w
+"       https://github.com/bkad/CamelCaseMotion
+"   argtextobj.vim:
+"       Defines aa/ia text object for modifying functions
+"       Example: cia - change first argument, leaves comma after
+"       https://github.com/vim-scripts/argtextobj.vim
 "   smartpairs.vim:
-"       Easy visual selections, use vv to select on matching pair.
+"       Easy visual selections, use vv to select on matching pair
 "       https://github.com/gorkunov/smartpairs.vim
 "   github-issues.vim:
-"       Github integration inside commit windows. Neat.
+"       Github integration inside commit windows
 "       https://github.com/jaxbot/github-issues.vim
 "   vim-fetch:
-"       Do immediate line/col jumps to a file, with :e file:20:44
+"       Do immediate line/col jumps to a file, i.e. :e file:20:44
 "       https://github.com/kopischke/vim-fetch
 "   vim-matchit:
 "       Extends the % command to jump to matching xml or if/fi tags
@@ -1363,47 +1374,47 @@ endfunction
 "       Adds support for markdown syntax
 "       https://github.com/plasticboy/vim-markdown/
 "   open-browser:
-"       Provides OpenBrowser URI to go directly to your local browser.
+"       OpenBrowserSearch - Search for term in default browser
 "       https://github.com/tyru/open-browser.vim
 "   vim-togglelist:
-"       Provides simple keystroke to toggle lists.
+"       Provides simple keystroke to toggle lists
 "       https://github.com/kshenoy/vim-togglelist
 "   tmux.vim:
-"       Syntax highlighting for .tmux.conf files.
+"       Syntax highlighting for .tmux.conf files
 "       https://github.com/zaiste/tmux.vim
 "   vim-zsh:
-"       Better syntax highlighting for zsh.
+"       Better syntax highlighting for zsh
 "       https://github.com/clones/vim-zsh
 "   python-syntax:
-"       Much better syntax highlighting.
+"       Much better syntax highlighting
 "       https://github.com/hdima/python-syntax
 "   csv.vim:
-"       Whole suite to make editting csv easier.
+"       Whole suite to make editting csv easier
 "       https://github.com/chrisbra/csv.vim
 "   LaTeX-Box:
-"       Better highlighting and functions for LaTeX.
+"       Better highlighting and functions for LaTeX
 "       https://github.com/LaTeX-Box-Team/LaTeX-Box
 "   hugefile:
-"       For very large files, turn off some features.
+"       For very large files, turn off some features
 "       https://github.com/mhinz/vim-hugefile
 "   Vader.vim:
-"       Testing framework for vim, no dependencies.
-"       Execute .vader files with Vader file.vader.
+"       Testing framework for vim, no dependencies
+"       Execute .vader files with Vader file.vader
 "       https://github.com/junegunn/vader.vim
 "   vim-tasklist:
-"       <Leader>t -> quickfix with todos/fixmes.
+"       <Leader>t -> quickfix with todos/fixmes
 "       https://github.com/vim-scripts/tasklist.vim
 "   vim-bracketed-paste:
-"       No more paste toggle before pasting.
+"       No more paste toggle before pasting
 "       https://github.com/ConradIrwin/vim-bracketed-paste
 "   goyo.vim:
-"       Distraction free writing/reading.
+"       Distraction free writing/reading
 "       https://github.com/junegunn/goyo.vim
 "   vim-syntax-extra:
-"       Extra syntax goodness for c, flex, bison.
+"       Extra syntax goodness for c, flex, bison
 "       https://github.com/justinmk/vim-syntax-extra
 "   vim-todo
-"       Simple todo with highlighting.
+"       Simple todo with highlighting
 "       https://github.com/tomswartz07/vim-todo
 " }}}
 " Less Used Plugins
@@ -1418,19 +1429,19 @@ endfunction
 "       A manual alternative to Vundle
 "       https://github.com/tpope/vim-pathogen
 "   vim-startify:
-"       Nicer homepage with MRU files.TODO
+"       Nicer homepage with MRU files TODO
 "       https://github.com/mhinz/vim-startify
 "   vim-gutentags:
-"       Ctags background generation & updating.TODO
+"       Ctags background generation & updating TODO
 "       https://github.com/ludovicchabant/vim-gutentags
 "   ag.vim (Silver Searcher):
-"       Searches code quickly, faster than grep. Requires silversearcher-ag.
+"       Searches code quickly, faster than grep
 "       https://github.com/rking/ag.vim
 "   linux-coding-style:
-"       C Files for kernel coding style.
+"       C Files for kernel coding style
 "       https://github.com/vivien/vim-addon-linux-coding-style
 "   Cmd Alias:
-"       Better command remapping instead of cabbr.
+"       Better command remapping instead of cabbr
 "       http://www.vim.org/scripts/script.php?script_id=746
 "       https://github.com/vim-scripts/cmdalias.vim
 "   CtrlP Switcher:
@@ -1446,34 +1457,34 @@ endfunction
 "       Use <Leader><Leader>w to jump then select
 "       https://github.com/Lokaltog/vim-easymotion
 "   Golden View:
-"       Based on golden ratio for windows.
+"       Based on golden ratio for windows
 "       https://github.com/zhaocai/GoldenView.vim
 "   Golden Ratio:
-"       Plugin that resizes windows on focus gain. Neat.
+"       Plugin that resizes windows on focus gain
 "       https://github.com/roman/golden-ratio
 "   html5.vim:
-"       Provides better highlighting for new html5 elements.
+"       Provides better highlighting for new html5 elements
 "       https://github.com/Sothree/html5.vim
 "   vim-css-color:
-"       Provides highlighting of color codes like hex and regular words like red.
+"       Provides highlighting of color codes like hex and regular words like red
 "       https://github.com/ap/vim-css-color
 "   vim-css3-syntax:
-"       Provides better highlighting for css3 files.
+"       Provides better highlighting for css3 files
 "       https://github.com/hail2u/vim-css3-syntax
 "   vim-javascript:
-"       Has some improvements to syntax and indents.
+"       Has some improvements to syntax and indents
 "       https://github.com/pangloss/vim-javascript
 "   jshint:
-"       Provides javascript checking, requires node.js and other installation steps.
+"       Provides javascript checking, requires node.js and other installation steps
 "       https://github.com/Shutnik/jshint2.vim
 "   jQuery:
-"       Plugin provides better highlighting for jQuery.
+"       Plugin provides better highlighting for jQuery
 "       https://github.com/vim-scripts/jQuery
 "   php.vim:
-"       Improved php syntax files.
+"       Improved php syntax files
 "       https://github.com/elzr/vim-json
 "   vim-ruby:
-"       Provides better syntax, indent and config for ruby dev.
+"       Provides better syntax, indent and config for ruby dev
 "       https://github.com/vim-ruby/vim-ruby/wiki/VimRubySupport
 
 " }}}
@@ -1526,7 +1537,7 @@ endfunction
 "
 " * To paste yanked text in for Command, Ctrl + R then " (double quote)
 "
-" * With cursor over work, push K in nmode. Opens manpage.
+" * With cursor over work, push K in nmormal mode, opens manpage
 
 " }}}
 
