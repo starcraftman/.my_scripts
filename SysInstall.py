@@ -42,7 +42,7 @@ PROGRAMS = """ \
     gimp gimp-plugin-registry \
     fuse gparted quicksynergy tree dfc sharutils sharutils-doc \
     libnotify-bin libnotify-dev \
-    redshift geoclue geoclue-hostip numlockx \
+    redshift geoclue geoclue-hostip numlockx nautilus-dropbox \
     samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev \
     wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
