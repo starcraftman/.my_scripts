@@ -14,13 +14,13 @@ let g:win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let g:cygwin_shell = has('win32unix')
 let s:prefix = has('nvim') ? 'nvim' : 'vim'
 let g:vim_dir = printf(g:win_shell ? '$HOME/%sfiles' : '$HOME/.%s', s:prefix)
-let s:use_ycm = !g:win_shell && !g:cygwin_shell &&
-      \  (has('nvim') || (v:version >= 704 || (v:version == 703 && has('patch584'))))
+
 try
   call plug#begin(expand(g:vim_dir . '/plugged'))
 
   " Completion
-  if s:use_ycm
+  if !g:win_shell && !g:cygwin_shell &&
+      \  (has('nvim') || (v:version >= 704 || (v:version == 703 && has('patch584'))))
     Plug 'Valloric/YouCompleteMe', { 'do': function('hooks#YCMInstall') }
   elseif has('lua')
     Plug 'Shougo/neocomplete.vim'
