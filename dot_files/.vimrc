@@ -513,8 +513,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 nnoremap <Leader>ft :FTOpen<CR>
 
 " Binding for extra search modes
-nnoremap <Leader>p :CtrlPBuffer<CR>
-nnoremap <Leader>pm :CtrlPMRUFiles<CR>
+nnoremap <C-B> :CtrlPBuffer<CR>
+nnoremap <C-M> :CtrlPMRUFiles<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <Leader>j :YcmCompleter GoTo<CR>
