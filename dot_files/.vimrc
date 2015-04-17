@@ -515,6 +515,8 @@ nnoremap <Leader>ft :FTOpen<CR>
 " Binding for extra search modes
 nnoremap <C-M> :CtrlPMRUFiles<CR>
 nnoremap <C-N> :CtrlPBuffer<CR>
+nnoremap <C-T> :CtrlPTag<CR>
+nnoremap <Leader>p :CtrlPBufTagAll<CR>
 
 " Add shortcut to jump to definition/declaration of c file
 nnoremap <Leader>j :YcmCompleter GoTo<CR>
