@@ -49,12 +49,12 @@ snippet clss "Class With Operators" b
 		}
 
 		/* Compare */
-		inline bool operator==(const $1 &other) { /* placeholder */ }
-		inline bool operator!=(const $1 &other) { return !operator==(other); }
-		inline bool operator<(const $1 &other)  { /* placeholder */ }
-		inline bool operator>(const $1 &other)  { return other.operator<(*this); }
-		inline bool operator<=(const $1 &other) { return !operator>(other); }
-		inline bool operator>=(const $1 &other) { return !operator<(other); }
+		inline bool operator==(const $1 &other) const { /* placeholder */ }
+		inline bool operator!=(const $1 &other) const { return !operator==(other); }
+		inline bool operator<=(const $1 &other) const { return !operator>(other); }
+		inline bool operator>=(const $1 &other) const { return !operator<(other); }
+		inline bool operator<(const $1 &other) const { /* placeholder */ }
+		inline bool operator>(const $1 &other) const { return other.operator<(*this); }
 
 		/* Math ops */
 		$1 operator+(const $1 &other);
@@ -72,12 +72,12 @@ snippet clss "Class With Operators" b
 	};
 
 snippet compf "comparison ops friends" b
-	inline bool operator==(const ${1:Class} &lhs, const $1 &rhs) { /* placeholder */ }
-	inline bool operator!=(const $1 &lhs, const $1 &rhs) { return !operator==(lhs, rhs); }
-	inline bool operator<(const $1 &lhs, const $1 &rhs)  { /* placeholder */ }
-	inline bool operator>(const $1 &lhs, const $1 &rhs)  { return  operator< (rhs, lhs); }
-	inline bool operator<=(const $1 &lhs, const $1 &rhs) { return !operator> (lhs, rhs); }
-	inline bool operator>=(const $1 &lhs, const $1 &rhs) { return !operator< (lhs, rhs); }
+	inline bool operator==(const ${1:Class} &lhs, const $1 &rhs) const { /* placeholder */ }
+	inline bool operator!=(const $1 &lhs, const $1 &rhs) const { return !operator==(lhs, rhs); }
+	inline bool operator<=(const $1 &lhs, const $1 &rhs) const { return !operator> (lhs, rhs); }
+	inline bool operator>=(const $1 &lhs, const $1 &rhs) const { return !operator< (lhs, rhs); }
+	inline bool operator<(const $1 &lhs, const $1 &rhs) const { /* placeholder */ }
+	inline bool operator>(const $1 &lhs, const $1 &rhs) const { return  operator< (rhs, lhs); }
 
 snippet reminder_const "reminder on pointer difference" b
 	/* c code */
