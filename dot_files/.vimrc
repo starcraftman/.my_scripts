@@ -537,8 +537,8 @@ nnoremap <Leader>a :AS<CR>
 nnoremap <Leader>av :AV<CR>
 
 " Mappings for vim-dispatch
-nnoremap <Leader>m  :Make!
-nnoremap <Leader>di :Dispatch!
+"nnoremap <Leader>m  :Make!<CR>
+"nnoremap <Leader>di :Dispatch!<CR>
 
 " Hex editting command on x
 nnoremap <Leader>x :%!xxd<CR>
