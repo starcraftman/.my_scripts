@@ -23,7 +23,7 @@ except ImportError:
 
 # Packages to install follow, broken down into categories.
 MINIMUM = """ \
-    vim build-essential git-core mercurial ccache fontconfig gdb lynx \
+    vim build-essential git-core mercurial automake ccache fontconfig gdb lynx \
     colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
     tcl p7zip-full rar zip unzip gzip lzip xz-utils liblzma5 \
     htop dos2unix tree dfc flex bison sphinx-common gettext libfile-next-perl \
@@ -76,7 +76,7 @@ PROGRAMMING = """ \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
-    libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev \
+    libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
