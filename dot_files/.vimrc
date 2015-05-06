@@ -403,7 +403,7 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""
 " Syntastic modification to line, only if installed
 let s:syn_status = ''
-if exists(':Plug') && filereadable(expand(g:vim_dir . '/bundle/syntastic/LICENCE'))
+if exists(':Plug') && filereadable(expand(g:vim_dir . '/plugged/syntastic/LICENCE'))
   let s:syn_status .= ' || %{SyntasticStatuslineFlag()}'
 endif
 
@@ -450,7 +450,7 @@ cnoreabbrev E Explore
 cnoreabbrev Et Texplore
 cnoreabbrev Ev Sexplore!
 
-" Shortcuts for bundle management
+" Shortcuts for plugin management
 cnoreabbrev pi PlugInstall
 cnoreabbrev pu PlugUpdate
 cnoreabbrev pc PlugClean
