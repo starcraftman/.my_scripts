@@ -183,7 +183,7 @@ BUILDS = {
         'cmds': [
             './configure --with-features=huge --enable-gui=gtk2 '
                     '--enable-cscope --enable-multibyte --enable-luainterp '
-                    '--enable-rubyinterp --enable-pythoninterp --prefix=TARGET',
+                    '--enable-pythoninterp --prefix=TARGET',
                     'make VIMRUNTIMEDIR=TARGET/share/vim/vim74',
             'make -jJOBS install',
         ],
