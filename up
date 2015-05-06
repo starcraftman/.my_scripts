@@ -57,7 +57,7 @@ update_repos "${REPOS[@]}"
 
 if [ -f ~/.vim/autoload/plug.vim ]; then
     echo 'Updating vim plugins.'
-    vim +PlugUpdate +qa
+    vim +PlugUpdate +PlugUpgrade +qa
 fi
 
 if valid_name apt-get; then
