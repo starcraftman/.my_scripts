@@ -866,7 +866,7 @@ if has('autocmd')
     "Highlight when I exceed a column limit
     autocmd BufEnter * call s:match_col_no()
     "Highlight the region
-    autocmd BufEnter plug.vim syn region vimPythonRegion fold matchgroup=vimScriptDelim start=+execute\s*s:py_exe\s*"<<\s*EOF"*+ end=+^EOF$+	contains=@vimPythonScript
+    autocmd BufEnter plug.vim syn region vimPythonRegion fold matchgroup=vimScriptDelim start=+execute\s*py_exe\s*"<<\s*EOF"*+ end=+^EOF$+	contains=@vimPythonScript
   augroup END
 
   " Register funcs with filetype load
