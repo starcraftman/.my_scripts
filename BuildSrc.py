@@ -451,8 +451,6 @@ def main():
     dev         Build ack, ag, parallel, vimpager & zsh_docs.
     doxygen     Build the latest doxygen.
     git         Build the latest git release.
-    gradle      Build  the latest gradle release (java build system).
-                    NB: Run gradle install alone due to install issue.
     neovim      Build neovim from source (still alpha).
     ninja       Build latest ninja release (GNU Make replacement).
     python      Build the latest python 2.x.
