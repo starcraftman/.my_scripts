@@ -33,8 +33,8 @@ URL_CMAKE = 'http://www.cmake.org/files/v3.2/cmake-3.2.1.tar.gz'
 URL_GIT = 'https://www.kernel.org/pub/software/scm/git/git-2.3.6.tar.gz'
 URL_PYTHON = 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 URL_PYTHON3 = 'https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz'
-URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-1.9/' \
-            'tmux-1.9a.tar.gz/download?use_mirror=hivelocity'
+URL_TMUX = 'http://sourceforge.net/projects/tmux/files/tmux/tmux-2.0/' \
+            'tmux-2.0.tar.gz/download?use_mirror=hivelocity'
 URL_ZSH = 'http://sourceforge.net/projects/zsh/files/zsh/5.0.7/' \
             'zsh-5.0.7.tar.bz2/download'
 
