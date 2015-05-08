@@ -42,8 +42,13 @@ define_git_prompt_colors() {
   # user@host
   GIT_PROMPT_START_USER="_LAST_COMMAND_INDICATOR_${ResetColor}{ $PS1_DIR }"
   GIT_PROMPT_START_ROOT=$GIT_PROMPT_START_USER
-  GIT_PROMPT_END_USER="\n$PS1_USER@$PS1_HOST\\$ "
-  GIT_PROMPT_END_ROOT="\n$PS1_ROOT@$PS1_HOST\\$ "
+  if [ "x" = "x$TMUX" ]; then
+    GIT_PROMPT_END_USER="\n$PS1_USER@$PS1_HOST\\$ "
+    GIT_PROMPT_END_ROOT="\n$PS1_ROOT@$PS1_HOST\\$ "
+  else
+    GIT_PROMPT_END_USER="\n$PS1_USER\\$ "
+    GIT_PROMPT_END_ROOT="\n$PS1_ROOT\\$ "
+  fi
 
   ## Please do not add colors to these symbols
   GIT_PROMPT_SYMBOLS_AHEAD="↑·"         # The symbol for "n versions ahead of origin"

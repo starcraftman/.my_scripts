@@ -718,10 +718,17 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ];then
     PS1_HOST=%B%F{red}%m%f%b
 fi
 
-PS1_STD='$LAST { ${PS1_DIR} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
+if [ "x" = "x$TMUX" ]; then
+    PS1_STD='$LAST { ${PS1_DIR} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
 ${PS1_USER}@${PS1_HOST}%# '
-PS1_DEBUG='%B%F{red} >>DEBUG<< %f%b$LAST { ${PS1_DIR} }
+    PS1_DEBUG='%B%F{red} >>DEBUG<< %f%b$LAST { ${PS1_DIR} }
 ${PS1_USER}@${PS1_HOST}%# '
+else
+    PS1_STD='$LAST { ${PS1_DIR} } $(hg_prompt)$(git_super_status)${vcs_info_msg_0_}
+${PS1_USER}%# '
+    PS1_DEBUG='%B%F{red} >>DEBUG<< %f%b$LAST { ${PS1_DIR} }
+${PS1_USER}%# '
+fi
 PS1="$PS1_STD"
 RPROMPT='${vim_mode}'
 
