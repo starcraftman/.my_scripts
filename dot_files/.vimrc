@@ -1094,11 +1094,14 @@ function! g:FileFetch(src, dst)
   elseif has('ruby')
     call s:fetch_ruby(a:src, a:dst)
   elseif executable('curl')
-    execute 'silent !curl -fLo ' . a:dst . ' '  . a:src
+    silent execute printf('!curl -fLo %s %s >/dev/null 2>&1', a:dst, a:src)
+  elseif executable('wget')
+    silent execute printf('!wget -O %s %s >/dev/null 2>&1', a:dst, a:src)
   else
     echoerr 'No supported file download method.'
   endif
   echomsg 'File ' . fnamemodify(a:src, ':t') . ' written to ' . a:dst . '.'
+  redraw!
 endfunction
 
 function! s:fetch_python(src, dst)
