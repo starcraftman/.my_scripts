@@ -18,6 +18,10 @@ MYSCRIPTS=~/.my_scripts
 # Dir to locally install cabal for haskell.
 HASKELL_BIN=~/.cabal/bin
 
+export GRADLE_HOME=$SOFT/gradle
+export GROOVY_HOME=$SOFT/groovy
+export GOPATH=$HOME/go
+
 # Exported paths.
 ANDROID=$SOFT/android-sdk/tools:$SOFT/android-sdk/platform-tools:$SOFT/android-ndk
 export JAVA_HOME=$SOFT/jdk
