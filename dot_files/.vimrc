@@ -554,19 +554,19 @@ nnoremap <Leader>jQ :%!jq . -c<CR>
 
 " Toggle line numbers
 nnoremap <silent> <F1> :set number!<CR>:sign unplace *<CR>
-inoremap <silent> <F1> <Esc>:set number!<CR>:sign unplace *<CR>:call feedkeys('i', 'n')<CR>
+inoremap <silent> <F1> <Esc>:call feedkeys("\<F1>i")<CR>
 
 " Shortcut for tagbar outline of file
 nnoremap <silent> <F2> :TagbarToggle<CR>
-inoremap <silent> <F2> <Esc>:TagbarToggle<CR>:call feedkeys('i', 'n')<CR>
+inoremap <silent> <F2> <Esc>:call feedkeys("\<F2>")<CR>
 
 " Shortcut for gundo sidebar
 nnoremap <silent> <F3> :GundoToggle<CR>
-inoremap <silent> <F3> <Esc>:GundoToggle<CR>:call feedkeys('i', 'n')<CR>
+inoremap <silent> <F3> <Esc>:call feedkeys("\<F3>")<CR>
 
 " Toggle showing whitespace
 nnoremap <silent> <F5> :set list!<CR>
-inoremap <silent> <F5> <Esc>:set list!<CR>:call feedkeys('i', 'n')<CR>
+inoremap <silent> <F5> <Esc>:call feedkeys("\<F5>i")<CR>
 
 " Shortcut to remember how to reindent file
 nnoremap <F12> mzgg=G'z
