@@ -117,9 +117,10 @@ class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
-
 def do_in_home(some_func):
+    """ Simple decorator, executes some_func in users $HOME. """
     def inner():
+        """ Inner part of decorator. """
         oldcwd = os.getcwd()
         print('oldcwd: {0}'.format(oldcwd))
         os.chdir(os.path.expanduser('~'))
@@ -165,7 +166,6 @@ def home_config():
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
-
 @do_in_home
 def home_restore():
     """ Undo changes by home_config & restore backup if exists. """
@@ -195,7 +195,6 @@ def home_restore():
     except OSError:
         pass
 
-
 @do_in_home
 def home_save():
     """ Save existing home configs to a backup dir. """
@@ -212,7 +211,6 @@ def home_save():
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.rename(sfile, dfile)
 
-
 def packs_babun():
     """ Setup a fresh babun install. """
     # Install packages
@@ -222,7 +220,6 @@ def packs_babun():
     home_save()
     home_config()
 
-
 def packs_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
     cmd = 'cabal update'
@@ -230,7 +227,6 @@ def packs_cabal():
 
     cmd = 'cabal install ' + CABAL
     subprocess.call(shlex.split(cmd))
-
 
 def packs_debian(server=False):
     """ Install packages on the current system. """
@@ -260,7 +256,6 @@ def packs_debian(server=False):
     print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
 
-
 def packs_py():
     """ Installs python packages using pip. """
     if os.getuid() != 0:
@@ -274,12 +269,10 @@ def packs_py():
     cmd = 'activate-global-python-argcomplete --user'
     subprocess.call(shlex.split(cmd))
 
-
 def install_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
     cmd = 'npm install jshint -g'
     subprocess.call(shlex.split(cmd))
-
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.
@@ -300,7 +293,6 @@ def install_pipelight():
     for cmd in cmds:
         subprocess.call(cmd)
     print("Installation over, remember to use a useragent switcher.")
-
 
 def main():
     """ Main function. """
