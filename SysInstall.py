@@ -118,11 +118,18 @@ class NotSudo(Exception):
     pass
 
 
+def do_in_home(some_func):
+    def inner():
+        oldcwd = os.getcwd()
+        print('oldcwd: {0}'.format(oldcwd))
+        os.chdir(os.path.expanduser('~'))
+        some_func()
+        os.chdir(oldcwd)
+    return inner
+
+@do_in_home
 def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
-    oldcwd = os.getcwd()
-    os.chdir(os.path.expanduser('~'))
-
     # Get shell utilities
     shell_dir = '.shell'
     git_urls = [
@@ -156,15 +163,12 @@ def home_config():
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.symlink(sfile, dfile)
 
-    os.chdir(oldcwd)
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
 
+@do_in_home
 def home_restore():
     """ Undo changes by home_config & restore backup if exists. """
-    oldcwd = os.getcwd()
-    os.chdir(os.path.expanduser('~'))
-
     for folder in ('.shell', '.fonts', '.ccache',):
         try:
             shutil.rmtree(folder)
@@ -191,13 +195,10 @@ def home_restore():
     except OSError:
         pass
 
-    os.chdir(oldcwd)
 
-
+@do_in_home
 def home_save():
     """ Save existing home configs to a backup dir. """
-    oldcwd = os.getcwd()
-    os.chdir(os.path.expanduser('~'))
     if not os.path.exists(HOME_BAK):
         os.makedirs(HOME_BAK)
 
@@ -210,8 +211,6 @@ def home_save():
         if not os.path.exists(dfile):
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.rename(sfile, dfile)
-
-    os.chdir(oldcwd)
 
 
 def packs_babun():
