@@ -110,40 +110,21 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = "argcomplete cram neovim Pygments pytest trash-cli"
 
+DOT_FILES = os.path.join('.shell', 'dot', 'files')
+HOME_BAK = '.home_bak'
 
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
 
 
-def make_cmd(src, dst):
-    """ Generate a function helper. """
-    def cmd_when_dst_empty(files, command, opts=None):
-        """ When dst doesn't have file do:
-                command(src + file, dst + file, *opts)
-        """
-        if opts is None:
-            opts = ()
-        for fil in files:
-            sfile, dfile = [x + fil for x in (src, dst)]
-            if not os.path.exists(dfile):
-                print("{0} >>>>> {1}".format(sfile, dfile))
-                command(sfile, dfile, *opts)
-    return cmd_when_dst_empty
-
-
 def home_config():
     """ Setup the dev environment, stuff goes in the user's home folder. """
-    script_path = os.path.relpath(__file__)
-    script_dir = os.path.dirname(script_path)
-    if script_dir == '':
-        script_dir = '.'
-
-    dot_dir = script_dir + os.sep + 'dot_files' + os.sep
-    home = os.path.expanduser('~') + os.sep
+    oldcwd = os.getcwd()
+    os.chdir(os.path.expanduser('~'))
 
     # Get shell utilities
-    shell_dir = home + '.shell' + os.sep
+    shell_dir = '.shell'
     git_urls = [
         'https://github.com/magicmonty/bash-git-prompt.git',
         'https://github.com/starcraftman/zsh-git-prompt.git',
@@ -151,74 +132,90 @@ def home_config():
         'https://github.com/zsh-users/zsh-syntax-highlighting.git',
         'https://github.com/starcraftman/hhighlighter.git',
     ]
-
     for url in git_urls:
-        target = '.' + url[url.rindex('/')+1:url.rindex('.git')]
-        get_code(url, shell_dir + target)
+        target = url[url.rindex('/')+1:url.rindex('.git')]
+        get_code(url, os.path.join(shell_dir, target))
 
-    get_code('https://bitbucket.org/sjl/hg-prompt/', shell_dir + '.hg-prompt')
+    get_code('https://bitbucket.org/sjl/hg-prompt/',
+            os.path.join(shell_dir, 'hg-prompt'))
 
     # Setup powerline fonts if not done.
-    ddir = home + '.fonts'
-    dpow = ddir + os.sep + 'powerline-fonts'
-    if not os.path.exists(ddir) and subprocess.call(['which', 'fc-cache']) == 0:
-        os.mkdir(ddir)
-        get_code('https://github.com/Lokaltog/powerline-fonts', dpow)
-        subprocess.call(['fc-cache', '-vf', ddir])
+    font_dir = '.fonts'
+    if not os.path.exists(font_dir) and \
+            subprocess.call(['which', 'fc-cache']) == 0:
+        os.mkdir(font_dir)
+        get_code('https://github.com/Lokaltog/powerline-fonts',
+                os.path.join(font_dir, 'powerline'))
+        subprocess.call(['fc-cache', '-vf', font_dir])
 
-    ddir = home + '.ccache'
-    if not os.path.exists(ddir):
-        os.mkdir(ddir)
+    cache_dir = '.ccache'
+    if not os.path.exists(cache_dir):
+        os.mkdir(cache_dir)
 
-    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
-    helper = make_cmd(dot_dir, home)
-    helper(files, os.symlink)
+    files = [os.path.basename(x) for x in
+            glob.glob(os.path.join(DOT_FILES, '*'))]
+    for fil in files:
+        sfile, dfile = os.path.join(DOT_FILES, fil), '.' + fil
+        if not os.path.exists(dfile):
+            print("{0} >>>>> {1}".format(sfile, dfile))
+            os.symlink(sfile, dfile)
 
+    os.chdir(oldcwd)
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
 
 
 def home_restore():
     """ Undo changes by home_config & restore backup if exists. """
-    arc_dir = os.path.expanduser('~/.home_bak/')
-    home = os.path.expanduser('~/')
-    dot_dir = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+    oldcwd = os.getcwd()
+    os.chdir(os.path.expanduser('~'))
 
     for folder in ('.shell', '.fonts', '.ccache',):
         try:
-            shutil.rmtree(home + folder)
+            shutil.rmtree(folder)
         except OSError:
             pass
 
     # Clear existing configs if they are symlinks
-    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
-    for fil in [home + fil for fil in files]:
+    files = [os.path.basename(x) for x in
+            glob.glob(os.path.join(DOT_FILES, '*'))]
+    for fil in files:
         if os.path.islink(fil):
             os.remove(fil)
 
-    arc_files = [os.path.basename(x) for x in glob.glob(arc_dir + '.*')]
-    helper = make_cmd(arc_dir, home)
-    helper(arc_files, os.rename)
+    arc_files = [os.path.basename(x) for x in
+            glob.glob(os.path.join(HOME_BAK, '.*'))]
+    for fil in arc_files:
+        sfile, dfile = os.path.join(HOME_BAK, fil), '.' + fil
+        if not os.path.exists(dfile):
+            print("{0} >>>>> {1}".format(sfile, dfile))
+            os.rename(sfile, dfile)
 
     try:
-        os.rmdir(arc_dir)
+        os.rmdir(HOME_BAK)
     except OSError:
         pass
+
+    os.chdir(oldcwd)
 
 
 def home_save():
     """ Save existing home configs to a backup dir. """
-    arc_dir = os.path.expanduser('~/.home_bak/')
-    home = os.path.expanduser('~/')
-    dot_dir = home + '.my_scripts' + os.path.sep + 'dot_files' + os.path.sep
+    oldcwd = os.getcwd()
+    os.chdir(os.path.expanduser('~'))
+    if not os.path.exists(HOME_BAK):
+        os.makedirs(HOME_BAK)
 
-    if not os.path.exists(arc_dir):
-        os.makedirs(arc_dir)
+    files = [os.path.basename(x) for x in
+            glob.glob(os.path.join(DOT_FILES, '*'))]
+    files = [x for x in files if os.path.exists(x)]
 
-    files = [os.path.basename(x) for x in glob.glob(dot_dir + '.*')]
-    files = [x for x in files if os.path.exists(home + x)]
+    for fil in files:
+        sfile, dfile = '.' + fil, os.path.join(HOME_BAK, fil)
+        if not os.path.exists(dfile):
+            print("{0} >>>>> {1}".format(sfile, dfile))
+            os.rename(sfile, dfile)
 
-    helper = make_cmd(home, arc_dir)
-    helper(files, os.rename)
+    os.chdir(oldcwd)
 
 
 def packs_babun():
