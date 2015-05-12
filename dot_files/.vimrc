@@ -84,15 +84,16 @@ try
   Plug 'chrisbra/csv.vim'
   Plug 'clones/vim-zsh'
   Plug 'elzr/vim-json'
+  "Plug 'fatih/vim-go'
   Plug 'hdima/python-syntax'
   Plug 'junegunn/vader.vim' "Testing vim scripts
   Plug 'justinmk/vim-syntax-extra'
   " Very large, enable when needed
   "Plug 'LaTeX-Box-Team/LaTeX-Box'
-  "Plug 'plasticboy/vim-markdown'
+  Plug 'plasticboy/vim-markdown'
   Plug 'tfnico/vim-gradle'
   Plug 'tomswartz07/vim-todo'
-  Plug 'tpope/vim-markdown'
+  "Plug 'tpope/vim-markdown'
   " Linux Kernel style plugin
   "Plug 'vivien/vim-addon-linux-coding-style'
   Plug 'zaiste/tmux.vim'
