@@ -144,14 +144,9 @@ def home_config():
     font_dir = '.fonts'
     if not os.path.exists(font_dir) and \
             subprocess.call(['which', 'fc-cache']) == 0:
-        os.mkdir(font_dir)
         get_code('https://github.com/Lokaltog/powerline-fonts',
                 os.path.join(font_dir, 'powerline'))
         subprocess.call(['fc-cache', '-vf', font_dir])
-
-    cache_dir = '.ccache'
-    if not os.path.exists(cache_dir):
-        os.mkdir(cache_dir)
 
     files = [os.path.basename(x) for x in
             glob.glob(os.path.join(DOT_FILES, '*'))]
