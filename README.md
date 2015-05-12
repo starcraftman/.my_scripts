@@ -6,7 +6,8 @@ My Scripts
 
 This repo contains some scripts I use.
 If anyone else likes them, use them.
-I've also added in some configs that I don't want to lose like my vimrc and eclipse settings.
+
+All dot_files are now externalized to: https://github.com/starcraftman/dot
 
 SysInstall.py
 -------------
@@ -47,14 +48,6 @@ contains
 --------
 * Substring locator, find if haystack contains needle.
 * Nicer than using the awful bash notation.
-
-dot_files
--------------------
-* Stores my [`.vimrc`](https://github.com/starcraftman/.my_scripts/blob/master/dot_files/.vimrc) file for vim config.
-* Read it, some plugins require extra steps like vundle/YCM.
-* .vim folder has some stuff I don't download with vundle like colors, ftplugin custom files and such.
-* My core bash (.bash_aliases) & zsh (.zshrc) configs, really useful stuff here!
-* Lots of assorted configs for vcs (git, hg, bzr), bash completions & shell mods.
 
 archive
 -------
