@@ -25,6 +25,7 @@ update_repos() {
 # Build runs in background to separate dir then
 # links over OPTDIR
 build_src() {
+    pushd $HOME
     # Determine what args to pass
     local avail_opts=( $(BuildSrc.py --help | \grep Build | cut -d ' ' -f 5 | tr '\n' ' ') )
     local opts=
@@ -40,8 +41,8 @@ build_src() {
     done
 
     # Link to OPT_ALT until update done
-    local opt_orig=~/.opt1
-    local opt_alt=~/.opt2
+    local opt_orig=.opt1
+    local opt_alt=.opt2
     rm "$OPTDIR"
     mv "$opt_orig" "$opt_alt"
     ln -s "$opt_alt" "$OPTDIR"
@@ -52,6 +53,7 @@ build_src() {
     rm "$OPTDIR"
     ln -s "$opt_orig" "$OPTDIR"
     rm -rf $opt_alt
+    popd
 }
 
 update_repos "${REPOS[@]}"
