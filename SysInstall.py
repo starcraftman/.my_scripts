@@ -131,6 +131,7 @@ def home_config():
         'https://github.com/zsh-users/zsh-completions.git',
         'https://github.com/zsh-users/zsh-syntax-highlighting.git',
         'https://github.com/starcraftman/hhighlighter.git',
+        'https://github.com/starcraftman/dot.git',
     ]
     for url in git_urls:
         target = url[url.rindex('/')+1:url.rindex('.git')]
@@ -185,7 +186,7 @@ def home_restore():
     arc_files = [os.path.basename(x) for x in
             glob.glob(os.path.join(HOME_BAK, '.*'))]
     for fil in arc_files:
-        sfile, dfile = os.path.join(HOME_BAK, fil), '.' + fil
+        sfile, dfile = os.path.join(HOME_BAK, fil), fil
         if not os.path.exists(dfile):
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.rename(sfile, dfile)
@@ -205,12 +206,12 @@ def home_save():
     if not os.path.exists(HOME_BAK):
         os.makedirs(HOME_BAK)
 
-    files = [os.path.basename(x) for x in
+    files = ['.' + os.path.basename(x) for x in
             glob.glob(os.path.join(DOT_FILES, '*'))]
     files = [x for x in files if os.path.exists(x)]
 
     for fil in files:
-        sfile, dfile = '.' + fil, os.path.join(HOME_BAK, fil)
+        sfile, dfile = fil, os.path.join(HOME_BAK, fil)
         if not os.path.exists(dfile):
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.rename(sfile, dfile)
