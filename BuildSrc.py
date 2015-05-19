@@ -166,6 +166,15 @@ BUILDS = {
             'make -jJOBS install',
         ],
     },
+    'rethinkdb': {
+        'name': 'rethinkdb',
+        'check': 'bin/rdb',
+        'url': 'http://download.rethinkdb.com/dist/rethinkdb-2.0.1.tgz',
+        'cmds': [
+            './configure --prefix=TARGET --allow-fetch --ccache',
+            'make -jJOBS install',
+        ],
+    },
     'tmux': {
         'name': 'tmux',
         'check': 'bin/tmux',
