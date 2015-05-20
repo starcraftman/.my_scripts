@@ -171,7 +171,7 @@ BUILDS = {
         'check': 'bin/rdb',
         'url': 'http://download.rethinkdb.com/dist/rethinkdb-2.0.1.tgz',
         'cmds': [
-            './configure --prefix=TARGET --allow-fetch --ccache',
+            './configure --prefix=TARGET --ccache --allow-fetch --fetch curl',
             'make -jJOBS install',
         ],
     },
