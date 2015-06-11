@@ -99,14 +99,13 @@ BUILDS = {
         'check': 'bin/doxygen',
         'url': 'https://github.com/doxygen/doxygen.git',
         'cmds': [
-            'cmake -Dbuild_doc=ON '
-                    '-DCMAKE_INSTALL_PREFIX:PATH=TARGET .',
-            'make install',
+            'cmake .',
+            'make -jJOBS',
         ],
-        #'globs': [
-            #('bin/doxygen', 'bin/'),
-            #('doc/*.1', 'share/man/man1/'),
-        #],
+        'globs': [
+            ('bin/*', 'bin/'),
+            ('doc/*.1', 'share/man/man1/'),
+        ],
     },
     'git': {
         'name': 'git',
