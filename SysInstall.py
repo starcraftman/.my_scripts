@@ -23,7 +23,7 @@ except ImportError:
 
 # Packages to install follow, broken down into categories.
 MINIMUM = """ \
-    vim build-essential git-core mercurial automake ccache fontconfig gdb lynx \
+    pv vim build-essential git-core mercurial automake ccache fontconfig gdb lynx \
     colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
     tcl p7zip-full rar zip unzip gzip lzip xz-utils liblzma5 libcurl4-dev \
     htop dos2unix tree dfc flex bison sphinx-common gettext libfile-next-perl \
