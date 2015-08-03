@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 GRADLE_TAG=REL_2.3
 GROOVY_TAG=GROOVY_2_4_3
-PYTHON_URL=https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz
+PYTHON_26=https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tar.xz
+PYTHON_27=https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz
 ZSH_TAG=zsh-5.07
 ROOT="$(readlink -f .)"
 DIR="${ROOT}/build"
@@ -24,9 +25,23 @@ build_groovy() {
   rm -rf groovy-core
 }
 
+select_py() {
+  case "$1" in
+    python26)
+      build_python $PYTHON_26
+      ;;
+    python27)
+      build_python $PYTHON_27
+      ;;
+    *)
+      echo "Can't build that version."
+      ;;
+  esac
+}
+
 build_python() {
   local pyarc=python.tar.xz
-  curl -flo "$pyarc" $PYTHON_URL
+  curl -flo "$pyarc" "$1"
   xzcat "$pyarc" | tar xvf -
   pushd Python*
   ./configure --prefix=$DIR
@@ -54,7 +69,8 @@ usage() {
   --path PATH: Install into PATH
   gradle     : A java build system.
   groovy     : A python like dynamic lang on jvm.
-  python     : Install a local python 2.x.
+  python26   : Install a local python 2.x.
+  python27   : Install a local python 2.x.
   zsh        : Latest zsh from source."
 }
 
@@ -75,7 +91,10 @@ while (( $# > 0 )); do
       DIR="$1"
       shift
       ;;
-    gradle|groovy|python|zsh)
+    python*)
+      select_py "$arg"
+      ;;
+    gradle|groovy|zsh)
       "build_$arg"
       ;;
     *) # Default
