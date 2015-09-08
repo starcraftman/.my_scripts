@@ -79,8 +79,8 @@ BUILDS = {
         'url': URL_CMAKE,
         'cmds': [
             './bootstrap --prefix=TARGET --docdir=share/doc/cmake-3.0 '
-            '--mandir=share/man --system-libs --enable-ccache --qt-gui '
-            '--sphinx-man --sphinx-html',
+                    '--mandir=share/man --system-libs '
+                    '--sphinx-man --sphinx-html',
             'make -jJOBS install',
         ],
     },
