@@ -109,7 +109,11 @@ BABUN = """ \
 
 CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
-PY_PACKS = "argcomplete cram neovim Pygments pytest trash-cli"
+PY_PACKS = """ \
+    argcomplete argparse cram neovim pygments trash-cli ipython pyyaml \
+    tox pytest Sphinx coverage flake8 pep8 pylint virtualenv \
+    numpy scipy matplotlib pygraphviz networkx \
+    """
 
 DOT_FILES = os.path.join('.shell', 'dot', 'files')
 HOME_BAK = '.home_bak'
@@ -263,7 +267,7 @@ def packs_py():
         raise NotSudo
 
     # Use python package manager.
-    cmd = 'sudo pip install ' + PY_PACKS
+    cmd = 'sudo -H pip install --upgrade ' + PY_PACKS
     subprocess.call(shlex.split(cmd))
 
     # Install python completion to system bash_completion.d.
