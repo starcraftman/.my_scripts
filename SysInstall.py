@@ -60,7 +60,7 @@ PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
     automake automake1.9-doc ant ant-doc checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
-    codeblocks kdevelop qt-sdk graphviz \
+    codeblocks kdevelop qt-sdk graphviz graphviz-dev \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     re2c flex flex-doc bison bison-doc exuberant-ctags sphinx-common sphinx-doc \
@@ -77,6 +77,7 @@ PROGRAMMING = """ \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
     libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
+    libblas-dev liblapack-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
