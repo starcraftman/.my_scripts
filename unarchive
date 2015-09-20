@@ -7,6 +7,26 @@ usage() {
     "
 }
 
+extract_deb() {
+    local dfile="$1"
+    local data=$(ar -t "$dfile" | command grep data)
+
+    local ext_type
+    case "$data" in
+        *.tar.xz|*.txz)
+            ext_type=--xz
+            ;;
+        *.tar.bz2|*.tbz)
+            ext_type=--bzip
+            ;;
+        *)
+            ext_type=--gzip
+            ;;
+    esac
+
+    ar -p "$dfile" "$data" | tar -x $ext_type
+}
+
 extract_files() {
     local tmpdir=$HOME/loopback
     for file ; do
@@ -16,7 +36,7 @@ extract_files() {
         fi
 
         case $file in
-            *.deb)               ar p "$file" data.tar.gz | tar zx  ;;
+            *.deb)               extract_deb $file                  ;;
             *.rpm)               rpm2cpio "$file" | cpio -vid       ;;
             *.jar)               jar xf "$file"                     ;;
             *.iso)               7z x "$file"                       ;;
