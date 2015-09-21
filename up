@@ -22,38 +22,6 @@ update_repos() {
     popd
 }
 
-# Build runs in background to separate dir then
-# links over OPTDIR
-build_src() {
-    cd $HOME
-
-    # Determine what args to pass
-    local avail_opts=( $(BuildSrc.py --help | \grep Build | cut -d ' ' -f 5 | tr '\n' ' ') )
-    local opts=
-    if [ -e ${OPTDIR}/bin/ag ]; then
-        opts="$opts dev"
-    fi
-    for opt in "${avail_opts[@]}"; do
-        if [ -e "$OPTDIR/bin/$opt" ]; then
-            opts="$opts $opt"
-        fi
-    done
-
-    # Link to OPT_ALT until update done
-    local opt_orig=.opt1
-    local opt_alt=.opt2
-    rm "$OPTDIR"
-    mv "$opt_orig" "$opt_alt"
-    ln -s "$opt_alt" "$OPTDIR"
-
-    echo "CMD: BuildSrc.py --odir $opt_orig $opts"
-    BuildSrc.py --odir "$opt_orig" $opts >/dev/null 2>&1
-
-    rm "$OPTDIR"
-    ln -s "$opt_orig" "$OPTDIR"
-    rm -rf $opt_alt
-}
-
 update_repos "${REPOS[@]}"
 
 if [ -f ~/.vim/autoload/plug.vim ]; then
