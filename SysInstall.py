@@ -292,8 +292,9 @@ def install_pipelight():
         'sudo apt-add-repository ppa:pipelight/stable',
         'sudo apt-get update',
         'sudo apt-get install pipelight-multi',
-        'pipelight-plugin --accept --enable silverlight',
-        'pipelight-plugin --accept --enable flash',
+        'sudo pipelight-plugin --create-mozilla-plugin',
+        'sudo pipelight-plugin --accept --enable silverlight',
+        'sudo pipelight-plugin --accept --enable flash',
     ]
     cmds = [x.split() for x in cmds]
     for cmd in cmds:
