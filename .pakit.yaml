@@ -1,0 +1,14 @@
+defaults:
+  repo: stable
+log:
+  enabled: true
+  file: /tmp/pakit/main.log
+paths:
+  link: /home/starcraftman/.opt
+  prefix: /home/starcraftman/.opt/builds
+  recipes: /home/starcraftman/.pakit/recipes
+  source: /tmp/pakit/src
+ag:
+  repo: unstable
+vim:
+  repo: unstable
