@@ -2,7 +2,7 @@ defaults:
   repo: stable
 log:
   enabled: true
-  file: /tmp/pak_main.log
+  file: /tmp/z_pakit_main.log
 paths:
   link: /home/starcraftman/.opt
   prefix: /home/starcraftman/.opt/builds
