@@ -37,8 +37,9 @@ if valid_name apt-get; then
 fi
 
 if [ -d "$OPTDIR" ]; then
-    echo 'Updating programs built from source, running in bg...'
-    pakit -c "$MYSCRIPTS/.pakit.yml" -u
+    echo 'Updating programs built with pakit.'
+    HERE=$(readlink -f .)
+    pakit --conf "$HERE/.pakit.yml" -u
 fi
 
 echo 'done'
