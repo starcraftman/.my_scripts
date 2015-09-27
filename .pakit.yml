@@ -1,13 +1,17 @@
-defaults:
-  repo: stable
-log:
-  enabled: true
-  file: /tmp/z_pakit_main.log
-paths:
-  link: /home/starcraftman/.opt
-  prefix: /home/starcraftman/.opt/builds
-  recipes: /home/starcraftman/.pakit/recipes
-  source: /tmp/pakit/src
+pakit :
+  command:
+    timeout: 120
+  defaults:
+    repo: stable
+  log:
+    enabled: true
+    file: /tmp/z_pakit_main.log
+    level: debug
+  paths:
+    link: /home/starcraftman/.opt
+    prefix: /home/starcraftman/.opt/builds
+    recipes: /home/starcraftman/.pakit/recipes
+    source: /tmp/pakit/src
 ag:
   repo: unstable
 vim:
