@@ -112,7 +112,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 
 PY_PACKS = """ \
     argcomplete argparse cram neovim pygments trash-cli ipython pyyaml \
-    tox pytest Sphinx coverage flake8 pep8 pylint virtualenv \
+    tox pytest sphinx coverage flake8 pep8 pylint virtualenv \
     numpy scipy matplotlib pygraphviz networkx \
     """
 
