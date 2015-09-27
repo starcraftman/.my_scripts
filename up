@@ -38,7 +38,7 @@ fi
 
 if [ -d "$OPTDIR" ]; then
     echo 'Updating programs built from source, running in bg...'
-    pakit -c "$MYSCRIPTS/.pakit.yaml" -u
+    pakit -c "$MYSCRIPTS/.pakit.yml" -u
 fi
 
 echo 'done'
