@@ -58,7 +58,7 @@ KEYRINGS = """ \
 
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
-    automake automake1.9-doc ant ant-doc checkinstall checkbox \
+    automake automake1.9-doc autopoint gperf checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk graphviz graphviz-dev \
     colormake colordiff colorgcc jq nmap \
@@ -84,7 +84,8 @@ PROGRAMMING = """ \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     groovy groovy-doc \
     haskell-devscripts haskell-doc cabal-install \
-    junit junit-doc maven openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
+    maven ant ant-doc \
+    junit junit-doc openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
     openjdk-7-source openjdk-7-demo icedtea-7-plugin \
     lua5.2 lua5.2-doc luadoc liblua5.2-dev \
     monodevelop-debugger-gdb monodevelop-nunit \
