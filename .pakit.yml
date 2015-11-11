@@ -10,8 +10,13 @@ pakit :
   paths:
     link: /home/starcraftman/.opt
     prefix: /home/starcraftman/.opt/builds
-    recipes: /home/starcraftman/.pakit/recipes
+    recipes: /home/starcraftman/.pakit
     source: /tmp/pakit/src
+  recipe:
+    update_interval: 86400
+    uris:
+    - uri: https://github.com/pakit/base_recipes
+    - uri: user_recipes
 ag:
   repo: unstable
 vim:

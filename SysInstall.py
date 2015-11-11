@@ -114,7 +114,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 PY_PACKS = """ \
     argcomplete argparse cram neovim pygments trash-cli ipython pyyaml \
     tox pytest sphinx coverage flake8 pep8 pylint virtualenv \
-    numpy scipy matplotlib pygraphviz networkx \
+    numpy scipy matplotlib pygraphviz networkx pyandoc \
     """
 
 DOT_FILES = os.path.join('.shell', 'dot', 'files')
