@@ -42,7 +42,7 @@ fi
 if [ -d "$OPTDIR" ]; then
     echo 'Updating programs built with pakit.'
     HERE=$(readlink -f $(dirname "$0"))
-    pakit --conf "$HERE/.pakit.yml" -u
+    pakit --conf "$HERE/.pakit.yml" update
 fi
 
 echo 'done'
