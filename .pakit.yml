@@ -5,7 +5,7 @@ pakit :
     repo: stable
   log:
     enabled: true
-    file: /tmp/z_pakit_main.log
+    file: /tmp/myscripts_pakit_main.log
     level: debug
   paths:
     link: /home/starcraftman/.opt
