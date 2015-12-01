@@ -249,7 +249,7 @@ def packs_debian(server=False):
     cache.open(None)
     print("Update done.")
 
-    cmd = 'sudo apt-get install'.split()
+    cmd = 'sudo apt-get -y install'.split()
     for pack in packages:
         try:
             package = cache[pack]
@@ -284,17 +284,21 @@ def install_pipelight():
         raise NotSudo
 
     cmds = [
-        'sudo apt-get remove flashplugin-installer',
-        'sudo apt-add-repository ppa:pipelight/stable',
-        'sudo apt-get update',
-        'sudo apt-get install pipelight-multi',
-        'sudo pipelight-plugin --create-mozilla-plugin',
+        'sudo apt-get -y install pipelight-multi',
+        'sudo pipelight-plugin --create-mozilla-plugins',
         'sudo pipelight-plugin --accept --enable silverlight',
         'sudo pipelight-plugin --accept --enable flash',
     ]
-    cmds = [x.split() for x in cmds]
+
+    if len(glob.glob('/etc/apt/sources.list.d/pipelight*')) == 0:
+        cmds = [
+            'sudo apt-get -y remove flashplugin-installer',
+            'sudo apt-add-repository -y ppa:pipelight/stable',
+            'sudo apt-get update',
+        ] + cmds
+
     for cmd in cmds:
-        subprocess.call(cmd)
+        subprocess.call(shlex.split(cmd))
     print("Installation over, remember to use a useragent switcher.")
 
 def main():
