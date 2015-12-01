@@ -72,21 +72,19 @@ PROGRAMMING = """ \
     docutils-common docutils-doc asciidoc xmlto docbook2x \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
-    gcc gcc-doc gcc-4.7-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
+    gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
     libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
-    libblas-dev liblapack-dev \
+    libblas-dev liblapack-dev libyaml-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     groovy groovy-doc \
     haskell-devscripts haskell-doc cabal-install \
     maven ant ant-doc \
-    junit junit-doc openjdk-7-doc openjdk-7-jdk openjdk-7-dbg \
-    openjdk-7-source openjdk-7-demo icedtea-7-plugin \
     lua5.2 lua5.2-doc luadoc liblua5.2-dev \
     monodevelop-debugger-gdb monodevelop-nunit \
     nodejs nodejs-dev nodejs-legacy npm \
@@ -265,11 +263,8 @@ def packs_debian(server=False):
 
 def packs_py():
     """ Installs python packages using pip. """
-    if os.getuid() != 0:
-        raise NotSudo
-
     # Use python package manager.
-    cmd = 'sudo -H pip install --upgrade ' + PY_PACKS
+    cmd = 'pip install --upgrade ' + PY_PACKS
     subprocess.call(shlex.split(cmd))
 
     # Install python completion to system bash_completion.d.
