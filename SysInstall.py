@@ -95,6 +95,7 @@ PROGRAMMING = """ \
     python python-dev python-doc python-pip \
     python3 python3-dev python3-doc python3-pip jython jython-doc \
     pychecker pylint pep8 python-autopep8 ruby-full shunit2 \
+    python-matplotlib python-numpy python-scipy \
     tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
@@ -112,7 +113,7 @@ CABAL = "buildwrapper scion-browser hoogle terminfo happy hlint"
 PY_PACKS = """ \
     argcomplete argparse cram neovim pygments trash-cli ipython pyyaml \
     tox pytest sphinx coverage flake8 pep8 pylint virtualenv \
-    numpy scipy matplotlib pygraphviz networkx pyandoc \
+    pygraphviz networkx pyandoc \
     """
 
 DOT_FILES = os.path.join('.shell', 'dot', 'files')
