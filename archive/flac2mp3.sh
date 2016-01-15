@@ -24,7 +24,7 @@ cat input.txt
 if valid_name parallel; then
     parallel -a input.txt avconv -i "{}" -qscale:a 0 "{.}.mp3"
 else
-    for file in **/*.flac; do
+    while read file; do
         avconv -i "$file" -qscale:a 0 "${file%flac}mp3"
     done
 fi
