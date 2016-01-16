@@ -17,9 +17,9 @@ if [ "$INPUT" != "y" ]; then
     exit
 fi
 
-pushd $ROOT
+OLDCWD=$(pwd)
+cd $ROOT
 find . -name "*.flac" > input.txt
-cat input.txt
 
 if valid_name parallel; then
     parallel -a input.txt avconv -i "{}" -qscale:a 0 "{.}.mp3"
@@ -30,4 +30,4 @@ else
 fi
 
 rm input.txt
-popd
+cd "$OLDCWD"
