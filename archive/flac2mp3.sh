@@ -5,7 +5,7 @@
 
 ROOT=$(readlink -f .)
 if [ "$#" -gt 0 ];then
-    ROOT=$(readlink -f $1)
+    ROOT=$(readlink -f "$1")
 fi
 
 echo "Will convert to mp3 all flac files under $ROOT"
@@ -18,7 +18,7 @@ if [ "$INPUT" != "y" ]; then
 fi
 
 OLDCWD=$(pwd)
-cd $ROOT
+cd "$ROOT"
 find . -name "*.flac" > input.txt
 
 if valid_name parallel; then
