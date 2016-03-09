@@ -16,7 +16,7 @@ update_repos() {
             elif [ -d ".hg" ]; then
                 hg pull
             fi
-	fi
+        fi
     done
 
     popd
