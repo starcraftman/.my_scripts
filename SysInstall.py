@@ -305,8 +305,9 @@ deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
             ]
 
     cmds += [
+        'sudo pipelight-plugin --accept --enable flash',
+        'sudo pipelight-plugin --accept --enable silverlight5.1',
         'sudo pipelight-plugin --create-mozilla-plugins',
-        'sudo pipelight-plugin --accept --enable silverlight --enable flash',
     ]
 
     for cmd in cmds:
