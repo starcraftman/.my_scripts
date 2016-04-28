@@ -279,24 +279,34 @@ def install_jshint():
 
 def install_pipelight():
     """ Silverlight plugin for firefox/chrome on linux.
+    NB: Stuck on old build, no xenial support yet.
     http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html
     """
     if os.getuid() != 0:
         raise NotSudo
 
-    cmds = [
-        'sudo apt-get -y install pipelight-multi',
-        'sudo pipelight-plugin --create-mozilla-plugins',
-        'sudo pipelight-plugin --accept --enable silverlight',
-        'sudo pipelight-plugin --accept --enable flash',
-    ]
+    pipe_src = """
+## Pipelight
+deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
+# deb-src http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
+"""
 
-    if len(glob.glob('/etc/apt/sources.list.d/pipelight*')) == 0:
-        cmds = [
-            'sudo apt-get -y remove flashplugin-installer',
-            'sudo apt-add-repository -y ppa:pipelight/stable',
-            'sudo apt-get update',
-        ] + cmds
+    cmds = []
+    sources_file = '/etc/apt/sources.list'
+    with open(sources_file) as fin:
+        if 'pipelight' not in fin.read():
+            with open(sources_file, 'a') as fout:
+                fout.write(pipe_src)
+            cmds += [
+                'sudo apt-get update',
+                'sudo apt-get -y remove flashplugin-installer',
+                'sudo apt-get -y install --install-recommends pipelight-multi',
+            ]
+
+    cmds += [
+        'sudo pipelight-plugin --create-mozilla-plugins',
+        'sudo pipelight-plugin --accept --enable silverlight --enable flash',
+    ]
 
     for cmd in cmds:
         subprocess.call(shlex.split(cmd))
