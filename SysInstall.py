@@ -298,6 +298,7 @@ deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
             with open(sources_file, 'a') as fout:
                 fout.write(pipe_src)
             cmds += [
+                'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 25396B8E',
                 'sudo apt-get update',
                 'sudo apt-get -y remove flashplugin-installer',
                 'sudo apt-get -y install --install-recommends pipelight-multi',
