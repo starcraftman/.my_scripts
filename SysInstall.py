@@ -298,13 +298,16 @@ deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
             with open(sources_file, 'a') as fout:
                 fout.write(pipe_src)
             cmds += [
-                'sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 25396B8E',
+                'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
+                'sudo apt-key adv --keyserver keyserver.ubuntu.com ' \
+                        '--recv-keys 25396B8E',
                 'sudo apt-get update',
                 'sudo apt-get -y remove flashplugin-installer',
                 'sudo apt-get -y install --install-recommends pipelight-multi',
             ]
 
     cmds += [
+        'sudo pipelight-plugin --create-mozilla-plugins',
         'sudo pipelight-plugin --accept --enable flash',
         'sudo pipelight-plugin --accept --enable silverlight5.1',
         'sudo pipelight-plugin --create-mozilla-plugins',
@@ -313,6 +316,9 @@ deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
     for cmd in cmds:
         subprocess.call(shlex.split(cmd))
     print("Installation over, remember to use a useragent switcher.")
+    print("After running firefox installers, you may need to execute again:")
+    print("  sudo pipelight-plugin --create-mozilla-plugins")
+
 
 def main():
     """ Main function. """
