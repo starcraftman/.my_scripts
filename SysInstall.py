@@ -65,6 +65,7 @@ PROGRAMMING = """ \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     re2c flex flex-doc bison bison-doc exuberant-ctags \
     sphinx-common sphinx-doc pandoc \
+    qml-module-qtquick-xmllistmodel \
     bash-doc bash-builtins bashdb \
     zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
