@@ -14,7 +14,7 @@ update_repos() {
             if [ -d ".git" ]; then
                 git pull && git submodule update --init --recursive
             elif [ -d ".hg" ]; then
-                hg pull
+                hg pull && hg update
             fi
         fi
     done
