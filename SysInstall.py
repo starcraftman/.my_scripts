@@ -31,7 +31,7 @@ MINIMUM = """ \
     """
 
 PROGRAMS = """ \
-    htop iotop itop mytop pkg-config aptitude synaptic dos2unix \
+    htop iotop itop mytop pkg-config aptitude synaptic dos2unix unetbootin \
     oxygen-molecule kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
