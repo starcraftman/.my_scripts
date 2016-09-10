@@ -23,7 +23,7 @@ from argparse import RawDescriptionHelpFormatter as RawDescriptionHelp
 import sqlite3
 
 # Ratings go from 0.1 - 1.0, only update rated songs
-RATINGS = [float(x) / 10.0 for x in range(1, 10)]
+RATINGS = [float(x) / 10.0 for x in range(1, 11)]
 QUERY_RATING = unicode('SELECT rating, artist, title FROM songs WHERE rating = ?')
 QUERY_ALL = unicode('SELECT rating, artist, title FROM songs WHERE artist = ? AND title = ?')
 UPDATE = unicode('UPDATE songs SET rating = ? WHERE artist = ? AND title = ?')
