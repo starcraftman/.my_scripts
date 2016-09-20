@@ -23,9 +23,17 @@ Expected directory structure:
 """
 from __future__ import print_function, absolute_import
 
+import glob
 import os
 import subprocess
 import sys
+
+
+class WrongDir(Exception):
+    """
+    Program was started in the wrong directory.
+    """
+    pass
 
 
 def get_root():
@@ -35,14 +43,14 @@ def get_root():
     if len(sys.argv) > 2:
         raise Exception('Only argument should be folder root!')
     elif len(sys.argv) == 2:
-        root = sys.argv[1]
+        root = os.path.abspath(sys.argv[1])
     else:
         root = os.getcwd()
 
     return root
 
 
-def parse_input(root):
+def parse_input(input_file):
     """
     Processes the input with song titles.
     See above format.
@@ -51,7 +59,7 @@ def parse_input(root):
     """
     tdb = {}
     disc_no = -1
-    with open(os.path.join(root, 'input.txt')) as fin:
+    with open(input_file) as fin:
         for line in fin:
             line = line.strip()
             if 'disc' in line.lower() or 'disk' in line.lower():
@@ -69,15 +77,24 @@ def update_titles(sdir, titles, disc_no):
     N.B. DEPENDS on metaflac being installed.
     """
     fnames = [os.path.join(sdir, fname) for fname in sorted(os.listdir(sdir))]
-    assert len(fnames) == len(titles)
-    for fname, title in zip(fnames, titles):
-        print('Log', fname, title)
-        subprocess.call(['metaflac', '--remove-tag', 'TITLE', fname])
-        subprocess.call(['metaflac', '--set-tag',
-                         'TITLE={}'.format(title), fname])
-        subprocess.call(['metaflac', '--remove-tag', 'DISCNUMBER', fname])
-        subprocess.call(['metaflac', '--set-tag',
-                         'DISCNUMBER=' + disc_no, fname])
+    try:
+        assert len(fnames) == len(titles)
+        for fname, title in zip(fnames, titles):
+            print('Log', fname, title)
+            subprocess.call(['metaflac', '--remove-tag', 'TITLE', fname])
+            subprocess.call(['metaflac', '--set-tag',
+                             'TITLE={}'.format(title), fname])
+            subprocess.call(['metaflac', '--remove-tag', 'DISCNUMBER', fname])
+            subprocess.call(['metaflac', '--set-tag',
+                             'DISCNUMBER=' + str(disc_no), fname])
+    except AssertionError:
+        print('The # of files and titles in the text file do not match!')
+        print('# of files: {} | # of names in file: {}'.format(len(fnames),
+                                                               len(titles)))
+        print('FNAMES >>>>>>>>>')
+        print(str(fnames))
+        print('TITLES <<<<<<<<<')
+        print(str(titles))
 
 
 def main():
@@ -86,12 +103,26 @@ def main():
     """
     root = get_root()
     print("Operating in root: ", root)
-    sdirs = [os.path.join(root, dname) for dname in sorted(os.listdir(root))
-             if os.path.isdir(dname)]
-    tdb = parse_input(root)
 
-    for num in range(0, len(sdirs)):
-        update_titles(sdirs[num], tdb[num], num + 1)
+    try:
+        finput = glob.glob(os.path.join(root, '*.txt'))
+        assert len(finput) == 1
+        tdb = parse_input(finput[0])
+
+        sdirs = [os.path.join(root, dname) for dname in sorted(os.listdir(root))
+                 if os.path.isdir(dname)]
+        for char in sdirs[0]:
+            if not str.isdigit(char):
+                raise WrongDir
+
+        for num in range(0, len(sdirs)):
+            update_titles(sdirs[num], tdb[num], num + 1)
+    except AssertionError:
+        print('The input file is missing. Please place it at: {}'.format(root))
+        print('Alternatively, tagger was started in the wrong dir.')
+    except WrongDir:
+        print('Started in wrong directory.')
+        print('Please cd to the root with dirs of form 001, 002, 003 ..')
 
 
 if __name__ == "__main__":
