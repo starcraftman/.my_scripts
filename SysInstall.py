@@ -286,26 +286,16 @@ def install_pipelight():
     if os.getuid() != 0:
         raise NotSudo
 
-    pipe_src = """
-## Pipelight
-deb http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
-# deb-src http://ppa.launchpad.net/pipelight/stable/ubuntu wily main
-"""
-
     cmds = []
-    sources_file = '/etc/apt/sources.list'
-    with open(sources_file) as fin:
-        if 'pipelight' not in fin.read():
-            with open(sources_file, 'a') as fout:
-                fout.write(pipe_src)
-            cmds += [
-                'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
-                'sudo apt-key adv --keyserver keyserver.ubuntu.com ' \
-                        '--recv-keys 25396B8E',
-                'sudo apt-get update',
-                'sudo apt-get -y remove flashplugin-installer',
-                'sudo apt-get -y install --install-recommends pipelight-multi',
-            ]
+    cmd = subprocess.check_output('grep -rh pipelight/stable/ubuntu /etc/apt'.split())
+    if 'pipelight' not in cmd:
+        cmds += [
+            'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
+            'sudo add-apt-repository ppa:pipelight/stable',
+            'sudo apt-get update',
+            'sudo apt-get -y remove flashplugin-installer',
+            'sudo apt-get -y install --install-recommends pipelight-multi',
+        ]
 
     cmds += [
         'sudo pipelight-plugin --create-mozilla-plugins',
