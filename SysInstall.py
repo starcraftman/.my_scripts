@@ -252,6 +252,7 @@ def packs_debian(server=False):
     print("Update done.")
 
     cmd = 'sudo apt-get -y install'.split()
+    failed_debs = []
     for pack in packages:
         try:
             package = cache[pack]
@@ -259,6 +260,11 @@ def packs_debian(server=False):
                 cmd.append(pack)
         except KeyError:
             print("Package couldn't be selected: %s" % pack)
+            failed_debs.append(pack)
+
+    print("Writing failed debs to {}".format(os.path.join(os.getcwd(), 'failed_debs')))
+    with open('failed_debs', 'w') as fout:
+        fout.writelines(failed_debs)
 
     print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
