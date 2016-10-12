@@ -264,7 +264,7 @@ def packs_debian(server=False):
 
     print("Writing failed debs to {}".format(os.path.join(os.getcwd(), 'failed_debs')))
     with open('failed_debs', 'w') as fout:
-        fout.writelines(failed_debs)
+        fout.write(os.linesep.join(failed_debs))
 
     print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
