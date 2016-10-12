@@ -298,13 +298,14 @@ def install_pipelight():
         cmds += [
             'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
             'sudo add-apt-repository ppa:pipelight/stable',
+            'sudo apt-add-repository ppa:ehoover/compholio',
             'sudo apt-get update',
             'sudo apt-get -y remove flashplugin-installer',
+            'sudo apt-get -y install wine-staging',
             'sudo apt-get -y install --install-recommends pipelight-multi',
         ]
 
     cmds += [
-        'sudo pipelight-plugin --create-mozilla-plugins',
         'sudo pipelight-plugin --accept --enable flash',
         'sudo pipelight-plugin --accept --enable silverlight5.1',
         'sudo pipelight-plugin --create-mozilla-plugins',
