@@ -293,21 +293,25 @@ def install_pipelight():
         raise NotSudo
 
     cmds = []
-    cmd = subprocess.check_output('grep -rh pipelight/stable/ubuntu /etc/apt'.split())
-    if 'pipelight' not in cmd:
+    try:
+        out = subprocess.check_output('grep -rh pipelight/stable/ubuntu /etc/apt'.split())
+    except subprocess.CalledProcessError:
+        out = ''
+
+    if 'pipelight' not in out:
         cmds += [
             'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
             'sudo add-apt-repository ppa:pipelight/stable',
             'sudo apt-add-repository ppa:ehoover/compholio',
             'sudo apt-get update',
             'sudo apt-get -y remove flashplugin-installer',
-            'sudo apt-get -y install wine-staging',
-            'sudo apt-get -y install --install-recommends pipelight-multi',
+            'sudo apt-get -y install --install-recommends '\
+                    'wine wine-dev wine-staging wine-staging-dev pipelight-multi',
         ]
-
     cmds += [
-        'sudo pipelight-plugin --accept --enable flash',
-        'sudo pipelight-plugin --accept --enable silverlight5.1',
+        'sudo pipelight-plugin --update',
+        'sudo pipelight-plugin --create-mozilla-plugins',
+        'sudo pipelight-plugin --accept --enable flash --enable silverlight5.1',
         'sudo pipelight-plugin --create-mozilla-plugins',
     ]
 
