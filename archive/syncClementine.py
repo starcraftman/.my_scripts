@@ -12,7 +12,7 @@ of matched title/artist combinations in DST.
 Database Locations
 ------------------
 * Linux: ~/.config/Clementine/clementine.db
-* Windows: C:/Users/USERNAME/.config/Clementin/clementine.db
+* Windows: C:/Users/USERNAME/.config/Clementine/clementine.db
 """
 from __future__ import print_function
 import os
@@ -23,11 +23,27 @@ from argparse import RawDescriptionHelpFormatter as RawDescriptionHelp
 import sqlite3
 
 # Ratings go from 0.1 - 1.0, only update rated songs
+LOC_FILE = os.path.expanduser('~/.clem_locs')
 RATINGS = [float(x) / 10.0 for x in range(1, 11)]
 QUERY_RATING = unicode('SELECT rating, artist, title FROM songs WHERE rating = ?')
 QUERY_ALL = unicode('SELECT rating, artist, title FROM songs WHERE artist = ? AND title = ?')
 UPDATE = unicode('UPDATE songs SET rating = ? WHERE artist = ? AND title = ?')
 
+
+def read_locs(fname):
+    """
+    Return a dictionary, keys are terms to put in command. Values are file paths.
+    """
+    paths = {}
+    if not os.path.exists(fname):
+        return paths
+    with open(fname) as fin:
+        for line in fin:
+            key, val = line.rstrip().split(':')
+            paths[key] = os.path.join(os.path.expanduser(val),
+                                      '.config', 'Clementine', 'clementine.db')
+
+    return paths
 
 def update_db(src_db, dst_db):
     """
@@ -45,16 +61,19 @@ def update_db(src_db, dst_db):
                     # print(line)
 
 def main():
+    locs = read_locs(LOC_FILE)
     mesg = sys.modules[__name__].__doc__
     parser = argparse.ArgumentParser(prog=__name__, description=mesg,
                                      formatter_class=RawDescriptionHelp)
     parser.add_argument('-v', '--version', action='version', version='0.1')
-    parser.add_argument('src', help='The SRC db, ratings will be read FROM src.')
-    parser.add_argument('dst', help='The DST db, ratings will be updated TO dst.')
+    parser.add_argument('src', help='The SRC db, ratings will be read FROM src.',
+                        choices=locs.keys())
+    parser.add_argument('dst', help='The DST db, ratings will be updated TO dst.',
+                        choices=locs.keys())
 
     args = parser.parse_args()
-    args.src = os.path.expanduser(args.src)
-    args.dst = os.path.expanduser(args.dst)
+    args.src = locs.get(args.src, os.path.expanduser(args.src))
+    args.dst = locs.get(args.dst, os.path.expanduser(args.dst))
 
     try:
         assert os.path.exists(args.src)
