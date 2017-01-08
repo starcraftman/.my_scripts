@@ -285,43 +285,6 @@ def install_jshint():
     cmd = 'npm install jshint -g'
     subprocess.call(shlex.split(cmd))
 
-def install_pipelight():
-    """ Silverlight plugin for firefox/chrome on linux.
-    NB: Stuck on old build, no xenial support yet.
-    http://www.webupd8.org/2013/08/pipelight-use-silverlight-in-your-linux.html
-    """
-    if os.getuid() != 0:
-        raise NotSudo
-
-    cmds = []
-    try:
-        out = subprocess.check_output('grep -rh pipelight/stable/ubuntu /etc/apt'.split())
-    except subprocess.CalledProcessError:
-        out = ''
-
-    if 'pipelight' not in out:
-        cmds += [
-            'rm -rf ' + os.path.expanduser('~/.wine-pipelight'),
-            'sudo add-apt-repository ppa:pipelight/stable',
-            'sudo apt-add-repository ppa:ehoover/compholio',
-            'sudo apt-get update',
-            'sudo apt-get -y remove flashplugin-installer',
-            'sudo apt-get -y install --install-recommends '\
-                    'wine wine-dev wine-staging wine-staging-dev pipelight-multi',
-        ]
-    cmds += [
-        'sudo pipelight-plugin --update',
-        'sudo pipelight-plugin --create-mozilla-plugins',
-        'sudo pipelight-plugin --accept --enable flash --enable silverlight5.1',
-        'sudo pipelight-plugin --create-mozilla-plugins',
-    ]
-
-    for cmd in cmds:
-        subprocess.call(shlex.split(cmd))
-    print("Installation over, remember to use a useragent switcher.")
-    print("After running firefox installers, you may need to execute again:")
-    print("  sudo pipelight-plugin --create-mozilla-plugins")
-
 
 def main():
     """ Main function. """
@@ -338,7 +301,6 @@ def main():
     server       Install debian packages for server, minimal.
     jshint       Install jshint via npm for javascript vim.
     pip          Install python libraries via pip.
-    pipelight    Install pipelight flash & silverlight.
     """
     # Use a dict of funcs to process args
     actions = {
@@ -351,7 +313,6 @@ def main():
         'server':       functools.partial(packs_debian, True),
         'jshint':       install_jshint,
         'pip':          packs_py,
-        'pipelight':    install_pipelight,
     }
     parser = argparse.ArgumentParser(description=mesg,
                                      formatter_class=argparse.
