@@ -62,7 +62,7 @@ def parse_input(input_file):
     with open(input_file) as fin:
         for line in fin:
             line = line.strip()
-            if 'disc' in line.lower() or 'disk' in line.lower():
+            if 'disc ' in line.lower() or 'disk ' in line.lower():
                 disc_no += 1
                 tdb[disc_no] = []
             elif line != '':
@@ -111,7 +111,7 @@ def main():
 
         sdirs = [os.path.join(root, dname) for dname in sorted(os.listdir(root))
                  if os.path.isdir(dname)]
-        for char in sdirs[0]:
+        for char in os.path.basename(sdirs[0]):
             if not str.isdigit(char):
                 raise WrongDir
 

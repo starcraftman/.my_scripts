@@ -9,7 +9,7 @@ import argparse
 import os
 
 
-FNAME_MAX = 150
+FNAME_MAX = 120
 END = '\033[0m'
 ULINE = '\033[93m\033[4m'
 
