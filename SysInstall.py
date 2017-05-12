@@ -67,7 +67,7 @@ PROGRAMMING = """ \
     sphinx-common sphinx-doc pandoc \
     # qml-module-qtquick-xmllistmodel \
     qtquick1-5-dev qtquick1-qml-plugins \
-    bash-doc bash-builtins bashdb \
+    bash-doc bash-builtins bashdb shellcheck \
     zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
