@@ -19,3 +19,5 @@ pakit :
     - uri: user_recipes
 parallel:
   repo: stable
+vimpager:
+  repo: stable
