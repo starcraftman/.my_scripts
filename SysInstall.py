@@ -98,6 +98,7 @@ PROGRAMMING = """ \
     python3 python3-dev python3-doc python3-pip jython jython-doc \
     pychecker pylint pep8 python-autopep8 ruby-full shunit2 \
     python-matplotlib python-numpy python-scipy \
+    rustc rust-gdb rust-lldb rust-doc cargo cargo-doc \
     tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
