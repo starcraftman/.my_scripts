@@ -1,0 +1,142 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+$PATH manipulator module to simply examine and modify it.
+Replacements can be made via full regex.
+
+CODES:
+    http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
+"""
+from __future__ import absolute_import, print_function
+import glob
+import os
+import re
+import stat
+import sys
+
+import argparse
+
+CODES = [
+    "\u001b[0m",        # Reset
+    "\u001b[33;1m",     # Bold Yellow
+    "\u001b[34;1m",     # Bold Blue
+    "\u001b[31;1m",     # Bold Red
+]
+
+
+def make_parser():
+    """ Return a parser for args. """
+    parser = argparse.ArgumentParser(prog=__file__.replace(".py", ""),
+                                     description='simple $PATH tool')
+    parser.set_defaults(cmd='path_components')
+    parser.add_argument('-n', '--nocolor', action="store_true", default=False,
+                        help='Turn off ANSI color codes.')
+    subs = parser.add_subparsers(title='subcommands',
+                                 description='The subcommands')
+
+    sub = subs.add_parser('replace', description="Search & Replace $PATH")
+    sub.set_defaults(cmd='path_replace')
+    sub.add_argument('terms', nargs='+',
+                     help='Format: search:replace, search:replace, ...')
+
+    sub = subs.add_parser('show', description="Show $PATH compoents")
+    sub.set_defaults(cmd='path_components')
+    sub.add_argument('-n', '--nocolor', action="store_true", default=False,
+                     help='Turn off ANSI color codes.')
+
+    return parser
+
+
+def parse_replacements(args):
+    """
+    Process the replacements into internal tuple format.
+
+    Expected Format: search:replace, search:replace.
+
+    Returns: [[search, replace], [search, replace], ...]
+    """
+    line = " ".join(args.terms).strip()
+    return [term.split(':') for term in line.split(',') if term]
+
+
+def path_replace(args):
+    """
+    Take a list of replacement tuples (search, replace) re patterns.
+
+    Print out new export line.
+    """
+    title = "Substitutions Made"
+    print("{}\n{}".format(title, "=" * len(title)))
+    replacements = parse_replacements(args)
+    new_parts = []
+
+    for part in os.environ["PATH"].split(":"):
+        for search, replace in replacements:
+            new_part = re.sub(search, replace, part)
+            if part != new_part:
+                print(part, "=>", new_part)
+
+        new_parts.append(new_part)
+
+    print("\n\nexport PATH={}".format(":".join(new_parts)))
+
+
+def path_verify(path, color=True):
+    """
+    Inspect path and warn if:
+        - No executables present at location
+        - No "/bin" suffix
+
+    Returns: Warning message if problem, empty string otherwise.
+    """
+    warnings = ["(NO execs)"]
+    mask = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
+    for fname in glob.glob(os.path.join(path, "*")):
+        if os.stat(fname)[0] & mask:
+            warnings = []
+            break
+
+    if not path.endswith("bin"):
+        warnings += ["(NO /bin)"]
+
+    msg = " ".join(warnings)
+    if msg:
+        msg = "  " + msg
+    if msg and color:
+        msg = CODES[-1] + msg + CODES[0]
+
+    return msg
+
+
+def path_components(args):
+    """ Print $PATH component per line. """
+    title = "$PATH Components"
+    print("{}\n{}".format(title, "=" * len(title)))
+
+    cnt = 1
+    for part in os.environ["PATH"].split(":"):
+        warn = path_verify(part, not args.nocolor)
+
+        if args.nocolor:
+            print("    {}{}".format(part, warn))
+        else:
+            print("    {}{}{}{}".format(CODES[cnt], part, CODES[0], warn))
+
+        cnt += 1
+        if cnt == 3:
+            cnt = 1
+
+
+def main():
+    """ Main entry. """
+    if "PATH" not in os.environ:
+        print("No $PATH set! ABORTING!!!")
+        sys.exit(1)
+
+    args = make_parser().parse_args()
+    func = getattr(sys.modules[__name__], args.cmd)
+    func(args)
+
+
+if __name__ == "__main__":
+    main()
