@@ -18,8 +18,8 @@ import argparse
 
 CODES = [
     "\u001b[0m",        # Reset
-    "\u001b[33;1m",     # Bold Yellow
     "\u001b[34;1m",     # Bold Blue
+    "\u001b[36;1m",     # Bold Cyan
     "\u001b[31;1m",     # Bold Red
 ]
 
