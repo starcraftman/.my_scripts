@@ -53,7 +53,8 @@ def make_parser():
     parser = argparse.ArgumentParser(prog=__file__.replace(".py", ""),
                                      description='simple $PATH tool')
     parser.set_defaults(cmd='path_show')
-    parser.add_argument('-n', '--nocolor', action="store_true", default=False,
+    parser.add_argument('-n', '--nocolor', dest="color",
+                        action="store_false", default=True,
                         help='Turn off ANSI color codes.')
     subs = parser.add_subparsers(title='subcommands',
                                  description='The subcommands')
@@ -65,13 +66,15 @@ def make_parser():
 
     sub = subs.add_parser('show', description="Show $PATH compoents")
     sub.set_defaults(cmd='path_show')
-    sub.add_argument('-n', '--nocolor', action="store_true", default=False,
+    sub.add_argument('-n', '--nocolor', dest="color",
+                     action="store_false", default=True,
                      help='Turn off ANSI color codes.')
 
     sub = subs.add_parser('which', description="Platform agnostic `which -a`")
     sub.set_defaults(cmd='path_which')
     sub.add_argument('look', help='Look for this executable')
-    sub.add_argument('-n', '--nocolor', action="store_true", default=False,
+    sub.add_argument('-n', '--nocolor', dest="color",
+                     action="store_false", default=True,
                      help='Turn off ANSI color codes.')
 
     return parser
@@ -155,7 +158,7 @@ def path_show(args):
     cnt = 0
     for part in os.environ["PATH"].split(":"):
         color = ""
-        if not args.nocolor:
+        if args.color:
             color = CODES[cnt]
         print(loop_fmt.format(pad=pad * " ", color=color, path=part))
 
@@ -221,7 +224,7 @@ def path_which(args):
     cnt = 0
     for part in os.environ["PATH"].split(":"):
         color = ""
-        if not args.nocolor:
+        if args.color:
             color = CODES[cnt]
 
         msg = check_exec(part, args.look)
@@ -243,7 +246,8 @@ def main():
         func(args)
     finally:
         # NEVER FORGET, resets colors
-        print(RESET)
+        if args.color:
+            print(RESET)
 
 
 if __name__ == "__main__":
