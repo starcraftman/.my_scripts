@@ -29,23 +29,23 @@ CODES = [
 MASK_EXEC = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
 
 
+def is_executable(fname):
+    """ True iff is executable file (owner, group or other). """
+    return os.path.isfile(fname) and os.stat(fname)[0] & MASK_EXEC
+
+
 def header(title, sep="="):
-    """ Print a title. """
-    print("{}\n{}".format(title, sep * len(title)))
+    """ Format a title. """
+    return "{}\n{}".format(title, sep * len(title))
 
 
 def sub_section(title, lines, pad_len=4, sep='-'):
-    """ Format a subsection. """
+    """ Format a subsection, indented from start by pad. """
     pad = pad_len * " "
     msg = "{pad}{}\n{pad}{}\n".format(title, sep * len(title), pad=pad)
     msg += pad + ("\n" + pad).join(lines) + "\n"
 
     return msg
-
-
-def is_executable(fname):
-    """ True iff is executable file (owner, group or other). """
-    return os.path.isfile(fname) and os.stat(fname)[0] & MASK_EXEC
 
 
 def make_parser():
@@ -56,6 +56,8 @@ def make_parser():
     parser.add_argument('-n', '--nocolor', dest="color",
                         action="store_false", default=True,
                         help='Turn off ANSI color codes.')
+    parser.add_argument('-w', '--nowarn', action="store_true",
+                        help='Turn off path warnings.')
     subs = parser.add_subparsers(title='subcommands',
                                  description='The subcommands')
 
@@ -69,6 +71,8 @@ def make_parser():
     sub.add_argument('-n', '--nocolor', dest="color",
                      action="store_false", default=True,
                      help='Turn off ANSI color codes.')
+    sub.add_argument('-w', '--nowarn', action="store_true",
+                     help='Turn off path warnings.')
 
     sub = subs.add_parser('which', description="Platform agnostic `which -a`")
     sub.set_defaults(cmd='path_which')
@@ -78,18 +82,6 @@ def make_parser():
                      help='Turn off ANSI color codes.')
 
     return parser
-
-
-def parse_replacements(args):
-    """
-    Process the replacements into internal tuple format.
-
-    Expected Format: search:replace, search:replace.
-
-    Returns: [[search, replace], [search, replace], ...]
-    """
-    line = " ".join(args.terms).strip()
-    return [term.split(':') for term in line.split(',') if term]
 
 
 def check_path_folder(path):
@@ -128,44 +120,28 @@ def check_path_folder(path):
     return warnings
 
 
-def path_replace(args):
+def check_exec(path, exe):
     """
-    Take a list of replacement tuples (search, replace) re patterns.
-
-    Print out new export line.
+    Check for possible matches to exe at path.
     """
-    header("Substitutions Made")
-    replacements = parse_replacements(args)
-    new_parts = []
+    bin_path = os.path.join(path, exe)
+    msg = ""
 
-    for part in os.environ["PATH"].split(":"):
-        for search, replace in replacements:
-            new_part = re.sub(search, replace, part)
-            if part != new_part:
-                print(part, "=>", new_part)
+    if is_executable(bin_path):
+        msg += check_version(bin_path)
 
-        new_parts.append(new_part)
+    matches = glob.glob(os.path.join(path, "*{}*".format(exe)))
+    matches = [match for match in matches if match != bin_path]
+    if matches:
+        lines = []
+        for match in matches:
+            suffix = ""
+            if os.path.islink(match):
+                suffix = "  ->  {}".format(os.path.realpath(match))
+            lines += ["- {}{}".format(os.path.basename(match), suffix)]
+        msg += sub_section("Close Matches", lines)
 
-    print("\n\nexport PATH={}".format(":".join(new_parts)))
-
-
-def path_show(args):
-    """ Print $PATH component per line. """
-    header("$PATH Components")
-    loop_fmt = "{pad}{color}{path}"
-    pad = 4
-
-    cnt = 0
-    for part in os.environ["PATH"].split(":"):
-        color = ""
-        if args.color:
-            color = CODES[cnt]
-        print(loop_fmt.format(pad=pad * " ", color=color, path=part))
-
-        for warn in check_path_folder(part):
-            print("{}X {}".format(pad * 2 * " ", warn))
-
-        cnt = (cnt + 1) % len(CODES)
+    return msg
 
 
 def check_version(bin_path):
@@ -192,33 +168,64 @@ def check_version(bin_path):
     return "".join(lines)
 
 
-def check_exec(path, exe):
+def parse_replacements(args):
     """
-    Check for possible matches to exe at path.
+    Process the replacements into internal tuple format.
+
+    Expected Format: search:replace, search:replace.
+
+    Returns: [[search, replace], [search, replace], ...]
     """
-    bin_path = os.path.join(path, exe)
-    msg = ""
+    line = " ".join(args.terms).strip()
+    return [term.split(':') for term in line.split(',') if term]
 
-    if is_executable(bin_path):
-        msg += check_version(bin_path)
 
-    matches = glob.glob(os.path.join(path, "*{}*".format(exe)))
-    matches = [match for match in matches if match != bin_path]
-    if matches:
-        lines = []
-        for match in matches:
-            suffix = ""
-            if os.path.islink(match):
-                suffix = "  ->  {}".format(os.path.realpath(match))
-            lines += ["- {}{}".format(os.path.basename(match), suffix)]
-        msg += sub_section("Close Matches", lines)
+def path_replace(args):
+    """
+    Take a list of replacement tuples (search, replace) re patterns.
 
-    return msg
+    Print out new export line.
+    """
+    print(header("Substitutions Made"))
+    replacements = parse_replacements(args)
+    new_parts = []
+
+    for part in os.environ["PATH"].split(":"):
+        for search, replace in replacements:
+            new_part = re.sub(search, replace, part)
+            if part != new_part:
+                print(part, "=>", new_part)
+
+        new_parts.append(new_part)
+
+    print("\n\nexport PATH={}".format(":".join(new_parts)))
+
+
+def path_show(args):
+    """ Print $PATH component per line. """
+    print(header("$PATH Components"))
+    loop_fmt = "{pad}{color}{path}"
+    pad = 4
+
+    cnt = 0
+    for part in os.environ["PATH"].split(":"):
+        color = ""
+        if args.color:
+            color = CODES[cnt]
+            cnt = (cnt + 1) % len(CODES)
+
+        print(loop_fmt.format(pad=pad * " ", color=color, path=part))
+
+        if args.nowarn:
+            continue
+
+        for warn in check_path_folder(part):
+            print("{}X {}".format(pad * 2 * " ", warn))
 
 
 def path_which(args):
     """ Look for all possible matches of executable. """
-    header("$PATH Lookup: {}".format(args.look))
+    print(header("$PATH Lookup: {}".format(args.look)))
     loop_fmt = "{color}{path}"
 
     cnt = 0
@@ -229,7 +236,7 @@ def path_which(args):
 
         msg = check_exec(part, args.look)
         if msg:
-            header(loop_fmt.format(color=color, path=part), '-')
+            print(header(loop_fmt.format(color=color, path=part), '-'))
             print(msg)
             cnt = (cnt + 1) % len(CODES)
 
