@@ -34,9 +34,6 @@ if valid_name apt-get; then
     sudo apt-get update && sudo apt-get -y dist-upgrade
     sudo apt-get autoremove
     sudo apt-get -f install
-
-    # For when pipelight updates
-    sudo -H pipelight-plugin --create-mozilla-plugins
 fi
 
 if [ -d "$OPTDIR" ]; then
