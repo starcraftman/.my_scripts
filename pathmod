@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-$PATH checker and manipulator.
-Replacements can be made via full regex.
+$PATH utility that can ...
+  - show all components of path and do sanity checks.
+  - replace parts of path with regex.
+  - lookup like 'which - a', portable + prints version of exact matches
 
 Color Codes:
     http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
@@ -13,6 +15,7 @@ import glob
 import os
 import re
 import stat
+import subprocess as subp
 import sys
 
 import argparse
@@ -23,11 +26,26 @@ CODES = [
     "\u001b[32;1m",     # Bold Green
     "\u001b[31;1m",     # Bold Red
 ]
+MASK_EXEC = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
 
 
-def header(title):
+def header(title, sep="="):
     """ Print a title. """
-    print("{}\n{}".format(title, "=" * len(title)))
+    print("{}\n{}".format(title, sep * len(title)))
+
+
+def sub_section(title, lines, pad_len=4, sep='-'):
+    """ Format a subsection. """
+    pad = pad_len * " "
+    msg = "{pad}{}\n{pad}{}\n".format(title, sep * len(title), pad=pad)
+    msg += pad + ("\n" + pad).join(lines) + "\n"
+
+    return msg
+
+
+def is_executable(fname):
+    """ True iff is executable file (owner, group or other). """
+    return os.path.isfile(fname) and os.stat(fname)[0] & MASK_EXEC
 
 
 def make_parser():
@@ -47,6 +65,12 @@ def make_parser():
 
     sub = subs.add_parser('show', description="Show $PATH compoents")
     sub.set_defaults(cmd='path_show')
+    sub.add_argument('-n', '--nocolor', action="store_true", default=False,
+                     help='Turn off ANSI color codes.')
+
+    sub = subs.add_parser('which', description="Platform agnostic `which -a`")
+    sub.set_defaults(cmd='path_which')
+    sub.add_argument('look', help='Look for this executable')
     sub.add_argument('-n', '--nocolor', action="store_true", default=False,
                      help='Turn off ANSI color codes.')
 
@@ -76,11 +100,10 @@ def check_path_folder(path):
 
     Returns: A list of warning messages, empty list otherwise.
     """
-    mask = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
     if os.path.isdir(path):
         warnings = ["NO executables"]
         for fname in glob.glob(os.path.join(path, "*")):
-            if os.path.isfile(fname) and os.stat(fname)[0] & mask:
+            if is_executable(fname):
                 warnings = []
                 break
     elif os.path.exists(path):
@@ -95,7 +118,7 @@ def check_path_folder(path):
     if os.path.exists(contained_bin):
         empty = " (EMPTY)"
         for fname in glob.glob(os.path.join(contained_bin, "*")):
-            if os.path.isfile(fname) and os.stat(fname)[0] & mask:
+            if is_executable(fname):
                 empty = ""
         warnings += ["Path CONTAINS a \"/bin\"{}".format(empty)]
 
@@ -141,8 +164,71 @@ def path_show(args):
 
         cnt = (cnt + 1) % len(CODES)
 
-    # NEVER FORGET, resets colors
-    print(RESET)
+
+def check_version(bin_path):
+    """
+    Given a binary path, check the possible version flags:
+        bin_path --version
+        bin_path -v
+        bin_path -version  (some weridos like java)
+
+    Returns:
+        A string made of subsections that are formatted for output.
+    """
+    lines = []
+    for flag in ["--version", "-v", "-version"]:
+        title = "$ {} {}".format(bin_path, flag)
+        proc = subp.run([bin_path, flag], stdout=subp.PIPE, stderr=subp.STDOUT)
+        if proc.returncode == 0:
+            lines += sub_section(title,
+                                 proc.stdout.decode().split("\n") + [""])
+            break
+        else:
+            lines += sub_section(title, ["ERROR", ""])
+
+    return "".join(lines)
+
+
+def check_exec(path, exe):
+    """
+    Check for possible matches to exe at path.
+    """
+    bin_path = os.path.join(path, exe)
+    msg = ""
+
+    if is_executable(bin_path):
+        msg += check_version(bin_path)
+
+    matches = glob.glob(os.path.join(path, "*{}*".format(exe)))
+    matches = [match for match in matches if match != bin_path]
+    if matches:
+        lines = []
+        for match in matches:
+            suffix = ""
+            if os.path.islink(match):
+                suffix = "  ->  {}".format(os.path.realpath(match))
+            lines += ["- {}{}".format(os.path.basename(match), suffix)]
+        msg += sub_section("Close Matches", lines)
+
+    return msg
+
+
+def path_which(args):
+    """ Look for all possible matches of executable. """
+    header("$PATH Lookup: {}".format(args.look))
+    loop_fmt = "{color}{path}"
+
+    cnt = 0
+    for part in os.environ["PATH"].split(":"):
+        color = ""
+        if not args.nocolor:
+            color = CODES[cnt]
+
+        msg = check_exec(part, args.look)
+        if msg:
+            header(loop_fmt.format(color=color, path=part), '-')
+            print(msg)
+            cnt = (cnt + 1) % len(CODES)
 
 
 def main():
@@ -153,7 +239,11 @@ def main():
 
     args = make_parser().parse_args()
     func = getattr(sys.modules[__name__], args.cmd)
-    func(args)
+    try:
+        func(args)
+    finally:
+        # NEVER FORGET, resets colors
+        print(RESET)
 
 
 if __name__ == "__main__":
