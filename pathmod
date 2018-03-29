@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-$PATH manipulator module to simply examine and modify it.
+$PATH checker and manipulator.
 Replacements can be made via full regex.
 
-CODES:
+Color Codes:
     http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
+    Should work (almost) everywhere.
 """
 from __future__ import absolute_import, print_function
 import glob
@@ -16,19 +17,24 @@ import sys
 
 import argparse
 
+RESET = "\u001b[0m"        # Reset colors
 CODES = [
-    "\u001b[0m",        # Reset
     "\u001b[34;1m",     # Bold Blue
-    "\u001b[36;1m",     # Bold Cyan
+    "\u001b[32;1m",     # Bold Green
     "\u001b[31;1m",     # Bold Red
 ]
+
+
+def header(title):
+    """ Print a title. """
+    print("{}\n{}".format(title, "=" * len(title)))
 
 
 def make_parser():
     """ Return a parser for args. """
     parser = argparse.ArgumentParser(prog=__file__.replace(".py", ""),
                                      description='simple $PATH tool')
-    parser.set_defaults(cmd='path_components')
+    parser.set_defaults(cmd='path_show')
     parser.add_argument('-n', '--nocolor', action="store_true", default=False,
                         help='Turn off ANSI color codes.')
     subs = parser.add_subparsers(title='subcommands',
@@ -40,7 +46,7 @@ def make_parser():
                      help='Format: search:replace, search:replace, ...')
 
     sub = subs.add_parser('show', description="Show $PATH compoents")
-    sub.set_defaults(cmd='path_components')
+    sub.set_defaults(cmd='path_show')
     sub.add_argument('-n', '--nocolor', action="store_true", default=False,
                      help='Turn off ANSI color codes.')
 
@@ -59,14 +65,50 @@ def parse_replacements(args):
     return [term.split(':') for term in line.split(',') if term]
 
 
+def check_path_folder(path):
+    """
+    Inspect path and warn if:
+        - Path does not exist.
+        - Path is mistakenly a file.
+        - Path has no executable files present at location (if exists)
+        - Path does not end in "/bin" suffix (soft warning, possible intended)
+        - Path contains a "/bin" folder (empty unless has executables)
+
+    Returns: A list of warning messages, empty list otherwise.
+    """
+    mask = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
+    if os.path.isdir(path):
+        warnings = ["NO executables"]
+        for fname in glob.glob(os.path.join(path, "*")):
+            if os.path.isfile(fname) and os.stat(fname)[0] & mask:
+                warnings = []
+                break
+    elif os.path.exists(path):
+        warnings = ["Path is FILE"]
+    else:
+        warnings = ["Path does NOT exist"]
+
+    if not path.endswith("bin"):
+        warnings += ["Path does NOT end in \"/bin\""]
+
+    contained_bin = os.path.join(path, "bin")
+    if os.path.exists(contained_bin):
+        empty = " (EMPTY)"
+        for fname in glob.glob(os.path.join(contained_bin, "*")):
+            if os.path.isfile(fname) and os.stat(fname)[0] & mask:
+                empty = ""
+        warnings += ["Path CONTAINS a \"/bin\"{}".format(empty)]
+
+    return warnings
+
+
 def path_replace(args):
     """
     Take a list of replacement tuples (search, replace) re patterns.
 
     Print out new export line.
     """
-    title = "Substitutions Made"
-    print("{}\n{}".format(title, "=" * len(title)))
+    header("Substitutions Made")
     replacements = parse_replacements(args)
     new_parts = []
 
@@ -81,50 +123,26 @@ def path_replace(args):
     print("\n\nexport PATH={}".format(":".join(new_parts)))
 
 
-def path_verify(path, color=True):
-    """
-    Inspect path and warn if:
-        - No executables present at location
-        - No "/bin" suffix
-
-    Returns: Warning message if problem, empty string otherwise.
-    """
-    warnings = ["(NO execs)"]
-    mask = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
-    for fname in glob.glob(os.path.join(path, "*")):
-        if os.stat(fname)[0] & mask:
-            warnings = []
-            break
-
-    if not path.endswith("bin"):
-        warnings += ["(NO /bin)"]
-
-    msg = " ".join(warnings)
-    if msg:
-        msg = "  " + msg
-    if msg and color:
-        msg = CODES[-1] + msg + CODES[0]
-
-    return msg
-
-
-def path_components(args):
+def path_show(args):
     """ Print $PATH component per line. """
-    title = "$PATH Components"
-    print("{}\n{}".format(title, "=" * len(title)))
+    header("$PATH Components")
+    loop_fmt = "{pad}{color}{path}"
+    pad = 4
 
-    cnt = 1
+    cnt = 0
     for part in os.environ["PATH"].split(":"):
-        warn = path_verify(part, not args.nocolor)
+        color = ""
+        if not args.nocolor:
+            color = CODES[cnt]
+        print(loop_fmt.format(pad=pad * " ", color=color, path=part))
 
-        if args.nocolor:
-            print("    {}{}".format(part, warn))
-        else:
-            print("    {}{}{}{}".format(CODES[cnt], part, CODES[0], warn))
+        for warn in check_path_folder(part):
+            print("{}X {}".format(pad * 2 * " ", warn))
 
-        cnt += 1
-        if cnt == 3:
-            cnt = 1
+        cnt = (cnt + 1) % len(CODES)
+
+    # NEVER FORGET, resets colors
+    print(RESET)
 
 
 def main():
