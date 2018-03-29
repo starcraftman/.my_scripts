@@ -102,7 +102,7 @@ def check_path_folder(path):
                 warnings = []
                 break
     elif os.path.exists(path):
-        warnings = ["Path is FILE"]
+        warnings = ["Path is a FILE"]
     else:
         warnings = ["Path does NOT exist"]
 
