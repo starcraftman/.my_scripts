@@ -20,11 +20,11 @@ import sys
 
 import argparse
 
-RESET = "\u001b[0m"        # Reset colors
+RESET = u"\u001b[0m"        # Reset colors
 CODES = [
-    "\u001b[34;1m",     # Bold Blue
-    "\u001b[32;1m",     # Bold Green
-    "\u001b[31;1m",     # Bold Red
+    u"\u001b[34;1m",     # Bold Blue
+    u"\u001b[32;1m",     # Bold Green
+    u"\u001b[31;1m",     # Bold Red
 ]
 MASK_EXEC = stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH  # File is executable
 
@@ -52,7 +52,6 @@ def make_parser():
     """ Return a parser for args. """
     parser = argparse.ArgumentParser(prog=__file__.replace(".py", ""),
                                      description='simple $PATH tool')
-    parser.set_defaults(cmd='path_show')
     parser.add_argument('-n', '--nocolor', dest="color",
                         action="store_false", default=True,
                         help='Turn off ANSI color codes.')
@@ -157,10 +156,13 @@ def check_version(bin_path):
     lines = []
     for flag in ["--version", "-v", "-version"]:
         title = "$ {} {}".format(bin_path, flag)
-        proc = subp.run([bin_path, flag], stdout=subp.PIPE, stderr=subp.STDOUT)
+        proc = subp.Popen([bin_path, flag], stdout=subp.PIPE,
+                          stderr=subp.STDOUT)
+        proc.wait()
+
         if proc.returncode == 0:
-            lines += sub_section(title,
-                                 proc.stdout.decode().split("\n") + [""])
+            capture = proc.stdout.read().decode().split("\n") + [""]
+            lines += sub_section(title, capture)
             break
         else:
             lines += sub_section(title, ["ERROR", ""])
@@ -209,13 +211,12 @@ def path_show(args):
 
     cnt = 0
     for part in os.environ["PATH"].split(":"):
-        color = ""
+        color = u""
         if args.color:
             color = CODES[cnt]
             cnt = (cnt + 1) % len(CODES)
 
         print(loop_fmt.format(pad=pad * " ", color=color, path=part))
-
         if args.nowarn:
             continue
 
@@ -230,7 +231,7 @@ def path_which(args):
 
     cnt = 0
     for part in os.environ["PATH"].split(":"):
-        color = ""
+        color = u""
         if args.color:
             color = CODES[cnt]
 
@@ -247,10 +248,16 @@ def main():
         print("No $PATH set! ABORTING!!!")
         sys.exit(1)
 
-    args = make_parser().parse_args()
-    func = getattr(sys.modules[__name__], args.cmd)
+    parser = make_parser()
+    args = parser.parse_args()
+    func_name = getattr(args, "cmd", None)
+    if not func_name:
+        print("Error: Select a subcommand.")
+        parser.print_help()
+        sys.exit(1)
+
     try:
-        func(args)
+        getattr(sys.modules[__name__], func_name)(args)
     finally:
         # NEVER FORGET, resets colors
         if args.color:
