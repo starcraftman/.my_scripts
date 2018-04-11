@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #REPOS=( ~/.shell/.[^.]* ~/.shell/..?* ~/.my_scripts )
-REPOS=( ~/.shell/* ~/.my_scripts )
+REPOS=( $SHELLD/* )
 
 # Update repositories passed as arguments
 update_repos() {
