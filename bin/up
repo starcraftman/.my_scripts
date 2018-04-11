@@ -37,9 +37,10 @@ if valid_name apt-get; then
 fi
 
 if [ -d "$OPTDIR" ]; then
+    local here
+    here=$(dirname "$(which up)")
     echo 'Updating programs built with pakit.'
-    HERE=$(readlink -f $(dirname "$0"))
-    pakit --conf "$HERE/.pakit.yml" update
+    pakit --conf "$here/.pakit.yml" update
 fi
 
 echo 'done'
