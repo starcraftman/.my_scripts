@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Simple helper script for up. Updates n directories if either git or hg.
+# Expects absolute paths.
+
+for dir ; do
+    echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
+    cd "$dir"
+    if [ -d ".git" ]; then
+        git pull && git submodule update --init --recursive
+    elif [ -d ".hg" ]; then
+        hg pull && hg update
+    fi
+done

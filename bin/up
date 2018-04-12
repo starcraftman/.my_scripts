@@ -1,54 +1,35 @@
 #!/usr/bin/env bash
+# Update the overall platform and dev tools
 
-# Update repositories passed as arguments
-update_repos() {
-    echo 'updating repos'
-    pushd .
-
-    for dir ; do
-        if [ -d "$dir" ]; then
-            cd "$dir"
-            echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
-            if [ -d ".git" ]; then
-                git pull && git submodule update --init --recursive
-            elif [ -d ".hg" ]; then
-                hg pull && hg update
-            fi
-        fi
-    done
-
-    popd
-}
-
-# Use parallel when installed. Works for git and hg only. Output will be mixed up.
+# Use parallel when installed. Output will be mixed up.
+echo -e "${T_GREEN}Updating $SHELLD repositories${T_RESET}"
 if valid_name parallel && valid_name readlink; then
-    readlink -f ~/.shell/* | parallel -j+0 "pushd {} &&  if [ -d '.git' ]; then git pull; elif [ -d '.hg' ]; then hg pull;  fi"
+    # readlink just outputs one dir per line easily, otherwise uneeded
+    readlink -f "$SHELLD"/* | parallel -j+0 "up_repo {}"
+elif valid_name parallel && valid_name tr; then
+    echo "$SHELLD"/* | tr ' ' '\n' | parallel -j+0 "up_repo {}"
 else
-    __repos=( $SHELLD/* )
-    update_repos "${__repos[@]}"
-    unset __repos
+    up_repo "$SHELLD"/*
 fi
 
 if [ -s ~/.vim/autoload/plug.vim ] && valid_name vim; then
-    echo 'Updating vim plugins.'
+    echo -e "${T_GREEN}Updating vim plugins${T_RESET}"
     vim +PlugUpdate +PlugUpgrade +qa
 fi
 
 if [ -s ~/.config/nvim/autoload/plug.vim ] && valid_name nvim; then
-    echo 'Updating neovim plugins.'
+    echo -e "${T_GREEN}Updating neovim plugins${T_RESET}"
     nvim +PlugUpdate +PlugUpgrade +qa
 fi
 
 if valid_name apt-get; then
-    echo 'updating debian platform'
+    echo -e "${T_GREEN}Updating debian platform${T_RESET}"
     sudo apt-get update
     sudo apt-get -y dist-upgrade
     sudo apt-get autoremove
 fi
 
-if [ -d "$OPTDIR" ]; then
-    echo 'Updating programs built with pakit.'
+if valid_name pakit && [ -d "$OPTDIR" ]; then
+    echo -e "${T_GREEN}Updating pakit programs${T_RESET}"
     pakit --conf "$(dirname "$(which up)")/.pakit.yml" update
 fi
-
-echo 'done'

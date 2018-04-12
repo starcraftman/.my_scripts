@@ -79,6 +79,8 @@ def make_parser():
     sub.add_argument('-n', '--nocolor', dest="color",
                      action="store_false", default=True,
                      help='Turn off ANSI color codes.')
+    sub.add_argument('-v', '--version', action="store_true",
+                     help='Show version of exact matches.')
 
     return parser
 
@@ -119,7 +121,7 @@ def check_path_folder(path):
     return warnings
 
 
-def check_exec(path, exe):
+def check_exec(path, exe, show_version=False):
     """
     Check for possible matches to exe at path.
     """
@@ -127,7 +129,10 @@ def check_exec(path, exe):
     msg = ""
 
     if is_executable(bin_path):
-        msg += check_version(bin_path)
+        if show_version:
+            msg += check_version(bin_path)
+        else:
+            msg += sub_section("!!! MATCH !!!", [bin_path, ""])
 
     matches = glob.glob(os.path.join(path, "*{}*".format(exe)))
     matches = [match for match in matches if match != bin_path]
@@ -235,7 +240,7 @@ def path_which(args):
         if args.color:
             color = CODES[cnt]
 
-        msg = check_exec(part, args.look)
+        msg = check_exec(part, args.look, args.version)
         if msg:
             print(header(loop_fmt.format(color=color, path=part), '-'))
             print(msg)
