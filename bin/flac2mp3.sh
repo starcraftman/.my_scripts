@@ -24,10 +24,10 @@ find . -name "*.flac" > input.txt
 
 # Encode mp3 to 160kbs, alternatives: https://trac.ffmpeg.org/wiki/Encode/MP3
 if valid_name parallel; then
-    parallel -a input.txt avconv -i "{}" -qscale:a 4 -map_metadata 0:g:0 "{.}.mp3"
+    parallel -a input.txt avconv -i "{}" -qscale:a 5 -map_metadata 0:g:0 "{.}.mp3"
 else
     while read file; do
-        avconv -i "$file" -qscale:a 4 -map_metadata 0:g:0 "${file%flac}mp3"
+        avconv -i "$file" -qscale:a 5 -map_metadata 0:g:0 "${file%flac}mp3"
     done
 fi
 
