@@ -143,12 +143,16 @@ def home_config():
     # Get shell utilities
     shell_dir = '.shell'
     git_urls = [
+        'git@github.com:pakit/base_recipes.git',
+        'git@github.com:starcraftman/dot.git',
+        #  'https://github.com/starcraftman/dot.git',
+        'https://github.com/google/styleguide',
         'https://github.com/magicmonty/bash-git-prompt.git',
+        'https://github.com/mernen/completion-ruby/',
         'https://github.com/starcraftman/zsh-git-prompt.git',
         'https://github.com/zsh-users/zsh-completions.git',
         'https://github.com/zsh-users/zsh-syntax-highlighting.git',
         'https://github.com/starcraftman/hhighlighter.git',
-        'https://github.com/starcraftman/dot.git',
     ]
     for url in git_urls:
         target = url[url.rindex('/')+1:url.rindex('.git')]
