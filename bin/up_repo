@@ -3,6 +3,10 @@
 # Expects absolute paths.
 
 for dir ; do
+    if [ ! -d "$dir" ]; then
+        continue
+    fi
+
     echo -e " >>> ${T_BGREEN}$dir${T_RESET} <<< "
     cd "$dir"
     if [ -d ".git" ]; then
