@@ -17,6 +17,8 @@ pakit :
     uris:
     - uri: https://github.com/pakit/base_recipes
     - uri: user_recipes
+cmake:
+  repo: stable
 parallel:
   repo: stable
 vimpager:
