@@ -34,20 +34,21 @@ PROGRAMS = """ \
     htop iotop itop mytop pkg-config aptitude synaptic dos2unix unetbootin \
     oxygen-molecule kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
-    brother-lpr-drivers-laser brother-lpr-drivers-laser1 \
+    brother-lpr-drivers-laser brother-lpr-drivers-laser1 brother-lpr-drivers-common \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
-    kcharselect k4dirstat keepassx screen tmux \
+    clementine amarok kcharselect k4dirstat keepassx screen tmux \
     chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
-    fuse gparted quicksynergy tree dfc sharutils sharutils-doc \
+    fuse gparted extlinux quicksynergy tree dfc sharutils sharutils-doc \
     libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx nautilus-dropbox \
     samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev \
     wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
     virtualbox-qt wine vagrant \
-    ttf-xfree86-nonfree \
+    keepass2 abiword-common trash-cli ttf-xfree86-nonfree \
+    unrar virtualbox virtualbox-dkms xterm xclip zsync \
     """
 
 KEYRINGS = """ \
@@ -58,16 +59,16 @@ KEYRINGS = """ \
 
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
-    automake automake1.9-doc autopoint gperf checkinstall checkbox \
+    autotools-dev autoconf automake automake1.9-doc autopoint gperf checkinstall checkbox \
     dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk graphviz graphviz-dev \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
-    re2c flex flex-doc bison bison-doc exuberant-ctags \
+    re2c flex flex-doc bison bison-doc exuberant-ctags cloc \
     sphinx-common sphinx-doc pandoc \
     # qml-module-qtquick-xmllistmodel \
     qtquick1-5-dev qtquick1-qml-plugins \
-    bash-doc bash-builtins bashdb shellcheck \
+    bash-doc bash-builtins bats bashdb shellcheck shunit2 \
     zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
@@ -75,19 +76,21 @@ PROGRAMMING = """ \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
+    cmake ninja-build clang clang++ clang-tidy clang-format cppcheck llvm lldb \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
     libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
-    libblas-dev liblapack-dev libyaml-dev \
+    libblas-dev liblapack-dev libyaml-dev libsqlite3-dev \
+    freeglut3 freeglut3-dev \
     openmpi-bin openmpi-checkpoint openmpi-common \
     gfortran \
     ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
     groovy groovy-doc \
-    haskell-devscripts haskell-doc cabal-install \
+    haskell-devscripts haskell-doc haskell-stack cabal-install \
     maven ant ant-doc \
-    lua5.2 lua5.2-doc luadoc liblua5.2-dev \
+    lua5.3 lua5.3-doc luadoc liblua5.3-dev \
     monodevelop-debugger-gdb monodevelop-nunit \
     nodejs nodejs-dev nodejs-legacy npm \
     perl perl-doc libperl-dev perl-modules libpadwalker-perl \
@@ -95,14 +98,18 @@ PROGRAMMING = """ \
     php5 php5-mysql phpunit php5-dev \
     swi-prolog swi-prolog-doc \
     python python-dev python-doc python-pip \
-    python3 python3-dev python3-doc python3-pip jython jython-doc \
-    pychecker pylint pep8 python-autopep8 ruby-full shunit2 \
-    python-matplotlib python-numpy python-scipy \
+    python3 python3-dev python3-doc python3-pip jython jython-doc pypy pypy-doc \
+    pychecker pylint pep8 python-autopep8 \
+    python-virtualenv python-flake8 python-pylint python-tox \
+    python-matplotlib python-numpy python-scipy python-pytest python-pygments \
+    ruby-full bundler \
     rustc rust-gdb rust-lldb cargo cargo-doc \
     tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs \
+    aspectj aspectj-doc aspect++ \
+    yamllint \
     """
 
 BABUN = """ \
