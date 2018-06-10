@@ -76,7 +76,7 @@ PROGRAMMING = """ \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
-    cmake ninja-build clang clang++ clang-tidy clang-format cppcheck llvm lldb \
+    cmake ninja-build clang clang-tidy clang-format cppcheck llvm lldb \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
@@ -100,7 +100,7 @@ PROGRAMMING = """ \
     python python-dev python-doc python-pip \
     python3 python3-dev python3-doc python3-pip jython jython-doc pypy pypy-doc \
     pychecker pylint pep8 python-autopep8 \
-    python-virtualenv python-flake8 python-pylint python-tox \
+    python-virtualenv python-flake8 pylint python-tox \
     python-matplotlib python-numpy python-scipy python-pytest python-pygments \
     ruby-full bundler \
     rustc rust-gdb rust-lldb cargo cargo-doc \
@@ -108,7 +108,7 @@ PROGRAMMING = """ \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
     mercurial subversion cvs \
-    aspectj aspectj-doc aspect++ \
+    aspectj aspectj-doc aspectc++ \
     yamllint \
     """
 
