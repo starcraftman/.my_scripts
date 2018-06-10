@@ -60,7 +60,7 @@ KEYRINGS = """ \
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
     autotools-dev autoconf automake automake1.9-doc autopoint gperf checkinstall checkbox \
-    dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
+    libtool-bin dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
     codeblocks kdevelop qt-sdk graphviz graphviz-dev \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
