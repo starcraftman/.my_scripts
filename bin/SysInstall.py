@@ -76,6 +76,7 @@ PROGRAMMING = """ \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
+    gcovr lcov \
     cmake ninja-build clang clang-tidy clang-format cppcheck llvm lldb \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
