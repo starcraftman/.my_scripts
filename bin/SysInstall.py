@@ -36,6 +36,7 @@ PROGRAMS = """ \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 brother-lpr-drivers-common \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
+    muon software-properties-gtk \
     clementine amarok kcharselect k4dirstat keepassx screen tmux \
     chromium-browser firefox rekonq \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
