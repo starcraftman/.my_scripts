@@ -38,7 +38,7 @@ PROGRAMS = """ \
     k3b kid3 krita kolourpaint4 kchmviewer yakuake plasma-widget-quickaccess \
     muon software-properties-gtk \
     clementine amarok kcharselect k4dirstat keepassx screen tmux \
-    chromium-browser firefox rekonq \
+    chromium-browser firefox \
     abiword baobab dvdrip easytag chm2pdf dia catdoc \
     gimp gimp-plugin-registry \
     fuse gparted extlinux quicksynergy tree dfc sharutils sharutils-doc \
@@ -58,17 +58,18 @@ KEYRINGS = """ \
     ubuntu-keyring \
     """
 
+# Removed for now:
+# qml-module-qtquick-xmllistmodel qtquick1-5-dev qtquick1-qml-plugins
+# lldb rust-lldb(4.0)
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
     autotools-dev autoconf automake automake1.9-doc autopoint gperf checkinstall checkbox \
     libtool-bin dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
-    codeblocks kdevelop qt-sdk graphviz graphviz-dev \
+    qtcreator codeblocks kdevelop qt-sdk graphviz graphviz-dev \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     re2c flex flex-doc bison bison-doc exuberant-ctags cloc \
     sphinx-common sphinx-doc pandoc \
-    # qml-module-qtquick-xmllistmodel \
-    qtquick1-5-dev qtquick1-qml-plugins \
     bash-doc bash-builtins bats bashdb shellcheck shunit2 \
     zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
@@ -78,7 +79,7 @@ PROGRAMMING = """ \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
     gcovr lcov \
-    cmake ninja-build clang clang-tidy clang-format cppcheck llvm lldb \
+    cmake ninja-build clang clang-tidy clang-format cppcheck llvm \
     libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
@@ -105,7 +106,7 @@ PROGRAMMING = """ \
     python-virtualenv python-flake8 pylint python-tox \
     python-matplotlib python-numpy python-scipy python-pytest python-pygments \
     ruby-full bundler \
-    rustc rust-gdb rust-lldb cargo cargo-doc \
+    rustc rust-gdb cargo cargo-doc \
     tcl-dev tcl-doc \
     tex-common texlive-latex-base texlive-font-utils \
     bzr bzr-builddeb bzr-doc python-bzrlib bzrtools git git-gui git-doc \
