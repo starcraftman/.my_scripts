@@ -2,7 +2,6 @@
 # PYTHON_ARGCOMPLETE_OK
 """ Install packages and setup home configs on fresh system. """
 from __future__ import print_function
-from BuildSrc import get_code
 import argparse
 import functools
 import glob
@@ -17,9 +16,11 @@ except ImportError:
 try:
     from argcomplete import autocomplete
 except ImportError:
-    def autocomplete(dummy):
+    def autocomplete(_):
         """ Dummy func. """
         pass
+
+from BuildSrc import get_code
 
 # Packages to install follow, broken down into categories.
 MINIMUM = """ \
@@ -31,7 +32,7 @@ MINIMUM = """ \
     """
 
 PROGRAMS = """ \
-    htop iotop itop mytop pkg-config aptitude synaptic dos2unix unetbootin \
+    htop iotop itop mytop pkg-config aptitude synaptic dos2unix \
     oxygen-molecule kubuntu-restricted-extras kubuntu-restricted-addons \
     brother-cups-wrapper-laser brother-cups-wrapper-laser1 \
     brother-lpr-drivers-laser brother-lpr-drivers-laser1 brother-lpr-drivers-common \
@@ -44,17 +45,17 @@ PROGRAMS = """ \
     fuse gparted extlinux quicksynergy tree dfc sharutils sharutils-doc \
     libnotify-bin libnotify-dev \
     redshift geoclue geoclue-hostip numlockx nautilus-dropbox \
-    samba samba-doc samba-dev samba-dbg cifs-utils wireshark libwireshark-dev \
+    samba samba-dev cifs-utils wireshark libwireshark-dev \
     wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
-    virtualbox-qt wine vagrant \
+    virtualbox-qt wine-stable vagrant \
     keepass2 abiword-common trash-cli ttf-xfree86-nonfree \
     unrar virtualbox virtualbox-dkms xterm xclip zsync \
     """
 
 KEYRINGS = """ \
     debian-keyring debian-archive-keyring gnome-keyring \
-    debian-ports-archive-keyring python-gnomekeyring python-keyring \
+    debian-ports-archive-keyring python-keyring \
     ubuntu-keyring \
     """
 
@@ -63,42 +64,42 @@ KEYRINGS = """ \
 # lldb rust-lldb(4.0)
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
-    autotools-dev autoconf automake automake1.9-doc autopoint gperf checkinstall checkbox \
+    autotools-dev autoconf automake autopoint gperf checkinstall checkbox-ng \
+    python3-checkbox-ng python3-checkbox-ng-doc \
     libtool-bin dkms docbook make-doc lynx kdiff3 kdiff3-doc patch rpm2cpio rpm \
-    qtcreator codeblocks kdevelop qt-sdk graphviz graphviz-dev \
+    qtcreator codeblocks kdevelop qt-sdk graphviz graphviz-dev -graphviz-doc \
     colormake colordiff colorgcc jq nmap \
     vim vim-doc vim-gtk vim-rails vim-syntax-go vim-syntax-gtk vim-doc \
     re2c flex flex-doc bison bison-doc exuberant-ctags cloc \
     sphinx-common sphinx-doc pandoc \
     bash-doc bash-builtins bats bashdb shellcheck shunit2 \
-    zsh zsh-dbg zsh-dev zsh-doc zsh-lovers zshdb \
+    zsh zsh-dev zsh-doc zshdb \
     clisp clisp-doc clisp-dev clisp-module-gdbm \
     coffeescript coffeescript-doc \
     docutils-common docutils-doc asciidoc xmlto docbook2x \
     erlang erlang-eunit \
     gdc golang golang-doc golang-src golang-codesearch-dev \
     gcc gcc-doc gcc-5-source libcunit1 gdb gdb-doc cgdb xxgdb ccache \
-    gcovr lcov \
+    valgrind kcachegrind gcovr lcov \
     cmake ninja-build clang clang-tidy clang-format cppcheck llvm \
-    libboost-all-dev libglm-dev libglew-dev libglfw-dev ncurses-doc \
+    libboost-all-dev libglm-dev libglew-dev libglfw3-dev ncurses-doc \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
     libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
     libblas-dev liblapack-dev libyaml-dev libsqlite3-dev \
     freeglut3 freeglut3-dev \
-    openmpi-bin openmpi-checkpoint openmpi-common \
+    openmpi-bin openmpi-doc openmpi-common \
     gfortran \
-    ghc ghc-doc ghc-haddock ghc-prof haskell-debian-utils \
+    ghc ghc-doc ghc-prof haskell-debian-utils \
     groovy groovy-doc \
     haskell-devscripts haskell-doc haskell-stack cabal-install \
     maven ant ant-doc \
-    lua5.3 lua5.3-doc luadoc liblua5.3-dev \
-    monodevelop-debugger-gdb monodevelop-nunit \
-    nodejs nodejs-dev nodejs-legacy npm \
+    lua5.3 lua-doc luadoc lua-ldoc liblua5.3-dev \
+    nodejs nodejs-dev npm \
     perl perl-doc libperl-dev perl-modules libpadwalker-perl \
     libfile-next-perl \
-    php5 php5-mysql phpunit php5-dev \
+    php-all-dev phpunit \
     swi-prolog swi-prolog-doc \
     python python-dev python-doc python-pip \
     python3 python3-dev python3-doc python3-pip jython jython-doc pypy pypy-doc \
@@ -132,9 +133,11 @@ PY_PACKS = """ \
 DOT_FILES = os.path.join('.shell', 'dot', 'files')
 HOME_BAK = '.home_bak'
 
+
 class NotSudo(Exception):
     """ Throw this if we aren't sudo but need to be. """
     pass
+
 
 def do_in_home(some_func):
     """ Simple decorator, executes some_func in users $HOME. """
@@ -146,6 +149,7 @@ def do_in_home(some_func):
         some_func()
         os.chdir(oldcwd)
     return inner
+
 
 @do_in_home
 def home_config():
@@ -169,18 +173,18 @@ def home_config():
         get_code(url, os.path.join(shell_dir, target))
 
     get_code('https://bitbucket.org/sjl/hg-prompt/',
-            os.path.join(shell_dir, 'hg-prompt'))
+             os.path.join(shell_dir, 'hg-prompt'))
 
     # Setup powerline fonts if not done.
     font_dir = '.fonts'
     if not os.path.exists(font_dir) and \
             subprocess.call(['which', 'fc-cache']) == 0:
         get_code('https://github.com/Lokaltog/powerline-fonts',
-                os.path.join(font_dir, 'powerline'))
+                 os.path.join(font_dir, 'powerline'))
         subprocess.call(['fc-cache', '-vf', font_dir])
 
     files = [os.path.basename(x) for x in
-            glob.glob(os.path.join(DOT_FILES, '*'))]
+             glob.glob(os.path.join(DOT_FILES, '*'))]
     for fil in files:
         sfile, dfile = os.path.join(DOT_FILES, fil), '.' + fil
         if not os.path.exists(dfile):
@@ -188,6 +192,7 @@ def home_config():
             os.symlink(sfile, dfile)
 
     print("NOTE: Remember to add user to smb.\nsudo smbpasswd -a username")
+
 
 @do_in_home
 def home_restore():
@@ -200,13 +205,13 @@ def home_restore():
 
     # Clear existing configs if they are symlinks
     files = [os.path.basename(x) for x in
-            glob.glob(os.path.join(DOT_FILES, '*'))]
+             glob.glob(os.path.join(DOT_FILES, '*'))]
     for fil in files:
         if os.path.islink(fil):
             os.remove(fil)
 
     arc_files = [os.path.basename(x) for x in
-            glob.glob(os.path.join(HOME_BAK, '.*'))]
+                 glob.glob(os.path.join(HOME_BAK, '.*'))]
     for fil in arc_files:
         sfile, dfile = os.path.join(HOME_BAK, fil), fil
         if not os.path.exists(dfile):
@@ -218,6 +223,7 @@ def home_restore():
     except OSError:
         pass
 
+
 @do_in_home
 def home_save():
     """ Save existing home configs to a backup dir. """
@@ -225,7 +231,7 @@ def home_save():
         os.makedirs(HOME_BAK)
 
     files = ['.' + os.path.basename(x) for x in
-            glob.glob(os.path.join(DOT_FILES, '*'))]
+             glob.glob(os.path.join(DOT_FILES, '*'))]
     files = [x for x in files if os.path.exists(x)]
 
     for fil in files:
@@ -233,6 +239,7 @@ def home_save():
         if not os.path.exists(dfile):
             print("{0} >>>>> {1}".format(sfile, dfile))
             os.rename(sfile, dfile)
+
 
 def packs_babun():
     """ Setup a fresh babun install. """
@@ -243,6 +250,7 @@ def packs_babun():
     home_save()
     home_config()
 
+
 def packs_cabal():
     """ Installs haskell packages for Eclipse Haskell plugin. """
     cmd = 'cabal update'
@@ -250,6 +258,7 @@ def packs_cabal():
 
     cmd = 'cabal install ' + CABAL
     subprocess.call(shlex.split(cmd))
+
 
 def packs_debian(server=False):
     """ Install packages on the current system. """
@@ -285,6 +294,7 @@ def packs_debian(server=False):
     print("Please wait, running: " + " ".join(cmd))
     subprocess.call(cmd)
 
+
 def packs_py():
     """ Installs python packages using pip. """
     # Use python package manager.
@@ -294,6 +304,7 @@ def packs_py():
     # Install python completion to system bash_completion.d.
     cmd = 'activate-global-python-argcomplete --user'
     subprocess.call(shlex.split(cmd))
+
 
 def install_jshint():
     """ Setup jshint for progrmaming javascript with vim. """
@@ -343,6 +354,7 @@ def main():
             actions[stage]()
     except NotSudo:
         print("Rerun this part of script with sudo.")
+
 
 if __name__ == '__main__':
     main()
