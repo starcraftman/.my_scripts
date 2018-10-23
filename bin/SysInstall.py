@@ -26,7 +26,7 @@ from BuildSrc import get_code
 MINIMUM = """ \
     pv vim build-essential git-core mercurial automake ccache fontconfig gdb lynx \
     colormake colordiff colorgcc exuberant-ctags dkms python-dev python-pip \
-    tcl p7zip-full rar zip unzip gzip lzip xz-utils liblzma5 libcurl4-dev \
+    tcl p7zip-full rar zip unzip gzip lzip xz-utils liblzma5 \
     htop dos2unix tree dfc flex bison sphinx-common gettext libfile-next-perl \
     libexpat-dev liblzma-dev libpcre3-dev libcurl4-dev libarchive-dev libevent-dev \
     """
@@ -62,6 +62,8 @@ KEYRINGS = """ \
 # Removed for now:
 # qml-module-qtquick-xmllistmodel qtquick1-5-dev qtquick1-qml-plugins
 # lldb rust-lldb(4.0)
+# php php-all-dev phpunit \
+# libcurl4-openssl-dev
 PROGRAMMING = """ \
     build-essential debianutils ubuntu-dev-tools mesa-utils openssh-server \
     autotools-dev autoconf automake autopoint gperf checkinstall checkbox-ng \
@@ -86,7 +88,7 @@ PROGRAMMING = """ \
     libncurses5-dev libncursesw5-dev libpcre3-dev zlib1g-dev libbz2-dev \
     libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
     libcairo2-dev libx11-dev libxpm-dev libxt-dev libgmp3-dev libmpc-dev \
-    libmpfr-dev libcurl4-openssl-dev libevent-dev libarchive-dev libxslt1-dev \
+    libmpfr-dev libevent-dev libarchive-dev libxslt1-dev \
     libblas-dev liblapack-dev libyaml-dev libsqlite3-dev \
     freeglut3 freeglut3-dev \
     openmpi-bin openmpi-doc openmpi-common \
@@ -99,7 +101,6 @@ PROGRAMMING = """ \
     nodejs nodejs-dev npm \
     perl perl-doc libperl-dev perl-modules libpadwalker-perl \
     libfile-next-perl \
-    php-all-dev phpunit \
     swi-prolog swi-prolog-doc \
     python python-dev python-doc python-pip \
     python3 python3-dev python3-doc python3-pip jython jython-doc pypy pypy-doc \
