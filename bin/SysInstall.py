@@ -48,7 +48,7 @@ PROGRAMS = """ \
     samba samba-dev cifs-utils wireshark libwireshark-dev \
     wondershaper vlc ffmpeg ffmpeg-doc mplayer mencoder \
     p7zip-full rar zip unzip gzip lzip xz-utils liblzma-dev liblzma5 \
-    virtualbox-qt wine-stable vagrant \
+    virtualbox-qt wine-stable vagrant qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils \
     keepass2 abiword-common trash-cli ttf-xfree86-nonfree \
     unrar virtualbox virtualbox-dkms xterm xclip zsync \
     """
