@@ -11,7 +11,7 @@ pakit :
     link: /home/starcraftman/.opt
     prefix: /home/starcraftman/.opt/builds
     recipes: /home/starcraftman/.pakit
-    source: /tmp/pakit/src
+    source: /home/starcraftman/.pakit/src
   recipe:
     update_interval: 86400
     uris:
