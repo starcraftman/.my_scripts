@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Delete all songs below a certain cutoff rating.
+Provide a tool to copy music files from one directory to destination
+if they are rated >= to a cutoff.
 Affects only FLAC and MP3 files.
 """
 import argparse
@@ -9,10 +10,10 @@ import functools
 import hashlib
 import multiprocessing as multi
 import os
+import pathlib
 import shutil
 import subprocess as sub
 import sys
-import pathlib
 
 
 def same_files(fname, fname2):
@@ -57,6 +58,7 @@ def flac_rating(cutoff, destination, fname):
         except OSError:
             pass
         if not os.path.exists(new_file) and not same_files(fname, new_file):
+            print("Copying to destination:", fname)
             shutil.copyfile(fname, new_file)
 
 
@@ -80,6 +82,7 @@ def mp3_rating(cutoff, destination, fname):
         except OSError:
             pass
         if not os.path.exists(new_file) and not same_files(fname, new_file):
+            print("Copying to destination:", fname)
             shutil.copyfile(fname, new_file)
 
 
@@ -96,24 +99,46 @@ def make_parser():
     return parser
 
 
+def check_prereqs():
+    """
+    Check the prerequisites for inspecting ID3 tags.
+
+    If not met, print how to resolve and exit.
+    """
+    try:
+        sub.check_output(['metaflac', '--version'])
+    except sub.CalledProcessError:
+        print("Missing command: metaflac\n\nsudo apt install flac")
+        sys.exit(1)
+
+    try:
+        sub.check_output(['mid3v2', '--version'])
+    except sub.CalledProcessError:
+        print("Missing command: mid3v2\n\npip install mutagen")
+        sys.exit(1)
+
+
 def main():
     """
     Main entry for this program.
     """
     args = make_parser().parse_args()
-    if len(sys.argv) > 1:
-        pat = pathlib.Path(args.folder)
-    else:
+    check_prereqs()
+
+    try:
+        orig = os.getcwd()
+        os.chdir(args.folder)
+        # Ensure globs are relative to root for joining
+
         pat = pathlib.Path(".")
+        mp3s = pat.glob("**/*.mp3")
+        flacs = pat.glob("**/*.flac")
 
-    mp3s = list(pat.glob("**/*.mp3"))
-    flacs = list(pat.glob("**/*.flac"))
-
-    with multi.Pool(8) as pool:
-        if flacs:
+        with multi.Pool(8) as pool:
             pool.map(functools.partial(flac_rating, args.cutoff, args.destination), flacs)
-        if mp3s:
-            pool.map(functools.partial(mp3_rating, args.cutoff), args.destination, mp3s)
+            pool.map(functools.partial(mp3_rating, args.cutoff, args.destination), mp3s)
+    finally:
+        os.chdir(orig)
 
 
 if __name__ == "__main__":
