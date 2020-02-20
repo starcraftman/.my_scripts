@@ -8,12 +8,14 @@ Affects only FLAC and MP3 files.
 import argparse
 import functools
 import hashlib
+import logging
 import multiprocessing as multi
 import os
 import pathlib
 import shutil
 import subprocess as sub
 import sys
+import tempfile
 
 
 def same_files(fname, fname2):
@@ -44,12 +46,15 @@ def flac_rating(cutoff, destination, fname):
     :param fname String: The filename to investigate.
     """
     rating = 0.0
-    out = sub.check_output(['metaflac', '--list', fname]).decode()
-    ind = out.rindex("METADATA block #3")
-    for line in out[ind:].split('\n'):
-        if "FMPS_RATING=" in line:
-            rating = float(line.split('=')[1])
-            break
+    try:
+        out = sub.check_output(['metaflac', '--list', fname]).decode()
+        ind = out.rindex("METADATA block #3")
+        for line in out[ind:].split('\n'):
+            if "FMPS_RATING=" in line:
+                rating = float(line.split('=')[1])
+                break
+    except sub.CalledProcessError as exc:
+        logging.error("Failed to query file: %s\n%s\n%s", fname, str(exc))
 
     if rating >= cutoff:
         new_file = os.path.join(destination, fname)
@@ -57,8 +62,8 @@ def flac_rating(cutoff, destination, fname):
             os.makedirs(os.path.dirname(new_file))
         except OSError:
             pass
-        if not os.path.exists(new_file) and not same_files(fname, new_file):
-            print("Copying to destination:", fname)
+        if not os.path.exists(new_file) or not same_files(fname, new_file):
+            logging.debug("Copying to destination: %s", fname)
             shutil.copyfile(fname, new_file)
 
 
@@ -69,11 +74,14 @@ def mp3_rating(cutoff, destination, fname):
     :param fname String: The filename to investigate.
     """
     rating = 0.0
-    out = sub.check_output(['mid3v2', '-l', fname]).decode()
-    for line in out.split('\n'):
-        if line.startswith("TXXX=FMPS_Rating"):
-            rating = float(line.split('=')[2])
-            break
+    try:
+        out = sub.check_output(['mid3v2', '-l', fname]).decode()
+        for line in out.split('\n'):
+            if line.startswith("TXXX=FMPS_Rating"):
+                rating = float(line.split('=')[2])
+                break
+    except sub.CalledProcessError as exc:
+        logging.error("Failed to query file: %s\n%s\n%s", fname, str(exc))
 
     if rating >= cutoff:
         new_file = os.path.join(destination, fname)
@@ -81,8 +89,8 @@ def mp3_rating(cutoff, destination, fname):
             os.makedirs(os.path.dirname(new_file))
         except OSError:
             pass
-        if not os.path.exists(new_file) and not same_files(fname, new_file):
-            print("Copying to destination:", fname)
+        if not os.path.exists(new_file) or not same_files(fname, new_file):
+            logging.debug("Copying to destination: %s", fname)
             shutil.copyfile(fname, new_file)
 
 
@@ -94,7 +102,7 @@ def make_parser():
     parser.add_argument('folder', help="The folder that you want to scrape.")
     parser.add_argument('destination', help="The folder that you want to copy to on match.")
     parser.add_argument('--cutoff', '-c', type=float, default=1.0,
-                        help="The cutoff to use. Default 1.0")
+                        help="The cutoff to use. Default 1.0. Scale is 0.0 - 1.0, 4 stars = 0.8")
 
     return parser
 
@@ -122,7 +130,13 @@ def main():
     """
     Main entry for this program.
     """
+    tfile = tempfile.NamedTemporaryFile(delete=False)
+    print("Log for this usage will be: " + tfile.name)
+    print("Please sit back and enjoy tea. Tail -f file for updates.")
+    logging.basicConfig(filename=tfile.name, level=logging.DEBUG)
+
     args = make_parser().parse_args()
+    args.destination = os.path.abspath(args.destination)
     check_prereqs()
 
     try:
@@ -131,13 +145,17 @@ def main():
         # Ensure globs are relative to root for joining
 
         pat = pathlib.Path(".")
-        mp3s = pat.glob("**/*.mp3")
-        flacs = pat.glob("**/*.flac")
+        mp3s = [str(x) for x in pat.glob("**/*.mp3")]
+        flacs = [str(x) for x in pat.glob("**/*.flac")]
+        if not mp3s and not flacs:
+            print("Nothing matched, please check: " + args.folder)
+            sys.exit(1)
 
         with multi.Pool(8) as pool:
             pool.map(functools.partial(flac_rating, args.cutoff, args.destination), flacs)
             pool.map(functools.partial(mp3_rating, args.cutoff, args.destination), mp3s)
     finally:
+        tfile.close()
         os.chdir(orig)
 
 
