@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Update the overall platform and dev tools
 
+sudo -v
+
 # Use parallel when installed. Output will be mixed up.
 echo -e "${T_GREEN}Updating $SHELLD repositories${T_RESET}"
 if valid_name parallel && valid_name readlink; then

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # PYTHON_ARGCOMPLETE_OK
 # Common tools:
 #	pip/pip3 : install packages
