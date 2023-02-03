@@ -24,7 +24,11 @@ if [ -s ~/.config/nvim/autoload/plug.vim ] && valid_name nvim; then
     nvim +PlugUpdate +PlugUpgrade +qa
 fi
 
-if valid_name apt-get; then
+if valid_name pkcon; then
+    echo -e "${T_GREEN}Updating platform with pkcon${T_RESET}"
+    sudo pkcon refresh
+    sudo pkcon update
+elif valid_name apt-get; then
     echo -e "${T_GREEN}Updating debian platform${T_RESET}"
     sudo apt-get update
     sudo apt-get -y dist-upgrade
