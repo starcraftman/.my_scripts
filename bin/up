@@ -26,8 +26,8 @@ fi
 
 if valid_name pkcon; then
     echo -e "${T_GREEN}Updating platform with pkcon${T_RESET}"
-    sudo pkcon refresh
-    sudo pkcon update
+    sudo pkcon refresh -y
+    sudo pkcon update -y
 elif valid_name apt-get; then
     echo -e "${T_GREEN}Updating debian platform${T_RESET}"
     sudo apt-get update
