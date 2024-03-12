@@ -46,6 +46,7 @@ if valid_name flatpak; then
 fi
 
 if valid_name rustup; then
+    echo -e "${T_GREEN}Updating rust tooling${T_RESET}"
     rustup update
 fi
 
