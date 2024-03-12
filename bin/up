@@ -27,12 +27,26 @@ fi
 if valid_name pkcon; then
     echo -e "${T_GREEN}Updating platform with pkcon${T_RESET}"
     sudo pkcon refresh -y
-    sudo pkcon update -y
+    sudo pkcon update -y --autoremove
 elif valid_name apt-get; then
     echo -e "${T_GREEN}Updating debian platform${T_RESET}"
     sudo apt-get update
     sudo apt-get -y dist-upgrade
     sudo apt-get autoremove
+fi
+
+if valid_name snap; then
+    echo -e "${T_GREEN}Updating snaps${T_RESET}"
+    sudo snap refresh
+fi
+
+if valid_name flatpak; then
+    echo -e "${T_GREEN}Updating flatpaks${T_RESET}"
+    flatpak update
+fi
+
+if valid_name rustup; then
+    rustup update
 fi
 
 if valid_name pakit && [ -d "$OPTDIR" ]; then
